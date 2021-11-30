@@ -1,27 +1,51 @@
 @startuml
-'https://plantuml.com/class-diagram
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+skinparam classFontStyle Bold
+hide enum methods
 
-abstract class AbstractList
-abstract AbstractCollection
-interface List
-interface Collection
 
-List <|-- AbstractList
-Collection <|-- AbstractCollection
+class Tile{
+    -right:Ground
+    -left:Ground
+    -number:Integer
+}
+class King{
+    -color:
 
-Collection <|- List
-AbstractCollection <|- AbstractList
-AbstractList <|-- ArrayList
-
-class ArrayList {
-Object[] elementData
-size()
 }
 
-enum TimeUnit {
-DAYS
-HOURS
-MINUTES
+class Player{
+
 }
+
+class Board{
+    -x:Integer
+    -y:Integer
+}
+
+Player *--> King : "-kings\n1..2"
+Player *-> Board : "-board\n1"
+
+class Ground{
+    -color
+    -crown:Integer
+}
+
+class Castle{
+}
+
+class VariantContext{
+
+}
+
+interface Variant{
+
+}
+
+class Variant1 implements Variant{
+}
+
+
 
 @enduml
