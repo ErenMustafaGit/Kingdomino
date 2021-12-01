@@ -5,35 +5,60 @@ skinparam classFontStyle Bold
 hide enum methods
 
 
-class Tile{
-    -right:Ground
-    -left:Ground
-    -number:Integer
-}
-class King{
-    -color:
-
+class Main{
 }
 
-class Player{
 
+
+package models{
+
+    class King{
+        -color:
+    }
+
+    class Player{
+
+    }
+
+    class Board{
+        -x:Integer
+        -y:Integer
+        -isPossible:Boolean
+    }
+
+    class Ground{
+        -crown:Integer
+    }
+
+
+    interface Positionable{
+    }
+
+    class Castle implements Positionable{
+    }
+
+    class Tile implements Positionable{
+        -right:Ground
+        -left:Ground
+        -number:Integer
+    }
+
+    enum Color{
+        YELLOW
+        DARK GREEN
+        LIGHT GREEN
+        BLUE
+        BROWN
+        BLACK
+    }
 }
 
-class Board{
-    -x:Integer
-    -y:Integer
-}
+Ground *-> Color : "-"
 
 Player *--> King : "-kings\n1..2"
 Player *-> Board : "-board\n1"
+Tile *--> Ground :  "-left\n1\n-right\n1"
 
-class Ground{
-    -color
-    -crown:Integer
-}
-
-class Castle{
-}
 
 class VariantContext{
 
@@ -44,6 +69,16 @@ interface Variant{
 }
 
 class Variant1 implements Variant{
+}
+
+
+package Controller{
+
+}
+
+
+package View{
+
 }
 
 
