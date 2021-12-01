@@ -12,6 +12,10 @@ class Main{
 
 package models{
 
+    class GameBoard{
+
+    }
+
     class King{
         -color:
     }
@@ -31,7 +35,7 @@ package models{
     }
 
 
-    interface Positionable{
+    interface Positionable <<interface>>{
     }
 
     class Castle implements Positionable{
@@ -43,6 +47,7 @@ package models{
         -number:Integer
     }
 
+
     enum Color{
         YELLOW
         DARK GREEN
@@ -51,18 +56,36 @@ package models{
         BROWN
         BLACK
     }
+
+
+    interface GameStrategy <<interface>>{
+        +nextRound()
+    }
+
+    class GameBasic implements GameStrategy{
+        +nextRound()
+    }
+
+    class Dynastie extends GameBasic implements GameStrategy{
+
+    }
+    class MiddleKingdom extends GameBasic implements GameStrategy{
+
+    }
+    class Harmony extends GameBasic implements GameStrategy{
+
+    }
+
 }
 
 Ground *-> Color : "-"
 
+Board "-tiles\n..*"  *-->  Tile : has >
 Player *--> King : "-kings\n1..2"
-Player *-> Board : "-board\n1"
+Player "-board\n1" *-> Board : has >
 Tile *--> Ground :  "-left\n1\n-right\n1"
 
 
-class VariantContext{
-
-}
 
 interface Variant{
 
