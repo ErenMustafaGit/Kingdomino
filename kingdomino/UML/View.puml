@@ -1,0 +1,110 @@
+@startuml
+'skinparam style strictuml
+skinparam classAttributeIconSize 0
+skinparam classFontStyle Bold
+hide enum methods
+skinparam BackgroundColor Strategy
+
+'class main qui va executer le jeu
+class KingDomino{
+}
+
+
+'package VIEW
+package view{
+    'application du jeu (design avec Swing)
+    class MyWindow extends JFrame{
+
+    }
+    'JFRAME
+    abstract class JFrame{
+    }
+}
+'package CONTROLLER
+package Gamecontroller{
+    ' plateau de jeu
+    class BoardGame{
+
+    }
+}
+'package PlayerController
+package PlayerController{
+    'plateau du joueur
+        class BoardPlayer{
+
+        }
+}
+'package MODEL jeu
+package gameModel{
+    'tuiles numéroté
+    class Tile{
+
+    }
+    'interface finalScore qui dit le score final du jeu (si la partie est terminé)
+    interface FinalScore{
+
+    }
+    'coté de la tuile (droite ou gauche)
+    class Ground{
+
+    }
+    'couleur des cotés de la tuile
+    enum GroundColor{
+    -BLUE
+    -DARK GREEN
+    -BLACK
+    -BROWN
+    -YELLOW
+    -LIGHT GREEN
+    }
+    'strategy permettant de pouvoir choisir le jeu qu'on veut-
+
+
+    interface GameStrategy{
+
+    }
+    class NormalMode implements GameStrategy{
+
+    }
+    'classe dynastie
+    class Dynasty implements GameStrategy{
+
+    }
+    'class empire du milieu
+    class MiddleKingdom implements GameStrategy{
+
+    }
+
+    'class harmonie
+    class Harmony implements GameStrategy{
+
+    }
+    'interface observer qui va permettre de notifier les changements
+    interface GameObserver{
+
+    }
+}
+'package model joueur
+package playerModel{
+    'joueur
+    class Player{
+
+    }
+
+    'roi
+    class King{
+
+    }
+
+    'couleur du roi
+    enum KingColor{
+    -PINK
+    -BLUE
+    -GREEN
+    -YELLOW
+    }
+
+
+}
+
+@enduml
