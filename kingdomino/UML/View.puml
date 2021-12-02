@@ -7,6 +7,7 @@ skinparam BackgroundColor Strategy
 
 'class main qui va executer le jeu
 class KingDomino{
++main()
 }
 
 
@@ -21,7 +22,7 @@ package view{
     }
 }
 'package CONTROLLER
-package Gamecontroller{
+package GameController{
     ' plateau de jeu
     class BoardGame{
 
@@ -86,6 +87,20 @@ package gameModel{
 }
 'package model joueur
 package playerModel{
+    'interface players
+    interface PlayerStrategy{
+
+    }
+    class TwoPlayers implements PlayerStrategy{
+
+    }
+
+    class ThreePlayers implements PlayerStrategy{
+    }
+
+   class FourPlayers implements PlayerStrategy{
+
+   }
     'joueur
     class Player{
 
@@ -95,16 +110,27 @@ package playerModel{
     class King{
 
     }
+    'class chateau
+    class Castle{
 
-    'couleur du roi
+    }
+
+    'couleur du roi et du chateau
     enum KingColor{
     -PINK
     -BLUE
     -GREEN
     -YELLOW
     }
-
-
 }
+
+GameStrategy *-->PlayerStrategy : > depends
+Ground "1"*-->"1"GroundColor
+King"1-n"*-->"1" KingColor: > had
+Castle"1"->"1"KingColor : > had
+KingDomino..> PlayerController : <<use>>
+KingDomino..> GameController : <<use>>
+KingDomino.> PlayerStrategy : <<use>>
+KingDomino..> GameStrategy : <<use>>
 
 @enduml
