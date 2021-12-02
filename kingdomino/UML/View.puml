@@ -3,7 +3,7 @@
 skinparam classAttributeIconSize 0
 skinparam classFontStyle Bold
 hide enum methods
-skinparam BackgroundColor Strategy
+skinparam BackgroundColor HoneyDew
 
 'class main qui va executer le jeu
 class KingDomino{
@@ -11,16 +11,7 @@ class KingDomino{
 }
 
 
-'package VIEW
-package view #D0E1D4{
-    'application du jeu (design avec Swing)
-    class MyWindow extends JFrame{
 
-    }
-    'JFRAME
-    abstract class JFrame{
-    }
-}
 'package CONTROLLER
 package GameController #technology{
     ' plateau de jeu
@@ -128,24 +119,39 @@ package playerModel #DCC48E{
     }
 }
 
-GameStrategy *--->PlayerStrategy : > depends
-Ground "1"*-->"1"GroundColor
+'package VIEW
+package view #D0E1D4{
+    'application du jeu (design avec Swing)
+    class MyWindow extends JFrame implements GameObserver{
+
+    }
+    'JFRAME
+    abstract class JFrame{
+    }
+
+    'classe qui va permettre de notifier la partie utilisée et le score final en fin de partie
+    class Log implements GameObserver{
+
+    }
+}
+
+GameStrategy *-->PlayerStrategy : > depends
+Ground "1"*->"1"GroundColor
 King"1-n"*-->"1" KingColor: > had
 Castle"1"*-->"1"KingColor : > had
-KingDomino..> PlayerController : <<create>>
-KingDomino..> GameController : <<create>>
+KingDomino .> BoardPlayer : <<create>>
+KingDomino..> BoardGame : <<create>>
 KingDomino.> PlayerStrategy : <<use>>
 KingDomino..> GameStrategy : <<use>>
-Player "1"*->"1..2"King : kings
-KingDomino *.> MyWindow : <<create>>
-Castle *--> King: >KingColor(king)
-KingDomino ..>PlayerStrategy : <<use>>
+Player "1"*-->"1..2"King : kings
+KingDomino *.>MyWindow : <<create>>
+Castle *-> King: > KingColor(king)
 KingDomino ..>PlayerContext : <<create>>
 PlayerContext o-> PlayerStrategy :"1 -strategy" > select
 KingDomino ..>GameContext : <<create>>
 GameContext o-> GameStrategy :"1 -strategy" > select
 Tile *-->Ground : "left\nright"
-MyWindow o--> GameController : > send \nuser request
-MyWindow o--> PlayerController : > send \nuser request
-
+MyWindow o-> BoardGame : > send \nuser request
+MyWindow o-> BoardPlayer : > send \nuser request
+GameContext o-->GameObserver : > observes
 @enduml
