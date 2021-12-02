@@ -12,7 +12,7 @@ class KingDomino{
 
 
 'package VIEW
-package view{
+package view #D0E1D4{
     'application du jeu (design avec Swing)
     class MyWindow extends JFrame{
 
@@ -22,27 +22,23 @@ package view{
     }
 }
 'package CONTROLLER
-package GameController{
+package GameController #technology{
     ' plateau de jeu
     class BoardGame{
 
     }
 }
 'package PlayerController
-package PlayerController{
+package PlayerController #EDEBA0{
     'plateau du joueur
         class BoardPlayer{
 
         }
 }
 'package MODEL jeu
-package gameModel{
+package gameModel #mistyrose{
     'tuiles numéroté
     class Tile{
-
-    }
-    'interface finalScore qui dit le score final du jeu (si la partie est terminé)
-    interface FinalScore{
 
     }
     'coté de la tuile (droite ou gauche)
@@ -58,11 +54,14 @@ package gameModel{
     -YELLOW
     -LIGHT GREEN
     }
-    'strategy permettant de pouvoir choisir le jeu qu'on veut-
-
-
+    'strategy permettant de pouvoir choisir le jeu qu'on veut
     interface GameStrategy{
 
+    }
+    'contexte du jeu
+    class GameContext{
+    +setStrategy(strategy:GameStrategy)
+    +executeStrategy
     }
     class NormalMode implements GameStrategy{
 
@@ -82,14 +81,19 @@ package gameModel{
     }
     'interface observer qui va permettre de notifier les changements
     interface GameObserver{
-
+'aussi le score final
     }
 }
 'package model joueur
-package playerModel{
+package playerModel #DCC48E{
     'interface players
     interface PlayerStrategy{
 
+    }
+    'class contexte de la stratégie
+    class PlayerContext{
+    + setStrategy(strategy: PlayerStrategy)
+    + executeStrategy()
     }
     class TwoPlayers implements PlayerStrategy{
 
@@ -124,13 +128,24 @@ package playerModel{
     }
 }
 
-GameStrategy *-->PlayerStrategy : > depends
+GameStrategy *--->PlayerStrategy : > depends
 Ground "1"*-->"1"GroundColor
 King"1-n"*-->"1" KingColor: > had
-Castle"1"->"1"KingColor : > had
-KingDomino..> PlayerController : <<use>>
-KingDomino..> GameController : <<use>>
+Castle"1"*-->"1"KingColor : > had
+KingDomino..> PlayerController : <<create>>
+KingDomino..> GameController : <<create>>
 KingDomino.> PlayerStrategy : <<use>>
 KingDomino..> GameStrategy : <<use>>
+Player "1"*->"1..2"King : kings
+KingDomino *.> MyWindow : <<create>>
+Castle *--> King: >KingColor(king)
+KingDomino ..>PlayerStrategy : <<use>>
+KingDomino ..>PlayerContext : <<create>>
+PlayerContext o-> PlayerStrategy :"1 -strategy" > select
+KingDomino ..>GameContext : <<create>>
+GameContext o-> GameStrategy :"1 -strategy" > select
+Tile *-->Ground : "left\nright"
+MyWindow o--> GameController : > send \nuser request
+MyWindow o--> PlayerController : > send \nuser request
 
 @enduml
