@@ -1,0 +1,157 @@
+@startuml
+'skinparam style strictuml
+skinparam classAttributeIconSize 0
+skinparam classFontStyle Bold
+hide enum methods
+skinparam BackgroundColor HoneyDew
+
+'class main qui va executer le jeu
+class KingDomino{
++main()
+}
+
+
+
+'package CONTROLLER
+package GameController #technology{
+    ' plateau de jeu
+    class BoardGame{
+
+    }
+}
+'package PlayerController
+package PlayerController #EDEBA0{
+    'plateau du joueur
+        class BoardPlayer{
+
+        }
+}
+'package MODEL jeu
+package gameModel #mistyrose{
+    'tuiles numéroté
+    class Tile{
+
+    }
+    'coté de la tuile (droite ou gauche)
+    class Ground{
+
+    }
+    'couleur des cotés de la tuile
+    enum GroundColor{
+    -BLUE
+    -DARK GREEN
+    -BLACK
+    -BROWN
+    -YELLOW
+    -LIGHT GREEN
+    }
+    'strategy permettant de pouvoir choisir le jeu qu'on veut
+    interface GameStrategy{
+
+    }
+    'contexte du jeu
+    class GameContext{
+    +setStrategy(strategy:GameStrategy)
+    +executeStrategy
+    }
+    class NormalMode implements GameStrategy{
+
+    }
+    'classe dynastie
+    class Dynasty implements GameStrategy{
+
+    }
+    'class empire du milieu
+    class MiddleKingdom implements GameStrategy{
+
+    }
+
+    'class harmonie
+    class Harmony implements GameStrategy{
+
+    }
+    'interface observer qui va permettre de notifier les changements
+    interface GameObserver{
+'aussi le score final
+    }
+}
+'package model joueur
+package playerModel #DCC48E{
+    'interface players
+    interface PlayerStrategy{
+
+    }
+    'class contexte de la stratégie
+    class PlayerContext{
+    + setStrategy(strategy: PlayerStrategy)
+    + executeStrategy()
+    }
+    class TwoPlayers implements PlayerStrategy{
+
+    }
+
+    class ThreePlayers implements PlayerStrategy{
+    }
+
+   class FourPlayers implements PlayerStrategy{
+
+   }
+    'joueur
+    class Player{
+
+    }
+
+    'roi
+    class King{
+
+    }
+    'class chateau
+    class Castle{
+
+    }
+
+    'couleur du roi et du chateau
+    enum KingColor{
+    -PINK
+    -BLUE
+    -GREEN
+    -YELLOW
+    }
+}
+
+'package VIEW
+package view #D0E1D4{
+    'application du jeu (design avec Swing)
+    class MyWindow extends JFrame implements GameObserver{
+
+    }
+    'JFRAME
+    abstract class JFrame{
+    }
+
+    'classe qui va permettre de notifier la partie utilisée et le score final en fin de partie
+    class Log implements GameObserver{
+
+    }
+}
+
+GameStrategy *-->PlayerStrategy : > depends
+Ground "1"*->"1"GroundColor
+King"1-n"*-->"1" KingColor: > had
+Castle"1"*-->"1"KingColor : > had
+KingDomino .> BoardPlayer : <<create>>
+KingDomino..> BoardGame : <<create>>
+KingDomino.> PlayerStrategy : <<use>>
+KingDomino..> GameStrategy : <<use>>
+Player "1"*-->"1..2"King : kings
+KingDomino *.>MyWindow : <<create>>
+Castle *-> King: > KingColor(king)
+KingDomino ..>PlayerContext : <<create>>
+PlayerContext o-> PlayerStrategy :"1 -strategy" > select
+KingDomino ..>GameContext : <<create>>
+GameContext o-> GameStrategy :"1 -strategy" > select
+Tile *-->Ground : "left\nright"
+MyWindow o-> BoardGame : > send \nuser request
+MyWindow o-> BoardPlayer : > send \nuser request
+GameContext o-->GameObserver : > observes
+@enduml
