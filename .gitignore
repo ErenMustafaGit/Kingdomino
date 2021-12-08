@@ -1,0 +1,14 @@
+
+### IntelliJ working files
+.idea
+*.iml
+
+# Created by https://www.gitignore.io/api/java,maven,visualstudiocode
+# Edit at https://www.gitignore.io/?templates=java,maven,visualstudiocode
+
+### Java ###
+# Compiled class file
+*.class
+
+# Log file
+*.log
