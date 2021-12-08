@@ -2,6 +2,7 @@
 ### IntelliJ working files
 .idea
 *.iml
+*.xml
 
 # Created by https://www.gitignore.io/api/java,maven,visualstudiocode
 # Edit at https://www.gitignore.io/?templates=java,maven,visualstudiocode

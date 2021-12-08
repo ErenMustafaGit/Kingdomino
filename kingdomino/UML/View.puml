@@ -22,11 +22,8 @@ package GameController #technology{
 
 }
 
-'package MODEL jeu
-package gameModel #mistyrose{
 
-
-
+package Model #mistyrose{
     'interface players
     interface PlayerStrategy{
 
@@ -45,12 +42,17 @@ package gameModel #mistyrose{
 
 
     class Deck{
-        +Deck()
+        +Deck(number:Integer)
+        +takeCards(number:Integer):Collection<Tile>
     }
 
 
     'tuiles numéroté
-    class Tile{
+    class Tile {
+
+        -number
+        +getNumber():Integer
+        +setNumber(num:Integer)
 
     }
     'coté de la tuile (droite ou gauche)
@@ -79,9 +81,7 @@ package gameModel #mistyrose{
 
     }
     'classe dynastie
-    class Dynasty implements GameStrategy{
-
-    }
+    'class Dynasty implements GameStrategy{}
     'class empire du milieu
     class MiddleKingdom implements GameStrategy{
 
@@ -95,12 +95,17 @@ package gameModel #mistyrose{
     interface GameObserver{
 'aussi le score final
     }
-}
-'package model joueur
-package playerModel #DCC48E{
+
+
+
+
     class PlayerBoard{
+        +PlayerBoard()
         +setTile(x:Integer, y:Integer, direction:Direction)
-        +isPosable(x:Integer, y:Integer)
+        +isPosable(x:Integer, y:Integer):Boolean
+    }
+    interface Positionnable{
+
     }
 
     enum Direction{
@@ -119,7 +124,7 @@ package playerModel #DCC48E{
     class King{
     }
     'class chateau
-    class Castle{
+    class Castle {
 
     }
 
@@ -149,35 +154,39 @@ package view #D0E1D4{
 }
 
 
+Tile ..|> Positionnable
+Castle ..|> Positionnable
+PlayerBoard "..*\n-board" *-r-> Positionnable : > contains
+
 Deck "..* -tiles" *-> Tile : > had
 Ground "1"*->"1"GroundColor
-Tile *->Ground : "left\nright"
+Tile *->Ground : "-left\n-right" > composed
 
 
 GameContext *-> Deck
-GameContext *-> GameStrategy  : "1\n-gameStrategy" > select
-GameContext *-> PlayerStrategy : "1\n-playerStrategy" > select
+GameContext *--> GameStrategy  : "1\n-gameStrategy" > select
+GameContext *--> PlayerStrategy : "1\n-playerStrategy" > select
 
 BoardGame  *-> Player : "2..4\n-players" > played by
 BoardGame *--> GameContext : "1\n-gameContext" > had
 
 Player *-> PlayerBoard : "1\n-board" > had
 Player  *--> King : "1..2\n-kings" > had
+PlayerBoard *--> Tile
+PlayerBoard "1\n-castle" *-> Castle : > had
 
 PlayerBoard .> Direction : > use
 
 
 
-King"1\n-color"*-->"1" KingColor: > had
-Castle"1"*-->"1"KingColor : > had
+King"1\n-color"*->"1" KingColor: > had
+Castle"1\n-color"*->KingColor : > had
 
-KingDomino .> BoardPlayer : <<create>>
 KingDomino..> BoardGame : <<create>>
 KingDomino.> PlayerStrategy : <<use>>
 KingDomino..> GameStrategy : <<use>>
-'KingDomino *.>MyWindow : <<create>>
-Castle *-> King: > has
+KingDomino *.>MyWindow : <<create>>
 KingDomino ..>GameContext : <<create>>
-'MyWindow o-> BoardGame : > send \nuser request
+MyWindow o-> BoardGame : > send \nuser request
 GameContext o-->GameObserver : > observes
 @enduml
