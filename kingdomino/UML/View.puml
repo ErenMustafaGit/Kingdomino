@@ -28,14 +28,14 @@ package Model #mistyrose{
     interface PlayerStrategy{
 
     }
-    class TwoPlayers implements PlayerStrategy{
+    class TwoPlayers {
 
     }
 
-    class ThreePlayers implements PlayerStrategy{
+    class ThreePlayers {
     }
 
-   class FourPlayers implements PlayerStrategy{
+   class FourPlayers {
 
    }
 
@@ -77,20 +77,24 @@ package Model #mistyrose{
         +setGameStrategy(strategy:GameStrategy)
         +setPlayerStrategy(strategy:PlayerStrategy)
     }
-    class NormalMode implements GameStrategy{
 
-    }
     'classe dynastie
     'class Dynasty implements GameStrategy{}
     'class empire du milieu
-    class MiddleKingdom implements GameStrategy{
+    package GameMode{
+            class NormalMode {
 
+            }
+            class MiddleKingdom {
+
+            }
+
+            'class harmonie
+            class Harmony {
+
+            }
     }
 
-    'class harmonie
-    class Harmony implements GameStrategy{
-
-    }
     'interface observer qui va permettre de notifier les changements
     interface GameObserver{
 'aussi le score final
@@ -140,30 +144,31 @@ package Model #mistyrose{
 'package VIEW
 package view #D0E1D4{
     'application du jeu (design avec Swing)
-    class MyWindow extends JFrame implements GameObserver{
+    class MyWindow  {
 
     }
     'JFRAME
     abstract class JFrame{
     }
 
-    'classe qui va permettre de notifier la partie utilisée et le score final en fin de partie
-    class Log implements GameObserver{
+    class Log  implements GameObserver {
 
-    }
+        }
+
 }
 
 
+'Positionnable
 Tile ..|> Positionnable
 Castle ..|> Positionnable
 PlayerBoard "..*\n-board" *-r-> Positionnable : > contains
 
-Deck "..* -tiles" *-> Tile : > had
+Deck "..* -tiles" *-r-> Tile : > had
 Ground "1"*->"1"GroundColor
 Tile *->Ground : "-left\n-right" > composed
 
 
-GameContext *-> Deck
+GameContext *-r-> Deck
 GameContext *--> GameStrategy  : "1\n-gameStrategy" > select
 GameContext *--> PlayerStrategy : "1\n-playerStrategy" > select
 
@@ -172,21 +177,41 @@ BoardGame *--> GameContext : "1\n-gameContext" > had
 
 Player *-> PlayerBoard : "1\n-board" > had
 Player  *--> King : "1..2\n-kings" > had
-PlayerBoard *--> Tile
-PlayerBoard "1\n-castle" *-> Castle : > had
+
+'En commentaire car le playerBoard aura au final un tab de positionnable
+'PlayerBoard *--> Tile
+'PlayerBoard "1\n-castle" *-> Castle : > had
 
 PlayerBoard .> Direction : > use
 
+'Implements de playerStrategy
+TwoPlayers .u.|> PlayerStrategy
+ThreePlayers .u.|> PlayerStrategy
+FourPlayers .u.|> PlayerStrategy
 
+'Implements de gameStrategy
+Harmony .u.|> GameStrategy
+MiddleKingdom .u.|> GameStrategy
+NormalMode .u.|> GameStrategy
 
+'KingColor
 King"1\n-color"*->"1" KingColor: > had
-Castle"1\n-color"*->KingColor : > had
+Castle"1\n-color"*-d->KingColor : > had
 
+GameContext "0..*\n-observers" o-->GameObserver : > observes
+
+
+
+'KingDomino
 KingDomino..> BoardGame : <<create>>
 KingDomino.> PlayerStrategy : <<use>>
 KingDomino..> GameStrategy : <<use>>
 KingDomino *.>MyWindow : <<create>>
 KingDomino ..>GameContext : <<create>>
+
+'View
 MyWindow o-> BoardGame : > send \nuser request
-GameContext o-->GameObserver : > observes
+MyWindow --|> JFrame
+MyWindow .|> GameObserver
+
 @enduml
