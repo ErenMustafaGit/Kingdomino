@@ -17,6 +17,8 @@ package GameController #technology{
     ' plateau de jeu
     class BoardGame{
 
+        +createPlayer(color:KingColor, kings:Collection<King>)
+
     }
 }
 
@@ -50,14 +52,16 @@ package Model #mistyrose{
     'tuiles numéroté
     class Tile {
 
-        -number
+        -number:Integer
         +getNumber():Integer
         +setNumber(num:Integer)
 
     }
     'coté de la tuile (droite ou gauche)
     class Ground{
-
+        -crownNumber:Integer
+        +getCrownNumber():Integer
+        +setCrownNumber():Integer
     }
     'couleur des cotés de la tuile
     enum GroundColor{
@@ -96,6 +100,12 @@ package Model #mistyrose{
 'aussi le score final
     }
 
+    class TileBoard{
+
+        +instance:TileBoard
+        {static}+getIntance():TileBoard
+    }
+
 
 
 
@@ -117,11 +127,12 @@ package Model #mistyrose{
 
     'joueur
     class Player{
-
+        +Player(kings:Collection<King>)
     }
 
     'roi
     class King{
+        +King(color:KingColor)
     }
     'class chateau
     class Castle {
@@ -154,24 +165,28 @@ package view #D0E1D4{
 }
 
 
-Tile ..|> Positionnable
+Ground ..|> Positionnable
 Castle ..|> Positionnable
 PlayerBoard "..*\n-board" *-r-> Positionnable : > contains
 
 Deck "..* -tiles" *-> Tile : > had
-Ground "1"*->"1"GroundColor
-Tile *->Ground : "-left\n-right" > composed
+Ground "1"*-->"1"GroundColor
+Tile *-->Ground : "-left\n-right" > composed
+
+
+TileBoard *--> Tile : "0,8\ntiles" > had
 
 
 GameContext *-> Deck
-GameContext *--> GameStrategy  : "1\n-gameStrategy" > select
+GameContext *--> GameStrategy  : "..2\n-gameStrategy" > select
 GameContext *--> PlayerStrategy : "1\n-playerStrategy" > select
 
 BoardGame  *-> Player : "2..4\n-players" > played by
 BoardGame *--> GameContext : "1\n-gameContext" > had
 
+Player .> TileBoard : > use
 Player *-> PlayerBoard : "1\n-board" > had
-Player  *--> King : "1..2\n-kings" > had
+Player  o--> King : "1..2\n-kings" > had
 PlayerBoard *--> Tile
 PlayerBoard "1\n-castle" *-> Castle : > had
 
