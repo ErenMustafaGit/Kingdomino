@@ -4,9 +4,34 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b296bc09-cc63-4dd7-9250-50d90129aaa5" name="Default Changelist" comment="Improved UML">
+    <list default="true" id="b296bc09-cc63-4dd7-9250-50d90129aaa5" name="Default Changelist" comment="UPDATE UML : MVC">
+      <change afterPath="$PROJECT_DIR$/kingdomino/src/Controller/BoardGame.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kingdomino/src/Model/Castle.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kingdomino/src/Model/Deck.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kingdomino/src/Model/Direction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kingdomino/src/Model/FourPlayers.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kingdomino/src/Model/GameContext.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kingdomino/src/Model/GameObserver.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kingdomino/src/Model/GameStrategy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kingdomino/src/Model/Ground.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kingdomino/src/Model/GroundColor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kingdomino/src/Model/Harmony.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kingdomino/src/Model/King.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kingdomino/src/Model/KingColor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kingdomino/src/Model/MiddleKingdom.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kingdomino/src/Model/NormalMode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kingdomino/src/Model/PlayerBoard.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kingdomino/src/Model/PlayerStrategy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kingdomino/src/Model/Positionable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kingdomino/src/Model/ThreePlayers.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kingdomino/src/Model/Tile.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kingdomino/src/Model/TwoPlayers.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kingdomino/src/View/JFrame.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kingdomino/src/View/Log.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kingdomino/src/View/MyWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/a31-kingdomino.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/a31-kingdomino.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/UML/View.puml" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/UML/View.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/src/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Model/Player.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,13 +42,16 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="UML Sequence" />
+        <option value="Enum" />
+        <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Ihsane's_work" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -37,6 +65,7 @@
     </file-type-list>
   </component>
   <component name="ProjectId" id="21dkTqSTv8gUCLXCnM3XpImEdpo" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -46,8 +75,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="last_opened_file_path" value="$USER_HOME$/P31/TDArbin" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
