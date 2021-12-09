@@ -5,33 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b296bc09-cc63-4dd7-9250-50d90129aaa5" name="Default Changelist" comment="UPDATE UML : MVC">
-      <change afterPath="$PROJECT_DIR$/kingdomino/src/Controller/BoardGame.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kingdomino/src/Model/Castle.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kingdomino/src/Model/Deck.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kingdomino/src/Model/Direction.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kingdomino/src/Model/FourPlayers.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kingdomino/src/Model/GameContext.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kingdomino/src/Model/GameObserver.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kingdomino/src/Model/GameStrategy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kingdomino/src/Model/Ground.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kingdomino/src/Model/GroundColor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kingdomino/src/Model/Harmony.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kingdomino/src/Model/King.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kingdomino/src/Model/KingColor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kingdomino/src/Model/MiddleKingdom.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kingdomino/src/Model/NormalMode.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kingdomino/src/Model/PlayerBoard.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kingdomino/src/Model/PlayerStrategy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kingdomino/src/Model/Positionable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kingdomino/src/Model/ThreePlayers.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kingdomino/src/Model/Tile.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kingdomino/src/Model/TwoPlayers.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kingdomino/src/View/JFrame.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kingdomino/src/View/Log.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kingdomino/src/View/MyWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/a31-kingdomino.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/a31-kingdomino.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Model/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/UML/View.puml" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/UML/View.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/Direction.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Model/Direction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/Ground.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Model/Ground.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/KingColor.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Model/KingColor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/PlayerBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Model/PlayerBoard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/Tile.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Model/Tile.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
