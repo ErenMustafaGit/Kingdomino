@@ -187,8 +187,9 @@ BoardGame *--> GameContext : "1\n-gameContext" > had
 Player .> TileBoard : > use
 Player *-> PlayerBoard : "1\n-board" > had
 Player  o--> King : "1..2\n-kings" > had
-PlayerBoard *--> Tile
-PlayerBoard "1\n-castle" *-> Castle : > had
+PlayerBoard <--* "2..4\n-playerBoards" BoardGame
+PlayerBoard "1\n-tile" o--> Tile
+PlayerBoard "1\n-castle" o-> Castle : > had
 
 PlayerBoard .> Direction : > use
 
