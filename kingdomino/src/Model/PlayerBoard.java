@@ -2,7 +2,7 @@ package Model;
 
 public class PlayerBoard
 {
-    private final int BOARD_SIZE = 9
+    private final int BOARD_SIZE = 9;
 
     //Tableau de positionable (9x9 de base --> qui permet d'en avoir un dynamique)
     Positionable[][] board = new Positionable[BOARD_SIZE][BOARD_SIZE];
@@ -25,6 +25,7 @@ public class PlayerBoard
         if( isPosable(x, y) && isPosable(x,y) ){
             this.board[y][x] = tile.getLeft();
         }
+        return true;
     }
 
     public boolean isPosable(int x, int y)
@@ -37,8 +38,7 @@ public class PlayerBoard
         if(this.board[x][y] != null){
             return false;
         }
-
-
+        return true;
     }
 
     private boolean getDynamiqueBoard(int x, int y){
@@ -84,7 +84,7 @@ public class PlayerBoard
         }
 
         //Verification Ligne par Ligne
-        int element = 0
+        int element = 0;
         for(int i = 0; i<BOARD_SIZE; i++){
             for(int j = 0; j<BOARD_SIZE; j++){
 
