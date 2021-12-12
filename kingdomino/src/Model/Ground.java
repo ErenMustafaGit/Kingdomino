@@ -1,6 +1,7 @@
 package Model;
 
 public class Ground implements Positionable{
+    private GroundColor color;
     private int crownNumber;
 
 
@@ -13,7 +14,7 @@ public class Ground implements Positionable{
     }
 
     @Override
-    public GroundColor getType() {
-        return null;
+    public GroundColor getColor() {
+        return this.color;
     }
 }

@@ -21,6 +21,12 @@ public class PlayerBoard
         this.board[BOARD_SIZE/2][BOARD_SIZE/2] = castle;
     }
 
+    /**
+     * @param x, y : Position du terrain gauche de la tuile
+     * @param dir : Direction de la tuile
+     * @param tile : Tuile à placé
+     * @return TRUE si nous avons reussi à placer la tuile
+     */
     public boolean setTile(int x, int y, Direction dir, Tile tile)
     {
         int x2, y2;
@@ -46,13 +52,20 @@ public class PlayerBoard
                 break;
         }
 
-        if( isPosable(x, y, tile.getLeft()) && isPosable(x2,y2, tile.getRight()) ){
-            this.board[y][x] = tile.getLeft();
+        //Si les cases existent et qu'ils sont disponibles
+        if( isPosable(x, y) && isPosable(x2,y2)){
+
+            //Si un des 2 côtés est bien placé en terme de terrain
+            if(isSameGround(x, y, tile.getLeft()) || isSameGround(x2,y2, tile.getRight())){
+                this.board[y][x] = tile.getLeft();
+                return true;
+            }
         }
-        return true;
+        //Renvoie faux si nous avons pas reussi à placer la tuile
+        return false;
     }
 
-    public boolean isPosable(int x, int y, Ground ground)
+    public boolean isPosable(int x, int y)
     {
         //Si c'est en dehors du tableau
         if(x < 0 || x>= BOARD_SIZE || y < 0 || y>= BOARD_SIZE ){
@@ -67,19 +80,41 @@ public class PlayerBoard
         return true;
     }
 
-    /**  Fonction qui regarde si le terrain est entouré par un de ses terrains ou le chateau
-
-        param : x,y : Position du terrain
-                ground : Type du terrain à poser
-     **/
+    /** Fonction qui regarde si le terrain est entouré par un de ses terrains ou le chateau
+     *
+     * @param x, y : Position du terrain
+     * @param ground : Terrain
+     * @return TRUE si il est collé à chateau ou à son même type
+     */
     private boolean isSameGround(int x, int y, Ground ground){
         //Regarde autour de la tuile
 
         GroundColor type;
         if(x-1 >= 0){
-            type = board[x-1][y].getType();
-            if( type == ground.getType() || type == GroundColor. )
+            type = board[y][x-1].getColor();
+            if( type == ground.getColor() || type == GroundColor.grey ){
+                return true;
+            }
         }
+        if(x+1 < BOARD_SIZE){
+            type = board[y][x+1].getColor();
+            if( type == ground.getColor() || type == GroundColor.grey ){
+                return true;
+            }
+        }
+        if(y-1 >= 0){
+            type = board[y-1][x].getColor();
+            if( type == ground.getColor() || type == GroundColor.grey ){
+                return true;
+            }
+        }
+        if(y+1 >= 0){
+            type = board[y+1][x].getColor();
+            if( type == ground.getColor() || type == GroundColor.grey ){
+                return true;
+            }
+        }
+        return false;
     }
 
 
