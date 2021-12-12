@@ -9,7 +9,7 @@ public class MyWindow extends JFrame implements GameObserver
 {
     public MyWindow() {
         setTitle( "Kingdomino" );
-        setSize( 900, 500 );
+        setSize( 1000, 900 );
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         //MainMenu mainMenu = new MainMenu(this);

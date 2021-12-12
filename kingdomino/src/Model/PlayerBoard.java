@@ -2,7 +2,7 @@ package Model;
 
 public class PlayerBoard
 {
-    private final int BOARD_SIZE = 5;
+    public final int BOARD_SIZE = 5;
 
     //Tableau de positionable (5x5 de base --> static)
     //9x9 pour en avoir un dynamique
@@ -56,7 +56,8 @@ public class PlayerBoard
 
             //Si un des 2 côtés est bien placé en terme de terrain
             if(isSameGround(x, y, tile.getLeft()) || isSameGround(x2,y2, tile.getRight())){
-                this.board[y][x] = tile.getLeft();
+                this.board[x][y] = tile.getLeft();
+                this.board[x2][y2] = tile.getRight();
                 return true;
             }
         }
@@ -64,14 +65,14 @@ public class PlayerBoard
         return false;
     }
 
-    public boolean isPosable(int x, int y)
+    private boolean isPosable(int x, int y)
     {
         //Si c'est en dehors du tableau
         if(x < 0 || x>= BOARD_SIZE || y < 0 || y>= BOARD_SIZE ){
             return false;
         }
 
-        if(this.board[y][x] != null){
+        if(this.board[x][y] != null){
             return false;
         }
 
@@ -90,30 +91,47 @@ public class PlayerBoard
 
         GroundColor type;
         if(x-1 >= 0){
-            type = board[y][x-1].getColor();
-            if( type == ground.getColor() || type == GroundColor.GREY ){
-                return true;
+            if(board[x][y-1] !=null){
+                type = board[x][y-1].getColor();
+
+                if( type == ground.getColor() || type == GroundColor.GREY ){
+                    return true;
+                }
             }
+
         }
         if(x+1 < BOARD_SIZE){
-            type = board[y][x+1].getColor();
-            if( type == ground.getColor() || type == GroundColor.GREY ){
-                return true;
+            if(board[x][y+1] !=null){
+                type = board[x][y+1].getColor();
+                if( type == ground.getColor() || type == GroundColor.GREY ){
+                    return true;
+                }
             }
+
         }
         if(y-1 >= 0){
-            type = board[y-1][x].getColor();
-            if( type == ground.getColor() || type == GroundColor.GREY ){
-                return true;
+            if(board[x-1][y] !=null){
+                type = board[x-1][y].getColor();
+                if( type == ground.getColor() || type == GroundColor.GREY ){
+                    return true;
+                }
             }
+
         }
         if(y+1 >= 0){
-            type = board[y+1][x].getColor();
-            if( type == ground.getColor() || type == GroundColor.GREY ){
-                return true;
+            if(board[x+1][y] !=null){
+                type = board[x+1][y].getColor();
+                if( type == ground.getColor() || type == GroundColor.GREY ){
+                    return true;
+                }
             }
+
         }
         return false;
+    }
+
+    public Positionable getPositionnable(int x, int y){
+        return this.board[y][x];
     }
 
 

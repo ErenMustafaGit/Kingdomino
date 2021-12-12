@@ -111,7 +111,7 @@ package Model #mistyrose{
 
 
     class PlayerBoard{
-        -BOARD_SIZE:Integer = 5
+        +BOARD_SIZE:Integer = 5
         +PlayerBoard(castle:Castle)
         +setTile(x:Integer, y:Integer, direction:Direction, tile:Tile)
         -isPosable(x:Integer, y:Integer):Boolean
