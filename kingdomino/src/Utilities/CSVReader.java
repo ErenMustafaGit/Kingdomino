@@ -9,7 +9,7 @@ import java.util.List;
 
 public class CSVReader {
 
-    private static final String ressourcePath = "./a31-kingdomino/kingdomino/ressources/";
+    private static final String ressourcePath = ".//kingdomino/ressources/";
 
     public static List<List<String>> read(String filename){
         List<List<String>> records = new ArrayList<>();

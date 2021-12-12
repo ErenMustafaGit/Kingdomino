@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class IMGReader {
 
-    private static final String ressourcePath = "./a31-kingdomino/kingdomino/ressources/";
+    private static final String ressourcePath = "./kingdomino/ressources/";
 
     public static JLabel getImagePnl(String filename) {
         BufferedImage myPicture = null;
