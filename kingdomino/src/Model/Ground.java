@@ -11,4 +11,9 @@ public class Ground implements Positionable{
     public void setCrownNumber(int crownNumber) {
         this.crownNumber = crownNumber;
     }
+
+    @Override
+    public GroundColor getType() {
+        return null;
+    }
 }

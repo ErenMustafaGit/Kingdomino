@@ -15,13 +15,12 @@ public class BoardGame
     public BoardGame(int nbKing)
     {
         nbKing = nbKing;
-
     }
 
     public void createPlayer(KingColor color, ArrayList<King> kings)
     {
-        Player NewPlayer = new Player(color, kings);
-        players.add(NewPlayer);
+        //Player NewPlayer = new Player(color, kings);
+        //players.add(NewPlayer);
     }
 
     public void initializeGame()
@@ -38,6 +37,10 @@ public class BoardGame
 
         }
     }
+
+
+
+
 
 
 

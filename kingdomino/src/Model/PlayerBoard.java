@@ -2,9 +2,10 @@ package Model;
 
 public class PlayerBoard
 {
-    private final int BOARD_SIZE = 9
+    private final int BOARD_SIZE = 5;
 
-    //Tableau de positionable (9x9 de base --> qui permet d'en avoir un dynamique)
+    //Tableau de positionable (5x5 de base --> static)
+    //9x9 pour en avoir un dynamique
     Positionable[][] board = new Positionable[BOARD_SIZE][BOARD_SIZE];
 
 
@@ -22,44 +23,6 @@ public class PlayerBoard
 
     public boolean setTile(int x, int y, Direction dir, Tile tile)
     {
-        if( isPosable(x, y) && isPosable(x,y) ){
-            this.board[y][x] = tile.getLeft();
-        }
-    }
-
-    public boolean isPosable(int x, int y)
-    {
-        //Si c'est en dehors du tableau
-        if(x < 0 || x>= BOARD_SIZE || y < 0 || y>= BOARD_SIZE ){
-            return false;
-        }
-
-        if(this.board[x][y] != null){
-            return false;
-        }
-
-
-    }
-
-    private boolean getDynamiqueBoard(int x, int y){
-        int element = 0;
-        for (int i = 0; i<BOARD_SIZE; i++){
-
-            //Obtiens les elements colonne J et ligne I
-            for (int j = 0; i<BOARD_SIZE; j++){
-
-                //Si il y a un élément dans cette place ou si c'est
-                if(this.board[i][j] != null || j == x && i == y ){
-                    element++;
-                }
-            }
-        }
-
-        return false;
-    }
-
-    //Renvoie faux si le terrain que nous allons posé va dépasser le 5*5
-    private boolean nbElementLine(int x, int y, Direction dir){
         int x2, y2;
         switch(dir){
 
@@ -83,38 +46,43 @@ public class PlayerBoard
                 break;
         }
 
-        //Verification Ligne par Ligne
-        int element = 0
-        for(int i = 0; i<BOARD_SIZE; i++){
-            for(int j = 0; j<BOARD_SIZE; j++){
-
-                if((i == y && j == x )|| (i == y2 && j == x2 ) || this.board[i][j] != null ){
-                    element++;
-                    break;
-                }
-            }
+        if( isPosable(x, y, tile.getLeft()) && isPosable(x2,y2, tile.getRight()) ){
+            this.board[y][x] = tile.getLeft();
         }
+        return true;
+    }
 
-        if(element > 5){
+    public boolean isPosable(int x, int y, Ground ground)
+    {
+        //Si c'est en dehors du tableau
+        if(x < 0 || x>= BOARD_SIZE || y < 0 || y>= BOARD_SIZE ){
             return false;
         }
 
-        //Verification Colonne par Colonne (comme sur figma)
-        element = 0;
-        for(int i = 0; i<BOARD_SIZE; i++){
-            for(int j = 0; j<BOARD_SIZE; j++){
-
-                if((i == y && j == x )|| (i == y2 && j == x2 ) || this.board[j][i] != null ){
-                    element++;
-                    break;
-                }
-            }
-        }
-        if(element > 5){
+        if(this.board[y][x] != null){
             return false;
         }
+
 
         return true;
     }
+
+    /**  Fonction qui regarde si le terrain est entouré par un de ses terrains ou le chateau
+
+        param : x,y : Position du terrain
+                ground : Type du terrain à poser
+     **/
+    private boolean isSameGround(int x, int y, Ground ground){
+        //Regarde autour de la tuile
+
+        GroundColor type;
+        if(x-1 >= 0){
+            type = board[x-1][y].getType();
+            if( type == ground.getType() || type == GroundColor. )
+        }
+    }
+
+
+
 
 }
