@@ -2,98 +2,86 @@ package Model;
 
 public class MiddleKingdom implements GameStrategy
 {
-    //les terrains
     private Ground ground;
     private Ground otherGround;
+    private GroundColor color;
     private Castle castle;
 
-    //le joueur
-    private Player p;
     private PlayerBoard playerboard;
+
     @Override
-    public int calculateScore() {
+    public int calculateScore(Player p) {
         //donne le score
         int score =0;
-        //compte le nombre de couronne
-        int crownumber=0;
-        //compte le nombre de case
-        int box =0;
-        //faire un nouveau tableau de positionnable
-        Positionable[][] crownplace = new Positionable[5][5];
+        //nombre de couronne sur le terrain
+        int crownumber=ground.getCrownNumber();
 
-        //on positionne d'abord dans un nouveau tableau les cases où il n'y a que des couronnes
+        //compte le nombre de case
+        int box =1;
         for(int i=0; i<p.board.BOARD_SIZE; i++){
             for(int j=0; j<p.board.BOARD_SIZE; j++){
                 //si dans le terrain il y'a au moins une couronne
-                if(ground.getCrownNumber()>0){
-                    crownplace[i][j]=ground;
-                    crownumber= ground.getCrownNumber();
+                if(crownumber>0){
                     box +=1;
                     ground.isCounted();
-                    //si autour du terrain il y'a la meme couleur
 
-                    //si à gauche du terrain ca dépasse pas le tableau 5*5 :
                     if(i-1 >= 0){
                         //si la case n'est pas vide
                         if(p.board.getPositionnable(i, j-1)!= null){
                             //on récupère la couleur de la case
-                            otherGround = (Ground) p.board.getPositionnable(i, j-1);
+                            color = p.board.getPositionnable(i, j-1).getColor();
                             //si la couleur de la case précédente est la meme que celle que celle qu'on voit (avec une couronne)
-                            if( otherGround.getColor() == ground.getColor() && !otherGround.isCounted()){
-                                crownplace[i][j-1]=otherGround;
-                                crownumber+= otherGround.getCrownNumber();
+                            if( color == ground.getColor() && !p.board.getPositionnable(i,j-1).isCounted()){
+                                otherGround=(Ground)p.board.getPositionnable(i,j-1);
+                                crownumber+=otherGround.getCrownNumber();
                                 box +=1;
-                                otherGround.isCounted();
+                                ground.isCounted();
                             }
                         }
                     }
                     if(i+1 < p.board.BOARD_SIZE){
                         if(p.board.getPositionnable(i,j+1) !=null){
-                            otherGround = (Ground) p.board.getPositionnable(i, j+1);
-                            if( otherGround.getColor() == ground.getColor() && !otherGround.isCounted()){
-                                crownplace[i][j+1]=otherGround;
+                            color = p.board.getPositionnable(i, j+1).getColor();
+                            if( color == ground.getColor() && !p.board.getPositionnable(i, j+1).isCounted()){
                                 crownumber+= otherGround.getCrownNumber();
                                 box +=1;
-                                otherGround.isCounted();
+                                p.board.getPositionnable(i, j+1).isCounted();
                             }
                         }
 
                     }
-                    if(j-1 >= 5){
+                    if(j-1 >= 0){
                         if(p.board.getPositionnable(i-1,j) !=null){
-                            otherGround = (Ground) p.board.getPositionnable(i-1,j);
-                            if(otherGround.getColor() == ground.getColor() && !otherGround.isCounted()){
-                                crownplace[i-1][j]=otherGround;
+                            color = p.board.getPositionnable(i-1,j).getColor();
+                            if(color == ground.getColor() && !p.board.getPositionnable(i-1,j).isCounted()){
                                 crownumber+= otherGround.getCrownNumber();
                                 box +=1;
-                                otherGround.isCounted();
+                                p.board.getPositionnable(i-1,j).isCounted();
                             }
                         }
 
                     }
-                    if(j+1 >= 4){
+                    if(j+1 <p.board.BOARD_SIZE){
                         if(p.board.getPositionnable(i+1,j) !=null){
-                            otherGround = (Ground) p.board.getPositionnable(i+1,j);
-                            if( otherGround.getColor() == ground.getColor() && !otherGround.isCounted()){
-                                crownplace[i+1][j]=otherGround;
+                            color = p.board.getPositionnable(i+1,j).getColor();
+                            if( color == ground.getColor() && ! p.board.getPositionnable(i+1,j).isCounted()){
                                 crownumber+= otherGround.getCrownNumber();
                                 box +=1;
-                                otherGround.isCounted();
+                                p.board.getPositionnable(i+1,j).isCounted();
                             }
                         }
                     }
                 }
+                score =crownumber*box + calculateScore(p);
+
             }
         }
-
-        score = crownumber * box;
-        if(castle ==p.board.getPositionnable(2,2)){
-            score +=10;
+        if(castle == p.board.getPositionnable(2,2)){
+            score+=10;
         }
         else{
             score-=10;
         }
-
         return score;
     }
 }
