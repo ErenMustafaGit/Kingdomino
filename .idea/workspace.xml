@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b296bc09-cc63-4dd7-9250-50d90129aaa5" name="Default Changelist" comment="push">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/Harmony.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Model/Harmony.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/MiddleKingdom.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Model/MiddleKingdom.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/NormalMode.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Model/NormalMode.java" afterDir="false" />
-    </list>
+    <list default="true" id="b296bc09-cc63-4dd7-9250-50d90129aaa5" name="Default Changelist" comment="push" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -28,7 +23,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="Testing_View" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -57,7 +52,7 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.0" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Kingodomino">
     <configuration name="Kingodomino" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Kingodomino" />
       <module name="a31-kingdomino" />
@@ -65,8 +60,18 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="All in a31-kingdomino" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="a31-kingdomino" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Kingodomino" />
+        <item itemvalue="JUnit.All in a31-kingdomino" />
         <item itemvalue="Application.Kingodomino" />
         <item itemvalue="Application.Kingodomino" />
       </list>
@@ -153,6 +158,7 @@
     <MESSAGE value="file .xml" />
     <MESSAGE value="update NormalMode (lacks the complete calculation of the score)" />
     <MESSAGE value="push" />
-    <option name="LAST_COMMIT_MESSAGE" value="push" />
+    <MESSAGE value="Temporally changed ressourcePath in CSVReader and IMGReader for Ihsane and Louis.&#10;TODO : Get relative path for everyone" />
+    <option name="LAST_COMMIT_MESSAGE" value="Temporally changed ressourcePath in CSVReader and IMGReader for Ihsane and Louis.&#10;TODO : Get relative path for everyone" />
   </component>
 </project>
