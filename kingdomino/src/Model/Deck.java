@@ -15,7 +15,7 @@ public class Deck {
 
     }
     public Deck(int deckSize){
-        List<List<String>> lines = CSVReader.read("./a31-kingdomino/kingdomino/src/Ressources/kingdomino.csv");
+        List<List<String>> lines = CSVReader.read("kingdomino.csv");
         lines.remove(0);
         for(List<String> line : lines  ){
             int tileNumber = Integer.parseInt(line.get(0));
@@ -36,6 +36,7 @@ public class Deck {
     }
 
     public Tile getTile(){
+
         return this.tiles.pop();
     }
 }

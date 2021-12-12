@@ -9,11 +9,11 @@ import java.util.List;
 
 public class CSVReader {
 
+    private static final String ressourcePath = "./a31-kingdomino/kingdomino/ressources/";
 
-
-    public static List<List<String>> read(String path){
+    public static List<List<String>> read(String filename){
         List<List<String>> records = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(ressourcePath + filename))) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");

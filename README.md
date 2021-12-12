@@ -1,7 +1,7 @@
 Kingdomino
 ==========
 
-![](img/kingdomino_elements_small.jpg)
+![](kingdomino/ressources/kingdomino_elements_small.jpg)
 
 L'objectif de ce projet est de concevoir une application permettant de jouer au jeu de société Kingdomino.
 
