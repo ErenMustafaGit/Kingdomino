@@ -4,12 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b296bc09-cc63-4dd7-9250-50d90129aaa5" name="Default Changelist" comment="UPDATE UML : MVC">
+    <list default="true" id="b296bc09-cc63-4dd7-9250-50d90129aaa5" name="Default Changelist" comment="push">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/GameStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Model/GameStrategy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/Ground.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Model/Ground.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/Harmony.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Model/Harmony.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/MiddleKingdom.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Model/MiddleKingdom.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/NormalMode.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Model/NormalMode.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -104,7 +100,28 @@
       <option name="project" value="LOCAL" />
       <updated>1639123317687</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="calculate score function written (not complete) + add a function in the Ground class">
+      <created>1639320306677</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1639320306677</updated>
+    </task>
+    <task id="LOCAL-00005" summary="file .xml">
+      <created>1639320370928</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1639320370928</updated>
+    </task>
+    <task id="LOCAL-00006" summary="update NormalMode (lacks the complete calculation of the score)">
+      <created>1639321472418</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1639321472418</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -123,6 +140,10 @@
     <MESSAGE value="UML First Version" />
     <MESSAGE value="Improved UML" />
     <MESSAGE value="CSVReader and Deck" />
-    <option name="LAST_COMMIT_MESSAGE" value="CSVReader and Deck" />
+    <MESSAGE value="calculate score function written (not complete) + add a function in the Ground class" />
+    <MESSAGE value="file .xml" />
+    <MESSAGE value="update NormalMode (lacks the complete calculation of the score)" />
+    <MESSAGE value="push" />
+    <option name="LAST_COMMIT_MESSAGE" value="push" />
   </component>
 </project>
