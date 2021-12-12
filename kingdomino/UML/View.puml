@@ -151,11 +151,8 @@ package Model #mistyrose{
 'package VIEW
 package view #D0E1D4{
     'application du jeu (design avec Swing)
-    class MyWindow extends JFrame implements GameObserver{
+    class MyWindow implements GameObserver{
 
-    }
-    'JFRAME
-    abstract class JFrame{
     }
 
     'classe qui va permettre de notifier la partie utilisée et le score final en fin de partie

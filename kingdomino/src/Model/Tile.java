@@ -1,6 +1,6 @@
 package Model;
 
-public class Tile implements Positionable
+public class Tile
 {
     private int number;
     private Ground left;
