@@ -1,6 +1,7 @@
 package View;
 
 import Model.GameObserver;
+import Utilities.IMGReader;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,12 +10,13 @@ public class MyWindow extends JFrame implements GameObserver
 {
     public MyWindow() {
         setTitle( "Kingdomino" );
-        setSize( 1000, 900 );
+        setSize( 1280, 720 );
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         //MainMenu mainMenu = new MainMenu(this);
-        MainMenu2 mainMenu = new MainMenu2(this);
-        setContentPane( mainMenu.getMainPanel() );
+
+        setContentPane( new MainMenu2(this));
+
 
         setVisible( true );
     }
@@ -32,8 +34,8 @@ public class MyWindow extends JFrame implements GameObserver
     }
 
     public void setMainMenu(){
-        MainMenu mainMenu = new MainMenu(this);
-        setContentPane( mainMenu.getMainPanel() );
+        //MainMenu2 mainMenu = new MainMenu2(this);
+        setContentPane( new MainMenu2(this) );
         this.setVisible(true);
     }
 

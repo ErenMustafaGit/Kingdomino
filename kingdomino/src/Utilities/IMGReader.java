@@ -11,17 +11,40 @@ public class IMGReader {
 
     private static final String ressourcePath = "./a31-kingdomino/kingdomino/ressources/";
 
-    public static JLabel getImage(String filename) {
+    public static JLabel getImagePnl(String filename) {
         BufferedImage myPicture = null;
         try {
             myPicture = ImageIO.read(new File(ressourcePath + filename));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Image dimg = myPicture.getScaledInstance(100, 100,
+        Image dimg = myPicture.getScaledInstance(110, 110,
                 Image.SCALE_SMOOTH);
 
         return new JLabel(new ImageIcon(dimg));
+    }
+
+    public static JLabel getImagePnl(String filename, int width, int height) {
+        BufferedImage myPicture = null;
+        try {
+            myPicture = ImageIO.read(new File(ressourcePath + filename));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Image dimg = myPicture.getScaledInstance(width, height,
+                Image.SCALE_SMOOTH);
+
+        return new JLabel(new ImageIcon(dimg));
+    }
+
+    public static Image getImage(String filename) {
+        BufferedImage myPicture = null;
+        try {
+            myPicture = ImageIO.read(new File(ressourcePath + filename));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return myPicture;
     }
 
 }
