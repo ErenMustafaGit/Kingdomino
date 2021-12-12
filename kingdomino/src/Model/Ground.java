@@ -22,4 +22,7 @@ public class Ground implements Positionable{
     public GroundColor getColor() {
         return this.color;
     }
+    public boolean isCounted(){
+        return true;
+    }
 }
