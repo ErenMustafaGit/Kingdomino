@@ -6,7 +6,7 @@ public class PlayerBoard
 
     //Tableau de positionable (5x5 de base --> static)
     //9x9 pour en avoir un dynamique
-    Positionable[][] board = new Positionable[BOARD_SIZE][BOARD_SIZE];
+    private Positionable[][] board = new Positionable[BOARD_SIZE][BOARD_SIZE];
 
 
     public PlayerBoard()
@@ -17,7 +17,6 @@ public class PlayerBoard
     //Assignation du board du joueur avec le chateau au milieu du 9x9
     public PlayerBoard(Castle castle)
     {
-        System.out.println( "castle position " + BOARD_SIZE/2);
         this.board[BOARD_SIZE/2][BOARD_SIZE/2] = castle;
     }
 
@@ -92,25 +91,25 @@ public class PlayerBoard
         GroundColor type;
         if(x-1 >= 0){
             type = board[y][x-1].getColor();
-            if( type == ground.getColor() || type == GroundColor.grey ){
+            if( type == ground.getColor() || type == GroundColor.GREY ){
                 return true;
             }
         }
         if(x+1 < BOARD_SIZE){
             type = board[y][x+1].getColor();
-            if( type == ground.getColor() || type == GroundColor.grey ){
+            if( type == ground.getColor() || type == GroundColor.GREY ){
                 return true;
             }
         }
         if(y-1 >= 0){
             type = board[y-1][x].getColor();
-            if( type == ground.getColor() || type == GroundColor.grey ){
+            if( type == ground.getColor() || type == GroundColor.GREY ){
                 return true;
             }
         }
         if(y+1 >= 0){
             type = board[y+1][x].getColor();
-            if( type == ground.getColor() || type == GroundColor.grey ){
+            if( type == ground.getColor() || type == GroundColor.GREY ){
                 return true;
             }
         }

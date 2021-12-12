@@ -44,8 +44,8 @@ package Model #mistyrose{
 
 
     class Deck{
-        +Deck(number:Integer)
-        +takeCards(number:Integer):Collection<Tile>
+        +Deck(deckSize:Integer)
+        +getTile():Tile
     }
 
 
@@ -65,12 +65,13 @@ package Model #mistyrose{
     }
     'couleur des cotés de la tuile
     enum GroundColor{
+    -GREY
     -BLUE
-    -DARK GREEN
+    -DARKGREEN
     -BLACK
     -BROWN
     -YELLOW
-    -LIGHT GREEN
+    -LIGHTGREEN
     }
     'strategy permettant de pouvoir choisir le jeu qu'on veut
     interface GameStrategy{
@@ -110,12 +111,14 @@ package Model #mistyrose{
 
 
     class PlayerBoard{
-        +PlayerBoard()
-        +setTile(x:Integer, y:Integer, direction:Direction)
-        +isPosable(x:Integer, y:Integer):Boolean
+        -BOARD_SIZE:Integer = 5
+        +PlayerBoard(castle:Castle)
+        +setTile(x:Integer, y:Integer, direction:Direction, tile:Tile)
+        -isPosable(x:Integer, y:Integer):Boolean
+        -isSameGround(x:Integer, y:Integer, ground:Ground):Boolean
     }
     interface Positionnable{
-
+        +getColor():GroundColor
     }
 
     enum Direction{
@@ -136,7 +139,7 @@ package Model #mistyrose{
     }
     'class chateau
     class Castle {
-
+        +Castle()
     }
 
     'couleur du roi et du chateau
@@ -161,20 +164,30 @@ package view #D0E1D4{
     }
 }
 
+package Utilities{
+    class CSVReader{
+        {static} read(path:String):Collection<Collection<String>>
+    }
+}
 
-Ground ..|> Positionnable
-Castle ..|> Positionnable
+
+Ground .|> Positionnable
+Castle .|> Positionnable
 PlayerBoard "..*\n-board" *-r-> Positionnable : > contains
 
-Deck "..* -tiles" *-> Tile : > had
+Deck ..> CSVReader :  > use
 Ground "1"*-->"1"GroundColor
 Tile *-->Ground : "-left\n-right" > composed
 
+'A SUPP
+Deck "..* -tiles" *-> Tile : > had
 
-TileBoard *--> Tile : "0,8\ntiles" > had
 
 
-GameContext *-> Deck
+TileBoard o--> Tile : "0,8\ntiles" > had
+
+
+GameContext "-1\ndeck" *-> Deck
 GameContext *--> GameStrategy  : "..2\n-gameStrategy" > select
 GameContext *--> PlayerStrategy : "1\n-playerStrategy" > select
 
