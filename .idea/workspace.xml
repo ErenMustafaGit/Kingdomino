@@ -6,6 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="b296bc09-cc63-4dd7-9250-50d90129aaa5" name="Default Changelist" comment="push">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/Harmony.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Model/Harmony.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/MiddleKingdom.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Model/MiddleKingdom.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/NormalMode.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Model/NormalMode.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -121,7 +123,14 @@
       <option name="project" value="LOCAL" />
       <updated>1639321472418</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="push">
+      <created>1639322026193</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1639322026193</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
