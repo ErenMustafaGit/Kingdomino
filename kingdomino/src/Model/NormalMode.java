@@ -6,6 +6,7 @@ public class NormalMode implements GameStrategy{
 
     //les terrains
     private Ground ground;
+    private Ground otherGround;
 
     //le joueur
     private Player p;
@@ -16,7 +17,6 @@ public class NormalMode implements GameStrategy{
         int score =0;
         //faire un nouveau tableau de positionnable
         Positionable[][] crownplace = new Positionable[5][5];
-        GroundColor type;
 
         //on positionne d'abord dans un nouveau tableau les cases où il n'y a que des couronnes
         for(int i=0; i<p.board.BOARD_SIZE; i++){
@@ -27,43 +27,52 @@ public class NormalMode implements GameStrategy{
                     ground.getColor();
                     crownplace[i][j]=ground;
                     ground.isCounted();
-                    //si autour du terrain il y'a la meme couleur
-                    if(i-1 >= 0){
-                        if(p.board[i][j-1] != null){
-                            type = p.board[i][j-1].getColor();
 
-                            if( type == ground.getColor()){
+                    //si autour du terrain il y'a la meme couleur
+
+                    //si à gauche du terrain ca dépasse pas le tableau 5*5 :
+                    if(i-1 >= 0){
+                        //si la case n'est pas vide
+                        if(p.board.getPositionnable(i, j-1)!= null){
+                            //on récupère la couleur de la case
+                            otherGround = (Ground) p.board.getPositionnable(i, j-1);
+                            //si la couleur de la case précédente est la meme que celle que celle qu'on voit (avec une couronne)
+                            if( otherGround.getColor() == ground.getColor()){
                                 ground.getColor();
+                                crownplace[i][j-1]=ground;
                                 ground.isCounted();
                             }
                         }
 
                     }
                     if(i+1 < p.board.BOARD_SIZE){
-                        if(p.board[i][j+1] !=null){
-                            type = p.board[i][j+1].getColor();
-                            if( type == ground.getColor()){
+                        if(p.board.getPositionnable(i,j+1) !=null){
+                            otherGround = (Ground) p.board.getPositionnable(i, j+1);
+                            if( otherGround.getColor() == ground.getColor()){
                                 ground.getColor();
+                                crownplace[i][j+1]=ground;
                                 ground.isCounted();
                             }
                         }
 
                     }
                     if(j-1 >= 0){
-                        if(p.board[i-1][j] !=null){
-                            type = p.board[i-1][j].getColor();
-                            if( type == ground.getColor()){
+                        if(p.board.getPositionnable(i-1,j) !=null){
+                           otherGround = (Ground) p.board.getPositionnable(i-1,j);
+                            if(otherGround.getColor() == ground.getColor()){
                                 ground.getColor();
+                                crownplace[i-1][j]=ground;
                                 ground.isCounted();
                             }
                         }
 
                     }
                     if(j+1 >= 0){
-                        if(p.board[i+1][j] !=null){
-                            type = p.board[i+1][j].getColor();
-                            if( type == ground.getColor()){
+                        if(p.board.getPositionnable(i+1,j) !=null){
+                           otherGround = (Ground) p.board.getPositionnable(i+1,j);
+                            if( otherGround.getColor() == ground.getColor()){
                                 ground.getColor();
+                                crownplace[i+1][j]=ground;
                                 ground.isCounted();
                             }
                         }
@@ -74,10 +83,6 @@ public class NormalMode implements GameStrategy{
                 }
 
             }
-
-
-
-
         return score;
     }
 }
