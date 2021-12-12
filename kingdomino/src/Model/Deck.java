@@ -1,18 +1,41 @@
 package Model;
 
+import Utilities.CSVReader;
+
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Stack;
 
 public class Deck {
 
-    ArrayList<Tile> tiles = new ArrayList<>();
+    Stack<Tile> tiles = new Stack();
 
     public Deck(){
 
     }
     public Deck(int deckSize){
-        for(int i = 1; i<=deckSize;i++){
-            Tile tile = new Tile(i);
+        List<List<String>> lines = CSVReader.read("./a31-kingdomino/kingdomino/src/Ressources/kingdomino.csv");
+        lines.remove(0);
+        for(List<String> line : lines  ){
+            int tileNumber = Integer.parseInt(line.get(0));
+            int leftCrown = Integer.parseInt(line.get(5));
+            int rightCrown = Integer.parseInt(line.get(6));
+            GroundColor leftColor = GroundColor.getColor( line.get(2) );
+            GroundColor rightColor = GroundColor.getColor( line.get(4) );
+            Ground left = new Ground(leftColor, leftCrown);
+            Ground right = new Ground(rightColor, rightCrown);
+            Tile tile = new Tile( tileNumber , left, right  );
             tiles.add(tile);
         }
+
+        Collections.shuffle(tiles);
+        for(int i = 0; i<tiles.size() - deckSize; i++){
+            tiles.remove(i);
+        }
+    }
+
+    public Tile getTile(){
+        return this.tiles.pop();
     }
 }
