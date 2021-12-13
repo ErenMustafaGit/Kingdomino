@@ -1,4 +1,5 @@
 package Model;
 
-public class FourPlayers implements PlayerStrategy{
+public class FourPlayers implements PlayerStrategy
+{
 }
