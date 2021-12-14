@@ -17,7 +17,7 @@ public class PlayerBoard
     //Assignation du board du joueur avec le chateau au milieu du 9x9
     public PlayerBoard(Castle castle)
     {
-        this.board[BOARD_SIZE/2][BOARD_SIZE/2] = castle;
+        this.board[2][2] = castle;
     }
 
     /**
@@ -27,7 +27,7 @@ public class PlayerBoard
      * @return TRUE si nous avons reussi à placer la tuile
      */
     public boolean setTile(int x, int y, Direction dir, Tile tile)
-    {
+    { //x : 2, y:1
         int x2, y2;
         switch(dir){
 
@@ -53,7 +53,6 @@ public class PlayerBoard
 
         //Si les cases existent et qu'ils sont disponibles
         if( isPosable(x, y) && isPosable(x2,y2)){
-
             //Si un des 2 côtés est bien placé en terme de terrain
             if(isSameGround(x, y, tile.getLeft()) || isSameGround(x2,y2, tile.getRight())){
                 this.board[x][y] = tile.getLeft();
@@ -90,7 +89,7 @@ public class PlayerBoard
         //Regarde autour de la tuile
 
         GroundColor type;
-        if(x-1 >= 0){
+        if(y-1 >= 0){
             if(board[x][y-1] !=null){
                 type = board[x][y-1].getColor();
 
@@ -101,15 +100,15 @@ public class PlayerBoard
 
         }
         if(x+1 < BOARD_SIZE){
-            if(board[x][y+1] !=null){
-                type = board[x][y+1].getColor();
+            if(board[x+1][y] !=null){
+                type = board[x+1][y].getColor();
                 if( type == ground.getColor() || type == GroundColor.GREY ){
                     return true;
                 }
             }
 
         }
-        if(y-1 >= 0){
+        if(x-1 >= 0){
             if(board[x-1][y] !=null){
                 type = board[x-1][y].getColor();
                 if( type == ground.getColor() || type == GroundColor.GREY ){
@@ -118,9 +117,9 @@ public class PlayerBoard
             }
 
         }
-        if(y+1 >= 0){
-            if(board[x+1][y] !=null){
-                type = board[x+1][y].getColor();
+        if(y+1 < BOARD_SIZE){
+            if(board[x][y+1] !=null){
+                type = board[x][y+1].getColor();
                 if( type == ground.getColor() || type == GroundColor.GREY ){
                     return true;
                 }
@@ -131,7 +130,7 @@ public class PlayerBoard
     }
 
     public Positionable getPositionnable(int x, int y){
-        return this.board[y][x];
+        return this.board[x][y];
     }
 
 

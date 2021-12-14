@@ -92,12 +92,12 @@ public class TestPlayerBoard {
             Tile tile = new Tile(1, gLeft, gRight );
 
             assertTrue( playerBoard.setTile(2, 3, Direction.EAST, tile) );
-            assertEquals( playerBoard.getPositionnable(2, 3), gLeft  );
-            assertEquals( playerBoard.getPositionnable(3, 3), gRight  );
+            assertEquals( gLeft, playerBoard.getPositionnable(2, 3)  );
+            assertEquals( gRight ,playerBoard.getPositionnable(3, 3) );
 
             assertTrue( playerBoard.setTile(1, 2, Direction.NORTH, tile) );
-            assertEquals( playerBoard.getPositionnable(1, 2), gLeft  );
-            assertEquals( playerBoard.getPositionnable(1, 1), gRight  );
+            assertEquals(gLeft, playerBoard.getPositionnable(1, 2)  );
+            assertEquals(gRight, playerBoard.getPositionnable(1, 1)  );
         }
 
         @Test
@@ -111,8 +111,8 @@ public class TestPlayerBoard {
             assertTrue( playerBoard.setTile(2, 3, Direction.EAST, tile) );
 
             assertTrue( playerBoard.setTile(4, 3, Direction.SOUTH, tile) );
-            assertEquals( playerBoard.getPositionnable(4, 3), gLeft  );
-            assertEquals( playerBoard.getPositionnable(4, 4), gRight  );
+            assertEquals(gLeft, playerBoard.getPositionnable(4, 3) );
+            assertEquals(gRight, playerBoard.getPositionnable(4, 4) );
         }
 
         @Test
@@ -129,9 +129,9 @@ public class TestPlayerBoard {
             Ground yRight = new Ground(GroundColor.YELLOW, 0);
             Tile wheat = new Tile(1, yLeft, yRight );
 
-            assertTrue( playerBoard.setTile(4, 3, Direction.SOUTH, wheat) );
-            assertEquals( playerBoard.getPositionnable(4, 3), yLeft  );
-            assertEquals( playerBoard.getPositionnable(4, 4), yRight  );
+            assertFalse( playerBoard.setTile(4, 3, Direction.SOUTH, wheat) );
+            assertNull( playerBoard.getPositionnable(4, 3)  );
+            assertNull(playerBoard.getPositionnable(4, 4)  );
         }
     }
 
@@ -140,36 +140,65 @@ public class TestPlayerBoard {
     public class FullPlayerBoard
     {
         Castle castle;
+        NormalMode normalMode;
+        Player p;
         @BeforeEach
         public void setUp()
         {
             castle = new Castle();
             playerBoard = new PlayerBoard(castle);
+            p = new Player(KingColor.BLUE, null, playerBoard);
+
+            normalMode = new NormalMode();
+
 
             Ground yellow = new Ground( GroundColor.YELLOW , 1);
             Ground blue = new Ground( GroundColor.BLUE , 2);
-            Ground dark = new Ground( GroundColor.BLACK, 0 );
+            Ground blue1 = new Ground(GroundColor.BLUE, 1);
+            Ground black = new Ground( GroundColor.BLACK, 0 );
             Ground light = new Ground( GroundColor.LIGHT_GREEN, 0 );
+            Ground dark = new Ground( GroundColor.DARK_GREEN, 0 );
+            Ground brown = new Ground( GroundColor.BROWN, 0 );
 
-            Tile by = new Tile(1,yellow, blue);
-            Tile db = new Tile(1,dark, blue);
-            Tile dy = new Tile(1,dark, yellow);
-            Tile ly = new Tile(1,light, yellow);
-            Tile ld = new Tile(1,light, dark);
-            Tile lb = new Tile(1,light, blue);
+
+            Tile lb = new Tile(1,light, blue1);
+            Tile blbr = new Tile(2,blue1, brown);
+            Tile ll = new Tile(3,light, light);
+            Tile ly = new Tile(4,light, yellow);
+            Tile bdark = new Tile(4,blue, black);
+            Tile yb = new Tile(1,yellow, blue);
+            Tile ybr = new Tile(3,yellow, brown);
+            Tile brbr = new Tile(2,brown, brown);
+
+
+
 
             /********TABLEAU SUR FIGMA*********/
-            //playerBoard.setTile()
+
+            playerBoard.setTile( 3, 2, Direction.EAST, lb );
+            playerBoard.setTile( 4, 3, Direction.SOUTH, blbr );
+            playerBoard.setTile( 2, 3, Direction.EAST, ll );
+            playerBoard.setTile( 3, 1, Direction.NORTH, ly );
+            playerBoard.setTile( 0, 2, Direction.EAST, bdark );
+            playerBoard.setTile( 0, 3, Direction.SOUTH, blbr );
+            playerBoard.setTile( 3, 4, Direction.WEST, lb );
+            playerBoard.setTile( 1, 4, Direction.NORTH, yb );
+            playerBoard.setTile( 2, 1, Direction.WEST, ybr );
+            playerBoard.setTile( 0, 0 , Direction.EAST, brbr );
+            playerBoard.setTile( 4, 1 , Direction.NORTH, blbr );
         }
 
         @Test
-        @DisplayName("Toutes les cases sauf le chateau sont null")
+        @DisplayName("Toutes les cases sauf le (0,1) & (2,0) sont non-null")
         public void testEstNull()
         {
+            assertNull(playerBoard.getPositionnable(0,1));
             for (int i = 0; i< playerBoard.BOARD_SIZE; i++) {
                 for (int j = 0; j < playerBoard.BOARD_SIZE; j++) {
-                    if(i != playerBoard.BOARD_SIZE/2 && j != playerBoard.BOARD_SIZE/2){
-                        assertNull( playerBoard.getPositionnable(i,j));
+                    if(i == 1 && j == 0 || i == 0 && j== 2){
+                        assertNull(playerBoard.getPositionnable(j,i));
+                    }else{
+                        assertNotNull(playerBoard.getPositionnable(j,i));
                     }
                 }
             }
@@ -180,6 +209,13 @@ public class TestPlayerBoard {
         public void testCenterCastle()
         {
             assertEquals( castle, playerBoard.getPositionnable(playerBoard.BOARD_SIZE/2, playerBoard.BOARD_SIZE/2 ) );
+        }
+
+        @Test
+        @DisplayName("La party a bien le nombre de point attendu en mode normal")
+        public void testNormalPoint()
+        {
+            assertEquals( 12, normalMode.calculateScore(p)  );
         }
     }
 

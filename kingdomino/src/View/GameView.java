@@ -24,16 +24,36 @@ public class GameView  {
 
         //A SUPPR -> l'ajout d'un playerboard ne se fait pas ici!! (JUSTE POUR TESTER)
         Castle caste = new Castle();
-        PlayerBoard playerBoard1 = new PlayerBoard(caste);
-        PlayerBoard playerBoard2 = new PlayerBoard();
-        Deck myDeck = new Deck(32);
-        Tile tile = myDeck.getTile();
-        System.out.println(tile.getNumber());
-         System.out.println(playerBoard1.setTile(2, 1          , Direction.NORTH, tile ));
-        Tile tile2 = myDeck.getTile();
-        System.out.println(tile2.getNumber());
-        System.out.println(playerBoard1.setTile(3, 2, Direction.EAST, tile2 ));
-        System.out.println(playerBoard1.setTile(3, 2, Direction.EAST, tile2 ));
+        PlayerBoard playerBoard = new PlayerBoard(caste);
+        Ground yellow = new Ground( GroundColor.YELLOW , 1);
+        Ground blue = new Ground( GroundColor.BLUE , 2);
+        Ground black = new Ground( GroundColor.BLACK, 0 );
+        Ground light = new Ground( GroundColor.LIGHT_GREEN, 0 );
+        Ground dark = new Ground( GroundColor.DARK_GREEN, 0 );
+        Ground brown = new Ground( GroundColor.BROWN, 0 );
+
+        Tile lb = new Tile(1,light, blue);
+        Tile blbr = new Tile(2,blue, brown);
+        Tile ll = new Tile(3,light, light);
+        Tile ly = new Tile(4,light, yellow);
+        Tile bdark = new Tile(4,blue, black);
+        Tile yb = new Tile(1,yellow, blue);
+        Tile ybr = new Tile(3,yellow, brown);
+        Tile brbr = new Tile(2,brown, brown);
+
+        /********TABLEAU SUR FIGMA*********/
+        playerBoard.setTile( 3, 2, Direction.EAST, lb );
+        playerBoard.setTile( 4, 3, Direction.SOUTH, blbr );
+        playerBoard.setTile( 2, 3, Direction.EAST, ll );
+        playerBoard.setTile( 3, 1, Direction.NORTH, ly );
+        playerBoard.setTile( 0, 2, Direction.EAST, bdark );
+        playerBoard.setTile( 0, 3, Direction.SOUTH, blbr );
+        playerBoard.setTile( 3, 4, Direction.WEST, lb );
+        playerBoard.setTile( 1, 4, Direction.NORTH, yb );
+        playerBoard.setTile( 2, 1, Direction.WEST, ybr );
+        playerBoard.setTile( 0, 0 , Direction.EAST, brbr );
+        playerBoard.setTile( 4, 1 , Direction.NORTH, blbr );
+
         //SUPP EN HAUT !
 
 
@@ -44,9 +64,9 @@ public class GameView  {
         grid.setVgap(15);
         gameBoard.setLayout( grid);
 
-        gameBoard.add( createPlayerBoardPanel(playerBoard1));
+        gameBoard.add( createPlayerBoardPanel(playerBoard));
         gameBoard.add( new JLabel("deck") );
-        gameBoard.add( createPlayerBoardPanel(playerBoard2));
+        //gameBoard.add( createPlayerBoardPanel(playerBoard2));
 
 
 
@@ -78,8 +98,8 @@ public class GameView  {
         boardPnl.setLayout( grid );
 
         //Place chaque image correspondantes
-        for(int i = 0; i<playerBoard.BOARD_SIZE; i++){
-            for(int j = 0; j<playerBoard.BOARD_SIZE; j++){
+        for(int j = 0; j<playerBoard.BOARD_SIZE; j++){
+            for(int i = 0; i<playerBoard.BOARD_SIZE; i++){
                 //Met l'image correspondant à la couleur de la case
                 if(playerBoard.getPositionnable(i,j) == null){
                     boardPnl.add( IMGReader.getImagePnl("empty.jpg") );
