@@ -7,9 +7,6 @@
     <list default="true" id="b296bc09-cc63-4dd7-9250-50d90129aaa5" name="Default Changelist" comment="push">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kingdomino/Tests/TestPlayerBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/Tests/TestPlayerBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/UML/View.puml" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/UML/View.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/PlayerBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Model/PlayerBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/View/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/View/GameView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,7 +26,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Testing_View" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -170,7 +167,14 @@
       <option name="project" value="LOCAL" />
       <updated>1639322026193</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Updated test (maked the party of figma) and Gameview">
+      <created>1639490630296</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1639490630296</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -194,6 +198,7 @@
     <MESSAGE value="update NormalMode (lacks the complete calculation of the score)" />
     <MESSAGE value="push" />
     <MESSAGE value="Temporally changed ressourcePath in CSVReader and IMGReader for Ihsane and Louis.&#10;TODO : Get relative path for everyone" />
-    <option name="LAST_COMMIT_MESSAGE" value="Temporally changed ressourcePath in CSVReader and IMGReader for Ihsane and Louis.&#10;TODO : Get relative path for everyone" />
+    <MESSAGE value="Updated test (maked the party of figma) and Gameview" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated test (maked the party of figma) and Gameview" />
   </component>
 </project>

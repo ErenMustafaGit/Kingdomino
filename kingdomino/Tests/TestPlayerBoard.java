@@ -140,22 +140,29 @@ public class TestPlayerBoard {
     public class FullPlayerBoard
     {
         Castle castle;
+        NormalMode normalMode;
+        Player p;
         @BeforeEach
         public void setUp()
         {
             castle = new Castle();
             playerBoard = new PlayerBoard(castle);
+            p = new Player(KingColor.BLUE, null, playerBoard);
+
+            normalMode = new NormalMode();
+
 
             Ground yellow = new Ground( GroundColor.YELLOW , 1);
             Ground blue = new Ground( GroundColor.BLUE , 2);
+            Ground blue1 = new Ground(GroundColor.BLUE, 1);
             Ground black = new Ground( GroundColor.BLACK, 0 );
             Ground light = new Ground( GroundColor.LIGHT_GREEN, 0 );
             Ground dark = new Ground( GroundColor.DARK_GREEN, 0 );
             Ground brown = new Ground( GroundColor.BROWN, 0 );
 
 
-            Tile lb = new Tile(1,light, blue);
-            Tile blbr = new Tile(2,blue, brown);
+            Tile lb = new Tile(1,light, blue1);
+            Tile blbr = new Tile(2,blue1, brown);
             Tile ll = new Tile(3,light, light);
             Tile ly = new Tile(4,light, yellow);
             Tile bdark = new Tile(4,blue, black);
@@ -202,6 +209,13 @@ public class TestPlayerBoard {
         public void testCenterCastle()
         {
             assertEquals( castle, playerBoard.getPositionnable(playerBoard.BOARD_SIZE/2, playerBoard.BOARD_SIZE/2 ) );
+        }
+
+        @Test
+        @DisplayName("La party a bien le nombre de point attendu en mode normal")
+        public void testNormalPoint()
+        {
+            assertEquals( 12, normalMode.calculateScore(p)  );
         }
     }
 
