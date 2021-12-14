@@ -2,8 +2,8 @@ package Model;
 
 public class GameContext
 {
-    PlayerStrategy nbPlayersStrat;
-    GameStrategy gameModeStrat;
+    public PlayerStrategy nbPlayersStrat;
+    public GameStrategy gameModeStrat;
 
     public GameContext(int nbPlayer, int gameMode)
     {
@@ -13,36 +13,19 @@ public class GameContext
 
     public void setPlayerStrategy(int nbPlayers)
     {
-        switch (nbPlayers)
-        {
-            case 2:
-            nbPlayersStrat = new TwoPlayers();
-            break;
-
-            case 3:
-                nbPlayersStrat = new ThreePlayers();
-                break;
-
-            case 4:
-                nbPlayersStrat = new FourPlayers();
+        switch (nbPlayers) {
+            case 2 -> nbPlayersStrat = new TwoPlayers();
+            case 3 -> nbPlayersStrat = new ThreePlayers();
+            case 4 -> nbPlayersStrat = new FourPlayers();
         }
     }
 
     public void setGameStrategy(int gameMode)
     {
-        switch (gameMode)
-        {
-            case 1:
-                gameModeStrat = new NormalMode();
-                break;
-
-            case 2:
-                gameModeStrat = new Harmony();
-                break;
-
-            case 3:
-                gameModeStrat = new MiddleKingdom();
-                break;
+        switch (gameMode) {
+            case 1 -> gameModeStrat = new NormalMode();
+            case 2 -> gameModeStrat = new Harmony();
+            case 3 -> gameModeStrat = new MiddleKingdom();
         }
     }
 
