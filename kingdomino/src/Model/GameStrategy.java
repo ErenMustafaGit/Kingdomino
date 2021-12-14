@@ -2,6 +2,7 @@ package Model;
 
 public interface GameStrategy {
 
-    public int calculateScore(Player p);
+    int calculateScore(Player p);
+    String getnamegame();
 
 }

@@ -87,4 +87,9 @@ public class Harmony implements GameStrategy{
 
         return score;
     }
+
+    @Override
+    public String getnamegame() {
+        return "Harmony";
+    }
 }

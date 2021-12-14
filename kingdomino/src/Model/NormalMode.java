@@ -77,4 +77,9 @@ public class NormalMode implements GameStrategy{
 
         return score;
     }
+
+    @Override
+    public String getnamegame() {
+        return "Normalmode";
+    }
 }

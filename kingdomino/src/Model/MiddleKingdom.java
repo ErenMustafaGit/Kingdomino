@@ -83,4 +83,9 @@ public class MiddleKingdom implements GameStrategy
         }
         return score;
     }
+
+    @Override
+    public String getnamegame() {
+       return "MiddleKingdom";
+    }
 }
