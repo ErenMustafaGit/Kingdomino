@@ -8,14 +8,12 @@ import java.util.Random;
 public class BoardGame
 {
     /**/
-    int PNbKing;
     private ArrayList<Player> players;
     ArrayList<King> kingsPlayer;
     private KingColor[] allColors = KingColor.values();
     private GameContext strategy; // les stratégie utilisé
     public BoardGame(int nbKing, GameContext strat)
     {
-        PNbKing = nbKing;
         strategy = strat;
     }
 
@@ -33,7 +31,7 @@ public class BoardGame
 
     public void initializeGame() throws InstantiationException {
         if (strategy.nbPlayersStrat instanceof FourPlayers) {
-            for (int i = 0; i < PNbKing; i++) // boucle sur les 4 rois différents de la partie
+            for (int i = 0; i < ( strategy.nbPlayersStrat).getnbBoard(); i++) // boucle sur les 4 rois différents de la partie
             {
                 int random = new Random().nextInt(allColors.length); // sélection aléatoire de la couleur à assigner au joueur
                 if (allColors[random] != null) //teste de la disponibilité de la couleur choisi
@@ -53,7 +51,7 @@ public class BoardGame
         }
         else if(strategy.nbPlayersStrat instanceof ThreePlayers)
         {
-            for (int i = 0; i < PNbKing; i++) // boucle sur les 4 rois différents de la partie
+            for (int i = 0; i < (strategy.nbPlayersStrat).getnbBoard(); i++) // boucle sur les 3 rois différents de la partie
             {
                 int random = new Random().nextInt(allColors.length); // sélection aléatoire de la couleur à assigner au joueur
                 if (allColors[random] != null) //teste de la disponibilité de la couleur choisi
@@ -72,7 +70,7 @@ public class BoardGame
         }
         else if (strategy.nbPlayersStrat instanceof TwoPlayers)
         {
-            for (int i = 0; i < PNbKing/2; i++) // boucle sur les 4 rois différents de la partie
+            for (int i = 0; i < ( strategy.nbPlayersStrat).getnbBoard()/2; i++) // boucle sur les 4 rois différents de la partie
             {
                 int random = new Random().nextInt(allColors.length); // sélection aléatoire de la couleur à assigner au joueur
                 if (allColors[random] != null) //teste de la disponibilité de la couleur choisi
