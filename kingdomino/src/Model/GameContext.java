@@ -42,15 +42,15 @@ public class GameContext
     {
         if (nbPlayersStrat instanceof TwoPlayers)
         {
-            gameDeck = new Deck(24);
+            gameDeck = new Deck((nbPlayersStrat).getnbTile());
         }
         else if (nbPlayersStrat instanceof ThreePlayers)
         {
-            gameDeck = new Deck(36);
+            gameDeck = new Deck((nbPlayersStrat).getnbTile());
         }
         else
         {
-            gameDeck = new Deck(48);
+            gameDeck = new Deck((nbPlayersStrat).getnbTile());
         }
     }
 
