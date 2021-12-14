@@ -1,9 +1,13 @@
 package Model;
 
 public class ThreePlayers implements PlayerStrategy{
-    int nbofTile;
     @Override
     public int getnbTile() {
-        return nbofTile=36;
+        return 36;
+    }
+
+    @Override
+    public int getnbBoard() {
+        return 3;
     }
 }
