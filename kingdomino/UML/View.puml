@@ -75,6 +75,7 @@ package Model #mistyrose{
     }
     'strategy permettant de pouvoir choisir le jeu qu'on veut
     interface GameStrategy{
+    +calculateScore(Player p)
 
     }
     'contexte du jeu
