@@ -16,7 +16,6 @@ public class NormalMode implements GameStrategy{
         int score =0;
         //nombre de couronne sur le terrain
         int crownumber=ground.getCrownNumber();
-
         //compte le nombre de case
         int box =1;
         for(int i=0; i<p.board.BOARD_SIZE; i++){
@@ -24,7 +23,7 @@ public class NormalMode implements GameStrategy{
                 //si dans le terrain il y'a au moins une couronne
                 if(crownumber>0){
                     box +=1;
-                    ground.isCounted();
+                    ground.setCounted(true);
 
                     if(i-1 >= 0){
                         //si la case n'est pas vide
@@ -36,7 +35,7 @@ public class NormalMode implements GameStrategy{
                                 otherGround=(Ground)p.board.getPositionnable(i,j-1);
                                 crownumber+=otherGround.getCrownNumber();
                                 box +=1;
-                                ground.isCounted();
+                                ground.setCounted(true);
                             }
                         }
                     }
@@ -46,7 +45,7 @@ public class NormalMode implements GameStrategy{
                             if( color == ground.getColor() && !p.board.getPositionnable(i, j+1).isCounted()){
                                 crownumber+= otherGround.getCrownNumber();
                                 box +=1;
-                                p.board.getPositionnable(i, j+1).isCounted();
+                                p.board.getPositionnable(i, j+1).setCounted(true);
                             }
                         }
 
@@ -57,7 +56,7 @@ public class NormalMode implements GameStrategy{
                             if(color == ground.getColor() && !p.board.getPositionnable(i-1,j).isCounted()){
                                 crownumber+= otherGround.getCrownNumber();
                                 box +=1;
-                                p.board.getPositionnable(i-1,j).isCounted();
+                                p.board.getPositionnable(i-1,j).setCounted(true);
                             }
                         }
 
@@ -68,13 +67,12 @@ public class NormalMode implements GameStrategy{
                             if( color == ground.getColor() && ! p.board.getPositionnable(i+1,j).isCounted()){
                                 crownumber+= otherGround.getCrownNumber();
                                 box +=1;
-                                p.board.getPositionnable(i+1,j).isCounted();
+                                p.board.getPositionnable(i+1,j).setCounted(true);
                             }
                         }
                     }
                 }
                 score =crownumber*box + calculateScore(p);
-
             }
         }
 
