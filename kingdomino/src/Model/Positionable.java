@@ -7,4 +7,7 @@ public interface Positionable {
     default public boolean isCounted(){
         return true;
     }
+    default public void setCounted(boolean isCounted){
+        isCounted = isCounted();
+    }
 }
