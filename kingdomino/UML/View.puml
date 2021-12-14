@@ -72,6 +72,7 @@ package Model #mistyrose{
     -BROWN
     -YELLOW
     -LIGHTGREEN
+    +{static}+getColor(String:color):GroundColor
     }
     'strategy permettant de pouvoir choisir le jeu qu'on veut
     interface GameStrategy{

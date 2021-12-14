@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b296bc09-cc63-4dd7-9250-50d90129aaa5" name="Default Changelist" comment="push" />
+    <list default="true" id="b296bc09-cc63-4dd7-9250-50d90129aaa5" name="Default Changelist" comment="push">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/Tests/TestPlayerBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/Tests/TestPlayerBoard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/UML/View.puml" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/UML/View.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/PlayerBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Model/PlayerBoard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/src/View/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/View/GameView.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -52,7 +58,7 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.0" />
   </component>
-  <component name="RunManager" selected="Application.Kingodomino">
+  <component name="RunManager" selected="JUnit.TestPlayerBoard">
     <configuration name="Kingodomino" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Kingodomino" />
       <module name="a31-kingdomino" />
@@ -68,12 +74,41 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="TestPlayerBoard$FullPlayerBoard" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="a31-kingdomino" />
+      <option name="PACKAGE_NAME" value="TestPlayerBoard" />
+      <option name="MAIN_CLASS_NAME" value="TestPlayerBoard$FullPlayerBoard" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestPlayerBoard$FullPlayerBoard.testEstNull" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="a31-kingdomino" />
+      <option name="PACKAGE_NAME" value="TestPlayerBoard" />
+      <option name="MAIN_CLASS_NAME" value="TestPlayerBoard$FullPlayerBoard" />
+      <option name="METHOD_NAME" value="testEstNull" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestPlayerBoard" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="a31-kingdomino" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TestPlayerBoard" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.TestPlayerBoard" />
         <item itemvalue="Application.Kingodomino" />
+        <item itemvalue="JUnit.TestPlayerBoard$FullPlayerBoard.testEstNull" />
+        <item itemvalue="JUnit.TestPlayerBoard$FullPlayerBoard" />
         <item itemvalue="JUnit.All in a31-kingdomino" />
-        <item itemvalue="Application.Kingodomino" />
-        <item itemvalue="Application.Kingodomino" />
       </list>
     </recent_temporary>
   </component>
