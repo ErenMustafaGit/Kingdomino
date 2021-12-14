@@ -8,7 +8,6 @@ public class NormalMode implements GameStrategy{
     private Ground otherGround;
     private GroundColor color;
 
-    private PlayerBoard playerboard;
 
     @Override
     public int calculateScore(Player p) {

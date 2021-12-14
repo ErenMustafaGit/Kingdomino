@@ -2,7 +2,7 @@ package Model;
 
 public class Harmony implements GameStrategy{
     //les terrains
-    private Ground ground;
+    Ground ground;
     private Ground otherGround;
 
 

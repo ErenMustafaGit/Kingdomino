@@ -2,12 +2,10 @@ package Model;
 
 public class MiddleKingdom implements GameStrategy
 {
-    private Ground ground;
+    Ground ground;
     private Ground otherGround;
     private GroundColor color;
-    private Castle castle;
-
-    private PlayerBoard playerboard;
+    Castle castle;
 
     @Override
     public int calculateScore(Player p) {
