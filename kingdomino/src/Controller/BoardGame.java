@@ -39,8 +39,9 @@ public class BoardGame
                 if (allColors[random] != null) //teste de la disponibilité de la couleur choisi
                 {
                     KingColor color = allColors[random]; // création d'une variable contenant la couleur
+                    Castle pCastle = new Castle();
                     createKing(color); //création du roi correspondant à la couleur
-                    PlayerBoard PBoard = new PlayerBoard(); // création d'un plateau de jeu pour un joueur
+                    PlayerBoard PBoard = new PlayerBoard(pCastle); // création d'un plateau de jeu pour un joueur
                     createPlayer(color, kingsPlayer, PBoard); // création du joueur avec la couleur, le roi et le plateau
                     allColors[random] = null; // élimination de la couleur du tableau des couleurs disponible
                 }
@@ -95,6 +96,16 @@ public class BoardGame
         }
     }
 
+
+    public void placeTile(Player player, Tile tile, int pos_x, int pos_y, Direction dir)
+    {
+        player.board.setTile(pos_x, pos_y, dir, tile);
+    }
+
+    public void newRound()
+    {
+
+    }
 
 
 
