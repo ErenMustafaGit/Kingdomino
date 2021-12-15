@@ -75,28 +75,43 @@ package Model #mistyrose{
     +{static}+getColor(String:color):GroundColor
     }
     'strategy permettant de pouvoir choisir le jeu qu'on veut
-    interface GameStrategy{
-    +calculateScore(Player p)
-
+    interface GameMode{
+        +countPoint(p:Player)
     }
     'contexte du jeu
     class GameContext{
-        +setGameStrategy(strategy:GameStrategy)
+        +setGameMode(strategy:GameMode)
         +setPlayerStrategy(strategy:PlayerStrategy)
     }
     class NormalMode implements GameStrategy{
 
     }
     'classe dynastie
-    'class Dynasty implements GameStrategy{}
+    'class Dynasty implements GameMode{}
     'class empire du milieu
-    class MiddleKingdom implements GameStrategy{
+    package GameModes{
 
-    }
 
-    'class harmonie
-    class Harmony implements GameStrategy{
 
+            class NormalMode {
+                +countPoint(p:Player)
+            }
+            abstract class ModeDecorator{
+                -wrappee:GameMode
+                +ModeDecorator(gameMode:GameMode)
+                +countPoint(p:Player)
+            }
+
+            class MiddleKingdom extends ModeDecorator {
+                +MiddleKingdom()
+                +countPoint(p:Player)
+            }
+
+            'class harmonie
+            class Harmony extends ModeDecorator {
+                +Harmony()
+                +countPoint(p:Player)
+            }
     }
     'interface observer qui va permettre de notifier les changements
     interface GameObserver{
@@ -189,8 +204,8 @@ Deck "..* -tiles" *-> Tile : > had
 TileBoard o--> Tile : "0,8\ntiles" > had
 
 
-GameContext "-1\ndeck" *-> Deck
-GameContext *--> GameStrategy  : "..2\n-gameStrategy" > select
+GameContext *-r-> Deck
+GameContext *--> GameMode  : "1\n-GameMode" > select
 GameContext *--> PlayerStrategy : "1\n-playerStrategy" > select
 
 BoardGame  *-> Player : "2..4\n-players" > played by
@@ -206,13 +221,18 @@ PlayerBoard "1\n-castle" o-> Castle : > had
 PlayerBoard .> Direction : > use
 
 
+'Implements de GameMode
+'Harmony .u.|> GameMode
+'MiddleKingdom .u.|> GameMode
+ModeDecorator .u.|> GameMode
+NormalMode .u.|> GameMode
 
 King"1\n-color"*->"1" KingColor: > had
 Castle"1\n-color"*->KingColor : > had
 
 KingDomino..> BoardGame : <<create>>
 KingDomino.> PlayerStrategy : <<use>>
-KingDomino..> GameStrategy : <<use>>
+KingDomino..> GameMode : <<use>>
 KingDomino *.>MyWindow : <<create>>
 KingDomino ..>GameContext : <<create>>
 MyWindow o-> BoardGame : > send \nuser request
