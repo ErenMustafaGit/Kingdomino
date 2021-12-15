@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b296bc09-cc63-4dd7-9250-50d90129aaa5" name="Default Changelist" comment="Improved UML">
+    <list default="true" id="b296bc09-cc63-4dd7-9250-50d90129aaa5" name="Default Changelist" comment="push">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/UML/View.puml" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/UML/View.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/Tests/TestPlayerBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/Tests/TestPlayerBoard.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,13 +17,16 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="UML Sequence" />
+        <option value="Enum" />
+        <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Ihsane's_work" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -37,6 +40,7 @@
     </file-type-list>
   </component>
   <component name="ProjectId" id="21dkTqSTv8gUCLXCnM3XpImEdpo" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -46,8 +50,64 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="last_opened_file_path" value="$USER_HOME$/P31/TDArbin" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.0" />
+  </component>
+  <component name="RunManager" selected="JUnit.TestPlayerBoard">
+    <configuration name="Kingodomino" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Kingodomino" />
+      <module name="a31-kingdomino" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="All in a31-kingdomino" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="a31-kingdomino" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestPlayerBoard$FullPlayerBoard" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="a31-kingdomino" />
+      <option name="PACKAGE_NAME" value="TestPlayerBoard" />
+      <option name="MAIN_CLASS_NAME" value="TestPlayerBoard$FullPlayerBoard" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestPlayerBoard$FullPlayerBoard.testEstNull" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="a31-kingdomino" />
+      <option name="PACKAGE_NAME" value="TestPlayerBoard" />
+      <option name="MAIN_CLASS_NAME" value="TestPlayerBoard$FullPlayerBoard" />
+      <option name="METHOD_NAME" value="testEstNull" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestPlayerBoard" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="a31-kingdomino" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TestPlayerBoard" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.TestPlayerBoard" />
+        <item itemvalue="Application.Kingodomino" />
+        <item itemvalue="JUnit.TestPlayerBoard$FullPlayerBoard.testEstNull" />
+        <item itemvalue="JUnit.TestPlayerBoard$FullPlayerBoard" />
+        <item itemvalue="JUnit.All in a31-kingdomino" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -72,7 +132,49 @@
       <option name="project" value="LOCAL" />
       <updated>1638991297710</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="CSVReader and Deck">
+      <created>1639123317687</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1639123317687</updated>
+    </task>
+    <task id="LOCAL-00004" summary="calculate score function written (not complete) + add a function in the Ground class">
+      <created>1639320306677</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1639320306677</updated>
+    </task>
+    <task id="LOCAL-00005" summary="file .xml">
+      <created>1639320370928</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1639320370928</updated>
+    </task>
+    <task id="LOCAL-00006" summary="update NormalMode (lacks the complete calculation of the score)">
+      <created>1639321472418</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1639321472418</updated>
+    </task>
+    <task id="LOCAL-00007" summary="push">
+      <created>1639322026193</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1639322026193</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Updated test (maked the party of figma) and Gameview">
+      <created>1639490630296</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1639490630296</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -90,6 +192,13 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="UML First Version" />
     <MESSAGE value="Improved UML" />
-    <option name="LAST_COMMIT_MESSAGE" value="Improved UML" />
+    <MESSAGE value="CSVReader and Deck" />
+    <MESSAGE value="calculate score function written (not complete) + add a function in the Ground class" />
+    <MESSAGE value="file .xml" />
+    <MESSAGE value="update NormalMode (lacks the complete calculation of the score)" />
+    <MESSAGE value="push" />
+    <MESSAGE value="Temporally changed ressourcePath in CSVReader and IMGReader for Ihsane and Louis.&#10;TODO : Get relative path for everyone" />
+    <MESSAGE value="Updated test (maked the party of figma) and Gameview" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated test (maked the party of figma) and Gameview" />
   </component>
 </project>

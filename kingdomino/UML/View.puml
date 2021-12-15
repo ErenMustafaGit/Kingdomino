@@ -17,6 +17,8 @@ package GameController #technology{
     ' plateau de jeu
     class BoardGame{
 
+        +createPlayer(color:KingColor, kings:Collection<King>)
+
     }
 }
 
@@ -28,45 +30,49 @@ package Model #mistyrose{
     interface PlayerStrategy{
 
     }
-    class TwoPlayers {
+    class TwoPlayers implements PlayerStrategy{
 
     }
 
-    class ThreePlayers {
+    class ThreePlayers implements PlayerStrategy{
     }
 
-   class FourPlayers {
+   class FourPlayers implements PlayerStrategy{
 
    }
 
 
 
     class Deck{
-        +Deck(number:Integer)
-        +takeCards(number:Integer):Collection<Tile>
+        +Deck(deckSize:Integer)
+        +getTile():Tile
     }
 
 
     'tuiles numéroté
     class Tile {
 
-        -number
+        -number:Integer
         +getNumber():Integer
         +setNumber(num:Integer)
 
     }
     'coté de la tuile (droite ou gauche)
     class Ground{
-
+        -crownNumber:Integer
+        +getCrownNumber():Integer
+        +setCrownNumber():Integer
     }
     'couleur des cotés de la tuile
     enum GroundColor{
+    -GREY
     -BLUE
-    -DARK GREEN
+    -DARKGREEN
     -BLACK
     -BROWN
     -YELLOW
-    -LIGHT GREEN
+    -LIGHTGREEN
+    +{static}+getColor(String:color):GroundColor
     }
     'strategy permettant de pouvoir choisir le jeu qu'on veut
     interface GameMode{
@@ -77,7 +83,9 @@ package Model #mistyrose{
         +setGameMode(strategy:GameMode)
         +setPlayerStrategy(strategy:PlayerStrategy)
     }
+    class NormalMode implements GameStrategy{
 
+    }
     'classe dynastie
     'class Dynasty implements GameMode{}
     'class empire du milieu
@@ -105,22 +113,29 @@ package Model #mistyrose{
                 +countPoint(p:Player)
             }
     }
-
     'interface observer qui va permettre de notifier les changements
     interface GameObserver{
 'aussi le score final
+    }
+
+    class TileBoard{
+
+        +instance:TileBoard
+        {static}+getIntance():TileBoard
     }
 
 
 
 
     class PlayerBoard{
-        +PlayerBoard()
-        +setTile(x:Integer, y:Integer, direction:Direction)
-        +isPosable(x:Integer, y:Integer):Boolean
+        +BOARD_SIZE:Integer = 5
+        +PlayerBoard(castle:Castle)
+        +setTile(x:Integer, y:Integer, direction:Direction, tile:Tile)
+        -isPosable(x:Integer, y:Integer):Boolean
+        -isSameGround(x:Integer, y:Integer, ground:Ground):Boolean
     }
     interface Positionnable{
-
+        +getColor():GroundColor
     }
 
     enum Direction{
@@ -132,15 +147,16 @@ package Model #mistyrose{
 
     'joueur
     class Player{
-
+        +Player(kings:Collection<King>)
     }
 
     'roi
     class King{
+        +King(color:KingColor)
     }
     'class chateau
     class Castle {
-
+        +Castle()
     }
 
     'couleur du roi et du chateau
@@ -155,28 +171,37 @@ package Model #mistyrose{
 'package VIEW
 package view #D0E1D4{
     'application du jeu (design avec Swing)
-    class MyWindow  {
+    class MyWindow implements GameObserver{
 
     }
-    'JFRAME
-    abstract class JFrame{
+
+    'classe qui va permettre de notifier la partie utilisée et le score final en fin de partie
+    class Log implements GameObserver{
+
     }
+}
 
-    class Log  implements GameObserver {
-
-        }
-
+package Utilities{
+    class CSVReader{
+        {static} read(path:String):Collection<Collection<String>>
+    }
 }
 
 
-'Positionnable
-Tile ..|> Positionnable
-Castle ..|> Positionnable
+Ground .|> Positionnable
+Castle .|> Positionnable
 PlayerBoard "..*\n-board" *-r-> Positionnable : > contains
 
-Deck "..* -tiles" *-r-> Tile : > had
-Ground "1"*->"1"GroundColor
-Tile *->Ground : "-left\n-right" > composed
+Deck ..> CSVReader :  > use
+Ground "1"*-->"1"GroundColor
+Tile *-->Ground : "-left\n-right" > composed
+
+'A SUPP
+Deck "..* -tiles" *-> Tile : > had
+
+
+
+TileBoard o--> Tile : "0,8\ntiles" > had
 
 
 GameContext *-r-> Deck
@@ -186,19 +211,15 @@ GameContext *--> PlayerStrategy : "1\n-playerStrategy" > select
 BoardGame  *-> Player : "2..4\n-players" > played by
 BoardGame *--> GameContext : "1\n-gameContext" > had
 
+Player .> TileBoard : > use
 Player *-> PlayerBoard : "1\n-board" > had
-Player  *--> King : "1..2\n-kings" > had
-
-'En commentaire car le playerBoard aura au final un tab de positionnable
-'PlayerBoard *--> Tile
-'PlayerBoard "1\n-castle" *-> Castle : > had
+Player  o--> King : "1..2\n-kings" > had
+PlayerBoard <--* "2..4\n-playerBoards" BoardGame
+PlayerBoard "1\n-tile" o--> Tile
+PlayerBoard "1\n-castle" o-> Castle : > had
 
 PlayerBoard .> Direction : > use
 
-'Implements de playerStrategy
-TwoPlayers .u.|> PlayerStrategy
-ThreePlayers .u.|> PlayerStrategy
-FourPlayers .u.|> PlayerStrategy
 
 'Implements de GameMode
 'Harmony .u.|> GameMode
@@ -206,24 +227,14 @@ FourPlayers .u.|> PlayerStrategy
 ModeDecorator .u.|> GameMode
 NormalMode .u.|> GameMode
 
-'KingColor
 King"1\n-color"*->"1" KingColor: > had
-Castle"1\n-color"*-d->KingColor : > had
+Castle"1\n-color"*->KingColor : > had
 
-GameContext "0..*\n-observers" o-->GameObserver : > observes
-
-
-
-'KingDomino
 KingDomino..> BoardGame : <<create>>
 KingDomino.> PlayerStrategy : <<use>>
 KingDomino..> GameMode : <<use>>
 KingDomino *.>MyWindow : <<create>>
 KingDomino ..>GameContext : <<create>>
-
-'View
 MyWindow o-> BoardGame : > send \nuser request
-MyWindow --|> JFrame
-MyWindow .|> GameObserver
-
+GameContext o-->GameObserver : > observes
 @enduml
