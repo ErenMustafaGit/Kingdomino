@@ -69,29 +69,40 @@ package Model #mistyrose{
     -LIGHT GREEN
     }
     'strategy permettant de pouvoir choisir le jeu qu'on veut
-    interface GameStrategy{
-
+    interface GameMode{
+        +countPoint(p:Player)
     }
     'contexte du jeu
     class GameContext{
-        +setGameStrategy(strategy:GameStrategy)
+        +setGameMode(strategy:GameMode)
         +setPlayerStrategy(strategy:PlayerStrategy)
     }
 
     'classe dynastie
-    'class Dynasty implements GameStrategy{}
+    'class Dynasty implements GameMode{}
     'class empire du milieu
-    package GameMode{
+    package GameModes{
+
+
+
             class NormalMode {
-
+                +countPoint(p:Player)
             }
-            class MiddleKingdom {
+            abstract class ModeDecorator{
+                -wrappee:GameMode
+                +ModeDecorator(gameMode:GameMode)
+                +countPoint(p:Player)
+            }
 
+            class MiddleKingdom extends ModeDecorator {
+                +MiddleKingdom()
+                +countPoint(p:Player)
             }
 
             'class harmonie
-            class Harmony {
-
+            class Harmony extends ModeDecorator {
+                +Harmony()
+                +countPoint(p:Player)
             }
     }
 
@@ -169,7 +180,7 @@ Tile *->Ground : "-left\n-right" > composed
 
 
 GameContext *-r-> Deck
-GameContext *--> GameStrategy  : "1\n-gameStrategy" > select
+GameContext *--> GameMode  : "1\n-GameMode" > select
 GameContext *--> PlayerStrategy : "1\n-playerStrategy" > select
 
 BoardGame  *-> Player : "2..4\n-players" > played by
@@ -189,10 +200,11 @@ TwoPlayers .u.|> PlayerStrategy
 ThreePlayers .u.|> PlayerStrategy
 FourPlayers .u.|> PlayerStrategy
 
-'Implements de gameStrategy
-Harmony .u.|> GameStrategy
-MiddleKingdom .u.|> GameStrategy
-NormalMode .u.|> GameStrategy
+'Implements de GameMode
+'Harmony .u.|> GameMode
+'MiddleKingdom .u.|> GameMode
+ModeDecorator .u.|> GameMode
+NormalMode .u.|> GameMode
 
 'KingColor
 King"1\n-color"*->"1" KingColor: > had
@@ -205,7 +217,7 @@ GameContext "0..*\n-observers" o-->GameObserver : > observes
 'KingDomino
 KingDomino..> BoardGame : <<create>>
 KingDomino.> PlayerStrategy : <<use>>
-KingDomino..> GameStrategy : <<use>>
+KingDomino..> GameMode : <<use>>
 KingDomino *.>MyWindow : <<create>>
 KingDomino ..>GameContext : <<create>>
 
