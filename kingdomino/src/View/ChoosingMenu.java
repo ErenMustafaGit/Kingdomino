@@ -1,12 +1,17 @@
 package View;
 
 import Model.KingColor;
+import Utilities.IMGReader;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class ChoosingMenu {
     final static boolean shouldFill = true;
@@ -14,10 +19,14 @@ public class ChoosingMenu {
     private JPanel panel = new JPanel();
     private ButtonGroup group;
     private String[] nbreofplayers = {"2","3","4"};
+    private Image img;
 
 
     public ChoosingMenu(MyWindow MyWindow) {
         this.mainFrame = MyWindow;
+        this.img = IMGReader.getImage("wallpaper.png");
+        panel.setOpaque(false);
+
         //utilisation d'un grid Layout
         panel.setLayout(new GridLayout(10,3,10,10));
 
@@ -26,7 +35,7 @@ public class ChoosingMenu {
 
         //Affichage du titre de la page
         JLabel label = new JLabel("Mode de jeu");
-        label.setFont(new Font("Showcard Gothic",0, 40));
+        label.setFont(new Font("Showcard Gothic",Font.BOLD, 40));
 
         //centrer le label en haut de page
         label.setHorizontalAlignment(SwingConstants.CENTER);
@@ -103,6 +112,7 @@ public class ChoosingMenu {
         cboColor.setVisible(true);
         return cboColor;
     }
+
 }
  /*this.mainFrame = MyWindow;
 
