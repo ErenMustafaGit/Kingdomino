@@ -15,7 +15,7 @@ package Controller{
 'package CONTROLLER
 package GameController #technology{
     ' plateau de jeu
-    class BoardGame{
+    class GameController{
 
         +createPlayer(color:KingColor, kings:Collection<King>)
 
@@ -28,17 +28,26 @@ package GameController #technology{
 package Model #mistyrose{
     'interface players
     interface PlayerStrategy{
-
+        + getNumberPlayer():Integer
+        + getNumberTile():Integer
+        + getNumberKings():Integer
     }
     class TwoPlayers implements PlayerStrategy{
-
+        + getNumberPlayer():Integer
+        + getNumberTile():Integer
+        + getNumberKings():Integer
     }
 
     class ThreePlayers implements PlayerStrategy{
+        + getNumberPlayer():Integer
+        + getNumberTile():Integer
+        + getNumberKings():Integer
     }
 
    class FourPlayers implements PlayerStrategy{
-
+        + getNumberPlayer():Integer
+        + getNumberTile():Integer
+        + getNumberKings():Integer
    }
 
 
@@ -80,15 +89,11 @@ package Model #mistyrose{
     }
     'contexte du jeu
     class GameContext{
+        +notifyObservers()
         +setGameMode(strategy:GameMode)
         +setPlayerStrategy(strategy:PlayerStrategy)
     }
-    class NormalMode implements GameStrategy{
 
-    }
-    'classe dynastie
-    'class Dynasty implements GameMode{}
-    'class empire du milieu
     package GameModes{
 
 
@@ -115,7 +120,7 @@ package Model #mistyrose{
     }
     'interface observer qui va permettre de notifier les changements
     interface GameObserver{
-'aussi le score final
+        +update(gameContext:GameContext)
     }
 
     class TileBoard{
@@ -172,19 +177,35 @@ package Model #mistyrose{
 package view #D0E1D4{
     'application du jeu (design avec Swing)
     class MyWindow implements GameObserver{
-
+        +update(gameContext:GameContext)
     }
 
-    'classe qui va permettre de notifier la partie utilisée et le score final en fin de partie
-    class Log implements GameObserver{
-
+    class MainMenu{
+        +update(gameContext:GameContext)
     }
+
+    class ChoosingMenu{
+            +update(gameContext:GameContext)
+        }
+
+    class GameView{
+            +update(gameContext:GameContext)
+        }
+
+
 }
 
 package Utilities{
     class CSVReader{
-        {static} read(path:String):Collection<Collection<String>>
+        {static} - RESSOURCE_PATH = "./kingdomino/ressources/"
+        {static} read(filename:String):Collection<Collection<String>>
     }
+
+    class IMGReader{
+            {static} - RESSOURCE_PATH = "./kingdomino/ressources/"
+            {static} getImagePnl(String:filename):JLabel
+            {static} getImage(String:filename):Image
+        }
 }
 
 
@@ -205,16 +226,20 @@ TileBoard o--> Tile : "0,8\ntiles" > had
 
 
 GameContext *-r-> Deck
-GameContext *--> GameMode  : "1\n-GameMode" > select
+GameContext *--> GameMode  : "1\n-gameMode" > select
 GameContext *--> PlayerStrategy : "1\n-playerStrategy" > select
+GameContext *-> Player : "2..4\n-players" > played by
 
-BoardGame  *-> Player : "2..4\n-players" > played by
-BoardGame *--> GameContext : "1\n-gameContext" > had
+
+'BoardGame  *-> Player : "2..4\n-players" > played by
+GameController o--> GameContext : "1\n-gameContext" > had
+
+
 
 Player .> TileBoard : > use
 Player *-> PlayerBoard : "1\n-board" > had
 Player  o--> King : "1..2\n-kings" > had
-PlayerBoard <--* "2..4\n-playerBoards" BoardGame
+'PlayerBoard <--* "2..4\n-playerBoards" BoardGame
 PlayerBoard "1\n-tile" o--> Tile
 PlayerBoard "1\n-castle" o-> Castle : > had
 
@@ -230,11 +255,16 @@ NormalMode .u.|> GameMode
 King"1\n-color"*->"1" KingColor: > had
 Castle"1\n-color"*->KingColor : > had
 
-KingDomino..> BoardGame : <<create>>
+MyWindow *--> MainMenu
+MyWindow *--> ChoosingMenu
+MyWindow *--> GameView
+
+
+KingDomino..> GameController : <<create>>
 KingDomino.> PlayerStrategy : <<use>>
 KingDomino..> GameMode : <<use>>
-KingDomino *.>MyWindow : <<create>>
+KingDomino ..>MyWindow : <<create>>
 KingDomino ..>GameContext : <<create>>
-MyWindow o-> BoardGame : > send \nuser request
-GameContext o-->GameObserver : > observes
+MyWindow o-> GameController : > send \nuser request
+GameContext "..n\nobservers" o-->GameObserver : > observes
 @enduml

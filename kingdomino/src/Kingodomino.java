@@ -1,18 +1,16 @@
-import Controller.BoardGame;
+import Controller.GameController;
 import Model.Castle;
 import Model.Deck;
-import Model.PlayerBoard;
-import Utilities.CSVReader;
-import View.MainMenu2;
+import Model.GameContext;
 import View.MyWindow;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class Kingodomino {
     public static void main(String[] args) {
-        BoardGame boardgame = new BoardGame();
+        GameContext gameContext = new GameContext();
+        GameController boardgame = new GameController();
         MyWindow myWindow = new MyWindow(boardgame);
+
+        gameContext.addObserver( myWindow );
 
         Deck myDeck = new Deck(32);
 

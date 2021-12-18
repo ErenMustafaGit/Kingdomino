@@ -1,14 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="a31-kingdomino:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b296bc09-cc63-4dd7-9250-50d90129aaa5" name="Default Changelist" comment="push">
+      <change afterPath="$PROJECT_DIR$/kingdomino/UML/alex.puml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kingdomino/src/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/a31-kingdomino.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/a31-kingdomino.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Controller/BoardGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Controller/BoardGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/UML/View.puml" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/UML/View.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/src/Controller/BoardGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Controller/GameController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kingdomino/src/Kingodomino.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Kingodomino.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/GameContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Model/GameContext.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/src/Utilities/CSVReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Utilities/CSVReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/src/Utilities/IMGReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Utilities/IMGReader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kingdomino/src/View/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/View/GameView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/src/View/MainMenu.form" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/src/View/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/View/MainMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/src/View/MainMenu2.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/kingdomino/src/View/MyWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/View/MyWindow.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -19,17 +34,17 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="UML Sequence" />
         <option value="Enum" />
         <option value="Interface" />
         <option value="Class" />
+        <option value="UML Sequence" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="GameController" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -54,9 +69,9 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$USER_HOME$/P31/TDArbin" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
   </component>
   <component name="RunManager" selected="Application.Kingodomino">
     <configuration name="Kingodomino" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -191,7 +206,14 @@
       <option name="project" value="LOCAL" />
       <updated>1639834278653</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Improved GameView">
+      <created>1639855767221</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1639855767221</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -218,6 +240,7 @@
     <MESSAGE value="Updated test (maked the party of figma) and Gameview" />
     <MESSAGE value="GameView changed into gridbaglayout&#10;and ModeStrategy into ModeDecorator" />
     <MESSAGE value="GameView : Finished to place all the components" />
-    <option name="LAST_COMMIT_MESSAGE" value="GameView : Finished to place all the components" />
+    <MESSAGE value="Improved GameView" />
+    <option name="LAST_COMMIT_MESSAGE" value="Improved GameView" />
   </component>
 </project>
