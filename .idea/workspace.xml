@@ -5,19 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b296bc09-cc63-4dd7-9250-50d90129aaa5" name="Default Changelist" comment="push">
-      <change afterPath="$PROJECT_DIR$/kingdomino/src/Model/ModeDecorator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/UML/View.puml" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/UML/View.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/GameContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Model/GameContext.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/GameObserver.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Model/GameObserver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/GameStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Model/GameMode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/Harmony.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Model/Harmony.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/MiddleKingdom.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Model/MiddleKingdom.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/NormalMode.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Model/NormalMode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Utilities/IMGReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Utilities/IMGReader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kingdomino/src/View/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/View/GameView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/View/Log.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/View/Log.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/View/MyWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/View/MyWindow.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -185,7 +174,14 @@
       <option name="project" value="LOCAL" />
       <updated>1639490630296</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="GameView changed into gridbaglayout&#10;and ModeStrategy into ModeDecorator">
+      <created>1639832641130</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1639832641130</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -210,6 +206,7 @@
     <MESSAGE value="push" />
     <MESSAGE value="Temporally changed ressourcePath in CSVReader and IMGReader for Ihsane and Louis.&#10;TODO : Get relative path for everyone" />
     <MESSAGE value="Updated test (maked the party of figma) and Gameview" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated test (maked the party of figma) and Gameview" />
+    <MESSAGE value="GameView changed into gridbaglayout&#10;and ModeStrategy into ModeDecorator" />
+    <option name="LAST_COMMIT_MESSAGE" value="GameView changed into gridbaglayout&#10;and ModeStrategy into ModeDecorator" />
   </component>
 </project>

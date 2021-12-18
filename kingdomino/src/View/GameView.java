@@ -66,7 +66,7 @@ public class GameView  {
         /******Boards panel (plateau des joueurs)*******/
         JPanel boardsPanel =  new JPanel();
         boardsPanel.setLayout( new GridBagLayout());
-        int boardMargin = 10;
+        int boardMargin = 20;
         boardC.insets = new Insets(boardMargin, boardMargin, boardMargin, boardMargin);
         boardC.gridx = 0;
         boardC.gridy = 0;
@@ -124,13 +124,7 @@ public class GameView  {
         }
 
 
-        JButton button3 = new JButton("Go back to the menu");
-        button3.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                mainFrame.setMainMenu();
-            }
-        });
+
 
 
         panel.setLayout( new GridBagLayout());
@@ -141,19 +135,18 @@ public class GameView  {
         c.insets = new Insets(1, 1, 1, 1);
 
         /***HEADER***/
-        c.fill = GridBagConstraints.HORIZONTAL;
+        JPanel header = new JPanel();
+        header.setLayout( new BorderLayout() );
+        header.add( new JLabel("Kingdomino game"), BorderLayout.CENTER );
+        c.fill = GridBagConstraints.BOTH;
         // colonne 0
         c.gridx = 0;
         // ligne 0
         c.gridy = 0;
-        // augmente la largeur des composants de 100 pixels
-        //c.ipadx = 1000;
-        // augmente la hauteur des composants de 50 pixels
-        //c.ipady = 100;
         // Ajouter les contraintes
-        JLabel header = new JLabel("Kingdomino Game");
         panel.add( header, c );
 
+        /**Ajout du gameBoard**/
         // colonne 0
         c.gridx = 0;
         // ligne 1
@@ -164,6 +157,20 @@ public class GameView  {
         c.ipady = 20;
         // Ajouter les contraintes
         panel.add( gameBoard, c );
+
+        /**Bouton de retourn au menu**/
+        JButton backButton = new JButton("Go back to the menu");
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mainFrame.setMainMenu();
+            }
+        });
+        c.fill = GridBagConstraints.VERTICAL;
+        c.gridx = 0;
+        c.gridy = 2;
+        // Ajouter les contraintes
+        panel.add( backButton, c );
 
 
 
