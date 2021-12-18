@@ -112,15 +112,9 @@ public class GameView  {
 
         /** Creation des boutons (dans gameInterac) **/
         for (int i = 0; i<4; i++){
-            JPanel tile = new JPanel();
-            tile.setLayout( new BorderLayout() );
-            JButton left = new JButton("left");
-            JButton right = new JButton("right");
-            tile.add(left, BorderLayout.LINE_START);
-            tile.add(right, BorderLayout.LINE_END);
             interacC.gridx = 0;
             interacC.gridy = i;
-            gameInterac.add( tile , interacC);
+            gameInterac.add( createTile(lb) , interacC);
         }
 
 
@@ -215,6 +209,74 @@ public class GameView  {
             }
         }
         return boardPnl;
+    }
+
+
+    /** Fonction qui renvoie un JPanel contenant l'affichage du playerboard passé en parametre
+     *
+     * @param tile : PlayerBoard qui doit être affiché
+     * @return JPanel : Rendu en panel du playerBoard
+     */
+    private JPanel createTile(Tile tile){
+        JPanel tilePanel = new JPanel();
+        tilePanel.setLayout( new BorderLayout() );
+
+        JButton left = new JButton("left");
+        JButton right = new JButton("right");
+
+        //Met l'image correspondant à la couleur de la case
+        switch(tile.getLeft().getColor()){
+
+            case YELLOW:
+                left.add( IMGReader.getImagePnl("champs.png") );
+                break;
+            case DARK_GREEN:
+                left.add( IMGReader.getImagePnl("foret.png") );
+                break;
+            case LIGHT_GREEN:
+                left.add( IMGReader.getImagePnl("prairie.png") );
+                break;
+            case BLACK:
+                left.add( IMGReader.getImagePnl("mines.png") );
+                break;
+            case BLUE:
+                left.add( IMGReader.getImagePnl("mer.png") );
+                break;
+            case BROWN:
+                left.add( IMGReader.getImagePnl("montagne.png") );
+                break;
+        }
+
+        switch(tile.getRight().getColor()){
+
+            case YELLOW:
+                right.add( IMGReader.getImagePnl("champs.png") );
+                break;
+            case DARK_GREEN:
+                right.add( IMGReader.getImagePnl("foret.png") );
+                break;
+            case LIGHT_GREEN:
+                right.add( IMGReader.getImagePnl("prairie.png") );
+                break;
+            case BLACK:
+                right.add( IMGReader.getImagePnl("mines.png") );
+                break;
+            case BLUE:
+                right.add( IMGReader.getImagePnl("mer.png") );
+                break;
+            case BROWN:
+                right.add( IMGReader.getImagePnl("montagne.png") );
+                break;
+        }
+
+
+
+
+        tilePanel.add(left, BorderLayout.LINE_START);
+        tilePanel.add(right, BorderLayout.LINE_END);
+
+
+        return tilePanel;
     }
 
 
