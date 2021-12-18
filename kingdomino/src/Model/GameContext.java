@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class GameContext
 {
     public PlayerStrategy nbPlayersStrat; //stratégie associé au nombre de joueurs
-    public GameStrategy gameModeStrat; //stratégie associé au mode de jeu choisi
+    public GameMode gameModeStrat; //stratégie associé au mode de jeu choisi
     public Deck gameDeck; // Packet de tuiles utilisé pour la partie
     public ArrayList<Tile> currentTiles; // Tuiles correspondante aux choix diponible pour les joueurs
 
@@ -30,10 +30,10 @@ public class GameContext
     //Implémentation de la variable d'instance gameMode en fonction du mode de jeu
     public void setGameStrategy(int gameMode)
     {
+        GameMode normalMode = new NormalMode();
         switch (gameMode) {
-            case 1 -> gameModeStrat = new NormalMode();
-            case 2 -> gameModeStrat = new Harmony();
-            case 3 -> gameModeStrat = new MiddleKingdom();
+            case 1 -> gameModeStrat = new Harmony(normalMode);
+            case 2 -> gameModeStrat = new MiddleKingdom(normalMode);
         }
     }
 

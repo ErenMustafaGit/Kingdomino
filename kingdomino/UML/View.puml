@@ -76,7 +76,7 @@ package Model #mistyrose{
     }
     'strategy permettant de pouvoir choisir le jeu qu'on veut
     interface GameMode{
-        +countPoint(p:Player)
+        +calculateScore(p:Player)
     }
     'contexte du jeu
     class GameContext{
@@ -94,23 +94,23 @@ package Model #mistyrose{
 
 
             class NormalMode {
-                +countPoint(p:Player)
+                +calculateScore(p:Player)
             }
             abstract class ModeDecorator{
                 -wrappee:GameMode
                 +ModeDecorator(gameMode:GameMode)
-                +countPoint(p:Player)
+                +calculateScore(p:Player)
             }
 
             class MiddleKingdom extends ModeDecorator {
                 +MiddleKingdom()
-                +countPoint(p:Player)
+                +calculateScore(p:Player)
             }
 
             'class harmonie
             class Harmony extends ModeDecorator {
                 +Harmony()
-                +countPoint(p:Player)
+                +calculateScore(p:Player)
             }
     }
     'interface observer qui va permettre de notifier les changements

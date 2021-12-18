@@ -1,12 +1,10 @@
 package View;
 
 import Model.GameObserver;
-import Model.GameStrategy;
+import Model.GameMode;
 import Model.PlayerStrategy;
-import Utilities.IMGReader;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class MyWindow extends JFrame implements GameObserver
 {
@@ -43,7 +41,7 @@ public class MyWindow extends JFrame implements GameObserver
 
 
     @Override
-    public void notify(GameStrategy strategy, PlayerStrategy player) {
+    public void notify(GameMode strategy, PlayerStrategy player) {
 
     }
 }
