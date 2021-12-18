@@ -1,6 +1,5 @@
 package View;
 
-import Controller.BoardGame;
 import Model.*;
 import Utilities.IMGReader;
 

@@ -1,6 +1,6 @@
 package View;
 
-import Controller.BoardGame;
+import Controller.GameController;
 import Model.GameObserver;
 import Model.GameMode;
 import Model.PlayerStrategy;
@@ -9,26 +9,15 @@ import javax.swing.*;
 
 public class MyWindow extends JFrame implements GameObserver
 {
-    BoardGame boardGame;
-    public MyWindow() {
+    GameController gameController;
+
+    public MyWindow(GameController gameController) {
+        this.gameController = gameController;
         setTitle( "Kingdomino" );
         setSize( 1280, 720 );
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        //MainMenu mainMenu = new MainMenu(this);
-
-        setContentPane( new MainMenu2(this));
-
-
-        setVisible( true );
-    }
-    public MyWindow(BoardGame boardGame) {
-        this.boardGame = boardGame;
-        setTitle( "Kingdomino" );
-        setSize( 1280, 720 );
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-
-        setContentPane( new MainMenu2(this));
+        setContentPane( new MainMenu(this));
         setVisible( true );
 }
 
@@ -47,7 +36,7 @@ public class MyWindow extends JFrame implements GameObserver
 
     public void setMainMenu(){
         //MainMenu2 mainMenu = new MainMenu2(this);
-        setContentPane( new MainMenu2(this) );
+        setContentPane( new MainMenu(this) );
         this.setVisible(true);
     }
 

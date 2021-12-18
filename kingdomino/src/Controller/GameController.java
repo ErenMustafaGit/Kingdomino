@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 
-public class BoardGame
+public class GameController
 {
     /**/
     private ArrayList<Player> players;
@@ -13,11 +13,12 @@ public class BoardGame
     private KingColor[] allColors = KingColor.values();
     private GameContext strategy; // les stratégie utilisé
 
-    public BoardGame()
+    public GameController()
     {
+
     }
 
-    public BoardGame(int nbKing, GameContext strat)
+    public GameController(int nbKing, GameContext strat)
     {
         strategy = strat;
     }

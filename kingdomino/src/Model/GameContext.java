@@ -8,12 +8,22 @@ public class GameContext
     public GameMode gameModeStrat; //stratégie associé au mode de jeu choisi
     public Deck gameDeck; // Packet de tuiles utilisé pour la partie
     public ArrayList<Tile> currentTiles; // Tuiles correspondante aux choix diponible pour les joueurs
+    public ArrayList<GameObserver> observers = new ArrayList<>();
 
     // constructeur de la classe
     public GameContext(int nbPlayer, int gameMode)
     {
         setPlayerStrategy(nbPlayer);
         setGameStrategy(gameMode);
+    }
+
+    public GameContext()
+    {
+        }
+
+    public void addObserver(GameObserver gameObserver)
+    {
+        observers.add( gameObserver );
     }
 
     //Implémentation de la variable d'instance nbPlayersStrat en fonction du nombre de joueur

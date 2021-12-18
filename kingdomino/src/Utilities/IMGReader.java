@@ -9,12 +9,16 @@ import java.io.IOException;
 
 public class IMGReader {
 
-    private static final String ressourcePath = "./kingdomino/ressources/";
+        /* Solution pour les images dans l'executable
+        ClassLoader.getSystemClassLoader().getResourceAsStream("backGraph.png").readAllBytes()
+            _font = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(ClassLoader.getSystemClassLoader().getResourceAsStream(path)));
+         */
+    private static final String RESSOURCE_PATH = "./kingdomino/ressources/";
 
     public static JLabel getImagePnl(String filename) {
         BufferedImage myPicture = null;
         try {
-            myPicture = ImageIO.read(new File(ressourcePath + filename));
+            myPicture = ImageIO.read(new File(RESSOURCE_PATH + filename));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -27,7 +31,7 @@ public class IMGReader {
     public static JLabel getImagePnl(String filename, int width, int height) {
         BufferedImage myPicture = null;
         try {
-            myPicture = ImageIO.read(new File(ressourcePath + filename));
+            myPicture = ImageIO.read(new File(RESSOURCE_PATH + filename));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -40,7 +44,7 @@ public class IMGReader {
     public static Image getImage(String filename) {
         BufferedImage myPicture = null;
         try {
-            myPicture = ImageIO.read(new File(ressourcePath + filename));
+            myPicture = ImageIO.read(new File(RESSOURCE_PATH + filename));
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -12,8 +12,10 @@ public class CSVReader {
     private static final String ressourcePath = "./kingdomino/ressources/";
 
     public static List<List<String>> read(String filename){
+
+        //ClassLoader.getSystemClassLoader().getResourceAsStream(filename)
         List<List<String>> records = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(ressourcePath + filename))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(ressourcePath + filename))) { //InputStreamReader au lieu de FileReader pour l'exe
             String line;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
