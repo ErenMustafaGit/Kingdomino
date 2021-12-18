@@ -10,16 +10,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GameView  {
-    private BoardGame boardGame;
     private MyWindow mainFrame;
     private JPanel panel = new JPanel();
 
     public GameView(MyWindow MyWindow){
         this.mainFrame = MyWindow;
 
-        JLabel header = new JLabel("Kingdomino Game");
-        header.setHorizontalAlignment(JLabel.CENTER);
-        header.setVerticalAlignment(JLabel.CENTER);
+
 
 
         //A SUPPR -> l'ajout d'un playerboard ne se fait pas ici!! (JUSTE POUR TESTER)
@@ -57,17 +54,74 @@ public class GameView  {
         //SUPP EN HAUT !
 
 
+        /***GAMEBOARD***/
         //Panel qui va contenir tout les élements de jeu
         JPanel gameBoard = new JPanel();
-        GridLayout grid = new GridLayout(2, 4);
-        grid.setHgap(10);
-        grid.setVgap(15);
+        GridBagLayout grid = new GridBagLayout();
         gameBoard.setLayout( grid);
+        // Crée un objet de contraintes
+        GridBagConstraints boardC = new GridBagConstraints();
 
-        gameBoard.add( createPlayerBoardPanel(playerBoard));
-        gameBoard.add( new JLabel("deck") );
-        //gameBoard.add( createPlayerBoardPanel(playerBoard2));
 
+        /******Boards panel (plateau des joueurs)*******/
+        JPanel boardsPanel =  new JPanel();
+        boardsPanel.setLayout( new GridBagLayout());
+        int boardMargin = 10;
+        boardC.insets = new Insets(boardMargin, boardMargin, boardMargin, boardMargin);
+        boardC.gridx = 0;
+        boardC.gridy = 0;
+        boardC.fill = GridBagConstraints.BOTH;
+        boardsPanel.setBackground( Color.RED );
+        gameBoard.add( boardsPanel, boardC );
+
+
+
+        /*Les plateau de jeu mis dans le boardsPanel*/
+        GridBagConstraints oneBoardC = new GridBagConstraints();
+        oneBoardC.insets = new Insets(20, 20, 20, 20);
+
+        boardC.gridx = 0;
+        boardC.gridy = 0;
+        boardsPanel.add( createPlayerBoardPanel(playerBoard), boardC);
+
+        boardC.gridx = 0;
+        boardC.gridy = 1;
+        boardsPanel.add( createPlayerBoardPanel(playerBoard), boardC);
+
+
+        boardC.gridx = 1;
+        boardC.gridy = 1;
+        boardsPanel.add( createPlayerBoardPanel(playerBoard), boardC);
+
+
+
+        /******Game interaction (les 4 tuiles etc)*******/
+        JPanel gameInterac =  new JPanel();
+        gameInterac.setLayout( new GridBagLayout());
+        gameInterac.setBackground( Color.black );
+
+        GridBagConstraints interacC = new GridBagConstraints();
+        interacC.insets = new Insets(5, 20, 5, 20);
+
+        // augmente la largeur des composants de 100 pixels
+        boardC.ipadx = 100;
+        boardC.fill = GridBagConstraints.VERTICAL;
+        boardC.gridx = 2;
+        boardC.gridy = 0;
+        gameBoard.add( gameInterac, boardC );
+
+        /** Creation des boutons (dans gameInterac) **/
+        for (int i = 0; i<4; i++){
+            JPanel tile = new JPanel();
+            tile.setLayout( new BorderLayout() );
+            JButton left = new JButton("left");
+            JButton right = new JButton("right");
+            tile.add(left, BorderLayout.LINE_START);
+            tile.add(right, BorderLayout.LINE_END);
+            interacC.gridx = 0;
+            interacC.gridy = i;
+            gameInterac.add( tile , interacC);
+        }
 
 
         JButton button3 = new JButton("Go back to the menu");
@@ -78,10 +132,43 @@ public class GameView  {
             }
         });
 
-        panel.setLayout( new BorderLayout() );
-        panel.add( header, BorderLayout.NORTH );
-        panel.add( gameBoard, BorderLayout.CENTER );
-        panel.add( button3, BorderLayout.SOUTH );
+
+        panel.setLayout( new GridBagLayout());
+        // Crée un objet de contraintes
+        GridBagConstraints c = new GridBagConstraints();
+
+        // Spécifie le padding externe de tous les composants
+        c.insets = new Insets(1, 1, 1, 1);
+
+        /***HEADER***/
+        c.fill = GridBagConstraints.HORIZONTAL;
+        // colonne 0
+        c.gridx = 0;
+        // ligne 0
+        c.gridy = 0;
+        // augmente la largeur des composants de 100 pixels
+        //c.ipadx = 1000;
+        // augmente la hauteur des composants de 50 pixels
+        //c.ipady = 100;
+        // Ajouter les contraintes
+        JLabel header = new JLabel("Kingdomino Game");
+        panel.add( header, c );
+
+        // colonne 0
+        c.gridx = 0;
+        // ligne 1
+        c.gridy = 1;
+        // augmente la largeur des composants de 90 pixels
+        c.ipadx = 20;
+        // augmente la hauteur des composants de 40 pixels
+        c.ipady = 20;
+        // Ajouter les contraintes
+        panel.add( gameBoard, c );
+
+
+
+        // ajouter le contenu
+        mainFrame.getContentPane().add(panel);
     }
     public JPanel getMainPanel(){
         return this.panel;

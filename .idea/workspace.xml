@@ -5,8 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b296bc09-cc63-4dd7-9250-50d90129aaa5" name="Default Changelist" comment="push">
+      <change afterPath="$PROJECT_DIR$/kingdomino/src/Model/ModeDecorator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/Tests/TestPlayerBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/Tests/TestPlayerBoard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/UML/View.puml" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/UML/View.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/GameContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Model/GameContext.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/GameObserver.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Model/GameObserver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/GameStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Model/GameMode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/Harmony.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Model/Harmony.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/MiddleKingdom.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Model/MiddleKingdom.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/NormalMode.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Model/NormalMode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/src/Utilities/IMGReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Utilities/IMGReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/src/View/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/View/GameView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/src/View/Log.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/View/Log.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/src/View/MyWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/View/MyWindow.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +66,7 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.0" />
   </component>
-  <component name="RunManager" selected="JUnit.TestPlayerBoard">
+  <component name="RunManager" selected="Application.Kingodomino">
     <configuration name="Kingodomino" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Kingodomino" />
       <module name="a31-kingdomino" />
@@ -101,8 +112,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.TestPlayerBoard" />
         <item itemvalue="Application.Kingodomino" />
+        <item itemvalue="JUnit.TestPlayerBoard" />
         <item itemvalue="JUnit.TestPlayerBoard$FullPlayerBoard.testEstNull" />
         <item itemvalue="JUnit.TestPlayerBoard$FullPlayerBoard" />
         <item itemvalue="JUnit.All in a31-kingdomino" />

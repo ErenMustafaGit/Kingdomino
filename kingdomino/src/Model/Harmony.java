@@ -1,9 +1,13 @@
 package Model;
 
-public class Harmony implements GameStrategy{
+public class Harmony extends ModeDecorator {
     //les terrains
     Ground ground;
     private Ground otherGround;
+
+    public Harmony(GameMode gameMode) {
+        super(gameMode);
+    }
 
 
     @Override
