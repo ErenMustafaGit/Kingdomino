@@ -11,11 +11,11 @@ import java.util.List;
 
 public class Kingodomino {
     public static void main(String[] args) {
-        MyWindow myWindow = new MyWindow();
+        BoardGame boardgame = new BoardGame();
+        MyWindow myWindow = new MyWindow(boardgame);
 
         Deck myDeck = new Deck(32);
 
         Castle castle = new Castle();
-        PlayerBoard playerBoard = new PlayerBoard(castle);
     }
 }
