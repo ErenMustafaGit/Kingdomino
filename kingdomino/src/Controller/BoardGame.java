@@ -12,6 +12,11 @@ public class BoardGame
     ArrayList<King> kingsPlayer;
     private KingColor[] allColors = KingColor.values();
     private GameContext strategy; // les stratégie utilisé
+
+    public BoardGame()
+    {
+    }
+
     public BoardGame(int nbKing, GameContext strat)
     {
         strategy = strat;

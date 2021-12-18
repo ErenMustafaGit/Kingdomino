@@ -1,5 +1,6 @@
 package View;
 
+import Controller.BoardGame;
 import Model.GameObserver;
 import Model.GameMode;
 import Model.PlayerStrategy;
@@ -8,6 +9,7 @@ import javax.swing.*;
 
 public class MyWindow extends JFrame implements GameObserver
 {
+    BoardGame boardGame;
     public MyWindow() {
         setTitle( "Kingdomino" );
         setSize( 1280, 720 );
@@ -20,6 +22,16 @@ public class MyWindow extends JFrame implements GameObserver
 
         setVisible( true );
     }
+    public MyWindow(BoardGame boardGame) {
+        this.boardGame = boardGame;
+        setTitle( "Kingdomino" );
+        setSize( 1280, 720 );
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+        setContentPane( new MainMenu2(this));
+        setVisible( true );
+}
+
 
     public void setGamePanel(){
         GameView gameView = new GameView(this);
