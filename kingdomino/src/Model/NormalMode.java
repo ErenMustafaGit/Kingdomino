@@ -1,8 +1,6 @@
 package Model;
 
-import java.util.Arrays;
-
-public class NormalMode implements GameStrategy{
+public class NormalMode implements GameMode {
 
     private Ground ground;
     private Ground otherGround;

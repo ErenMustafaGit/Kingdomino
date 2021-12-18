@@ -18,7 +18,7 @@ public class IMGReader {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Image dimg = myPicture.getScaledInstance(110, 110,
+        Image dimg = myPicture.getScaledInstance(50, 50,
                 Image.SCALE_SMOOTH);
 
         return new JLabel(new ImageIcon(dimg));

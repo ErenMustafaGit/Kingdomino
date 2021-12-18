@@ -1,11 +1,15 @@
 package Model;
 
-public class MiddleKingdom implements GameStrategy
+public class MiddleKingdom extends ModeDecorator
 {
     Ground ground;
     private Ground otherGround;
     private GroundColor color;
     Castle castle;
+
+    public MiddleKingdom(GameMode gameMode) {
+        super(gameMode);
+    }
 
     @Override
     public int calculateScore(Player p) {
