@@ -17,6 +17,7 @@ public class ChoosingMenu {
 
 
     public ChoosingMenu(MyWindow MyWindow) {
+        this.mainFrame = MyWindow;
         //utilisation d'un grid Layout
         panel.setLayout(new GridLayout(10,3,10,10));
 
@@ -39,6 +40,16 @@ public class ChoosingMenu {
         cboplayers();
         //affichage des cbo qui permet de choisir la couleur des rois des joueurs
         getColorCbo();
+
+        JButton button2 = new JButton("Play");
+        button2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mainFrame.setGamePanel();
+            }
+        });
+        button2.setVisible(true);
+        panel.add(button2);
     }
 
     //Quand on clique sur le bouton play on est redirigé vers cette fenetre
