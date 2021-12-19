@@ -1,5 +1,6 @@
 package View;
 
+import Model.Harmony;
 import Model.KingColor;
 import Utilities.IMGReader;
 
@@ -20,6 +21,9 @@ public class ChoosingMenu {
     private ButtonGroup group;
     private String[] nbreofplayers = {"2","3","4"};
     private Image img;
+
+    Checkbox harmony = new Checkbox("Harmony");
+    Checkbox middle_kingdom = new Checkbox("Middle Kingdom");
 
 
     public ChoosingMenu(MyWindow MyWindow) {
@@ -54,6 +58,9 @@ public class ChoosingMenu {
         button2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if(harmony.getState() && middle_kingdom.getState()){
+
+                }
                 mainFrame.setGamePanel();
             }
         });
@@ -75,12 +82,11 @@ public class ChoosingMenu {
         panel.add(mode);
         //en vrai il sert à rien le group
         CheckboxGroup group = new CheckboxGroup();
-        Checkbox Harmony = new Checkbox("Harmony");
-        Checkbox middle_kingdom = new Checkbox("Middle Kingdom");
 
-        panel.add(Harmony);
+
+        panel.add(harmony);
         panel.add(middle_kingdom);
-        Harmony.setVisible(true);
+        harmony.setVisible(true);
         middle_kingdom.setVisible(true);
         return group;
     }

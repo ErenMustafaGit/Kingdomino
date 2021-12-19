@@ -36,8 +36,8 @@ public class GameController
     }
 
     public void initializeGame() throws InstantiationException {
-        if (strategy.nbPlayersStrat instanceof FourPlayers) {
-            for (int i = 0; i < ( strategy.nbPlayersStrat).getnbBoard(); i++) // boucle sur les 4 rois différents de la partie
+        if (strategy.getNbPlayersStrat() instanceof FourPlayers) {
+            for (int i = 0; i < ( strategy.getNbPlayersStrat()).getnbBoard(); i++) // boucle sur les 4 rois différents de la partie
             {
                 int random = new Random().nextInt(allColors.length); // sélection aléatoire de la couleur à assigner au joueur
                 if (allColors[random] != null) //teste de la disponibilité de la couleur choisi
@@ -55,9 +55,9 @@ public class GameController
                 }
             }
         }
-        else if(strategy.nbPlayersStrat instanceof ThreePlayers)
+        else if(strategy.getNbPlayersStrat() instanceof ThreePlayers)
         {
-            for (int i = 0; i < (strategy.nbPlayersStrat).getnbBoard(); i++) // boucle sur les 3 rois différents de la partie
+            for (int i = 0; i < (strategy.getNbPlayersStrat()).getnbBoard(); i++) // boucle sur les 3 rois différents de la partie
             {
                 int random = new Random().nextInt(allColors.length); // sélection aléatoire de la couleur à assigner au joueur
                 if (allColors[random] != null) //teste de la disponibilité de la couleur choisi
@@ -74,9 +74,9 @@ public class GameController
                 }
             }
         }
-        else if (strategy.nbPlayersStrat instanceof TwoPlayers)
+        else if (strategy.getNbPlayersStrat() instanceof TwoPlayers)
         {
-            for (int i = 0; i < ( strategy.nbPlayersStrat).getnbBoard()/2; i++) // boucle sur les 4 rois différents de la partie
+            for (int i = 0; i < ( strategy.getNbPlayersStrat()).getnbBoard()/2; i++) // boucle sur les 4 rois différents de la partie
             {
                 int random = new Random().nextInt(allColors.length); // sélection aléatoire de la couleur à assigner au joueur
                 if (allColors[random] != null) //teste de la disponibilité de la couleur choisi
