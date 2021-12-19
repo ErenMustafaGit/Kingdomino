@@ -207,12 +207,12 @@ package Utilities{
 }
 
 
-Ground .|> Positionnable
-Castle .|> Positionnable
+Ground ..|> Positionnable
+Castle ..|> Positionnable
 PlayerBoard "..*\n-board" *-r-> Positionnable : > contains
 
 Deck ..> CSVReader :  > use
-Ground "1"*-->"1"GroundColor
+Ground "1\n-color"*-->"1"GroundColor
 Tile *-->Ground : "1\n-left\n1\n-right" > composed
 
 'A SUPP
@@ -244,8 +244,10 @@ PlayerBoard .> Direction : > use
 ModeDecorator .u.|> GameMode
 NormalMode .u.|> GameMode
 
-King"1\n-color"*->"1" KingColor: > had
-Castle"1\n-color"*-->KingColor : > had
+King"1\n-color"*-->"1" KingColor: > had
+
+
+Castle"1\n-color"*-->GroundColor : > had
 
 MyWindow "1\n-mainMenu" *--> MainMenu
 MyWindow "1\n-choosingMenu" *--> ChoosingMenu
