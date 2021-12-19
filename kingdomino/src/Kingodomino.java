@@ -7,8 +7,8 @@ import View.MyWindow;
 public class Kingodomino {
     public static void main(String[] args) {
         GameContext gameContext = new GameContext();
-        GameController boardgame = new GameController();
-        MyWindow myWindow = new MyWindow(boardgame);
+        GameController gameController = new GameController(gameContext);
+        MyWindow myWindow = new MyWindow(gameController, gameContext);
 
         gameContext.addObserver( myWindow );
 

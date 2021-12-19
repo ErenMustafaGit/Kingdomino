@@ -5,4 +5,8 @@ public interface PlayerStrategy {
     int getnbTile();
     //nombre de plateau
     int getnbBoard();
+
+    //nombre de plateau
+    int getnbKings();
+
 }

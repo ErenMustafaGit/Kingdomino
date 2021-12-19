@@ -11,4 +11,9 @@ public class FourPlayers implements PlayerStrategy
     public int getnbBoard() {
         return 4;
     }
+
+    @Override
+    public int getnbKings() {
+        return 4;
+    }
 }

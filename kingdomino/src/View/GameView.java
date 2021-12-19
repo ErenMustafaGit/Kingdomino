@@ -8,49 +8,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class GameView  {
+public class GameView extends JPanel {
     private MyWindow mainFrame;
-    private JPanel panel = new JPanel();
 
-    public GameView(MyWindow MyWindow){
+    public GameView(MyWindow MyWindow)  {
         this.mainFrame = MyWindow;
-
-
-
-
-        //A SUPPR -> l'ajout d'un playerboard ne se fait pas ici!! (JUSTE POUR TESTER)
-        Castle caste = new Castle();
-        PlayerBoard playerBoard = new PlayerBoard(caste);
-        Ground yellow = new Ground( GroundColor.YELLOW , 1);
-        Ground blue = new Ground( GroundColor.BLUE , 2);
-        Ground black = new Ground( GroundColor.BLACK, 0 );
-        Ground light = new Ground( GroundColor.LIGHT_GREEN, 0 );
-        Ground dark = new Ground( GroundColor.DARK_GREEN, 0 );
-        Ground brown = new Ground( GroundColor.BROWN, 0 );
-
-        Tile lb = new Tile(1,light, blue);
-        Tile blbr = new Tile(2,blue, brown);
-        Tile ll = new Tile(3,light, light);
-        Tile ly = new Tile(4,light, yellow);
-        Tile bdark = new Tile(4,blue, black);
-        Tile yb = new Tile(1,yellow, blue);
-        Tile ybr = new Tile(3,yellow, brown);
-        Tile brbr = new Tile(2,brown, brown);
-
-        /********TABLEAU SUR FIGMA*********/
-        playerBoard.setTile( 3, 2, Direction.EAST, lb );
-        playerBoard.setTile( 4, 3, Direction.SOUTH, blbr );
-        playerBoard.setTile( 2, 3, Direction.EAST, ll );
-        playerBoard.setTile( 3, 1, Direction.NORTH, ly );
-        playerBoard.setTile( 0, 2, Direction.EAST, bdark );
-        playerBoard.setTile( 0, 3, Direction.SOUTH, blbr );
-        playerBoard.setTile( 3, 4, Direction.WEST, lb );
-        playerBoard.setTile( 1, 4, Direction.NORTH, yb );
-        playerBoard.setTile( 2, 1, Direction.WEST, ybr );
-        playerBoard.setTile( 0, 0 , Direction.EAST, brbr );
-        playerBoard.setTile( 4, 1 , Direction.NORTH, blbr );
-
-        //SUPP EN HAUT !
 
 
         /***GAMEBOARD***/
@@ -70,7 +32,7 @@ public class GameView  {
         boardC.gridx = 0;
         boardC.gridy = 0;
         boardC.fill = GridBagConstraints.BOTH;
-        boardsPanel.setBackground( Color.RED );
+        boardsPanel.setBackground( Color.GRAY );
         gameBoard.add( boardsPanel, boardC );
 
 
@@ -81,16 +43,26 @@ public class GameView  {
 
         boardC.gridx = 0;
         boardC.gridy = 0;
-        boardsPanel.add( createPlayerBoardPanel(playerBoard), boardC);
+        boardsPanel.add( createPlayerBoardPanel(mainFrame.getGame().getPlayers().get(0).getBoard()), boardC);
+
 
         boardC.gridx = 0;
         boardC.gridy = 1;
-        boardsPanel.add( createPlayerBoardPanel(playerBoard), boardC);
+        boardsPanel.add( createPlayerBoardPanel(mainFrame.getGame().getPlayers().get(1).getBoard()), boardC);
+
+        if( mainFrame.getGame().getNbPlayersStrat().getnbBoard() > 2 ){
+            boardC.gridx = 1;
+            boardC.gridy = 0;
+            boardsPanel.add( createPlayerBoardPanel(mainFrame.getGame().getPlayers().get(2).getBoard()), boardC);
+            if( mainFrame.getGame().getNbPlayersStrat().getnbBoard() > 3 ){
+                boardC.gridx = 1;
+                boardC.gridy = 1;
+                boardsPanel.add( createPlayerBoardPanel(mainFrame.getGame().getPlayers().get(3).getBoard()), boardC);
+            }
+        }
 
 
-        boardC.gridx = 1;
-        boardC.gridy = 1;
-        boardsPanel.add( createPlayerBoardPanel(playerBoard), boardC);
+
 
 
 
@@ -110,17 +82,24 @@ public class GameView  {
         gameBoard.add( gameInterac, boardC );
 
         /** Creation des boutons (dans gameInterac) **/
+        /*
         for (int i = 0; i<4; i++){
             interacC.gridx = 0;
             interacC.gridy = i;
-            gameInterac.add( createTile(lb) , interacC);
+            gameInterac.add( createTile( mainFrame.getGame().getCurrentTiles().get(i) ) , interacC);
+        }*/
+
+        /** Creation des boutons chateau (dans gameInterac) **/
+        for (int i = 0; i< mainFrame.getGame().getNbPlayersStrat().getnbBoard(); i++){
+            interacC.gridx = 0;
+            interacC.gridy = i;
+            gameInterac.add(     createCastle( ) , interacC);
         }
 
 
 
 
-
-        panel.setLayout( new GridBagLayout());
+        this.setLayout( new GridBagLayout());
         // Crée un objet de contraintes
         GridBagConstraints c = new GridBagConstraints();
 
@@ -137,7 +116,7 @@ public class GameView  {
         // ligne 0
         c.gridy = 0;
         // Ajouter les contraintes
-        panel.add( header, c );
+        this.add( header, c );
 
         /**Ajout du gameBoard**/
         // colonne 0
@@ -149,7 +128,7 @@ public class GameView  {
         // augmente la hauteur des composants de 40 pixels
         c.ipady = 20;
         // Ajouter les contraintes
-        panel.add( gameBoard, c );
+        this.add( gameBoard, c );
 
         /**Bouton de retourn au menu**/
         JButton backButton = new JButton("Go back to the menu");
@@ -163,15 +142,15 @@ public class GameView  {
         c.gridx = 0;
         c.gridy = 2;
         // Ajouter les contraintes
-        panel.add( backButton, c );
+        this.add( backButton, c );
 
 
 
         // ajouter le contenu
-        mainFrame.getContentPane().add(panel);
+        mainFrame.getContentPane().add(this);
     }
     public JPanel getMainPanel(){
-        return this.panel;
+        return this;
     }
 
     /** Fonction qui renvoie un JPanel contenant l'affichage du playerboard passé en parametre
@@ -187,23 +166,33 @@ public class GameView  {
         //Place chaque image correspondantes
         for(int j = 0; j<playerBoard.BOARD_SIZE; j++){
             for(int i = 0; i<playerBoard.BOARD_SIZE; i++){
+                JButton btn = new JButton();
                 //Met l'image correspondant à la couleur de la case
                 if(playerBoard.getPositionnable(i,j) == null){
-                    boardPnl.add( IMGReader.getImagePnl("empty.jpg") );
+                    btn.setIcon( IMGReader.getImage("empty.jpg") );
+                    boardPnl.add(btn);
+                    //boardPnl.add( IMGReader.getImagePnl("empty.jpg") );
                 }else if(playerBoard.getPositionnable(i,j).getColor() == GroundColor.GREY){
-                    boardPnl.add(IMGReader.getImagePnl("castle.png"));
+                    btn.setIcon( IMGReader.getImage("castle.png") );
+                    boardPnl.add(btn);
                 }else if(playerBoard.getPositionnable(i,j).getColor() == GroundColor.YELLOW){
-                    boardPnl.add(IMGReader.getImagePnl("champs.png"));
+                    btn.setIcon( IMGReader.getImage("champs.png") );
+                    boardPnl.add(btn);
                 }else if(playerBoard.getPositionnable(i,j).getColor() == GroundColor.DARK_GREEN){
-                    boardPnl.add(IMGReader.getImagePnl("foret.png"));
+                    btn.setIcon( IMGReader.getImage("foret.png") );
+                    boardPnl.add(btn);
                 }else if(playerBoard.getPositionnable(i,j).getColor() == GroundColor.LIGHT_GREEN){
-                    boardPnl.add(IMGReader.getImagePnl("prairie.png"));
+                    btn.setIcon( IMGReader.getImage("prairie.png") );
+                    boardPnl.add(btn);
                 }else if(playerBoard.getPositionnable(i,j).getColor() == GroundColor.BLACK){
-                    boardPnl.add(IMGReader.getImagePnl("mines.png"));
+                    btn.setIcon( IMGReader.getImage("mines.png") );
+                    boardPnl.add(btn);
                 }else if(playerBoard.getPositionnable(i,j).getColor() == GroundColor.BLUE){
-                    boardPnl.add(IMGReader.getImagePnl("mer.png"));
+                    btn.setIcon( IMGReader.getImage("mer.png") );
+                    boardPnl.add(btn);
                 }else if(playerBoard.getPositionnable(i,j).getColor() == GroundColor.BROWN){
-                    boardPnl.add(IMGReader.getImagePnl("montagne.png"));
+                    btn.setIcon( IMGReader.getImage("montagne.png") );
+                    boardPnl.add(btn);
                 }
             }
         }
@@ -227,44 +216,44 @@ public class GameView  {
         switch(tile.getLeft().getColor()){
 
             case YELLOW:
-                left.add( IMGReader.getImagePnl("champs.png") );
+                left.setIcon( IMGReader.getImage("montagne.png") );
                 break;
             case DARK_GREEN:
-                left.add( IMGReader.getImagePnl("foret.png") );
+                left.setIcon(IMGReader.getImage("foret.png") );
                 break;
             case LIGHT_GREEN:
-                left.add( IMGReader.getImagePnl("prairie.png") );
+                left.setIcon( IMGReader.getImage("prairie.png") );
                 break;
             case BLACK:
-                left.add( IMGReader.getImagePnl("mines.png") );
+                left.setIcon( IMGReader.getImage("mines.png") );
                 break;
             case BLUE:
-                left.add( IMGReader.getImagePnl("mer.png") );
+                left.setIcon( IMGReader.getImage("mer.png") );
                 break;
             case BROWN:
-                left.add( IMGReader.getImagePnl("montagne.png") );
+                left.setIcon( IMGReader.getImage("montagne.png") );
                 break;
         }
 
         switch(tile.getRight().getColor()){
 
             case YELLOW:
-                right.add( IMGReader.getImagePnl("champs.png") );
+                right.setIcon( IMGReader.getImage("champs.png") );
                 break;
             case DARK_GREEN:
-                right.add( IMGReader.getImagePnl("foret.png") );
+                right.setIcon( IMGReader.getImage("foret.png") );
                 break;
             case LIGHT_GREEN:
-                right.add( IMGReader.getImagePnl("prairie.png") );
+                right.setIcon( IMGReader.getImage("prairie.png") );
                 break;
             case BLACK:
-                right.add( IMGReader.getImagePnl("mines.png") );
+                right.setIcon( IMGReader.getImage("mines.png") );
                 break;
             case BLUE:
-                right.add( IMGReader.getImagePnl("mer.png") );
+                right.setIcon( IMGReader.getImage("mer.png") );
                 break;
             case BROWN:
-                right.add( IMGReader.getImagePnl("montagne.png") );
+                right.setIcon( IMGReader.getImage("montagne.png") );
                 break;
         }
 
@@ -276,6 +265,12 @@ public class GameView  {
 
 
         return tilePanel;
+    }
+
+    public JButton createCastle(){
+        JButton btn = new JButton();
+        btn.setIcon( IMGReader.getImage("castle.png") );
+        return btn;
     }
 
 

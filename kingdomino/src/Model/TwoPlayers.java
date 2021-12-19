@@ -10,4 +10,9 @@ public class TwoPlayers implements PlayerStrategy{
     public int getnbBoard() {
         return 2;
     }
+
+    @Override
+    public int getnbKings() {
+        return 4;
+    }
 }

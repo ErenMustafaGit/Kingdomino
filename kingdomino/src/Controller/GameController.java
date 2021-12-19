@@ -11,16 +11,16 @@ public class GameController
     private ArrayList<Player> players;
     ArrayList<King> kingsPlayer;
     private KingColor[] allColors = KingColor.values();
-    private GameContext strategy; // les stratégie utilisé
+    private GameContext game; // les stratégie utilisé
 
     public GameController()
     {
 
     }
 
-    public GameController(int nbKing, GameContext strat)
+    public GameController(GameContext game)
     {
-        strategy = strat;
+        this.game = game;
     }
 
     public void createPlayer(KingColor color, ArrayList<King> kings, PlayerBoard board)
@@ -35,7 +35,12 @@ public class GameController
         kingsPlayer.add(newKing);
     }
 
-    public void initializeGame() throws InstantiationException {
+    public void initializeGame( int nbPlayers, int gameMode ) {
+
+        this.game.setPlayerStrategy(nbPlayers);
+        this.game.setGameStrategy(gameMode);
+        this.game.initGame();
+        /*
         if (strategy.getNbPlayersStrat() instanceof FourPlayers) {
             for (int i = 0; i < ( strategy.getNbPlayersStrat()).getnbBoard(); i++) // boucle sur les 4 rois différents de la partie
             {
@@ -93,17 +98,14 @@ public class GameController
                     i = i-1;
                 }
             }
-        }
-        else
-        {
-                throw new InstantiationException("Stratégie inexistante");
-        }
+        }*/
+
     }
 
 
     public void placeTile(Player player, Tile tile, int pos_x, int pos_y, Direction dir)
     {
-        player.board.setTile(pos_x, pos_y, dir, tile);
+        player.getBoard().setTile(pos_x, pos_y, dir, tile);
     }
 
     public void newRound()
