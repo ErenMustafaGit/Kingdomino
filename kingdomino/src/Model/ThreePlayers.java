@@ -10,4 +10,9 @@ public class ThreePlayers implements PlayerStrategy{
     public int getnbBoard() {
         return 3;
     }
+
+    @Override
+    public int getnbKings() {
+        return 3;
+    }
 }

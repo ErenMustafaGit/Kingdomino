@@ -15,8 +15,8 @@ public class NormalMode implements GameMode {
         int crownumber=ground.getCrownNumber();
         //compte le nombre de case
         int box =1;
-        for(int i=0; i<p.board.BOARD_SIZE; i++){
-            for(int j=0; j<p.board.BOARD_SIZE; j++){
+        for(int i=0; i<p.getBoard().BOARD_SIZE; i++){
+            for(int j=0; j<p.getBoard().BOARD_SIZE; j++){
                 //si dans le terrain il y'a au moins une couronne
                 if(crownumber>0){
                     box +=1;
@@ -24,47 +24,47 @@ public class NormalMode implements GameMode {
 
                     if(i-1 >= 0){
                         //si la case n'est pas vide
-                        if(p.board.getPositionnable(i, j-1)!= null){
+                        if(p.getBoard().getPositionnable(i, j-1)!= null){
                             //on récupère la couleur de la case
-                            color = p.board.getPositionnable(i, j-1).getColor();
+                            color = p.getBoard().getPositionnable(i, j-1).getColor();
                             //si la couleur de la case précédente est la meme que celle que celle qu'on voit (avec une couronne)
-                            if( color == ground.getColor() && !p.board.getPositionnable(i,j-1).isCounted()){
-                                otherGround=(Ground)p.board.getPositionnable(i,j-1);
+                            if( color == ground.getColor() && !p.getBoard().getPositionnable(i,j-1).isCounted()){
+                                otherGround=(Ground)p.getBoard().getPositionnable(i,j-1);
                                 crownumber+=otherGround.getCrownNumber();
                                 box +=1;
                                 ground.setCounted(true);
                             }
                         }
                     }
-                    if(i+1 < p.board.BOARD_SIZE){
-                        if(p.board.getPositionnable(i,j+1) !=null){
-                            color = p.board.getPositionnable(i, j+1).getColor();
-                            if( color == ground.getColor() && !p.board.getPositionnable(i, j+1).isCounted()){
+                    if(i+1 < p.getBoard().BOARD_SIZE){
+                        if(p.getBoard().getPositionnable(i,j+1) !=null){
+                            color = p.getBoard().getPositionnable(i, j+1).getColor();
+                            if( color == ground.getColor() && !p.getBoard().getPositionnable(i, j+1).isCounted()){
                                 crownumber+= otherGround.getCrownNumber();
                                 box +=1;
-                                p.board.getPositionnable(i, j+1).setCounted(true);
+                                p.getBoard().getPositionnable(i, j+1).setCounted(true);
                             }
                         }
 
                     }
                     if(j-1 >= 0){
-                        if(p.board.getPositionnable(i-1,j) !=null){
-                           color = p.board.getPositionnable(i-1,j).getColor();
-                            if(color == ground.getColor() && !p.board.getPositionnable(i-1,j).isCounted()){
+                        if(p.getBoard().getPositionnable(i-1,j) !=null){
+                           color = p.getBoard().getPositionnable(i-1,j).getColor();
+                            if(color == ground.getColor() && !p.getBoard().getPositionnable(i-1,j).isCounted()){
                                 crownumber+= otherGround.getCrownNumber();
                                 box +=1;
-                                p.board.getPositionnable(i-1,j).setCounted(true);
+                                p.getBoard().getPositionnable(i-1,j).setCounted(true);
                             }
                         }
 
                     }
-                    if(j+1 < p.board.BOARD_SIZE){
-                        if(p.board.getPositionnable(i+1,j) !=null){
-                           color = p.board.getPositionnable(i+1,j).getColor();
-                            if( color == ground.getColor() && ! p.board.getPositionnable(i+1,j).isCounted()){
+                    if(j+1 < p.getBoard().BOARD_SIZE){
+                        if(p.getBoard().getPositionnable(i+1,j) !=null){
+                           color = p.getBoard().getPositionnable(i+1,j).getColor();
+                            if( color == ground.getColor() && ! p.getBoard().getPositionnable(i+1,j).isCounted()){
                                 crownumber+= otherGround.getCrownNumber();
                                 box +=1;
-                                p.board.getPositionnable(i+1,j).setCounted(true);
+                                p.getBoard().getPositionnable(i+1,j).setCounted(true);
                             }
                         }
                     }

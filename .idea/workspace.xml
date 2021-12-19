@@ -10,20 +10,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b296bc09-cc63-4dd7-9250-50d90129aaa5" name="Default Changelist" comment="push">
-      <change afterPath="$PROJECT_DIR$/kingdomino/UML/alex.puml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kingdomino/src/META-INF/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/a31-kingdomino.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/a31-kingdomino.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/UML/View.puml" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/UML/View.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Controller/BoardGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Controller/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/ressources/castle.png" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/ressources/castle.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/ressources/champs.png" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/ressources/champs.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/ressources/empty.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/ressources/empty.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/ressources/foret.png" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/ressources/foret.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/ressources/mer.png" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/ressources/mer.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/ressources/mines.png" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/ressources/mines.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/ressources/montagne.png" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/ressources/montagne.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/ressources/prairie.png" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/ressources/prairie.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/src/Controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Controller/GameController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kingdomino/src/Kingodomino.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Kingodomino.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/FourPlayers.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Model/FourPlayers.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/GameContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Model/GameContext.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/Harmony.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Model/Harmony.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/MiddleKingdom.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Model/MiddleKingdom.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/NormalMode.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Model/NormalMode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Model/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/PlayerStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Model/PlayerStrategy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/ThreePlayers.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Model/ThreePlayers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/TwoPlayers.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Model/TwoPlayers.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kingdomino/src/Utilities/CSVReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Utilities/CSVReader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kingdomino/src/Utilities/IMGReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Utilities/IMGReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/src/View/ChoosingMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/View/ChoosingMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kingdomino/src/View/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/View/GameView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/View/MainMenu.form" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/View/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/View/MainMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/View/MainMenu2.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/kingdomino/src/View/MyWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/View/MyWindow.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -44,7 +54,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="GameController" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -120,9 +130,9 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Kingodomino" />
-        <item itemvalue="JUnit.TestPlayerBoard" />
         <item itemvalue="JUnit.TestPlayerBoard$FullPlayerBoard.testEstNull" />
         <item itemvalue="JUnit.TestPlayerBoard$FullPlayerBoard" />
+        <item itemvalue="JUnit.TestPlayerBoard" />
         <item itemvalue="JUnit.All in a31-kingdomino" />
       </list>
     </recent_temporary>
@@ -213,7 +223,21 @@
       <option name="project" value="LOCAL" />
       <updated>1639855767221</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Set background IMG in ChoosingMenu">
+      <created>1639938565862</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1639938565862</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Meta inf added">
+      <created>1639938582252</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1639938582252</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -241,6 +265,8 @@
     <MESSAGE value="GameView changed into gridbaglayout&#10;and ModeStrategy into ModeDecorator" />
     <MESSAGE value="GameView : Finished to place all the components" />
     <MESSAGE value="Improved GameView" />
-    <option name="LAST_COMMIT_MESSAGE" value="Improved GameView" />
+    <MESSAGE value="Set background IMG in ChoosingMenu" />
+    <MESSAGE value="Meta inf added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Meta inf added" />
   </component>
 </project>

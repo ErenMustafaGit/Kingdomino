@@ -2,6 +2,7 @@ package View;
 
 import Model.Harmony;
 import Model.KingColor;
+import Model.PlayerStrategy;
 import Utilities.IMGReader;
 
 import javax.swing.*;
@@ -19,6 +20,8 @@ public class ChoosingMenu extends JPanel {
     private MyWindow mainFrame;
     private ButtonGroup group;
     private String[] nbreofplayers = {"2","3","4"};
+    JComboBox NbredeJoueurs = new JComboBox(nbreofplayers);
+
     private ImageIcon img;
 
     Checkbox harmony = new Checkbox("Harmony");
@@ -57,9 +60,15 @@ public class ChoosingMenu extends JPanel {
         button2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(harmony.getState() && middle_kingdom.getState()){
-
+                int gameMode = 0;
+                if( harmony.getState() && middle_kingdom.getState() ){
+                    gameMode = 3;
+                }else if( harmony.getState() ){
+                    gameMode = 1;
+                }else if (middle_kingdom.getState()){
+                    gameMode = 2;
                 }
+                mainFrame.getGameController().initializeGame( Integer.parseInt(NbredeJoueurs.getSelectedItem().toString()), gameMode );
                 mainFrame.setGamePanel();
             }
         });
@@ -96,7 +105,6 @@ public class ChoosingMenu extends JPanel {
         joueurs.setFont(new Font("Bookman Old Style", Font.BOLD, 20));
         joueurs.setVisible(true);
         this.add(joueurs);
-        JComboBox NbredeJoueurs = new JComboBox(nbreofplayers);
         this.add(NbredeJoueurs);
         NbredeJoueurs.setVisible(true);
         return NbredeJoueurs;

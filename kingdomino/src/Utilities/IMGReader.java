@@ -17,6 +17,10 @@ public class IMGReader {
     private static final String RESSOURCE_PATH = "./kingdomino/ressources/";
 
     public static JLabel getImagePnl(String filename) {
+
+
+
+
         BufferedImage myPicture = null;
         try {
             myPicture = ImageIO.read(new File(RESSOURCE_PATH + filename));
@@ -50,7 +54,6 @@ public class IMGReader {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println( img );
         return img;
         /*
         BufferedImage myPicture = null;
