@@ -14,6 +14,9 @@ Le test pour le type du terrain, une fois la case choisie, sera effectué de sor
 
 Les tuiles sont composées de deux terrains (gauche et droite). Pour connaître leur placement dans le plateau, nous avons opté pour choisir un côté principal (qui est le gauche dans notre cas), puis lors du placement le joueur devra choisir une direction à sa tuile (nord, sud, est, ouest) ce qui nous permet de connaître la position du terrain de droite par la suite.
 
+##Deck
+Notre deck est modélisé par un Stack, ce qui permet facilement de prendre une carte avec pop().
+Cela représente parfaitement le comportement que notre deck doit avoir.
 
 ## Modes de jeu
 
