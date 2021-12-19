@@ -16,7 +16,7 @@ package Controller{
 package GameController #technology{
     ' plateau de jeu
     class GameController{
-
+        +GameController(game:GameContext)
         +createPlayer(color:KingColor, kings:Collection<King>)
 
     }
@@ -123,13 +123,6 @@ package Model #mistyrose{
         +update(gameContext:GameContext)
     }
 
-    class TileBoard{
-
-        +instance:TileBoard
-        {static}+getIntance():TileBoard
-    }
-
-
 
 
     class PlayerBoard{
@@ -222,7 +215,6 @@ Deck "..* -tiles" *-> Tile : > had
 
 
 
-TileBoard o--> Tile : "0,8\ntiles" > had
 
 
 GameContext *-r-> Deck
@@ -235,10 +227,8 @@ GameContext *-> Player : "2..4\n-players" > played by
 GameController o--> GameContext : "1\n-gameContext" > had
 
 
-
-Player .> TileBoard : > use
 Player *-> PlayerBoard : "1\n-board" > had
-Player  o--> King : "1..2\n-kings" > had
+Player  o-> King : "1..2\n-kings" > had
 'PlayerBoard <--* "2..4\n-playerBoards" BoardGame
 PlayerBoard "1\n-tile" o--> Tile
 PlayerBoard "1\n-castle" o-> Castle : > had
@@ -261,8 +251,8 @@ MyWindow *--> GameView
 
 
 KingDomino..> GameController : <<create>>
-KingDomino.> PlayerStrategy : <<use>>
-KingDomino..> GameMode : <<use>>
+'KingDomino.> PlayerStrategy : <<use>>
+'KingDomino..> GameMode : <<use>>
 KingDomino ..>MyWindow : <<create>>
 KingDomino ..>GameContext : <<create>>
 MyWindow o-> GameController : > send \nuser request
