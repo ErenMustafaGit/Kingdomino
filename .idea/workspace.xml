@@ -9,192 +9,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b296bc09-cc63-4dd7-9250-50d90129aaa5" name="Default Changelist" comment="push">
-      <change afterPath="$PROJECT_DIR$/rendu1/docs/listeTuiles.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/docs/reglesKingdomino.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/Tests/TestPlayerBoard.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/UML/View.puml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/UML/init.puml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/resources/META-INF/MANIFEST.MF" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/ressources/castle.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/ressources/castleBig.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/ressources/champs.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/ressources/champsBig.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/ressources/empty.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/ressources/emptyBig.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/ressources/foret.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/ressources/foretBig.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/ressources/kingdomino.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/ressources/kingdomino_elements_small.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/ressources/main.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/ressources/mer.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/ressources/merBig.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/ressources/mines.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/ressources/minesBig.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/ressources/montagne.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/ressources/montagneBig.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/ressources/prairie.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/ressources/prairieBig.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/ressources/wallpaper.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/ressources/wood.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/src/Controller/GameController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/src/Kingodomino.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/src/Model/Castle.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/src/Model/Deck.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/src/Model/Direction.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/src/Model/FourPlayers.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/src/Model/GameContext.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/src/Model/GameMode.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/src/Model/GameObserver.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/src/Model/Ground.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/src/Model/GroundColor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/src/Model/Harmony.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/src/Model/King.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/src/Model/KingColor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/src/Model/MiddleKingdom.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/src/Model/ModeDecorator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/src/Model/NormalMode.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/src/Model/Player.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/src/Model/PlayerBoard.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/src/Model/PlayerStrategy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/src/Model/Positionable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/src/Model/ThreePlayers.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/src/Model/Tile.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/src/Model/TwoPlayers.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/src/Utilities/CSVReader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/src/Utilities/IMGReader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/src/View/ChoosingMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/src/View/GameView.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/src/View/Log.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/src/View/MainMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/kingdomino/src/View/MyWindow.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/lib/apiguardian-api-1.1.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/lib/junit-jupiter-5.7.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/lib/junit-jupiter-api-5.7.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/lib/junit-jupiter-engine-5.7.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/lib/junit-jupiter-params-5.7.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/lib/junit-platform-commons-1.7.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/lib/junit-platform-engine-1.7.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/lib/opentest4j-1.2.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/out/artifacts/a31_kingdomino_jar/KINGDOMINO.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/out/production/a31-kingdomino/castle.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/out/production/a31-kingdomino/castleBig.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/out/production/a31-kingdomino/champs.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/out/production/a31-kingdomino/champsBig.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/out/production/a31-kingdomino/empty.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/out/production/a31-kingdomino/emptyBig.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/out/production/a31-kingdomino/foret.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/out/production/a31-kingdomino/foretBig.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/out/production/a31-kingdomino/kingdomino.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/out/production/a31-kingdomino/kingdomino_elements_small.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/out/production/a31-kingdomino/main.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/out/production/a31-kingdomino/mer.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/out/production/a31-kingdomino/merBig.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/out/production/a31-kingdomino/mines.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/out/production/a31-kingdomino/minesBig.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/out/production/a31-kingdomino/montagne.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/out/production/a31-kingdomino/montagneBig.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/out/production/a31-kingdomino/prairie.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/out/production/a31-kingdomino/prairieBig.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/out/production/a31-kingdomino/wallpaper.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rendu1/out/production/a31-kingdomino/wood.jpeg" afterDir="false" />
+    <list default="true" id="b296bc09-cc63-4dd7-9250-50d90129aaa5" name="Default Changelist" comment="delete manifest.mf">
+      <change beforePath="$PROJECT_DIR$/.idea/a31-kingdomino.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/a31-kingdomino.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/listeTuiles.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/reglesKingdomino.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/.idea/.name" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/.idea/runConfigurations.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/Tests/TestPlayerBoard.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/UML/View.puml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/UML/init.puml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/kingdomino.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/resources/META-INF/MANIFEST.MF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/ressources/castle.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/ressources/castleBig.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/ressources/champs.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/ressources/champsBig.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/ressources/empty.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/ressources/emptyBig.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/ressources/foret.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/ressources/foretBig.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/ressources/kingdomino.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/ressources/kingdomino_elements_small.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/ressources/main.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/ressources/mer.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/ressources/merBig.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/ressources/mines.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/ressources/minesBig.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/ressources/montagne.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/ressources/montagneBig.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/ressources/prairie.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/ressources/prairieBig.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/ressources/wallpaper.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/ressources/wood.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Controller/GameController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Kingodomino.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/Castle.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/Deck.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/Direction.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/FourPlayers.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/GameContext.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/GameMode.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/GameObserver.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/Ground.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/GroundColor.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/Harmony.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/King.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/KingColor.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/MiddleKingdom.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/ModeDecorator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/NormalMode.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/Player.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/PlayerBoard.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/PlayerStrategy.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/Positionable.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/ThreePlayers.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/Tile.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/TwoPlayers.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Utilities/CSVReader.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Utilities/IMGReader.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/View/ChoosingMenu.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/View/GameView.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/View/Log.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/View/MainMenu.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/View/MyWindow.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/apiguardian-api-1.1.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/junit-jupiter-5.7.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/junit-jupiter-api-5.7.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/junit-jupiter-engine-5.7.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/junit-jupiter-params-5.7.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/junit-platform-commons-1.7.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/junit-platform-engine-1.7.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/opentest4j-1.2.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/a31_kingdomino_jar/KINGDOMINO.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/a31-kingdomino/castle.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/a31-kingdomino/castleBig.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/a31-kingdomino/champs.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/a31-kingdomino/champsBig.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/a31-kingdomino/empty.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/a31-kingdomino/emptyBig.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/a31-kingdomino/foret.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/a31-kingdomino/foretBig.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/a31-kingdomino/kingdomino.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/a31-kingdomino/kingdomino_elements_small.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/a31-kingdomino/main.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/a31-kingdomino/mer.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/a31-kingdomino/merBig.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/a31-kingdomino/mines.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/a31-kingdomino/minesBig.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/a31-kingdomino/montagne.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/a31-kingdomino/montagneBig.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/a31-kingdomino/prairie.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/a31-kingdomino/prairieBig.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/a31-kingdomino/wallpaper.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/a31-kingdomino/wood.jpeg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -235,6 +52,10 @@
   </component>
   <component name="PropertiesComponent">
     <property name="DefaultPlantUmlFileTemplate" value="UML Sequence" />
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -295,6 +116,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.Kingodomino" />
+      <item itemvalue="JUnit.All in a31-kingdomino" />
+      <item itemvalue="JUnit.TestPlayerBoard$FullPlayerBoard" />
+      <item itemvalue="JUnit.TestPlayerBoard$FullPlayerBoard.testEstNull" />
+      <item itemvalue="JUnit.TestPlayerBoard" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Kingodomino" />
@@ -433,7 +261,21 @@
       <option name="project" value="LOCAL" />
       <updated>1639948815650</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="add executable">
+      <created>1639952443448</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1639952443448</updated>
+    </task>
+    <task id="LOCAL-00019" summary="delete manifest.mf">
+      <created>1639952891642</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1639952891642</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -466,6 +308,11 @@
     <MESSAGE value="Chnaged all the structure MVC, added new Image to get it in the .jar" />
     <MESSAGE value="Added previous image (big images)" />
     <MESSAGE value="Updated GameContext and UML" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated GameContext and UML" />
+    <MESSAGE value="add executable" />
+    <MESSAGE value="delete manifest.mf" />
+    <option name="LAST_COMMIT_MESSAGE" value="delete manifest.mf" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/a31_kingdomino$Kingdomino.ic" NAME="Kingdomino Coverage Results" MODIFIED="1639922525302" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>
