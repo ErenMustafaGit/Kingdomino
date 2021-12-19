@@ -69,7 +69,7 @@ public class GameView extends JPanel {
         /******Game interaction (les 4 tuiles etc)*******/
         JPanel gameInterac =  new JPanel();
         gameInterac.setLayout( new GridBagLayout());
-        gameInterac.setBackground( Color.black );
+        gameInterac.setBackground( Color.gray );
 
         GridBagConstraints interacC = new GridBagConstraints();
         interacC.insets = new Insets(5, 20, 5, 20);
@@ -256,13 +256,8 @@ public class GameView extends JPanel {
                 right.setIcon( IMGReader.getImage("montagne.png") );
                 break;
         }
-
-
-
-
         tilePanel.add(left, BorderLayout.LINE_START);
         tilePanel.add(right, BorderLayout.LINE_END);
-
 
         return tilePanel;
     }

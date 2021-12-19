@@ -6,51 +6,29 @@ public class GameContext
 {
     private PlayerStrategy nbPlayersStrat; //stratégie associé au nombre de joueurs
     private GameMode gameMode; //stratégie associé au mode de jeu choisi
-    private Deck gameDeck; // Packet de tuiles utilisé pour la partie
+    private Deck deck; // Packet de tuiles utilisé pour la partie
     private ArrayList<Tile> currentTiles; // Tuiles correspondante aux choix diponible pour les joueurs
     private ArrayList<GameObserver> observers = new ArrayList<>();
     private ArrayList<Player> players = new ArrayList<>();
 
-
-    public void setNbPlayersStrat(PlayerStrategy nbPlayersStrat) {
-        this.nbPlayersStrat = nbPlayersStrat;
+    public GameContext()
+    {
     }
+
+
 
     public void setGameMode(GameMode gameMode) {
         this.gameMode = gameMode;
     }
 
     public Deck getGameDeck() {
-        return gameDeck;
+        return deck;
     }
 
-    public void setGameDeck(Deck gameDeck) {
-        this.gameDeck = gameDeck;
-    }
 
     public ArrayList<Tile> getCurrentTiles() {
         return currentTiles;
     }
-
-    public void setCurrentTiles(ArrayList<Tile> currentTiles) {
-        this.currentTiles = currentTiles;
-    }
-
-    public ArrayList<GameObserver> getObservers() {
-        return observers;
-    }
-
-    public void setObservers(ArrayList<GameObserver> observers) {
-        this.observers = observers;
-    }
-
-    public void setPlayers(ArrayList<Player> players) {
-        this.players = players;
-    }
-
-    public GameContext()
-    {
-        }
 
     public void addObserver(GameObserver gameObserver)
     {
@@ -93,13 +71,13 @@ public class GameContext
     }
 
     public ArrayList<Player> getPlayers(){
-        return this.players;
+        return new ArrayList<>(this.players);
     }
 
     //Création du packet de tuiles de la bonne taille
     private void createDeck()
     {
-        gameDeck = new Deck(nbPlayersStrat.getnbTile());
+        this.deck = new Deck(nbPlayersStrat.getnbTile());
     }
 
     private ArrayList<King> createKing(KingColor color, int number)
@@ -167,18 +145,9 @@ public class GameContext
 
     public void pickTiles()
     {
-        if (nbPlayersStrat instanceof TwoPlayers)
-        {
-            for (int i = 0; i<2; i++)
-            {
-                currentTiles.add(gameDeck.getTile());
-            }
-        }
-        else
-        {
-            for (int i = 0; i < 4; i++)
-            {
-                currentTiles.add(gameDeck.getTile());
+        for (int i = 0; i< nbPlayersStrat.getnbKings(); i++ ){
+            if (deck.getNbTiles() != 0) {
+                currentTiles.add(deck.getTile());
             }
         }
     }
