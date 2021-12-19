@@ -29,26 +29,26 @@ package GameController #technology{
 package Model #mistyrose{
     'interface players
     interface PlayerStrategy{
-        + getNumberPlayer():Integer
-        + getNumberTile():Integer
-        + getNumberKings():Integer
+        + getNbBoard():Integer
+        + getNbTile():Integer
+        + getNbKings():Integer
     }
     class TwoPlayers implements PlayerStrategy{
-        + getNumberPlayer():Integer
-        + getNumberTile():Integer
-        + getNumberKings():Integer
+        + getNbBoard():Integer
+        + getNbTile():Integer
+        + getNbKings():Integer
     }
 
     class ThreePlayers implements PlayerStrategy{
-        + getNumberPlayer():Integer
-        + getNumberTile():Integer
-        + getNumberKings():Integer
+        + getNbBoard():Integer
+        + getNbTile():Integer
+        + getNbKings():Integer
     }
 
    class FourPlayers implements PlayerStrategy{
-        + getNumberPlayer():Integer
-        + getNumberTile():Integer
-        + getNumberKings():Integer
+        + getNbBoard():Integer
+        + getNbTile():Integer
+        + getNbKings():Integer
    }
 
 
@@ -213,7 +213,7 @@ PlayerBoard "..*\n-board" *-r-> Positionnable : > contains
 
 Deck ..> CSVReader :  > use
 Ground "1"*-->"1"GroundColor
-Tile *-->Ground : "-left\n-right" > composed
+Tile *-->Ground : "1\n-left\n1\n-right" > composed
 
 'A SUPP
 Deck "..* -tiles" *-> Tile : > had
@@ -233,10 +233,7 @@ GameController o--> GameContext : "1\n-gameContext" > had
 
 
 Player *-> PlayerBoard : "1\n-board" > had
-Player  o-> King : "1..2\n-kings" > had
-'PlayerBoard <--* "2..4\n-playerBoards" BoardGame
-PlayerBoard "1\n-tile" o--> Tile
-PlayerBoard "1\n-castle" o-> Castle : > had
+Player  o--> King : "1..2\n-kings" > had
 
 PlayerBoard .> Direction : > use
 
@@ -248,7 +245,7 @@ ModeDecorator .u.|> GameMode
 NormalMode .u.|> GameMode
 
 King"1\n-color"*->"1" KingColor: > had
-Castle"1\n-color"*->KingColor : > had
+Castle"1\n-color"*-->KingColor : > had
 
 MyWindow "1\n-mainMenu" *--> MainMenu
 MyWindow "1\n-choosingMenu" *--> ChoosingMenu
