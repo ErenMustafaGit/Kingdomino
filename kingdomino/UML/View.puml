@@ -230,7 +230,7 @@ Deck "..* -tiles" *-> Tile : > had
 
 
 
-GameContext "..4\n-tiles" *--> Tile
+GameContext "..4\n-currentTiles" o--> Tile
 GameContext "1\n-deck" *-r-> Deck
 GameContext *--> GameMode  : "1\n-gameMode" > select
 GameContext *--> PlayerStrategy : "1\n-playerStrategy" > select
