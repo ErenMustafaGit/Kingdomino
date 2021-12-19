@@ -1,7 +1,7 @@
 Kingdomino
 ==========
 
-![](kingdomino/ressources/kingdomino_elements_small.jpg)
+![](rendu1/kingdomino/ressources/kingdomino_elements_small.jpg)
 
 L'objectif de ce projet est de concevoir une application permettant de jouer au jeu de société Kingdomino.
 
@@ -26,7 +26,7 @@ Le gagnant est celui qui construit le royaume rapportant le plus grand nombre de
 
 ### Règles complètes
 
-Vous trouverez les règles au format texte dans le [Livret de Règles](docs/reglesKingdomino.pdf), et en regardant les vidéos d'explications :
+Vous trouverez les règles au format texte dans le [Livret de Règles](rendu1/docs/reglesKingdomino.pdf), et en regardant les vidéos d'explications :
 
 - en version courte avec [LudoChrono](https://www.youtube.com/watch?v=jnM9yf65rpo) ou [Touslesprix.com](https://www.youtube.com/watch?v=MBPFPKehV44) : ~ 5 minutes
 - en version plus longue avec [Yahndrev](https://www.youtube.com/watch?v=93VxIXxthFU) : ~ 15 minutes

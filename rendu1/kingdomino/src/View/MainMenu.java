@@ -2,15 +2,11 @@ package View;
 
 import Utilities.IMGReader;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 public class MainMenu extends JPanel {
     private MyWindow mainFrame;
