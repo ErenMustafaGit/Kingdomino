@@ -34,7 +34,7 @@ public class ChoosingMenu extends JPanel {
         this.setOpaque(false);
 
         //utilisation d'un grid Layout
-        this.setLayout(new GridLayout(10,3,10,10));
+        this.setLayout(new GridLayout(8,3,10,10));
 
         //padding entre composant de la fenetre
         this.setBorder(new EmptyBorder(20, 20, 20, 20));
@@ -57,6 +57,7 @@ public class ChoosingMenu extends JPanel {
         getColorCbo();
 
         JButton button2 = new JButton("Play");
+        button2.setPreferredSize(new Dimension(10,10));
         button2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -81,7 +82,7 @@ public class ChoosingMenu extends JPanel {
         return this;
     }
 
-    //fonction qui permet d'ajouter des radiobuttons des niveaux
+    //fonction qui permet d'ajouter des checkbox des niveaux
     public CheckboxGroup level(){
         JLabel mode = new JLabel("Mode de jeu :");
         mode.setFont(new Font("Bookman Old Style", Font.BOLD, 20));
@@ -105,6 +106,7 @@ public class ChoosingMenu extends JPanel {
         joueurs.setFont(new Font("Bookman Old Style", Font.BOLD, 20));
         joueurs.setVisible(true);
         this.add(joueurs);
+        NbredeJoueurs.setPreferredSize(new Dimension(1,1));
         this.add(NbredeJoueurs);
         NbredeJoueurs.setVisible(true);
         return NbredeJoueurs;
