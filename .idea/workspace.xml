@@ -12,10 +12,6 @@
     <list default="true" id="b296bc09-cc63-4dd7-9250-50d90129aaa5" name="Default Changelist" comment="push">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kingdomino/UML/View.puml" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/UML/View.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Controller/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/Deck.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Model/Deck.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/GameContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Model/GameContext.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/King.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Model/King.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kingdomino/src/View/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/View/GameView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -240,7 +236,14 @@
       <option name="project" value="LOCAL" />
       <updated>1639944489719</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Updated GameContext and UML">
+      <created>1639948815650</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1639948815650</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -272,6 +275,7 @@
     <MESSAGE value="Meta inf added" />
     <MESSAGE value="Chnaged all the structure MVC, added new Image to get it in the .jar" />
     <MESSAGE value="Added previous image (big images)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added previous image (big images)" />
+    <MESSAGE value="Updated GameContext and UML" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated GameContext and UML" />
   </component>
 </project>
