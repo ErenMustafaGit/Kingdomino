@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 public class IMGReader {
 
@@ -41,14 +42,28 @@ public class IMGReader {
         return new JLabel(new ImageIcon(dimg));
     }
 
-    public static Image getImage(String filename) {
+    public static ImageIcon getImage(String filename) {
+
+        ImageIcon img = null;
+        try {
+            img = new ImageIcon(Objects.requireNonNull(ClassLoader.getSystemClassLoader().getResourceAsStream(filename)).readAllBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println( img );
+        return img;
+        /*
         BufferedImage myPicture = null;
         try {
             myPicture = ImageIO.read(new File(RESSOURCE_PATH + filename));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return myPicture;
+        return myPicture;*/
+
+
+
+
     }
 
 }

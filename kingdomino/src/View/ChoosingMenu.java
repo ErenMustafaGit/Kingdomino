@@ -20,7 +20,7 @@ public class ChoosingMenu {
     private JPanel panel = new JPanel();
     private ButtonGroup group;
     private String[] nbreofplayers = {"2","3","4"};
-    private Image img;
+    private ImageIcon img;
 
     Checkbox harmony = new Checkbox("Harmony");
     Checkbox middle_kingdom = new Checkbox("Middle Kingdom");

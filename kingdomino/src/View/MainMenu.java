@@ -14,7 +14,7 @@ import java.io.IOException;
 
 public class MainMenu extends JPanel {
     private MyWindow mainFrame;
-    private Image img;
+    private ImageIcon img;
 
 
     public MainMenu(MyWindow MyWindow){
@@ -67,7 +67,7 @@ public class MainMenu extends JPanel {
     }
 
     public void paint(Graphics g){
-        g.drawImage(this.img, 0 , 0,mainFrame.getWidth(), mainFrame.getHeight(), null);
+        g.drawImage( this.img.getImage(), 0 , 0,mainFrame.getWidth(), mainFrame.getHeight(), null);
         super.paint(g);
     }
 
