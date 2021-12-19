@@ -9,7 +9,7 @@ import java.util.Stack;
 
 public class Deck {
 
-    Stack<Tile> tiles = new Stack();
+    private Stack<Tile> tiles = new Stack();
 
     public Deck(){
 
@@ -36,7 +36,9 @@ public class Deck {
     }
 
     public Tile getTile(){
-
         return this.tiles.pop();
+    }
+    public int getNbTiles(){
+        return this.tiles.size();
     }
 }
