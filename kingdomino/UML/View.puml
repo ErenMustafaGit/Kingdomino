@@ -16,9 +16,10 @@ package Controller{
 package GameController #technology{
     ' plateau de jeu
     class GameController{
-
+        +GameController(game:GameContext)
         +createPlayer(color:KingColor, kings:Collection<King>)
-
+        +setPlayerStrategy(nbPlayer:Integer)
+        +setGameMode(nbPlayer:Integer)
     }
 }
 
@@ -69,6 +70,7 @@ package Model #mistyrose{
     'coté de la tuile (droite ou gauche)
     class Ground{
         -crownNumber:Integer
+        +getColor():GroundColor
         +getCrownNumber():Integer
         +setCrownNumber():Integer
     }
@@ -89,7 +91,9 @@ package Model #mistyrose{
     }
     'contexte du jeu
     class GameContext{
+        +GameContext()
         +notifyObservers()
+        +initGame()
         +setGameMode(strategy:GameMode)
         +setPlayerStrategy(strategy:PlayerStrategy)
     }
@@ -123,13 +127,6 @@ package Model #mistyrose{
         +update(gameContext:GameContext)
     }
 
-    class TileBoard{
-
-        +instance:TileBoard
-        {static}+getIntance():TileBoard
-    }
-
-
 
 
     class PlayerBoard{
@@ -162,6 +159,7 @@ package Model #mistyrose{
     'class chateau
     class Castle {
         +Castle()
+        +getColor():GroundColor
     }
 
     'couleur du roi et du chateau
@@ -222,10 +220,9 @@ Deck "..* -tiles" *-> Tile : > had
 
 
 
-TileBoard o--> Tile : "0,8\ntiles" > had
 
 
-GameContext *-r-> Deck
+GameContext "1\n-deck" *-r-> Deck
 GameContext *--> GameMode  : "1\n-gameMode" > select
 GameContext *--> PlayerStrategy : "1\n-playerStrategy" > select
 GameContext *-> Player : "2..4\n-players" > played by
@@ -235,10 +232,8 @@ GameContext *-> Player : "2..4\n-players" > played by
 GameController o--> GameContext : "1\n-gameContext" > had
 
 
-
-Player .> TileBoard : > use
 Player *-> PlayerBoard : "1\n-board" > had
-Player  o--> King : "1..2\n-kings" > had
+Player  o-> King : "1..2\n-kings" > had
 'PlayerBoard <--* "2..4\n-playerBoards" BoardGame
 PlayerBoard "1\n-tile" o--> Tile
 PlayerBoard "1\n-castle" o-> Castle : > had
@@ -255,16 +250,16 @@ NormalMode .u.|> GameMode
 King"1\n-color"*->"1" KingColor: > had
 Castle"1\n-color"*->KingColor : > had
 
-MyWindow *--> MainMenu
-MyWindow *--> ChoosingMenu
-MyWindow *--> GameView
-
+MyWindow "1\n-mainMenu" *--> MainMenu
+MyWindow "1\n-choosingMenu" *--> ChoosingMenu
+MyWindow "1\n-gameView" *--> GameView
 
 KingDomino..> GameController : <<create>>
-KingDomino.> PlayerStrategy : <<use>>
-KingDomino..> GameMode : <<use>>
+'KingDomino.> PlayerStrategy : <<use>>
+'KingDomino..> GameMode : <<use>>
 KingDomino ..>MyWindow : <<create>>
 KingDomino ..>GameContext : <<create>>
-MyWindow o-> GameController : > send \nuser request
-GameContext "..n\nobservers" o-->GameObserver : > observes
+MyWindow "1\n-controller" o-> GameController : > send \nuser request
+MyWindow "1\n-game" o-> GameContext
+GameContext "..n\n-observers" o-->GameObserver : > observes
 @enduml
