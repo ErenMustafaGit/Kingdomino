@@ -17,9 +17,8 @@ package GameController #technology{
     ' plateau de jeu
     class GameController{
         +GameController(game:GameContext)
-        +createPlayer(color:KingColor, kings:Collection<King>)
-        +setPlayerStrategy(nbPlayer:Integer)
-        +setGameMode(nbPlayer:Integer)
+        +initializeGame((nbPlayers:Integer, gameMode:Integer)
+        +placeTile(player:Player, tile:Tile, x:Integer, y:Integer, dir:Direction)
     }
 }
 
@@ -72,7 +71,7 @@ package Model #mistyrose{
         -crownNumber:Integer
         +getColor():GroundColor
         +getCrownNumber():Integer
-        +setCrownNumber():Integer
+        +setCrownNumber(nbCrown:Integer)
     }
     'couleur des cotés de la tuile
     enum GroundColor{
@@ -92,10 +91,18 @@ package Model #mistyrose{
     'contexte du jeu
     class GameContext{
         +GameContext()
+        +addObserver(gameObserver:GameObserver)
         +notifyObservers()
+        +getGameDeck():Deck
+        -createDeck()
+        -createPlayers()
+        -createKing(color:KingColor, number:Integer)
+        -getUnchoosenColor():KingColor
         +initGame()
         +setGameMode(strategy:GameMode)
-        +setPlayerStrategy(strategy:PlayerStrategy)
+        +setPlayerStrategy(nbPlayers:Integer)
+        +getPlayers():Collection<Players>
+        +pickTiles()
     }
 
     package GameModes{
@@ -149,7 +156,8 @@ package Model #mistyrose{
 
     'joueur
     class Player{
-        +Player(kings:Collection<King>)
+        +Player(kings:Collection<King>, )
+        +getPlayerCOlor
     }
 
     'roi
@@ -168,6 +176,18 @@ package Model #mistyrose{
     -BLUE
     -GREEN
     -YELLOW
+    }
+    package Utilities{
+        class CSVReader{
+            {static} - RESSOURCE_PATH = "./kingdomino/ressources/"
+            {static} read(filename:String):Collection<Collection<String>>
+        }
+
+        class IMGReader{
+                {static} - RESSOURCE_PATH = "./kingdomino/ressources/"
+                {static} getImagePnl(String:filename):JLabel
+                {static} getImage(String:filename):Image
+            }
     }
 }
 
@@ -193,18 +213,7 @@ package view #D0E1D4{
 
 }
 
-package Utilities{
-    class CSVReader{
-        {static} - RESSOURCE_PATH = "./kingdomino/ressources/"
-        {static} read(filename:String):Collection<Collection<String>>
-    }
 
-    class IMGReader{
-            {static} - RESSOURCE_PATH = "./kingdomino/ressources/"
-            {static} getImagePnl(String:filename):JLabel
-            {static} getImage(String:filename):Image
-        }
-}
 
 
 Ground ..|> Positionnable
@@ -221,7 +230,7 @@ Deck "..* -tiles" *-> Tile : > had
 
 
 
-
+GameContext "..4\n-tiles" *--> Tile
 GameContext "1\n-deck" *-r-> Deck
 GameContext *--> GameMode  : "1\n-gameMode" > select
 GameContext *--> PlayerStrategy : "1\n-playerStrategy" > select
@@ -233,7 +242,7 @@ GameController o--> GameContext : "1\n-gameContext" > had
 
 
 Player *-> PlayerBoard : "1\n-board" > had
-Player  o--> King : "1..2\n-kings" > had
+Player  o--> King : "1..2\n-playerKings" > had
 
 PlayerBoard .> Direction : > use
 

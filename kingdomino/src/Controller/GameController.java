@@ -8,31 +8,11 @@ import java.util.Random;
 public class GameController
 {
     /**/
-    private ArrayList<Player> players;
-    ArrayList<King> kingsPlayer;
-    private KingColor[] allColors = KingColor.values();
-    private GameContext game; // les stratégie utilisé
-
-    public GameController()
-    {
-
-    }
+    private GameContext game;
 
     public GameController(GameContext game)
     {
         this.game = game;
-    }
-
-    public void createPlayer(KingColor color, ArrayList<King> kings, PlayerBoard board)
-    {
-        Player NewPlayer = new Player(color, kings, board);
-        players.add(NewPlayer);
-    }
-
-    public void createKing(KingColor color)
-    {
-        King newKing = new King(color);
-        kingsPlayer.add(newKing);
     }
 
     public void initializeGame( int nbPlayers, int gameMode ) {

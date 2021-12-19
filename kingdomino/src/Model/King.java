@@ -2,9 +2,13 @@ package Model;
 
 public class King
 {
-    public KingColor color;
+    private KingColor color;
     public King(KingColor color)
     {
         color = color;
+    }
+
+    public KingColor getColor(){
+        return this.color;
     }
 }

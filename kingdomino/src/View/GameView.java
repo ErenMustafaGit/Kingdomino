@@ -256,13 +256,8 @@ public class GameView extends JPanel {
                 right.setIcon( IMGReader.getImage("montagne.png") );
                 break;
         }
-
-
-
-
         tilePanel.add(left, BorderLayout.LINE_START);
         tilePanel.add(right, BorderLayout.LINE_END);
-
 
         return tilePanel;
     }
