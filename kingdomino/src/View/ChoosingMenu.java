@@ -14,10 +14,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class ChoosingMenu {
+public class ChoosingMenu extends JPanel {
     final static boolean shouldFill = true;
     private MyWindow mainFrame;
-    private JPanel panel = new JPanel();
     private ButtonGroup group;
     private String[] nbreofplayers = {"2","3","4"};
     private ImageIcon img;
@@ -29,13 +28,13 @@ public class ChoosingMenu {
     public ChoosingMenu(MyWindow MyWindow) {
         this.mainFrame = MyWindow;
         this.img = IMGReader.getImage("wallpaper.png");
-        panel.setOpaque(false);
+        this.setOpaque(false);
 
         //utilisation d'un grid Layout
-        panel.setLayout(new GridLayout(10,3,10,10));
+        this.setLayout(new GridLayout(10,3,10,10));
 
         //padding entre composant de la fenetre
-        panel.setBorder(new EmptyBorder(20, 20, 20, 20));
+        this.setBorder(new EmptyBorder(20, 20, 20, 20));
 
         //Affichage du titre de la page
         JLabel label = new JLabel("Mode de jeu");
@@ -44,7 +43,7 @@ public class ChoosingMenu {
         //centrer le label en haut de page
         label.setHorizontalAlignment(SwingConstants.CENTER);
         label.setVisible(true);
-        panel.add(label);
+        this.add(label);
 
         //affichage du mode de jeu + des checkbox
         level();
@@ -65,12 +64,12 @@ public class ChoosingMenu {
             }
         });
         button2.setVisible(true);
-        panel.add(button2);
+        this.add(button2);
     }
 
     //Quand on clique sur le bouton play on est redirigé vers cette fenetre
     public JPanel getMainPanel(){
-        return this.panel;
+        return this;
     }
 
     //fonction qui permet d'ajouter des radiobuttons des niveaux
@@ -79,13 +78,13 @@ public class ChoosingMenu {
         mode.setFont(new Font("Bookman Old Style", Font.BOLD, 20));
         mode.setHorizontalTextPosition(SwingConstants.HORIZONTAL);
         mode.setVisible(true);
-        panel.add(mode);
+        this.add(mode);
         //en vrai il sert à rien le group
         CheckboxGroup group = new CheckboxGroup();
 
 
-        panel.add(harmony);
-        panel.add(middle_kingdom);
+        this.add(harmony);
+        this.add(middle_kingdom);
         harmony.setVisible(true);
         middle_kingdom.setVisible(true);
         return group;
@@ -96,9 +95,9 @@ public class ChoosingMenu {
         JLabel joueurs = new JLabel("Nombre de joueurs:");
         joueurs.setFont(new Font("Bookman Old Style", Font.BOLD, 20));
         joueurs.setVisible(true);
-        panel.add(joueurs);
+        this.add(joueurs);
         JComboBox NbredeJoueurs = new JComboBox(nbreofplayers);
-        panel.add(NbredeJoueurs);
+        this.add(NbredeJoueurs);
         NbredeJoueurs.setVisible(true);
         return NbredeJoueurs;
     }
@@ -114,10 +113,15 @@ public class ChoosingMenu {
 //        }
 
         cboColor.setSelectedIndex(0);
-        panel.add(cboColor);
+        this.add(cboColor);
         cboColor.setVisible(true);
         return cboColor;
     }
+    public void paint(Graphics g){
+        g.drawImage( this.img.getImage(), 0 , 0,mainFrame.getWidth(), mainFrame.getHeight(), null);
+        super.paint(g);
+    }
+
 
 }
  /*this.mainFrame = MyWindow;
