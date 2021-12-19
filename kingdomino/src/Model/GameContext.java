@@ -4,18 +4,12 @@ import java.util.ArrayList;
 
 public class GameContext
 {
-    public PlayerStrategy nbPlayersStrat; //stratégie associé au nombre de joueurs
-    public GameMode gameModeStrat; //stratégie associé au mode de jeu choisi
-    public Deck gameDeck; // Packet de tuiles utilisé pour la partie
-    public ArrayList<Tile> currentTiles; // Tuiles correspondante aux choix diponible pour les joueurs
-    public ArrayList<GameObserver> observers = new ArrayList<>();
+    private PlayerStrategy nbPlayersStrat; //stratégie associé au nombre de joueurs
+    private GameMode gameMode; //stratégie associé au mode de jeu choisi
+    private Deck gameDeck; // Packet de tuiles utilisé pour la partie
+    private ArrayList<Tile> currentTiles; // Tuiles correspondante aux choix diponible pour les joueurs
+    private ArrayList<GameObserver> observers = new ArrayList<>();
 
-    // constructeur de la classe
-    public GameContext(int nbPlayer, int gameMode)
-    {
-        setPlayerStrategy(nbPlayer);
-        setGameStrategy(gameMode);
-    }
 
     public GameContext()
     {
@@ -34,34 +28,36 @@ public class GameContext
             case 3 -> nbPlayersStrat = new ThreePlayers();
             case 4 -> nbPlayersStrat = new FourPlayers();
         }
-        createDeck();
+    }
+
+    public GameMode getGameMode(){
+        return this.gameMode;
+    }
+
+    public PlayerStrategy getNbPlayersStrat(){
+        return this.nbPlayersStrat;
     }
 
     //Implémentation de la variable d'instance gameMode en fonction du mode de jeu
-    public void setGameStrategy(int gameMode)
+    public void setGameStrategy(int gameModeChoosen)
     {
         GameMode normalMode = new NormalMode();
-        switch (gameMode) {
-            case 1 -> gameModeStrat = new Harmony(normalMode);
-            case 2 -> gameModeStrat = new MiddleKingdom(normalMode);
+        this.gameMode = normalMode;
+        switch (gameModeChoosen) {
+            case 1 -> gameMode = new Harmony(normalMode);
+            case 2 -> gameMode = new MiddleKingdom(normalMode);
         }
+    }
+
+    public void initGame(){
+        createDeck();
+
     }
 
     //Création du packet de tuiles de la bonne taille
     private void createDeck()
     {
-        if (nbPlayersStrat instanceof TwoPlayers)
-        {
-            gameDeck = new Deck(nbPlayersStrat.getnbTile());
-        }
-        else if (nbPlayersStrat instanceof ThreePlayers)
-        {
-            gameDeck = new Deck(nbPlayersStrat.getnbTile());
-        }
-        else if(nbPlayersStrat instanceof FourPlayers)
-        {
-            gameDeck = new Deck(nbPlayersStrat.getnbTile());
-        }
+        gameDeck = new Deck(nbPlayersStrat.getnbTile());
     }
 
     public void pickTiles()

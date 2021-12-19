@@ -10,21 +10,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b296bc09-cc63-4dd7-9250-50d90129aaa5" name="Default Changelist" comment="push">
-      <change afterPath="$PROJECT_DIR$/kingdomino/UML/alex.puml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kingdomino/src/META-INF/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/a31-kingdomino.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/a31-kingdomino.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kingdomino/UML/View.puml" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/UML/View.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Controller/BoardGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Controller/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Kingodomino.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Kingodomino.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kingdomino/src/Model/GameContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Model/GameContext.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Utilities/CSVReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Utilities/CSVReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/Utilities/IMGReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/Utilities/IMGReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/View/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/View/GameView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/View/MainMenu.form" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/View/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/View/MainMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/View/MainMenu2.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kingdomino/src/View/MyWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/View/MyWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kingdomino/src/View/ChoosingMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/kingdomino/src/View/ChoosingMenu.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,9 +109,9 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Kingodomino" />
-        <item itemvalue="JUnit.TestPlayerBoard" />
         <item itemvalue="JUnit.TestPlayerBoard$FullPlayerBoard.testEstNull" />
         <item itemvalue="JUnit.TestPlayerBoard$FullPlayerBoard" />
+        <item itemvalue="JUnit.TestPlayerBoard" />
         <item itemvalue="JUnit.All in a31-kingdomino" />
       </list>
     </recent_temporary>
@@ -213,7 +202,14 @@
       <option name="project" value="LOCAL" />
       <updated>1639855767221</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Deleted TileBoard and added function">
+      <created>1639921528803</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1639921528803</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -241,6 +237,7 @@
     <MESSAGE value="GameView changed into gridbaglayout&#10;and ModeStrategy into ModeDecorator" />
     <MESSAGE value="GameView : Finished to place all the components" />
     <MESSAGE value="Improved GameView" />
-    <option name="LAST_COMMIT_MESSAGE" value="Improved GameView" />
+    <MESSAGE value="Deleted TileBoard and added function" />
+    <option name="LAST_COMMIT_MESSAGE" value="Deleted TileBoard and added function" />
   </component>
 </project>
