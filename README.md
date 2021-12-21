@@ -1,4 +1,4 @@
-Kingdomino
+#Kingdomino
 ==========
 
 ![](rendu1/kingdomino/ressources/kingdomino_elements_small.jpg)
@@ -7,6 +7,9 @@ L'objectif de ce projet est de concevoir une application permettant de jouer au 
 
 Les règles
 ----------
+
+### Précisions
+N'ouvrez pas le projet directement sur IntelliJ, mais plutôt le dossier rendu1 ou rendu2 selon ce que vous voulez regardez.
 
 ### Résumé
 
