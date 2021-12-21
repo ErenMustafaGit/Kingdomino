@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class GameContext
 {
@@ -92,6 +93,7 @@ public class GameContext
     private void createPlayers()
     {
         int nbPlayer = nbPlayersStrat.getnbBoard();
+        ArrayList<Player> newPlayers = new ArrayList<>();
         for (int i = 0; i< nbPlayer ; i++){
             ArrayList<King> kings = new ArrayList<>();
             KingColor color = this.getUnchoosenColor();
@@ -100,9 +102,10 @@ public class GameContext
             }else{
                 kings = this.createKing( color, 1 );
             }
-
-            this.players.add( new Player( color, kings, new PlayerBoard()  ) );
+            newPlayers.add ( new Player( color, kings, new PlayerBoard()));
         }
+        Collections.shuffle( newPlayers );
+        this.players = newPlayers;
     }
 
     private KingColor getUnchoosenColor(){
@@ -150,6 +153,24 @@ public class GameContext
                 currentTiles.add(deck.getTile());
             }
         }
+    }
+
+    public boolean setCastle(Player player,int x, int y)
+    {
+        Castle castle = new Castle();
+        return player.getBoard().setCastle(x, y, castle);
+    }
+
+    /**
+     * @param x, y : Position du terrain gauche de la tuile
+     * @param dir : Direction de la tuile
+     * @param tile : Tuile à placé
+     * @param iPlayer : index du player qui a joué
+     * @return TRUE si nous avons reussi à placer la tuile
+     */
+    public boolean setTile(int iPlayer, int x, int y, Direction dir, Tile tile)
+    {
+        return players.get(iPlayer).getBoard().setTile(  x,  y, dir,  tile );
     }
 
 }

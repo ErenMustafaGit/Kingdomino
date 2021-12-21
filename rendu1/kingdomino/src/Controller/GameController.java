@@ -82,10 +82,14 @@ public class GameController
 
     }
 
-
-    public void placeTile(Player player, Tile tile, int pos_x, int pos_y, Direction dir)
+    public void placeCastle(Player player, int pos_x, int pos_y)
     {
-        player.getBoard().setTile(pos_x, pos_y, dir, tile);
+        game.setCastle(player, pos_x, pos_y);
+    }
+
+    public void placeTile(int iPlayer, int pos_x, int pos_y, Direction dir, Tile tile)
+    {
+        game.setTile(iPlayer, pos_x, pos_y, dir, tile);
     }
 
     public void newRound()

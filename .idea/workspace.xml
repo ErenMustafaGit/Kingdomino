@@ -10,8 +10,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b296bc09-cc63-4dd7-9250-50d90129aaa5" name="Default Changelist" comment="delete manifest.mf">
-      <change beforePath="$PROJECT_DIR$/.idea/a31-kingdomino.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/a31-kingdomino.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rendu1/kingdomino/UML/init.puml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rendu1/kingdomino/src/Controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/rendu1/kingdomino/src/Controller/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rendu1/kingdomino/src/Model/GameContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/rendu1/kingdomino/src/Model/GameContext.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rendu1/kingdomino/src/Model/PlayerBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/rendu1/kingdomino/src/Model/PlayerBoard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rendu1/kingdomino/src/View/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/rendu1/kingdomino/src/View/GameView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,7 +35,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="UML_Improve" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
