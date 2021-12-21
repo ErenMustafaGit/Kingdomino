@@ -5,11 +5,15 @@
 
 L'objectif de ce projet est de concevoir une application permettant de jouer au jeu de société Kingdomino.
 
+
+## Précisions
+N'ouvrez pas le projet directement sur IntelliJ, mais plutôt le dossier rendu1 ou rendu2 selon ce que vous voulez regardez.
+
+
 Les règles
 ----------
 
-### Précisions
-N'ouvrez pas le projet directement sur IntelliJ, mais plutôt le dossier rendu1 ou rendu2 selon ce que vous voulez regardez.
+
 
 ### Résumé
 
