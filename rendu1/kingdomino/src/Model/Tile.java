@@ -1,6 +1,6 @@
 package Model;
 
-public class Tile
+public class Tile implements Comparable<Tile>
 {
     private int number;
     private Ground left;
@@ -42,5 +42,10 @@ public class Tile
     public void setNumber(int number)
     {
         this.number = number;
+    }
+
+    @Override
+    public int compareTo(Tile o) {
+        return (int)(this.getNumber() - o.getNumber());
     }
 }

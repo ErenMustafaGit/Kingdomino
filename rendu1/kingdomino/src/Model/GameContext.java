@@ -1,14 +1,13 @@
 package Model;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.*;
 
 public class GameContext
 {
     private PlayerStrategy nbPlayersStrat; //stratégie associé au nombre de joueurs
     private GameMode gameMode; //stratégie associé au mode de jeu choisi
     private Deck deck; // Packet de tuiles utilisé pour la partie
-    private ArrayList<Tile> currentTiles; // Tuiles correspondante aux choix diponible pour les joueurs
+    private Map<Tile, Player> currentTiles = new HashMap<>(); // Tuiles correspondante aux choix diponible pour les joueurs
     private ArrayList<GameObserver> observers = new ArrayList<>();
     private ArrayList<Player> players = new ArrayList<>();
     private int turn;
@@ -24,12 +23,9 @@ public class GameContext
         this.gameMode = gameMode;
     }
 
-    public Deck getGameDeck() {
-        return deck;
-    }
 
 
-    public ArrayList<Tile> getCurrentTiles() {
+    public Map<Tile, Player> getCurrentTiles() {
         return currentTiles;
     }
 
@@ -71,6 +67,7 @@ public class GameContext
     public void initGame(){
         createDeck();
         createPlayers();
+        pickTiles();
     }
 
     public ArrayList<Player> getPlayers(){
@@ -114,6 +111,10 @@ public class GameContext
         return this.players.get(turn % this.players.size() );
     }
 
+    public int getTurn(){
+        return this.turn;
+    }
+
     private KingColor getUnchoosenColor(){
 
         boolean same = false;
@@ -154,11 +155,16 @@ public class GameContext
 
     public void pickTiles()
     {
+        currentTiles.clear();
         for (int i = 0; i< nbPlayersStrat.getnbKings(); i++ ){
             if (deck.getNbTiles() != 0) {
-                currentTiles.add(deck.getTile());
+                currentTiles.put(deck.getTile(), null);
             }
         }
+
+        /***ORDER TILES BY THEIR NUMBER***/
+        TreeMap<Tile, Player> sorted = new TreeMap<>(this.currentTiles);
+        this.currentTiles = sorted;
     }
 
     public boolean setCastle(Player player,int x, int y)
@@ -195,4 +201,8 @@ public class GameContext
         }
     }
 
+    public void chooseTile(Tile tile) {
+        currentTiles.replace(tile, this.getPlayerTurn());
+        this.notifyObservers();
+    }
 }

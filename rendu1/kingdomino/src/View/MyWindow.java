@@ -51,6 +51,7 @@ public class MyWindow extends JFrame implements GameObserver
     }
 
 
+
     @Override
     public void update(GameContext game) {
         gameView.update(game);
