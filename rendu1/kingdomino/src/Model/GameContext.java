@@ -11,9 +11,11 @@ public class GameContext
     private ArrayList<Tile> currentTiles; // Tuiles correspondante aux choix diponible pour les joueurs
     private ArrayList<GameObserver> observers = new ArrayList<>();
     private ArrayList<Player> players = new ArrayList<>();
+    private int turn;
 
     public GameContext()
     {
+        turn = 0;
     }
 
 
@@ -108,6 +110,10 @@ public class GameContext
         this.players = newPlayers;
     }
 
+    public Player getPlayerTurn(){
+        return this.players.get(turn % this.players.size() );
+    }
+
     private KingColor getUnchoosenColor(){
 
         boolean same = false;
@@ -158,7 +164,12 @@ public class GameContext
     public boolean setCastle(Player player,int x, int y)
     {
         Castle castle = new Castle();
-        return player.getBoard().setCastle(x, y, castle);
+        if(player.getBoard().setCastle(x, y, castle)) {
+            this.turn++;
+            notifyObservers();
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -170,7 +181,18 @@ public class GameContext
      */
     public boolean setTile(int iPlayer, int x, int y, Direction dir, Tile tile)
     {
-        return players.get(iPlayer).getBoard().setTile(  x,  y, dir,  tile );
+        if(players.get(iPlayer).getBoard().setTile(  x,  y, dir,  tile )) {
+            notifyObservers();
+            turn++;
+            return true;
+        }
+        return false;
+    }
+
+    private void notifyObservers(){
+        for (GameObserver observer : this.observers){
+            observer.update(this);
+        }
     }
 
 }

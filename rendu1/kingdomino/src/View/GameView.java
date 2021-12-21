@@ -11,6 +11,9 @@ import java.awt.event.ActionListener;
 public class GameView extends JPanel {
     private MyWindow mainFrame;
 
+    /******Boards panel (plateau des joueurs)*******/
+    JPanel boardsPanel;
+
     public GameView(MyWindow MyWindow)  {
         this.mainFrame = MyWindow;
 
@@ -25,7 +28,7 @@ public class GameView extends JPanel {
 
 
         /******Boards panel (plateau des joueurs)*******/
-        JPanel boardsPanel =  new JPanel();
+        boardsPanel =  new JPanel();
         boardsPanel.setLayout( new GridBagLayout());
         int boardMargin = 20;
         boardC.insets = new Insets(boardMargin, boardMargin, boardMargin, boardMargin);
@@ -34,33 +37,7 @@ public class GameView extends JPanel {
         boardC.fill = GridBagConstraints.BOTH;
         boardsPanel.setBackground( Color.GRAY );
         gameBoard.add( boardsPanel, boardC );
-
-
-
-        /*Les plateau de jeu mis dans le boardsPanel*/
-        GridBagConstraints oneBoardC = new GridBagConstraints();
-        oneBoardC.insets = new Insets(20, 20, 20, 20);
-
-        boardC.gridx = 0;
-        boardC.gridy = 0;
-        boardsPanel.add( createPlayerBoardPanel(mainFrame.getGame().getPlayers().get(0) ), boardC);
-
-
-        boardC.gridx = 0;
-        boardC.gridy = 1;
-        boardsPanel.add( createPlayerBoardPanel(mainFrame.getGame().getPlayers().get(1)), boardC);
-
-        if( mainFrame.getGame().getNbPlayersStrat().getnbBoard() > 2 ){
-            boardC.gridx = 1;
-            boardC.gridy = 0;
-            boardsPanel.add( createPlayerBoardPanel(mainFrame.getGame().getPlayers().get(2)), boardC);
-            if( mainFrame.getGame().getNbPlayersStrat().getnbBoard() > 3 ){
-                boardC.gridx = 1;
-                boardC.gridy = 1;
-                boardsPanel.add( createPlayerBoardPanel(mainFrame.getGame().getPlayers().get(3)), boardC);
-            }
-        }
-
+        this.updatePlayersBoards();
 
 
 
@@ -156,9 +133,10 @@ public class GameView extends JPanel {
     /** Fonction qui renvoie un JPanel contenant l'affichage du playerboard passé en parametre
      *
      * @param player : Le joueur qui va avoir son plateau d'affiché
+     * @param enable : Si c'est le tour de ce joueur de jouer
      * @return JPanel : Rendu en panel du playerBoard
      */
-    private JPanel createPlayerBoardPanel(Player player){
+    private JPanel createPlayerBoardPanel(Player player, boolean enable){
         JPanel boardPnl = new JPanel();
         boardPnl.setLayout( new GridBagLayout() );
 
@@ -174,13 +152,17 @@ public class GameView extends JPanel {
                 int finalJ = j;
                 int finalI = i;
                 btn.addActionListener(actionEvent -> {
-                    mainFrame.getGameController().placeCastle(player, finalJ, finalI);
+                    mainFrame.getGameController().placeCastle(player,  finalI, finalJ);
                 });
+                btn.setEnabled(false);
+
                 //Met l'image correspondant à la couleur de la case
                 if(playerBoard.getPositionnable(i,j) == null){
                     btn.setIcon( IMGReader.getImage("empty.jpg") );
                     grid.add(btn);
-                    //boardPnl.add( IMGReader.getImagePnl("empty.jpg") );
+                    if(player == mainFrame.getGame().getPlayerTurn()){ //Si c'est son tour
+                        btn.setEnabled(enable);
+                    }
                 }else if(playerBoard.getPositionnable(i,j).getColor() == GroundColor.GREY){
                     btn.setIcon( IMGReader.getImage("castle.png") );
                     grid.add(btn);
@@ -290,6 +272,43 @@ public class GameView extends JPanel {
         btn.setPreferredSize(new Dimension(50, 50));
         btn.setIcon( IMGReader.getImage("castle.png") );
         return btn;
+    }
+
+    private void updatePlayersBoards(){
+        boardsPanel.removeAll();
+
+        /*Les plateau de jeu mis dans le boardsPanel*/
+        GridBagConstraints boardC = new GridBagConstraints();
+        int boardMargin = 20;
+        boardC.insets = new Insets(boardMargin, boardMargin, boardMargin, boardMargin);
+
+        boardC.gridx = 0;
+        boardC.gridy = 0;
+        boardsPanel.add( createPlayerBoardPanel(mainFrame.getGame().getPlayers().get(0), true ), boardC);
+
+
+        boardC.gridx = 0;
+        boardC.gridy = 1;
+        boardsPanel.add( createPlayerBoardPanel(mainFrame.getGame().getPlayers().get(1), true), boardC);
+
+        if( mainFrame.getGame().getNbPlayersStrat().getnbBoard() > 2 ){
+            boardC.gridx = 1;
+            boardC.gridy = 0;
+            boardsPanel.add( createPlayerBoardPanel(mainFrame.getGame().getPlayers().get(2), true), boardC);
+            if( mainFrame.getGame().getNbPlayersStrat().getnbBoard() > 3 ){
+                boardC.gridx = 1;
+                boardC.gridy = 1;
+                boardsPanel.add( createPlayerBoardPanel(mainFrame.getGame().getPlayers().get(3), true), boardC);
+            }
+        }
+
+    }
+
+    public void update (GameContext game){
+
+        this.updatePlayersBoards();
+        this.revalidate();
+        this.repaint();
     }
 
 

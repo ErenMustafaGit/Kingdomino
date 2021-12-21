@@ -1,13 +1,14 @@
 package View;
 
+import Model.GameContext;
 import Model.GameObserver;
 import Model.GameMode;
 import Model.PlayerStrategy;
 
 public class Log implements GameObserver {
     @Override
-    public void notify(GameMode strategy, PlayerStrategy player) {
-        System.out.println("Nous sommes en mode : "+ strategy.getnamegame()+"\nIl y'a "+player.getnbBoard()+" joueurs pour cette partie");
+    public void update(GameContext gameContext) {
+        System.out.println("Tour du joueur " + gameContext.getPlayerTurn() );
     }
 
     //notifier aussi si la place est possible ou non!

@@ -11,11 +11,12 @@
   <component name="ChangeListManager">
     <list default="true" id="b296bc09-cc63-4dd7-9250-50d90129aaa5" name="Default Changelist" comment="delete manifest.mf">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rendu1/kingdomino/UML/init.puml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/rendu1/kingdomino/src/Controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/rendu1/kingdomino/src/Controller/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rendu1/kingdomino/src/Kingodomino.java" beforeDir="false" afterPath="$PROJECT_DIR$/rendu1/kingdomino/src/Kingodomino.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rendu1/kingdomino/src/Model/GameContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/rendu1/kingdomino/src/Model/GameContext.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rendu1/kingdomino/src/Model/PlayerBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/rendu1/kingdomino/src/Model/PlayerBoard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rendu1/kingdomino/src/Model/GameObserver.java" beforeDir="false" afterPath="$PROJECT_DIR$/rendu1/kingdomino/src/Model/GameObserver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rendu1/kingdomino/src/View/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/rendu1/kingdomino/src/View/GameView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rendu1/kingdomino/src/View/Log.java" beforeDir="false" afterPath="$PROJECT_DIR$/rendu1/kingdomino/src/View/Log.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rendu1/kingdomino/src/View/MyWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/rendu1/kingdomino/src/View/MyWindow.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -279,7 +280,14 @@
       <option name="project" value="LOCAL" />
       <updated>1639952891642</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Added EventListener in GameView, and all the necessary function.&#10;Deleted init.puml">
+      <created>1640079850680</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1640079850680</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -314,7 +322,8 @@
     <MESSAGE value="Updated GameContext and UML" />
     <MESSAGE value="add executable" />
     <MESSAGE value="delete manifest.mf" />
-    <option name="LAST_COMMIT_MESSAGE" value="delete manifest.mf" />
+    <MESSAGE value="Added EventListener in GameView, and all the necessary function.&#10;Deleted init.puml" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added EventListener in GameView, and all the necessary function.&#10;Deleted init.puml" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/a31_kingdomino$Kingdomino.ic" NAME="Kingdomino Coverage Results" MODIFIED="1639922525302" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
