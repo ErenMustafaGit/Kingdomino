@@ -6,6 +6,8 @@
       <sourceFolder url="file://$MODULE_DIR$/rendu1/kingdomino/Tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/rendu1/kingdomino/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/rendu1/kingdomino/ressources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/rendu2/kingdomino/Tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/rendu2/kingdomino/src" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
