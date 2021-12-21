@@ -98,12 +98,7 @@ public class GameController
     }
 
 
-
-
-
-
-
-
-
-
+    public void chooseTile(Tile tile) {
+        game.chooseTile(tile);
+    }
 }

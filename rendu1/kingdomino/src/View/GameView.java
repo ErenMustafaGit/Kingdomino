@@ -14,6 +14,9 @@ public class GameView extends JPanel {
     /******Boards panel (plateau des joueurs)*******/
     JPanel boardsPanel;
 
+    /******Game interaction (les 4 tuiles etc)*******/
+    JPanel gameInterac;
+
     public GameView(MyWindow MyWindow)  {
         this.mainFrame = MyWindow;
 
@@ -37,19 +40,14 @@ public class GameView extends JPanel {
         boardC.fill = GridBagConstraints.BOTH;
         boardsPanel.setBackground( Color.GRAY );
         gameBoard.add( boardsPanel, boardC );
+
         this.updatePlayersBoards();
 
 
-
-
-
         /******Game interaction (les 4 tuiles etc)*******/
-        JPanel gameInterac =  new JPanel();
+        gameInterac = new JPanel();
         gameInterac.setLayout( new GridBagLayout());
         gameInterac.setBackground( Color.gray );
-
-        GridBagConstraints interacC = new GridBagConstraints();
-        interacC.insets = new Insets(5, 20, 5, 20);
 
         // augmente la largeur des composants de 100 pixels
         boardC.ipadx = 100;
@@ -58,21 +56,7 @@ public class GameView extends JPanel {
         boardC.gridy = 0;
         gameBoard.add( gameInterac, boardC );
 
-        /** Creation des boutons (dans gameInterac) **/
-        /*
-        for (int i = 0; i<4; i++){
-            interacC.gridx = 0;
-            interacC.gridy = i;
-            gameInterac.add( createTile( mainFrame.getGame().getCurrentTiles().get(i) ) , interacC);
-        }*/
-
-        /** Creation des boutons chateau (dans gameInterac) **/
-        for (int i = 0; i< mainFrame.getGame().getNbPlayersStrat().getnbBoard(); i++){
-            interacC.gridx = 0;
-            interacC.gridy = i;
-            gameInterac.add( createCastle() , interacC);
-        }
-
+        this.updateInteractionBoard();
 
 
 
@@ -206,16 +190,32 @@ public class GameView extends JPanel {
     /** Fonction qui renvoie un JPanel contenant l'affichage du playerboard passé en parametre
      *
      * @param tile : PlayerBoard qui doit être affiché
+     * @param player
      * @return JPanel : Rendu en panel du playerBoard
      */
-    private JPanel createTile(Tile tile){
+    private JPanel createTile(Tile tile, Player player){
         JPanel tilePanel = new JPanel();
         tilePanel.setLayout( new BorderLayout() );
+        tilePanel.setPreferredSize( new Dimension(100, 50));
 
         JButton left = new JButton("left");
         JButton right = new JButton("right");
         left.setPreferredSize(new Dimension(50, 50));
         right.setPreferredSize(new Dimension(50, 50));
+
+        left.addActionListener(actionEvent -> {
+            if(mainFrame.getGame().getCurrentTiles().get(tile) == null){
+                mainFrame.getGameController().chooseTile(tile);
+            }
+        });
+
+        right.addActionListener(actionEvent -> {
+            if(mainFrame.getGame().getCurrentTiles().get(tile) == null){
+                mainFrame.getGameController().chooseTile(tile);
+            }
+        });
+
+
 
         //Met l'image correspondant à la couleur de la case
         switch(tile.getLeft().getColor()){
@@ -263,15 +263,53 @@ public class GameView extends JPanel {
         }
         tilePanel.add(left, BorderLayout.LINE_START);
         tilePanel.add(right, BorderLayout.LINE_END);
+        if(player != null){
+            tilePanel.add( new JLabel(player.getPlayerColor().toString()), BorderLayout.SOUTH );
+        }
 
         return tilePanel;
     }
 
+    //Renvoie un Bouton qui represente un chateau
     public JButton createCastle(){
         JButton btn = new JButton();
         btn.setPreferredSize(new Dimension(50, 50));
         btn.setIcon( IMGReader.getImage("castle.png") );
         return btn;
+    }
+
+    private void updateInteractionBoard(){
+        gameInterac.removeAll();
+
+        /** Creation des boutons (dans gameInterac) **/
+        GridBagConstraints interacC = new GridBagConstraints();
+        interacC.insets = new Insets(5, 20, 5, 20);
+
+        double nbPlayers = mainFrame.getGame().getNbPlayersStrat().getnbBoard();
+        double turn = mainFrame.getGame().getTurn();
+        System.out.println("nbPl = " + nbPlayers + "    turn : " + turn);
+        //Si on est au tour 1 pour tout les joueurs
+        if(turn / nbPlayers < 1){
+            System.out.println( "Tour chateau !" );
+            /** Creation des boutons chateau (dans gameInterac) **/
+            for (int i = 0; i< nbPlayers - turn ; i++){
+                interacC.gridx = 0;
+                interacC.gridy = i;
+                gameInterac.add( createCastle() , interacC);
+            }
+        }else{
+            int tileRemaining = (int)nbPlayers - (int)turn% (int)nbPlayers;
+            System.out.println(tileRemaining);
+            int i = 0;
+            for (Tile tile : mainFrame.getGame().getCurrentTiles().keySet()) {
+                interacC.gridx = 0;
+                interacC.gridy = i;
+                gameInterac.add( createTile( tile, mainFrame.getGame().getCurrentTiles().get(tile) ) , interacC);
+                i++;
+            }
+        }
+
+
     }
 
     private void updatePlayersBoards(){
@@ -305,8 +343,11 @@ public class GameView extends JPanel {
     }
 
     public void update (GameContext game){
-
+        //Update all players boards
         this.updatePlayersBoards();
+        //Update game interaction board (right panel)
+        this.updateInteractionBoard();
+
         this.revalidate();
         this.repaint();
     }
