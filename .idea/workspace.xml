@@ -10,12 +10,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b296bc09-cc63-4dd7-9250-50d90129aaa5" name="Default Changelist" comment="delete manifest.mf">
+      <change beforePath="$PROJECT_DIR$/.idea/a31-kingdomino.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/a31-kingdomino.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rendu1/kingdomino/src/Controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/rendu1/kingdomino/src/Controller/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rendu1/kingdomino/src/Model/GameContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/rendu1/kingdomino/src/Model/GameContext.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rendu1/kingdomino/src/Model/Tile.java" beforeDir="false" afterPath="$PROJECT_DIR$/rendu1/kingdomino/src/Model/Tile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rendu1/kingdomino/src/View/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/rendu1/kingdomino/src/View/GameView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rendu1/kingdomino/src/View/MyWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/rendu1/kingdomino/src/View/MyWindow.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,13 +59,14 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/rendu1/docs" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/rendu1/docs" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -111,11 +108,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TestPlayerBoard" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="View in a31-kingdomino" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="a31-kingdomino" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="TestPlayerBoard" />
-      <option name="TEST_OBJECT" value="class" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="View.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="View" />
+      <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -125,15 +127,15 @@
       <item itemvalue="JUnit.All in a31-kingdomino" />
       <item itemvalue="JUnit.TestPlayerBoard$FullPlayerBoard" />
       <item itemvalue="JUnit.TestPlayerBoard$FullPlayerBoard.testEstNull" />
-      <item itemvalue="JUnit.TestPlayerBoard" />
+      <item itemvalue="JUnit.View in a31-kingdomino" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Kingodomino" />
+        <item itemvalue="JUnit.View in a31-kingdomino" />
         <item itemvalue="JUnit.All in a31-kingdomino" />
         <item itemvalue="JUnit.TestPlayerBoard$FullPlayerBoard.testEstNull" />
         <item itemvalue="JUnit.TestPlayerBoard$FullPlayerBoard" />
-        <item itemvalue="JUnit.TestPlayerBoard" />
       </list>
     </recent_temporary>
   </component>

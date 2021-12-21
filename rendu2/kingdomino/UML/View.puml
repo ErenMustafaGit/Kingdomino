@@ -1,0 +1,273 @@
+@startuml
+'skinparam style strictuml
+skinparam classAttributeIconSize 0
+skinparam classFontStyle Bold
+hide enum methods
+skinparam BackgroundColor HoneyDew
+
+'class main qui va executer le jeu
+class KingDomino{
++main()
+}
+
+
+package Controller{
+'package CONTROLLER
+package GameController #technology{
+    ' plateau de jeu
+    class GameController{
+        +GameController(game:GameContext)
+        +initializeGame((nbPlayers:Integer, gameMode:Integer)
+        +placeTile(player:Player, tile:Tile, x:Integer, y:Integer, dir:Direction)
+    }
+}
+
+}
+
+
+package Model #mistyrose{
+    'interface players
+    interface PlayerStrategy{
+        + getNbBoard():Integer
+        + getNbTile():Integer
+        + getNbKings():Integer
+    }
+    class TwoPlayers implements PlayerStrategy{
+        + getNbBoard():Integer
+        + getNbTile():Integer
+        + getNbKings():Integer
+    }
+
+    class ThreePlayers implements PlayerStrategy{
+        + getNbBoard():Integer
+        + getNbTile():Integer
+        + getNbKings():Integer
+    }
+
+   class FourPlayers implements PlayerStrategy{
+        + getNbBoard():Integer
+        + getNbTile():Integer
+        + getNbKings():Integer
+   }
+
+
+
+    class Deck{
+        +Deck(deckSize:Integer)
+        +getTile():Tile
+    }
+
+
+    'tuiles numéroté
+    class Tile {
+
+        -number:Integer
+        +getNumber():Integer
+        +setNumber(num:Integer)
+
+    }
+    'coté de la tuile (droite ou gauche)
+    class Ground{
+        -crownNumber:Integer
+        +getColor():GroundColor
+        +getCrownNumber():Integer
+        +setCrownNumber(nbCrown:Integer)
+    }
+    'couleur des cotés de la tuile
+    enum GroundColor{
+    -GREY
+    -BLUE
+    -DARKGREEN
+    -BLACK
+    -BROWN
+    -YELLOW
+    -LIGHTGREEN
+    +{static}+getColor(String:color):GroundColor
+    }
+    'strategy permettant de pouvoir choisir le jeu qu'on veut
+    interface GameMode{
+        +calculateScore(p:Player)
+    }
+    'contexte du jeu
+    class GameContext{
+        +GameContext()
+        +addObserver(gameObserver:GameObserver)
+        +notifyObservers()
+        +getGameDeck():Deck
+        -createDeck()
+        -createPlayers()
+        -createKing(color:KingColor, number:Integer)
+        -getUnchoosenColor():KingColor
+        +initGame()
+        +setGameMode(strategy:GameMode)
+        +setPlayerStrategy(nbPlayers:Integer)
+        +getPlayers():Collection<Players>
+        +pickTiles()
+    }
+
+    package GameModes{
+
+
+
+            class NormalMode {
+                +calculateScore(p:Player)
+            }
+            abstract class ModeDecorator{
+                -wrappee:GameMode
+                +ModeDecorator(gameMode:GameMode)
+                +calculateScore(p:Player)
+            }
+
+            class MiddleKingdom extends ModeDecorator {
+                +MiddleKingdom()
+                +calculateScore(p:Player)
+            }
+
+            'class harmonie
+            class Harmony extends ModeDecorator {
+                +Harmony()
+                +calculateScore(p:Player)
+            }
+    }
+    'interface observer qui va permettre de notifier les changements
+    interface GameObserver{
+        +update(gameContext:GameContext)
+    }
+
+
+
+    class PlayerBoard{
+        +BOARD_SIZE:Integer = 5
+        +PlayerBoard(castle:Castle)
+        +setTile(x:Integer, y:Integer, direction:Direction, tile:Tile)
+        -isPosable(x:Integer, y:Integer):Boolean
+        -isSameGround(x:Integer, y:Integer, ground:Ground):Boolean
+    }
+    interface Positionnable{
+        +getColor():GroundColor
+    }
+
+    enum Direction{
+        NORTH
+        SOUTH
+        EAST
+        WEST
+    }
+
+    'joueur
+    class Player{
+        +Player(kings:Collection<King>, )
+        +getPlayerCOlor
+    }
+
+    'roi
+    class King{
+        +King(color:KingColor)
+    }
+    'class chateau
+    class Castle {
+        +Castle()
+        +getColor():GroundColor
+    }
+
+    'couleur du roi et du chateau
+    enum KingColor{
+    -PINK
+    -BLUE
+    -GREEN
+    -YELLOW
+    }
+    package Utilities{
+        class CSVReader{
+            {static} - RESSOURCE_PATH = "./kingdomino/ressources/"
+            {static} read(filename:String):Collection<Collection<String>>
+        }
+
+        class IMGReader{
+                {static} - RESSOURCE_PATH = "./kingdomino/ressources/"
+                {static} getImagePnl(String:filename):JLabel
+                {static} getImage(String:filename):Image
+            }
+    }
+}
+
+'package VIEW
+package view #D0E1D4{
+    'application du jeu (design avec Swing)
+    class MyWindow implements GameObserver{
+        +update(gameContext:GameContext)
+    }
+
+    class MainMenu{
+        +update(gameContext:GameContext)
+    }
+
+    class ChoosingMenu{
+            +update(gameContext:GameContext)
+        }
+
+    class GameView{
+            +update(gameContext:GameContext)
+        }
+
+
+}
+
+
+
+
+Ground ..|> Positionnable
+Castle ..|> Positionnable
+PlayerBoard "..*\n-board" *-r-> Positionnable : > contains
+
+Deck ..> CSVReader :  > use
+Ground "1\n-color"*-->"1"GroundColor
+Tile *-->Ground : "1\n-left\n1\n-right" > composed
+
+'A SUPP
+Deck "..* -tiles" *-> Tile : > had
+
+
+
+
+GameContext "..4\n-currentTiles" o--> Tile
+GameContext "1\n-deck" *-r-> Deck
+GameContext *--> GameMode  : "1\n-gameMode" > select
+GameContext *--> PlayerStrategy : "1\n-playerStrategy" > select
+GameContext *-> Player : "2..4\n-players" > played by
+
+
+'BoardGame  *-> Player : "2..4\n-players" > played by
+GameController o--> GameContext : "1\n-gameContext" > had
+
+
+Player *-> PlayerBoard : "1\n-board" > had
+Player  o--> King : "1..2\n-playerKings" > had
+
+PlayerBoard .> Direction : > use
+
+
+'Implements de GameMode
+'Harmony .u.|> GameMode
+'MiddleKingdom .u.|> GameMode
+ModeDecorator .u.|> GameMode
+NormalMode .u.|> GameMode
+
+King"1\n-color"*-->"1" KingColor: > had
+
+
+Castle"1\n-color"*-->GroundColor : > had
+
+MyWindow "1\n-mainMenu" *--> MainMenu
+MyWindow "1\n-choosingMenu" *--> ChoosingMenu
+MyWindow "1\n-gameView" *--> GameView
+
+KingDomino..> GameController : <<create>>
+'KingDomino.> PlayerStrategy : <<use>>
+'KingDomino..> GameMode : <<use>>
+KingDomino ..>MyWindow : <<create>>
+KingDomino ..>GameContext : <<create>>
+MyWindow "1\n-controller" o-> GameController : > send \nuser request
+MyWindow "1\n-game" o-> GameContext
+GameContext "..n\n-observers" o-->GameObserver : > observes
+@enduml
