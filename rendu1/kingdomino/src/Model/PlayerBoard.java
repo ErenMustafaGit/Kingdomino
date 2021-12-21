@@ -22,6 +22,20 @@ public class PlayerBoard
 
     /**
      * @param x, y : Position du terrain gauche de la tuile
+     * @return TRUE si nous avons reussi à placer la tuile
+     */
+    public boolean setCastle(int x, int y, Castle castle)
+    {
+        //Si les cases existent et qu'ils sont disponibles
+        if( isPosable(x, y) ){
+            this.board[x][y] = castle;
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @param x, y : Position du terrain gauche de la tuile
      * @param dir : Direction de la tuile
      * @param tile : Tuile à placé
      * @return TRUE si nous avons reussi à placer la tuile

@@ -12,6 +12,7 @@ public class MyWindow extends JFrame implements GameObserver
 {
     GameController gameController;
     GameContext game;
+    GameView gameView;
 
     public MyWindow(GameController gameController, GameContext game) {
         this.game = game;
@@ -32,7 +33,8 @@ public class MyWindow extends JFrame implements GameObserver
         return this.gameController;
     }
     public void setGamePanel(){
-        this.setContentPane(new GameView(this));
+        this.gameView = new GameView(this);
+        this.setContentPane( gameView );
         this.setVisible(true);
     }
 
@@ -50,7 +52,7 @@ public class MyWindow extends JFrame implements GameObserver
 
 
     @Override
-    public void notify(GameMode strategy, PlayerStrategy player) {
-
+    public void update(GameContext game) {
+        gameView.update(game);
     }
 }
