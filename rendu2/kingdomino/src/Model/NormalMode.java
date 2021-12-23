@@ -93,7 +93,7 @@ public class NormalMode implements GameMode {
             }
         }
 
-        return nbVoisin;
+        return nbVoisin*nbCrown;
     }
 
     @Override
