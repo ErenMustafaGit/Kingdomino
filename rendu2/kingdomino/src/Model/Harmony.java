@@ -3,7 +3,6 @@ package Model;
 public class Harmony extends ModeDecorator {
     //les terrains
     Ground ground;
-    private Ground otherGround;
 
     public Harmony(GameMode gameMode) {
         super(gameMode);
@@ -13,6 +12,86 @@ public class Harmony extends ModeDecorator {
     @Override
     public int calculateScore(Player p) {
         GroundColor color;
+        int nbVoisin = 1;
+        int nbCrown = 0;
+        /**Calcul le nombre de voisin par domaine**/
+        for(int i = 0; i<p.getBoard().BOARD_SIZE; i++) {
+            for (int j = 0; j < p.getBoard().BOARD_SIZE; j++) {
+                /** On récupère la couleur de la case où l'on est**/
+                if (p.getBoard().getPositionnable(i, j) !=null){
+                    if(j-1>=0){
+                        if(p.getBoard().getPositionnable(i, j-1)!= null){
+                            /**On récupère la couleur de la case de droite**/
+                            color = p.getBoard().getPositionnable(i, j-1).getColor();
+
+                            /**Si la couleur de la case suivane est la même que celle qu'on a **/
+                            if(color == p.getBoard().getPositionnable(i,j).getColor() && !p.getBoard().getPositionnable(i,j-1).isCounted()){
+                                ground = (Ground) p.getBoard().getPositionnable(i,j-1);
+                                nbCrown += ground.getCrownNumber();
+                                /**RECURSIVITE**/
+                                calculateScore(p);
+                                p.getBoard().getPositionnable(i, j-1).setCounted(true);
+                            }
+                        }
+                    }
+                    if(j+1<p.getBoard().BOARD_SIZE){
+                        if(p.getBoard().getPositionnable(i, j+1)!= null){
+                            /**On récupère la couleur de la case de droite**/
+                            color = p.getBoard().getPositionnable(i, j+1).getColor();
+
+                            /**Si la couleur de la case suivane est la même que celle qu'on a **/
+                            if(color == p.getBoard().getPositionnable(i,j).getColor() && !p.getBoard().getPositionnable(i,j+1).isCounted()){
+                                ground = (Ground) p.getBoard().getPositionnable(i,j+1);
+                                nbCrown += ground.getCrownNumber();
+                                /**RECURSIVITE**/
+                                calculateScore(p);
+                                p.getBoard().getPositionnable(i, j+1).setCounted(true);
+                            }
+                        }
+                    }
+                    if(i-1>0){
+                        if(p.getBoard().getPositionnable(i-1, j)!= null){
+                            /**On récupère la couleur de la case de droite**/
+                            color = p.getBoard().getPositionnable(i-1, j).getColor();
+                            /**Si la couleur de la case suivane est la même que celle qu'on a **/
+                            if(color == p.getBoard().getPositionnable(i,j).getColor() && !p.getBoard().getPositionnable(i-1,j).isCounted()){
+                                ground = (Ground) p.getBoard().getPositionnable(i-1,j);
+                                nbCrown += ground.getCrownNumber();
+                                /**RECURSIVITE**/
+                                calculateScore(p);
+                                p.getBoard().getPositionnable(i-1, j).setCounted(true);
+                            }
+                        }
+                    }
+                    if(i+1 <p.getBoard().BOARD_SIZE){
+                        if(p.getBoard().getPositionnable(i+1, j)!= null){
+                            /**On récupère la couleur de la case de droite**/
+                            color = p.getBoard().getPositionnable(i+1, j).getColor();
+                            /**Si la couleur de la case suivante est la même que celle qu'on a **/
+                            if(color == p.getBoard().getPositionnable(i,j).getColor() && !p.getBoard().getPositionnable(i+1,j).isCounted()){
+                                ground = (Ground) p.getBoard().getPositionnable(i+1,j);
+                                nbCrown += ground.getCrownNumber();
+                                /**RECURSIVITE**/
+                                calculateScore(p);
+                                p.getBoard().getPositionnable(i+1, j).setCounted(true);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return nbVoisin*nbCrown;
+        /**terrain complet*/
+    }
+
+    @Override
+    public String getnamegame() {
+        return "Harmony";
+    }
+}
+/*
+ GroundColor color;
         //donne le score
         int score =0;
         //nombre de couronne sur le terrain
@@ -90,10 +169,4 @@ public class Harmony extends ModeDecorator {
         }
 
         return score;
-    }
-
-    @Override
-    public String getnamegame() {
-        return "Harmony";
-    }
-}
+* */

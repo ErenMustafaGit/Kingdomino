@@ -14,7 +14,6 @@ public class PlayerBoard
 
     }
 
-    //Assignation du board du joueur avec le chateau au milieu du 9x9
     public PlayerBoard(Castle castle)
     {
         this.board[2][2] = castle;
