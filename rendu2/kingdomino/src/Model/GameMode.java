@@ -2,7 +2,7 @@ package Model;
 
 public interface GameMode {
 
-    public int calculateScore(Player p);
+    public int calculateScore(PlayerBoard p);
     String getnamegame();
 
 }
