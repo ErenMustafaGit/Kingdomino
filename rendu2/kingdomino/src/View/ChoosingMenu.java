@@ -2,100 +2,187 @@ package View;
 
 import Model.KingColor;
 import Utilities.IMGReader;
+import View.Components.MyLabel;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class ChoosingMenu extends JPanel {
     final static boolean shouldFill = true;
     private MyWindow mainFrame;
+    private JPanel mainPnl = new JPanel();
     private ButtonGroup group;
-    private String[] nbreofplayers = {"2","3","4"};
-    JComboBox NbredeJoueurs = new JComboBox(nbreofplayers);
+    private String[] nbPlayerChoice = {"2","3","4"};
+    JComboBox nbPlayerCbo = new JComboBox(nbPlayerChoice);
+
+    /** Panel qui va contenir tout les cbo de couleurs (2 à 4) **/
+    JPanel playerColorsPnl = new JPanel();
 
     private ImageIcon img;
 
     public ChoosingMenu(MyWindow MyWindow) {
         this.mainFrame = MyWindow;
-        this.img = IMGReader.getImage("wallpaper.png");
+        this.img = IMGReader.getImage("wallpaperDark.png");
         this.setOpaque(false);
+        this.setLayout( new BorderLayout() );
 
-                /***utilisation d'un grid Layout***/
-        this.setLayout(new GridLayout(8,3,10,10));
+        mainPnl.setLayout( new GridBagLayout() );
+        mainPnl.setOpaque(false);
+        GridBagConstraints c = new GridBagConstraints();
+        this.add( mainPnl, BorderLayout.CENTER );
+        int margin = 20;
+        c.insets = new Insets(margin, margin, margin, margin);
 
-                /***padding entre composant de la fenetre***/
-        this.setBorder(new EmptyBorder(20, 20, 20, 20));
+
+
 
                 /***Affichage du titre de la page***/
-        JLabel label = new JLabel("Mode de jeu");
-        label.setFont(new Font("Showcard Gothic",Font.BOLD, 40));
-
-                /**Centrer le label du haut**/
-        label.setHorizontalAlignment(SwingConstants.CENTER);
+        MyLabel label = new MyLabel("Menu de choix");
+        label.setFont(new Font("Showcard Gothic",Font.BOLD, 70));
+        label.setOutlineColor(Color.DARK_GRAY);
+        label.setStroke(new BasicStroke(5f));
+        label.setForeground(Color.WHITE);
         label.setVisible(true);
-        this.add(label);
+        c.gridx = 0;
+        c.gridy = 0;
+        mainPnl.add( label, c );
 
                     /**Affichage du mode de jeu + des checkbox**/
-        JLabel mode = new JLabel("Mode de jeu :");
-        mode.setFont(new Font("Bookman Old Style", Font.BOLD, 20));
-        mode.setHorizontalTextPosition(SwingConstants.HORIZONTAL);
-        this.add(mode);
-        JCheckBox harmony = new JCheckBox("Harmony");
-        harmony.setOpaque(false);
-                    /***Changer la couleur de checkbox1***/
-        JCheckBox middle_kingdom = new JCheckBox("Middle Kingdom");
-        middle_kingdom.setOpaque(false);
-                    /***Changer la couleur de checkbox2***/
-        this.add(harmony);
-        this.add(middle_kingdom);
+        MyLabel mode = new MyLabel("Mode de jeu :");
+        mode.setForeground(Color.WHITE);
+        mode.setFont(new Font("Bookman Old Style", Font.BOLD, 30));
+        mode.setOutlineColor(Color.DARK_GRAY);
+        mode.setStroke(new BasicStroke(3f));
+        c.gridx = 0;
+        c.gridy = 1;
+        mainPnl.add(mode, c);
+
+
+        JCheckBox harmonyChk = new JCheckBox("Harmony");
+        harmonyChk.setOpaque(false);
+        harmonyChk.setForeground(Color.WHITE);
+        harmonyChk.setFont(new Font("Algerian", Font.BOLD, 20));
+
+        JCheckBox middleKingdomChk = new JCheckBox("Middle Kingdom");
+        middleKingdomChk.setOpaque(false);
+        middleKingdomChk.setForeground(Color.WHITE);
+        middleKingdomChk.setFont(new Font("Algerian", Font.BOLD, 20));
+
+        c.gridx = 1;
+        c.gridy = 1;
+        mainPnl.add(harmonyChk, c);
+        c.gridx = 2;
+        c.gridy = 1;
+        mainPnl.add(middleKingdomChk, c);
 
                     /**Les combobox**/
-        cboplayers();
-                    /**Affichage des cbo qui permet de choisir la couleur des rois des joueurs**/
+        //ajout du label de combobox
+        MyLabel nbPlayerLbl = new MyLabel("Nombre de joueurs :");
+        nbPlayerLbl.setOutlineColor(Color.DARK_GRAY);
+        nbPlayerLbl.setStroke(new BasicStroke(3f));
+        nbPlayerLbl.setForeground(Color.WHITE);
+        nbPlayerLbl.setFont(new Font("Bookman Old Style", Font.BOLD, 30));
+        c.gridx = 0;
+        c.gridy = 2;
+        mainPnl.add(nbPlayerLbl, c);
+        nbPlayerCbo.setPreferredSize(new Dimension(50,50));
+        nbPlayerCbo.setFont(new Font("Algerian", Font.BOLD, 30));
+        c.gridx = 1;
+        c.gridy = 2;
+        mainPnl.add(nbPlayerCbo, c);
+
+        /**Affichage des cbo qui permet de choisir la couleur des rois des joueurs**/
+        nbPlayerCbo.addActionListener (new ActionListener () {
+            public void actionPerformed(ActionEvent e) {
+                KingColor[] colors = KingColor.values();
+                GridBagConstraints colorsC = new GridBagConstraints();
+                int boardMargin = 20;
+                colorsC.insets = new Insets(boardMargin, boardMargin, boardMargin, boardMargin);
+                int playerNb = Integer.parseInt( nbPlayerCbo.getSelectedItem().toString() );
+                playerColorsPnl.removeAll();
+                playerColorsPnl.setBackground( new Color(174,135,0) );
+
+                for (int i = 0; i< playerNb; i++){
+                    colorsC.gridx = i;
+                    colorsC.gridy = 0;
+                    JComboBox cboColor = new JComboBox(colors);
+                    playerColorsPnl.add( cboColor, colorsC );
+                }
+                c.gridwidth = 4;
+                c.gridx = 0;
+                c.gridy = 3;
+                mainPnl.add( playerColorsPnl, c );
+                mainPnl.revalidate();
+                mainPnl.repaint();
+            }
+        });
+        Color mycolor = new Color(174,135,0);
+
         KingColor[] colors = KingColor.values();
-        JComboBox cboColor = new JComboBox(colors);
-        /**SELECTIONNE L'ITEM QUI EST DE DEUX JOUEURS**/
 
-        if(cboColor.getSelectedItem().toString()=="2"){
-            for( int i = 0; i<3; i++){
-                this.add(cboColor);
-            }
+        /** Panel de choix des couleurs **/
+        playerColorsPnl.setLayout( new GridBagLayout() );
+        //playerColorsPnl.setBackground( mycolor  );
+        playerColorsPnl.setOpaque(false);
+        GridBagConstraints colorsC = new GridBagConstraints();
+        int boardMargin = 20;
+        colorsC.insets = new Insets(boardMargin, boardMargin, boardMargin, boardMargin);
+        int playerNb = Integer.parseInt( nbPlayerCbo.getSelectedItem().toString() );
+
+        for (int i = 0; i< playerNb; i++){
+            colorsC.gridx = i;
+            colorsC.gridy = 0;
+            JComboBox cboColor = new JComboBox(colors);
+            playerColorsPnl.add( cboColor, colorsC );
         }
-        if(cboColor.getSelectedItem().toString()=="3"){
-            for( int i = 0; i<4; i++){
-                this.add(cboColor);
-            }
-        }
-        if(cboColor.getSelectedItem().toString()=="4"){
-            for( int i = 0; i<5; i++){
-                this.add(cboColor);
-            }
-        }
+        c.gridwidth = 4;
+        c.gridx = 0;
+        c.gridy = 3;
+        mainPnl.add( playerColorsPnl, c );
 
 
-        JButton button2 = new JButton("Play");
-        button2.setPreferredSize(new Dimension(10,10));
-        button2.addActionListener(new ActionListener() {
+
+
+        JButton playButton = new JButton("COMMENCER");
+        playButton.setBackground(mycolor);
+        playButton.setBorder(BorderFactory.createLineBorder(Color.darkGray, 2));
+        playButton.setPreferredSize(new Dimension(250,60));
+        playButton.setFont(new Font("Algerian", Font.BOLD, 25));
+        playButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                /** Récupere toutes les couleurs choisi par les joueurs **/
+                ArrayList<KingColor> colors = new ArrayList<>();
+                for (Component component : playerColorsPnl.getComponents()) {
+                    JComboBox cbo = (JComboBox)component;
+                    colors.add( (KingColor) cbo.getSelectedItem() );
+                }
+
                 int gameMode = 0;
-                if(harmony.isSelected() && middle_kingdom.isSelected() ){
+                if(harmonyChk.isSelected() && middleKingdomChk.isSelected() ){
                     gameMode = 3;
-                }else if( harmony.isSelected() ){
+                }else if( harmonyChk.isSelected() ){
                     gameMode = 1;
-                }else if (middle_kingdom.isSelected()){
+                }else if (middleKingdomChk.isSelected()){
                     gameMode = 2;
                 }
-                mainFrame.getGameController().initializeGame( Integer.parseInt(NbredeJoueurs.getSelectedItem().toString()), gameMode );
+                System.out.println( colors );
+
+                //Donne les infos de mode de jeu, de nombre de joueur et de couleurs des joueurs
+                mainFrame.getGameController().initializeGame( Integer.parseInt(nbPlayerCbo.getSelectedItem().toString()), colors, gameMode );
+                //Passe à la vue GameView
                 mainFrame.setGamePanel();
             }
         });
-        button2.setVisible(true);
-        this.add(button2);
+        c.gridx = 0;
+        c.gridy = 4;
+        c.gridwidth = 4;
+        mainPnl.add(playButton, c);
     }
 
                     /** Rediriger vers la partie **/
@@ -103,17 +190,6 @@ public class ChoosingMenu extends JPanel {
             return this;
     }
 
-                    /** Ajout des combobox**/
-    public JComboBox cboplayers(){
-        //ajout du label de combobox
-        JLabel joueurs = new JLabel("Nombre de joueurs:");
-        joueurs.setFont(new Font("Bookman Old Style", Font.BOLD, 20));
-        this.add(joueurs);
-        NbredeJoueurs.setPreferredSize(new Dimension(0,1));
-        this.add(NbredeJoueurs);
-        NbredeJoueurs.setVisible(true);
-        return NbredeJoueurs;
-    }
                 /***permet d'avoir les combobox couleurs***/
 //    private JComboBox getColorCbo(){
 //
@@ -136,6 +212,7 @@ public class ChoosingMenu extends JPanel {
         g.drawImage( this.img.getImage(), 0 , 0,mainFrame.getWidth(), mainFrame.getHeight(), null);
         super.paint(g);
     }
+
 
 
 }
