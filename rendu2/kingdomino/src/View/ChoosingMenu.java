@@ -25,7 +25,7 @@ public class ChoosingMenu extends JPanel {
 
     public ChoosingMenu(MyWindow MyWindow) {
         this.mainFrame = MyWindow;
-        this.img = IMGReader.getImage("wallpaper.png");
+        this.img = IMGReader.getImage("wallpaperDark.png");
         this.setOpaque(false);
         this.setLayout( new BorderLayout() );
 
@@ -41,7 +41,7 @@ public class ChoosingMenu extends JPanel {
 
                 /***Affichage du titre de la page***/
         MyLabel label = new MyLabel("Menu de choix");
-        label.setFont(new Font("Showcard Gothic",Font.BOLD, 60));
+        label.setFont(new Font("Showcard Gothic",Font.BOLD, 70));
         label.setOutlineColor(Color.DARK_GRAY);
         label.setStroke(new BasicStroke(5f));
         label.setForeground(Color.WHITE);
@@ -88,7 +88,8 @@ public class ChoosingMenu extends JPanel {
         c.gridx = 0;
         c.gridy = 2;
         mainPnl.add(nbPlayerLbl, c);
-        nbPlayerCbo.setPreferredSize(new Dimension(100,50));
+        nbPlayerCbo.setPreferredSize(new Dimension(50,50));
+        nbPlayerCbo.setFont(new Font("Algerian", Font.BOLD, 30));
         c.gridx = 1;
         c.gridy = 2;
         mainPnl.add(nbPlayerCbo, c);
@@ -102,7 +103,7 @@ public class ChoosingMenu extends JPanel {
                 colorsC.insets = new Insets(boardMargin, boardMargin, boardMargin, boardMargin);
                 int playerNb = Integer.parseInt( nbPlayerCbo.getSelectedItem().toString() );
                 playerColorsPnl.removeAll();
-                playerColorsPnl.setBackground( Color.ORANGE );
+                playerColorsPnl.setBackground( new Color(174,135,0) );
 
                 for (int i = 0; i< playerNb; i++){
                     colorsC.gridx = i;
@@ -118,13 +119,14 @@ public class ChoosingMenu extends JPanel {
                 mainPnl.repaint();
             }
         });
+        Color mycolor = new Color(174,135,0);
 
         KingColor[] colors = KingColor.values();
 
         /** Panel de choix des couleurs **/
         playerColorsPnl.setLayout( new GridBagLayout() );
-        playerColorsPnl.setBackground( Color.ORANGE );
-        // Crée un objet de contraintes
+        //playerColorsPnl.setBackground( mycolor  );
+        playerColorsPnl.setOpaque(false);
         GridBagConstraints colorsC = new GridBagConstraints();
         int boardMargin = 20;
         colorsC.insets = new Insets(boardMargin, boardMargin, boardMargin, boardMargin);
@@ -143,7 +145,6 @@ public class ChoosingMenu extends JPanel {
 
 
 
-        Color mycolor = new Color(174,135,0);
 
         JButton playButton = new JButton("COMMENCER");
         playButton.setBackground(mycolor);
