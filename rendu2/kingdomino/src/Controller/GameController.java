@@ -15,11 +15,11 @@ public class GameController
         this.game = game;
     }
 
-    public void initializeGame( int nbPlayers, int gameMode ) {
+    public void initializeGame( int nbPlayers, ArrayList<KingColor> colors, int gameMode ) {
 
         this.game.setPlayerStrategy(nbPlayers);
         this.game.setGameStrategy(gameMode);
-        this.game.initGame();
+        this.game.initGame(colors);
         /*
         if (strategy.getNbPlayersStrat() instanceof FourPlayers) {
             for (int i = 0; i < ( strategy.getNbPlayersStrat()).getnbBoard(); i++) // boucle sur les 4 rois différents de la partie

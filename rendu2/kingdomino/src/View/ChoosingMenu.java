@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class ChoosingMenu extends JPanel {
     final static boolean shouldFill = true;
@@ -154,6 +155,14 @@ public class ChoosingMenu extends JPanel {
         playButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                /** Récupere toutes les couleurs choisi par les joueurs **/
+                ArrayList<KingColor> colors = new ArrayList<>();
+                for (Component component : playerColorsPnl.getComponents()) {
+                    JComboBox cbo = (JComboBox)component;
+                    colors.add( (KingColor) cbo.getSelectedItem() );
+                }
+
                 int gameMode = 0;
                 if(harmonyChk.isSelected() && middleKingdomChk.isSelected() ){
                     gameMode = 3;
@@ -162,8 +171,10 @@ public class ChoosingMenu extends JPanel {
                 }else if (middleKingdomChk.isSelected()){
                     gameMode = 2;
                 }
+                System.out.println( colors );
+
                 //Donne les infos de mode de jeu, de nombre de joueur et de couleurs des joueurs
-                mainFrame.getGameController().initializeGame( Integer.parseInt(nbPlayerCbo.getSelectedItem().toString()), gameMode );
+                mainFrame.getGameController().initializeGame( Integer.parseInt(nbPlayerCbo.getSelectedItem().toString()), colors, gameMode );
                 //Passe à la vue GameView
                 mainFrame.setGamePanel();
             }

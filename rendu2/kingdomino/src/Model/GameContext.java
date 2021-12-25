@@ -64,9 +64,9 @@ public class GameContext
         }
     }
 
-    public void initGame(){
+    public void initGame(ArrayList<KingColor> colors){
         createDeck();
-        createPlayers();
+        createPlayers(colors);
         pickTiles();
     }
 
@@ -89,13 +89,14 @@ public class GameContext
         return kings;
     }
 
-    private void createPlayers()
+    private void createPlayers(ArrayList<KingColor> colors)
     {
         int nbPlayer = nbPlayersStrat.getnbBoard();
         ArrayList<Player> newPlayers = new ArrayList<>();
         for (int i = 0; i< nbPlayer ; i++){
             ArrayList<King> kings = new ArrayList<>();
-            KingColor color = this.getUnchoosenColor();
+            //KingColor color = this.getUnchoosenColor();
+            KingColor color = colors.get(i);
             if(nbPlayer ==2){
                 kings = this.createKing(color , 2);
             }else{
