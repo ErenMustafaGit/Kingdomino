@@ -2,9 +2,9 @@ package View;
 
 import Model.KingColor;
 import Utilities.IMGReader;
+import View.Components.MyLabel;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
@@ -40,11 +40,10 @@ public class ChoosingMenu extends JPanel {
 
 
                 /***Affichage du titre de la page***/
-        JLabel label = new JLabel("Menu de choix");
+        MyLabel label = new MyLabel("Menu de choix");
         label.setFont(new Font("Showcard Gothic",Font.BOLD, 60));
-
-                /**Centrer le label du haut**/
-        label.setHorizontalAlignment(SwingConstants.CENTER);
+        label.setOutlineColor(Color.DARK_GRAY);
+        label.setStroke(new BasicStroke(5f));
         label.setForeground(Color.WHITE);
         label.setVisible(true);
         c.gridx = 0;
@@ -52,37 +51,43 @@ public class ChoosingMenu extends JPanel {
         mainPnl.add( label, c );
 
                     /**Affichage du mode de jeu + des checkbox**/
-        JLabel mode = new JLabel("Mode de jeu :");
+        MyLabel mode = new MyLabel("Mode de jeu :");
         mode.setForeground(Color.WHITE);
         mode.setFont(new Font("Bookman Old Style", Font.BOLD, 30));
-        mode.setHorizontalTextPosition(SwingConstants.HORIZONTAL);
+        mode.setOutlineColor(Color.DARK_GRAY);
+        mode.setStroke(new BasicStroke(3f));
         c.gridx = 0;
         c.gridy = 1;
         mainPnl.add(mode, c);
 
 
-        JCheckBox harmony = new JCheckBox("Harmony");
-        harmony.setOpaque(false);
-        harmony.setForeground(Color.WHITE);
-        JCheckBox middle_kingdom = new JCheckBox("Middle Kingdom");
-        middle_kingdom.setOpaque(false);
-        middle_kingdom.setForeground(Color.WHITE);
+        JCheckBox harmonyChk = new JCheckBox("Harmony");
+        harmonyChk.setOpaque(false);
+        harmonyChk.setForeground(Color.WHITE);
+        harmonyChk.setFont(new Font("Algerian", Font.BOLD, 20));
+
+        JCheckBox middleKingdomChk = new JCheckBox("Middle Kingdom");
+        middleKingdomChk.setOpaque(false);
+        middleKingdomChk.setForeground(Color.WHITE);
+        middleKingdomChk.setFont(new Font("Algerian", Font.BOLD, 20));
 
         c.gridx = 1;
         c.gridy = 1;
-        mainPnl.add(harmony, c);
+        mainPnl.add(harmonyChk, c);
         c.gridx = 2;
         c.gridy = 1;
-        mainPnl.add(middle_kingdom, c);
+        mainPnl.add(middleKingdomChk, c);
 
                     /**Les combobox**/
         //ajout du label de combobox
-        JLabel joueurs = new JLabel("Nombre de joueurs:");
-        joueurs.setForeground(Color.WHITE);
-        joueurs.setFont(new Font("Bookman Old Style", Font.BOLD, 30));
+        MyLabel nbPlayerLbl = new MyLabel("Nombre de joueurs :");
+        nbPlayerLbl.setOutlineColor(Color.DARK_GRAY);
+        nbPlayerLbl.setStroke(new BasicStroke(3f));
+        nbPlayerLbl.setForeground(Color.WHITE);
+        nbPlayerLbl.setFont(new Font("Bookman Old Style", Font.BOLD, 30));
         c.gridx = 0;
         c.gridy = 2;
-        mainPnl.add(joueurs, c);
+        mainPnl.add(nbPlayerLbl, c);
         nbPlayerCbo.setPreferredSize(new Dimension(100,50));
         c.gridx = 1;
         c.gridy = 2;
@@ -138,20 +143,22 @@ public class ChoosingMenu extends JPanel {
 
 
 
-        c.gridx = 0;
-        c.gridy = 4;
-        c.gridwidth = 3;
-        JButton playButton = new JButton("Play");
-        playButton.setPreferredSize(new Dimension(10,10));
+        Color mycolor = new Color(174,135,0);
+
+        JButton playButton = new JButton("COMMENCER");
+        playButton.setBackground(mycolor);
+        playButton.setBorder(BorderFactory.createLineBorder(Color.darkGray, 2));
+        playButton.setPreferredSize(new Dimension(250,60));
+        playButton.setFont(new Font("Algerian", Font.BOLD, 25));
         playButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int gameMode = 0;
-                if(harmony.isSelected() && middle_kingdom.isSelected() ){
+                if(harmonyChk.isSelected() && middleKingdomChk.isSelected() ){
                     gameMode = 3;
-                }else if( harmony.isSelected() ){
+                }else if( harmonyChk.isSelected() ){
                     gameMode = 1;
-                }else if (middle_kingdom.isSelected()){
+                }else if (middleKingdomChk.isSelected()){
                     gameMode = 2;
                 }
                 //Donne les infos de mode de jeu, de nombre de joueur et de couleurs des joueurs
@@ -160,6 +167,9 @@ public class ChoosingMenu extends JPanel {
                 mainFrame.setGamePanel();
             }
         });
+        c.gridx = 0;
+        c.gridy = 4;
+        c.gridwidth = 4;
         mainPnl.add(playButton, c);
     }
 
@@ -190,6 +200,7 @@ public class ChoosingMenu extends JPanel {
         g.drawImage( this.img.getImage(), 0 , 0,mainFrame.getWidth(), mainFrame.getHeight(), null);
         super.paint(g);
     }
+
 
 
 }
