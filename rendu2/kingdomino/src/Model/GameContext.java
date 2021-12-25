@@ -168,6 +168,9 @@ public class GameContext
         if(player.getBoard().setTile(  x,  y, dir, tile  )) {
             turn++;
             currentTiles.remove(tile);
+            if(currentTiles.size() == 0){
+                this.pickTiles();
+            }
             notifyObservers();
             return true;
         }
