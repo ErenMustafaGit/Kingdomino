@@ -12,7 +12,7 @@ public class NormalMode implements GameMode {
                 crown = calculateNbCrown(p, ground, i, j);
             }
         }
-        return neighbor*crown;
+        return neighbor;
     }
 
     public int calculateNeighbor(PlayerBoard p, Ground g, int i, int j) {
@@ -32,8 +32,8 @@ public class NormalMode implements GameMode {
                                 g = (Ground) p.getPositionnable(i, j - 1);
                                 /**RECURSIVITE**/
                                 nbNeighbor +=1;
-                                calculateNeighbor(p, g, i, j - 1);
                                 p.getPositionnable(i, j - 1).setCounted(true);
+                                calculateNeighbor(p, g, i, j - 1);
                             }
 
                         }
@@ -49,8 +49,8 @@ public class NormalMode implements GameMode {
                                 g = (Ground) p.getPositionnable(i, j + 1);
                                 /**RECURSIVITE**/
                                 nbNeighbor +=1;
-                                calculateNeighbor(p, g, i, j + 1);
                                 p.getPositionnable(i, j + 1).setCounted(true);
+                                calculateNeighbor(p, g, i, j + 1);
                             }
                         }
                     }
@@ -64,8 +64,8 @@ public class NormalMode implements GameMode {
                                 g = (Ground) p.getPositionnable(i - 1, j);
                                 /**RECURSIVITE**/
                                 nbNeighbor +=1;
-                                calculateNeighbor(p, g, i - 1, j);
                                 p.getPositionnable(i - 1, j).setCounted(true);
+                                calculateNeighbor(p, g, i - 1, j);
                             }
                         }
                     }
@@ -78,14 +78,15 @@ public class NormalMode implements GameMode {
                                 g = (Ground) p.getPositionnable(i + 1, j);
                                 /**RECURSIVITE**/
                                 nbNeighbor +=1;
-                                calculateNeighbor(p, g, i + 1, j);
                                 p.getPositionnable(i + 1, j).setCounted(true);
+                                calculateNeighbor(p, g, i + 1, j);
                             }
                         }
                     }
                 }
             }
         }
+        System.out.println("Nombre de voisin : "+ nbNeighbor);
          return nbNeighbor;
     }
 
@@ -107,8 +108,8 @@ public class NormalMode implements GameMode {
                                 g = (Ground) p.getPositionnable(i, j - 1);
                                 /**RECURSIVITE**/
                                 nbCrown +=1;
-                                calculateNbCrown(p, g, i, j - 1);
                                 p.getPositionnable(i, j - 1).setCounted(true);
+                                calculateNbCrown(p, g, i, j - 1);
                             }
 
                         }
@@ -124,8 +125,8 @@ public class NormalMode implements GameMode {
                                 g = (Ground) p.getPositionnable(i, j + 1);
                                 /**RECURSIVITE**/
                                 nbCrown +=1;
-                                calculateNeighbor(p, g, i, j + 1);
                                 p.getPositionnable(i, j + 1).setCounted(true);
+                                calculateNeighbor(p, g, i, j + 1);
                             }
                         }
                     }
@@ -139,8 +140,8 @@ public class NormalMode implements GameMode {
                                 g = (Ground) p.getPositionnable(i - 1, j);
                                 /**RECURSIVITE**/
                                 nbCrown +=1;
-                                calculateNbCrown(p, g, i - 1, j);
                                 p.getPositionnable(i - 1, j).setCounted(true);
+                                calculateNbCrown(p, g, i - 1, j);
                             }
                         }
                     }
@@ -153,14 +154,15 @@ public class NormalMode implements GameMode {
                                 g = (Ground) p.getPositionnable(i + 1, j);
                                 /**RECURSIVITE**/
                                 nbCrown +=1;
-                                calculateNbCrown(p, g, i + 1, j);
                                 p.getPositionnable(i + 1, j).setCounted(true);
+                                calculateNbCrown(p, g, i + 1, j);
                             }
                         }
                     }
                 }
             }
         }
+        System.out.println("Nombre de couronne :" + nbCrown);
         return nbCrown;
     }
 
