@@ -116,43 +116,6 @@ public class GameContext
         return this.turn;
     }
 
-    private KingColor getUnchoosenColor(){
-
-        boolean same = false;
-        for (int i = 0; i<this.players.size(); i++){
-            if(KingColor.BLUE == this.players.get(i).getPlayerColor()){
-                same = true;
-            }
-        }
-        if(!same){
-            return KingColor.BLUE;
-        }
-        for (int i = 0; i<this.players.size(); i++){
-            if(KingColor.GREEN == this.players.get(i).getPlayerColor()){
-                same = true;
-            }
-        }
-        if(!same){
-            return KingColor.GREEN;
-        }
-        for (int i = 0; i<this.players.size(); i++){
-            if(KingColor.YELLOW == this.players.get(i).getPlayerColor()){
-                same = true;
-            }
-        }
-        if(!same){
-            return KingColor.YELLOW;
-        }
-        for (int i = 0; i<this.players.size(); i++){
-            if(KingColor.PINK == this.players.get(i).getPlayerColor()){
-                same = true;
-            }
-        }
-        if(!same){
-            return KingColor.PINK;
-        }
-        return null;
-    }
 
     public void pickTiles()
     {
@@ -186,6 +149,11 @@ public class GameContext
      */
     public boolean setTile(int x, int y, Direction dir)
     {
+        //Si toutes les tuiles ont été choisi
+        if(!allTilesChoosen()){
+            return false;
+        }
+
         Player player = this.getPlayerTurn();
         Tile tile = null;
         Map< Tile, Player > currentTiles = this.getCurrentTiles();
@@ -199,10 +167,21 @@ public class GameContext
 
         if(player.getBoard().setTile(  x,  y, dir, tile  )) {
             turn++;
+            currentTiles.remove(tile);
             notifyObservers();
             return true;
         }
         return false;
+    }
+
+    public boolean allTilesChoosen() {
+
+        for ( Map.Entry<Tile, Player> choosenTile : this.currentTiles.entrySet()) {
+            if(choosenTile.getValue() == null){
+                return false;
+            }
+        }
+        return true;
     }
 
     private void notifyObservers(){

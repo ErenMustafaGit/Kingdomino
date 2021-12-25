@@ -87,9 +87,9 @@ public class GameController
         game.setCastle(player, pos_x, pos_y);
     }
 
-    public void placeTile(int pos_x, int pos_y, Direction dir)
+    public boolean placeTile(int pos_x, int pos_y, Direction dir)
     {
-        game.setTile(pos_x, pos_y, dir);
+        return game.setTile(pos_x, pos_y, dir);
     }
 
     public void newRound()

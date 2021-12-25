@@ -103,6 +103,7 @@ package Model #mistyrose{
         +setPlayerStrategy(nbPlayers:Integer)
         +getPlayers():Collection<Players>
         +pickTiles()
+        +allTileChoosen():Boolean
     }
 
     package GameModes{

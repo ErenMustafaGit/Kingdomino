@@ -140,8 +140,14 @@ public class GameView extends JPanel {
                     if(mainFrame.getGame().getTurn() < mainFrame.getGame().getPlayers().size() ){
                         mainFrame.getGameController().placeCastle(player,  finalI, finalJ);
                     }else{
-                        //TODO : Placement d'une tuile par un joueur
-                        mainFrame.getGameController().placeTile( finalI, finalJ, Direction.EAST);
+
+                        if(!mainFrame.getGame().allTilesChoosen()){
+                            //TODO : Error message : "Toutes les tuiles doivent être choisi !"
+                        }else{
+                            if(!mainFrame.getGameController().placeTile( finalI, finalJ, Direction.EAST)){
+                                //TODO : Error message : "Cette tuile ne peut pas être placé ici !"
+                            }
+                        }
                     }
                 });
 
