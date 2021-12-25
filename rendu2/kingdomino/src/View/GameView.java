@@ -20,7 +20,6 @@ public class GameView extends JPanel {
     public GameView(MyWindow MyWindow)  {
         this.mainFrame = MyWindow;
 
-
         /***GAMEBOARD***/
         //Panel qui va contenir tout les élements de jeu
         JPanel gameBoard = new JPanel();
@@ -136,16 +135,28 @@ public class GameView extends JPanel {
                 int finalJ = j;
                 int finalI = i;
                 btn.addActionListener(actionEvent -> {
-                    mainFrame.getGameController().placeCastle(player,  finalI, finalJ);
-                });
-                btn.setEnabled(false);
 
+                    //Placer le chateau seulement on est dans les 1er tours pour le joueur
+                    if(mainFrame.getGame().getTurn() < mainFrame.getGame().getPlayers().size() ){
+                        mainFrame.getGameController().placeCastle(player,  finalI, finalJ);
+                    }else{
+                        //TODO : Placement d'une tuile par un joueur
+                        mainFrame.getGameController().placeTile( finalI, finalJ, Direction.EAST);
+                    }
+                });
+
+                btn.setRolloverEnabled(false);
+                if(player != mainFrame.getGame().getPlayerTurn()){ //Si c'est pas son tour
+                    btn.setEnabled(false);
+                }
+                btn.setRolloverEnabled(false);
                 //Met l'image correspondant à la couleur de la case
                 if(playerBoard.getPositionnable(i,j) == null){
                     btn.setIcon( IMGReader.getImage("empty.jpg") );
                     grid.add(btn);
                     if(player == mainFrame.getGame().getPlayerTurn()){ //Si c'est son tour
-                        btn.setEnabled(enable);
+                        //btn.setEnabled(enable);
+                        btn.setRolloverEnabled(enable);
                     }
                 }else if(playerBoard.getPositionnable(i,j).getColor() == GroundColor.GREY){
                     btn.setIcon( IMGReader.getImage("castle.png") );
@@ -187,7 +198,7 @@ public class GameView extends JPanel {
     }
 
 
-    /** Fonction qui renvoie un JPanel contenant l'affichage du playerboard passé en parametre
+    /** Fonction qui renvoie un JPanel contenant l'affichage d'une tuile
      *
      * @param tile : PlayerBoard qui doit être affiché
      * @param player

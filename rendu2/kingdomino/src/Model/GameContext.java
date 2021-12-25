@@ -182,15 +182,24 @@ public class GameContext
     /**
      * @param x, y : Position du terrain gauche de la tuile
      * @param dir : Direction de la tuile
-     * @param tile : Tuile à placé
-     * @param iPlayer : index du player qui a joué
      * @return TRUE si nous avons reussi à placer la tuile
      */
-    public boolean setTile(int iPlayer, int x, int y, Direction dir, Tile tile)
+    public boolean setTile(int x, int y, Direction dir)
     {
-        if(players.get(iPlayer).getBoard().setTile(  x,  y, dir,  tile )) {
-            notifyObservers();
+        Player player = this.getPlayerTurn();
+        Tile tile = null;
+        Map< Tile, Player > currentTiles = this.getCurrentTiles();
+
+        for ( Map.Entry<Tile, Player> choosenTile : currentTiles.entrySet()) {
+            if(choosenTile.getValue() == player){
+                tile = choosenTile.getKey();
+                break;
+            }
+        }
+
+        if(player.getBoard().setTile(  x,  y, dir, tile  )) {
             turn++;
+            notifyObservers();
             return true;
         }
         return false;
@@ -204,6 +213,7 @@ public class GameContext
 
     public void chooseTile(Tile tile) {
         currentTiles.replace(tile, this.getPlayerTurn());
+        turn++;
         this.notifyObservers();
     }
 }

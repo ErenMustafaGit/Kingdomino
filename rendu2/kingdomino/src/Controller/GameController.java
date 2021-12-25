@@ -87,9 +87,9 @@ public class GameController
         game.setCastle(player, pos_x, pos_y);
     }
 
-    public void placeTile(int iPlayer, int pos_x, int pos_y, Direction dir, Tile tile)
+    public void placeTile(int pos_x, int pos_y, Direction dir)
     {
-        game.setTile(iPlayer, pos_x, pos_y, dir, tile);
+        game.setTile(pos_x, pos_y, dir);
     }
 
     public void newRound()
