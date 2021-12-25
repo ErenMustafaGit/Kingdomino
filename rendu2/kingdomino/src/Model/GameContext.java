@@ -116,43 +116,6 @@ public class GameContext
         return this.turn;
     }
 
-    private KingColor getUnchoosenColor(){
-
-        boolean same = false;
-        for (int i = 0; i<this.players.size(); i++){
-            if(KingColor.BLUE == this.players.get(i).getPlayerColor()){
-                same = true;
-            }
-        }
-        if(!same){
-            return KingColor.BLUE;
-        }
-        for (int i = 0; i<this.players.size(); i++){
-            if(KingColor.GREEN == this.players.get(i).getPlayerColor()){
-                same = true;
-            }
-        }
-        if(!same){
-            return KingColor.GREEN;
-        }
-        for (int i = 0; i<this.players.size(); i++){
-            if(KingColor.YELLOW == this.players.get(i).getPlayerColor()){
-                same = true;
-            }
-        }
-        if(!same){
-            return KingColor.YELLOW;
-        }
-        for (int i = 0; i<this.players.size(); i++){
-            if(KingColor.PINK == this.players.get(i).getPlayerColor()){
-                same = true;
-            }
-        }
-        if(!same){
-            return KingColor.PINK;
-        }
-        return null;
-    }
 
     public void pickTiles()
     {
@@ -182,18 +145,43 @@ public class GameContext
     /**
      * @param x, y : Position du terrain gauche de la tuile
      * @param dir : Direction de la tuile
-     * @param tile : Tuile à placé
-     * @param iPlayer : index du player qui a joué
      * @return TRUE si nous avons reussi à placer la tuile
      */
-    public boolean setTile(int iPlayer, int x, int y, Direction dir, Tile tile)
+    public boolean setTile(int x, int y, Direction dir)
     {
-        if(players.get(iPlayer).getBoard().setTile(  x,  y, dir,  tile )) {
-            notifyObservers();
+        //Si toutes les tuiles ont été choisi
+        if(!allTilesChoosen()){
+            return false;
+        }
+
+        Player player = this.getPlayerTurn();
+        Tile tile = null;
+        Map< Tile, Player > currentTiles = this.getCurrentTiles();
+
+        for ( Map.Entry<Tile, Player> choosenTile : currentTiles.entrySet()) {
+            if(choosenTile.getValue() == player){
+                tile = choosenTile.getKey();
+                break;
+            }
+        }
+
+        if(player.getBoard().setTile(  x,  y, dir, tile  )) {
             turn++;
+            currentTiles.remove(tile);
+            notifyObservers();
             return true;
         }
         return false;
+    }
+
+    public boolean allTilesChoosen() {
+
+        for ( Map.Entry<Tile, Player> choosenTile : this.currentTiles.entrySet()) {
+            if(choosenTile.getValue() == null){
+                return false;
+            }
+        }
+        return true;
     }
 
     private void notifyObservers(){
@@ -204,6 +192,7 @@ public class GameContext
 
     public void chooseTile(Tile tile) {
         currentTiles.replace(tile, this.getPlayerTurn());
+        turn++;
         this.notifyObservers();
     }
 }
