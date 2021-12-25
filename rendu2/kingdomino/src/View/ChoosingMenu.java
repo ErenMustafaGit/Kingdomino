@@ -98,26 +98,7 @@ public class ChoosingMenu extends JPanel {
         /**Affichage des cbo qui permet de choisir la couleur des rois des joueurs**/
         nbPlayerCbo.addActionListener (new ActionListener () {
             public void actionPerformed(ActionEvent e) {
-                KingColor[] colors = KingColor.values();
-                GridBagConstraints colorsC = new GridBagConstraints();
-                int boardMargin = 20;
-                colorsC.insets = new Insets(boardMargin, boardMargin, boardMargin, boardMargin);
-                int playerNb = Integer.parseInt( nbPlayerCbo.getSelectedItem().toString() );
-                playerColorsPnl.removeAll();
-                playerColorsPnl.setBackground( new Color(174,135,0) );
-
-                for (int i = 0; i< playerNb; i++){
-                    colorsC.gridx = i;
-                    colorsC.gridy = 0;
-                    JComboBox cboColor = new JComboBox(colors);
-                    playerColorsPnl.add( cboColor, colorsC );
-                }
-                c.gridwidth = 4;
-                c.gridx = 0;
-                c.gridy = 3;
-                mainPnl.add( playerColorsPnl, c );
-                mainPnl.revalidate();
-                mainPnl.repaint();
+                createColorCbo();
             }
         });
         Color mycolor = new Color(174,135,0);
@@ -128,21 +109,7 @@ public class ChoosingMenu extends JPanel {
         playerColorsPnl.setLayout( new GridBagLayout() );
         //playerColorsPnl.setBackground( mycolor  );
         playerColorsPnl.setOpaque(false);
-        GridBagConstraints colorsC = new GridBagConstraints();
-        int boardMargin = 20;
-        colorsC.insets = new Insets(boardMargin, boardMargin, boardMargin, boardMargin);
-        int playerNb = Integer.parseInt( nbPlayerCbo.getSelectedItem().toString() );
-
-        for (int i = 0; i< playerNb; i++){
-            colorsC.gridx = i;
-            colorsC.gridy = 0;
-            JComboBox cboColor = new JComboBox(colors);
-            playerColorsPnl.add( cboColor, colorsC );
-        }
-        c.gridwidth = 4;
-        c.gridx = 0;
-        c.gridy = 3;
-        mainPnl.add( playerColorsPnl, c );
+        createColorCbo();
 
 
 
@@ -155,6 +122,22 @@ public class ChoosingMenu extends JPanel {
         playButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                //Si les couleurs ne sont pas différentes
+                if(!isDifferentColor()){
+                    /*** Affichage du msg d'erreur ***/
+                    MyLabel label = new MyLabel("Vous devez choisir des couleurs différentes pour chaque joueur !");
+                    label.setFont(new Font("Showcard Gothic",Font.TRUETYPE_FONT, 20));
+                    label.setOutlineColor(Color.DARK_GRAY);
+                    label.setStroke(new BasicStroke(5f));
+                    label.setForeground(new Color(255, 49, 49));
+                    c.gridx = 0;
+                    c.gridy = 6;
+                    mainPnl.add( label, c );
+                    mainPnl.revalidate();
+                    mainPnl.repaint();
+                    return;
+                }
 
                 /** Récupere toutes les couleurs choisi par les joueurs **/
                 ArrayList<KingColor> colors = new ArrayList<>();
@@ -211,6 +194,57 @@ public class ChoosingMenu extends JPanel {
     public void paint(Graphics g){
         g.drawImage( this.img.getImage(), 0 , 0,mainFrame.getWidth(), mainFrame.getHeight(), null);
         super.paint(g);
+    }
+
+    /** Creation des combobox de couleurs pour les joueurs **/
+    private void createColorCbo(){
+        GridBagConstraints c = new GridBagConstraints();
+        int margin = 20;
+        c.insets = new Insets(margin, margin, margin, margin);
+
+        KingColor[] colors = KingColor.values();
+        GridBagConstraints colorsC = new GridBagConstraints();
+        int boardMargin = 20;
+        colorsC.insets = new Insets(boardMargin, boardMargin, boardMargin, boardMargin);
+        int playerNb = Integer.parseInt( nbPlayerCbo.getSelectedItem().toString() );
+        playerColorsPnl.removeAll();
+        playerColorsPnl.setBackground( new Color(174,135,0) );
+
+        for (int i = 0; i< playerNb; i++){
+            colorsC.gridx = i;
+            colorsC.gridy = 0;
+            JComboBox cboColor = new JComboBox(colors);
+            cboColor.setSelectedIndex(i);
+            playerColorsPnl.add( cboColor, colorsC );
+        }
+        c.gridwidth = 4;
+        c.gridx = 0;
+        c.gridy = 3;
+        mainPnl.add( playerColorsPnl, c );
+        mainPnl.revalidate();
+        mainPnl.repaint();
+    }
+
+    /** Vérification si les combobox ont des couleurs différentes -- true si toutes les couleurs sont différentes **/
+    private boolean isDifferentColor(){
+
+        //Parcours tout les cbo de couleurs
+        for (Component component : playerColorsPnl.getComponents()) {
+            JComboBox cbo = (JComboBox)component;
+
+            //Et les compares avec les autres cbo
+            for (Component component2 : playerColorsPnl.getComponents()) {
+                if(component != component2){
+
+                    JComboBox cbo2 = (JComboBox)component2;
+
+                    if(cbo.getSelectedItem() == cbo2.getSelectedItem()){
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
     }
 
 
