@@ -31,9 +31,8 @@ public class NormalMode implements GameMode {
                             if (color == p.getPositionnable(i, j).getColor() && !p.getPositionnable(i, j - 1).isCounted()) {
                                 g = (Ground) p.getPositionnable(i, j - 1);
                                 /**RECURSIVITE**/
-                                nbNeighbor +=1;
                                 p.getPositionnable(i, j - 1).setCounted(true);
-                                calculateNeighbor(p, g, i, j - 1);
+                                nbNeighbor =1+calculateNeighbor(p, g, i, j - 1);
                             }
 
                         }
@@ -48,9 +47,8 @@ public class NormalMode implements GameMode {
                             if (color == p.getPositionnable(i, j).getColor() && !p.getPositionnable(i, j + 1).isCounted()) {
                                 g = (Ground) p.getPositionnable(i, j + 1);
                                 /**RECURSIVITE**/
-                                nbNeighbor +=1;
                                 p.getPositionnable(i, j + 1).setCounted(true);
-                                calculateNeighbor(p, g, i, j + 1);
+                                nbNeighbor =1+calculateNeighbor(p, g, i, j + 1);
                             }
                         }
                     }
@@ -63,9 +61,8 @@ public class NormalMode implements GameMode {
                             if (color == p.getPositionnable(i, j).getColor() && !p.getPositionnable(i - 1, j).isCounted()) {
                                 g = (Ground) p.getPositionnable(i - 1, j);
                                 /**RECURSIVITE**/
-                                nbNeighbor +=1;
                                 p.getPositionnable(i - 1, j).setCounted(true);
-                                calculateNeighbor(p, g, i - 1, j);
+                                nbNeighbor =1+calculateNeighbor(p, g, i - 1, j);
                             }
                         }
                     }
@@ -77,9 +74,9 @@ public class NormalMode implements GameMode {
                             if (color == p.getPositionnable(i, j).getColor() && !p.getPositionnable(i + 1, j).isCounted()) {
                                 g = (Ground) p.getPositionnable(i + 1, j);
                                 /**RECURSIVITE**/
-                                nbNeighbor +=1;
+
                                 p.getPositionnable(i + 1, j).setCounted(true);
-                                calculateNeighbor(p, g, i + 1, j);
+                                nbNeighbor =1+calculateNeighbor(p, g, i + 1, j);
                             }
                         }
                     }
@@ -107,9 +104,9 @@ public class NormalMode implements GameMode {
                             if (color == p.getPositionnable(i, j).getColor() && !p.getPositionnable(i, j - 1).isCounted()) {
                                 g = (Ground) p.getPositionnable(i, j - 1);
                                 /**RECURSIVITE**/
-                                nbCrown +=1;
+
                                 p.getPositionnable(i, j - 1).setCounted(true);
-                                calculateNbCrown(p, g, i, j - 1);
+                                nbCrown =1+calculateNbCrown(p, g, i, j - 1);
                             }
 
                         }
@@ -124,9 +121,9 @@ public class NormalMode implements GameMode {
                             if (color == p.getPositionnable(i, j).getColor() && !p.getPositionnable(i, j + 1).isCounted()) {
                                 g = (Ground) p.getPositionnable(i, j + 1);
                                 /**RECURSIVITE**/
-                                nbCrown +=1;
+
                                 p.getPositionnable(i, j + 1).setCounted(true);
-                                calculateNeighbor(p, g, i, j + 1);
+                                nbCrown =1+calculateNeighbor(p, g, i, j + 1);
                             }
                         }
                     }
@@ -139,9 +136,9 @@ public class NormalMode implements GameMode {
                             if (color == p.getPositionnable(i, j).getColor() && !p.getPositionnable(i - 1, j).isCounted()) {
                                 g = (Ground) p.getPositionnable(i - 1, j);
                                 /**RECURSIVITE**/
-                                nbCrown +=1;
+
                                 p.getPositionnable(i - 1, j).setCounted(true);
-                                calculateNbCrown(p, g, i - 1, j);
+                                nbCrown =1+calculateNbCrown(p, g, i - 1, j);
                             }
                         }
                     }
@@ -153,9 +150,8 @@ public class NormalMode implements GameMode {
                             if (color == p.getPositionnable(i, j).getColor() && !p.getPositionnable(i + 1, j).isCounted()) {
                                 g = (Ground) p.getPositionnable(i + 1, j);
                                 /**RECURSIVITE**/
-                                nbCrown +=1;
                                 p.getPositionnable(i + 1, j).setCounted(true);
-                                calculateNbCrown(p, g, i + 1, j);
+                                nbCrown =1+calculateNbCrown(p, g, i + 1, j);
                             }
                         }
                     }
