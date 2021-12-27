@@ -155,19 +155,21 @@ public class GameContext
         }
 
         Player player = this.getPlayerTurn();
-        Tile tile = null;
+        Tile tile = this.getPlayerTurn().getTile();
         Map< Tile, Player > currentTiles = this.getCurrentTiles();
 
+        /* Ancienne facon pour obtenir la tuile du joueur qu'il doit jouer
         for ( Map.Entry<Tile, Player> choosenTile : currentTiles.entrySet()) {
             if(choosenTile.getValue() == player){
                 tile = choosenTile.getKey();
                 break;
             }
-        }
+        }*/
 
         if(player.getBoard().setTile(  x,  y, dir, tile  )) {
-            turn++;
             currentTiles.remove(tile);
+            this.getPlayerTurn().removeTile();
+            turn++;
             if(currentTiles.size() == 0){
                 this.pickTiles();
             }
@@ -195,6 +197,7 @@ public class GameContext
 
     public void chooseTile(Tile tile) {
         currentTiles.replace(tile, this.getPlayerTurn());
+        this.getPlayerTurn().setChoosenTile(tile);
         turn++;
         this.notifyObservers();
     }
