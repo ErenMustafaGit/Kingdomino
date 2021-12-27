@@ -438,6 +438,15 @@ public class GameView extends JPanel {
         //Update game interaction board (right panel)
         this.updateInteractionBoard();
 
+        //Mise à jour du message d'action
+        if( mainFrame.getGame().getTurn() >= mainFrame.getGame().getPlayers().size() ){
+            if(mainFrame.getGame().allTilesChoosen()){
+                this.headerLbl.setText( "Placez vos tuiles" );
+            }else{
+                this.headerLbl.setText( "Choisissez vos tuiles" );
+            }
+        }
+
         this.revalidate();
         this.repaint();
     }
