@@ -8,6 +8,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class GameView extends JPanel {
     private MyWindow mainFrame;
@@ -23,6 +25,9 @@ public class GameView extends JPanel {
 
     //Label d'info sur le tour du joueur
     MyLabel tourLbl = new MyLabel("Tour du joueur ??", SwingConstants.CENTER);
+
+    //Direction de tuile choisi par le joueur
+    Direction direction = Direction.EAST;
 
 
     public GameView(MyWindow MyWindow)  {
@@ -160,6 +165,31 @@ public class GameView extends JPanel {
                             }
                         }
                     }
+                });
+
+                btn.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseEntered(MouseEvent e) {
+                        super.mouseEntered(e);
+
+                        if(mainFrame.getGame().getTurn() >= mainFrame.getGame().getPlayers().size() && mainFrame.getGame().allTilesChoosen() ){
+                            //TODO : Preview
+                            System.out.println("entered");
+
+                            mainFrame.getGameController().previewPlacing( finalI, finalJ, direction ,true );
+                        }
+                    }
+
+                    @Override
+                    public void mouseExited(MouseEvent e) {
+                        super.mouseExited(e);
+                        if(mainFrame.getGame().getTurn() >= mainFrame.getGame().getPlayers().size() && mainFrame.getGame().allTilesChoosen() ){
+                            //TODO : Preview
+                            System.out.println("exited");
+                            mainFrame.getGameController().previewPlacing( finalI, finalJ, direction ,false );
+                        }
+                    }
+
                 });
 
                 btn.setRolloverEnabled(false);
@@ -437,6 +467,14 @@ public class GameView extends JPanel {
         this.updatePlayersBoards();
         //Update game interaction board (right panel)
         this.updateInteractionBoard();
+
+        this.revalidate();
+        this.repaint();
+    }
+
+    public void preview (GameContext game){
+        //Update all players boards
+        this.updatePlayersBoards();
 
         this.revalidate();
         this.repaint();

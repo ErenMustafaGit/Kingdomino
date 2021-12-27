@@ -179,6 +179,25 @@ public class GameContext
         return false;
     }
 
+
+    /** Methode de preview de tuile (lors du hover)
+     * Place la tuile temporairement sur le plateau
+     * @param x, y : Position du terrain gauche de la tuile
+     * @param dir : Direction de la tuile
+     * @param view : TRUE si la tuile doit être affiché
+     * @return TRUE si nous avons reussi à placer la tuile
+     */
+    public void setPreview(int x, int y, Direction dir, boolean view)
+    {
+        Player player = this.getPlayerTurn();
+        if (view) {
+            player.getBoard().setTile(x, y, dir, player.getTile());
+        } else {
+            player.getBoard().removeTile(x, y, dir);
+        }
+        observersPreview();
+    }
+
     public boolean allTilesChoosen() {
 
         for ( Map.Entry<Tile, Player> choosenTile : this.currentTiles.entrySet()) {
@@ -187,6 +206,12 @@ public class GameContext
             }
         }
         return true;
+    }
+
+    private void observersPreview(){
+        for (GameObserver observer : this.observers){
+            observer.preview(this);
+        }
     }
 
     private void notifyObservers(){

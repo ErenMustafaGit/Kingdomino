@@ -33,12 +33,50 @@ public class PlayerBoard
         return false;
     }
 
+
     /**
      * @param x, y : Position du terrain gauche de la tuile
      * @param dir : Direction de la tuile
-     * @param tile : Tuile à placé
      * @return TRUE si nous avons reussi à placer la tuile
      */
+    public void removeTile(int x, int y, Direction dir)
+    {
+        int x2, y2;
+        switch(dir){
+
+            case NORTH:
+                x2 = x;
+                y2 = y-1;
+                break;
+
+            case SOUTH:
+                x2 = x;
+                y2 = y+1;
+                break;
+
+            case WEST:
+                x2 = x-1;
+                y2 = y;
+                break;
+            default:
+                x2 = x+1;
+                y2 = y;
+                break;
+        }
+
+        //Si les cases existent et qu'ils sont disponibles
+        if( isPosable(x, y) && isPosable(x2,y2)){
+            this.board[x][y] = null;
+            this.board[x2][y2] = null;
+        }
+    }
+
+        /**
+         * @param x, y : Position du terrain gauche de la tuile
+         * @param dir : Direction de la tuile
+         * @param tile : Tuile à placé
+         * @return TRUE si nous avons reussi à placer la tuile
+         */
     public boolean setTile(int x, int y, Direction dir, Tile tile)
     { //x : 2, y:1
         int x2, y2;

@@ -92,6 +92,11 @@ public class GameController
         return game.setTile(pos_x, pos_y, dir);
     }
 
+    public void previewPlacing(int pos_x, int pos_y, Direction dir, boolean view)
+    {
+        game.setPreview(pos_x, pos_y, dir, view);
+    }
+
     public void pickTiles()
     {
         game.pickTiles();
