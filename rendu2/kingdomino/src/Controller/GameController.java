@@ -92,9 +92,9 @@ public class GameController
         return game.setTile(pos_x, pos_y, dir);
     }
 
-    public void newRound()
+    public void pickTiles()
     {
-
+        game.pickTiles();
     }
 
 

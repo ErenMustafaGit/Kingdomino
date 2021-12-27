@@ -154,7 +154,6 @@ public class ChoosingMenu extends JPanel {
                 }else if (middleKingdomChk.isSelected()){
                     gameMode = 2;
                 }
-                System.out.println( colors );
 
                 //Donne les infos de mode de jeu, de nombre de joueur et de couleurs des joueurs
                 mainFrame.getGameController().initializeGame( Integer.parseInt(nbPlayerCbo.getSelectedItem().toString()), colors, gameMode );

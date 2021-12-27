@@ -2,6 +2,7 @@ package View;
 
 import Model.*;
 import Utilities.IMGReader;
+import View.Components.MyLabel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,11 +15,19 @@ public class GameView extends JPanel {
     /******Boards panel (plateau des joueurs)*******/
     JPanel boardsPanel;
 
-    /******Game interaction (les 4 tuiles etc)*******/
+    /******Game interaction (Info tour, les 4 tuiles etc)*******/
     JPanel gameInterac;
+
+    //Label d'info sur l'action à faire du joueur (placez chateau, choisir tuile..)
+    MyLabel headerLbl = new MyLabel("Placez vos châteaux", SwingConstants.CENTER);
+
+    //Label d'info sur le tour du joueur
+    MyLabel tourLbl = new MyLabel("Tour du joueur ??", SwingConstants.CENTER);
+
 
     public GameView(MyWindow MyWindow)  {
         this.mainFrame = MyWindow;
+        this.setLayout( new GridBagLayout() );
 
         /***GAMEBOARD***/
         //Panel qui va contenir tout les élements de jeu
@@ -43,11 +52,11 @@ public class GameView extends JPanel {
         this.updatePlayersBoards();
 
 
-        /******Game interaction (les 4 tuiles etc)*******/
+        /******Game interaction (info tour, les 4 tuiles etc)*******/
         gameInterac = new JPanel();
         gameInterac.setLayout( new GridBagLayout());
         gameInterac.setBackground( Color.gray );
-
+        //Placement du panel d'interaction
         // augmente la largeur des composants de 100 pixels
         boardC.ipadx = 100;
         boardC.fill = GridBagConstraints.VERTICAL;
@@ -69,7 +78,8 @@ public class GameView extends JPanel {
         /***HEADER***/
         JPanel header = new JPanel();
         header.setLayout( new BorderLayout() );
-        header.add( new JLabel("Kingdomino game"), BorderLayout.CENTER );
+        headerLbl.setFont(new Font("Bookman Old Style", Font.BOLD, 30));
+        header.add( headerLbl );
         c.fill = GridBagConstraints.BOTH;
         // colonne 0
         c.gridx = 0;
@@ -91,7 +101,7 @@ public class GameView extends JPanel {
         this.add( gameBoard, c );
 
         /**Bouton de retourn au menu**/
-        JButton backButton = new JButton("Go back to the menu");
+        JButton backButton = new JButton("QUITTER");
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -134,8 +144,9 @@ public class GameView extends JPanel {
                 btn.setPreferredSize(new Dimension(50, 50));
                 int finalJ = j;
                 int finalI = i;
-                btn.addActionListener(actionEvent -> {
 
+                /**Action de click sur une case**/
+                btn.addActionListener(actionEvent -> {
                     //Placer le chateau seulement on est dans les 1er tours pour le joueur
                     if(mainFrame.getGame().getTurn() < mainFrame.getGame().getPlayers().size() ){
                         mainFrame.getGameController().placeCastle(player,  finalI, finalJ);
@@ -302,35 +313,97 @@ public class GameView extends JPanel {
         GridBagConstraints interacC = new GridBagConstraints();
         interacC.insets = new Insets(5, 20, 5, 20);
 
+        JPanel infoTurnPnl = new JPanel();
+        infoTurnPnl.setLayout( new GridBagLayout() );
+        tourLbl.setFont(new Font("Bookman Old Style", Font.CENTER_BASELINE, 30));
+        tourLbl.setText( "Tour du joueur " + this.mainFrame.getGame().getPlayerTurn().getPlayerColor());
+
+        interacC.gridx = 0;
+        interacC.gridy = 0;
+        infoTurnPnl.add( tourLbl, interacC );
+        gameInterac.add( infoTurnPnl, interacC );
+
+
+
+
+        JPanel currentTilesPnl = new JPanel();
+        currentTilesPnl.setLayout( new GridBagLayout() );
+
         double nbPlayers = mainFrame.getGame().getNbPlayersStrat().getnbBoard();
         double turn = mainFrame.getGame().getTurn();
-        System.out.println("nbPl = " + nbPlayers + "    turn : " + turn);
+
         //Si on est au tour 1 pour tout les joueurs
         if(turn / nbPlayers < 1){
-            System.out.println( "Tour chateau !" );
             /** Creation des boutons chateau (dans gameInterac) **/
             for (int i = 0; i< nbPlayers - turn ; i++){
                 interacC.gridx = 0;
                 interacC.gridy = i;
-                gameInterac.add( createCastle() , interacC);
+                currentTilesPnl.add( createCastle() , interacC);
             }
         }else{
-            int tileRemaining = (int)nbPlayers - (int)turn% (int)nbPlayers;
-            System.out.println(tileRemaining);
             int i = 0;
             for (Tile tile : mainFrame.getGame().getCurrentTiles().keySet()) {
                 interacC.gridx = 0;
                 interacC.gridy = i;
-                gameInterac.add( createTile( tile, mainFrame.getGame().getCurrentTiles().get(tile) ) , interacC);
+                currentTilesPnl.add( createTile( tile, mainFrame.getGame().getCurrentTiles().get(tile) ) , interacC);
                 i++;
             }
         }
+
+        interacC.gridx = 0;
+        interacC.gridy = 1;
+        gameInterac.add( currentTilesPnl, interacC );
+
+        JPanel choosenTilePnl = new JPanel();
+        choosenTilePnl.setLayout( new GridBagLayout() );
+
+        //Si les joueurs doivent placer leur tuile
+        if( this.mainFrame.getGame().allTilesChoosen() ){
+            //Couleur des 2 boutons
+            Color btnColor = new Color(174,135,0);
+
+
+            GridBagConstraints tempC = new GridBagConstraints();
+            tempC.insets = new Insets(0,0,0,0);
+
+            //Ajout du Panel invisible pour permettre la rotation de la tuile à l'interieur
+            JPanel tempPnl = new JPanel();
+            tempPnl.setLayout( new GridBagLayout() );
+
+            //Ajout de la 1ère tuile choisi
+            Tile currentTile = this.mainFrame.getGame().getPlayerTurn().getTile();
+            interacC.gridx = 0;
+            interacC.gridy = 1;
+            choosenTilePnl.add( this.createTile( currentTile, this.mainFrame.getGame().getPlayerTurn() ) );
+
+            JButton btnRotate = new JButton("PIVOTER");
+            btnRotate.setFont(new Font("Algerian", Font.CENTER_BASELINE, 12));
+            btnRotate.setBackground(btnColor);
+            btnRotate.setBorder(BorderFactory.createLineBorder(Color.black, 1));
+            btnRotate.setPreferredSize(new Dimension(80,40));
+            interacC.gridx = 1;
+            interacC.gridy = 0;
+            choosenTilePnl.add( btnRotate, interacC );
+
+            JButton btnReverse = new JButton("INVERSER");
+            btnReverse.setFont(new Font("Algerian", Font.CENTER_BASELINE, 12));
+            btnReverse.setBackground(btnColor);
+            btnReverse.setBorder(BorderFactory.createLineBorder(Color.black, 1));
+            btnReverse.setPreferredSize(new Dimension(80,40));
+            interacC.gridx = 1;
+            interacC.gridy = 2;
+            choosenTilePnl.add( btnReverse, interacC );
+        }
+        interacC.gridx = 0;
+        interacC.gridy = 2;
+        gameInterac.add( choosenTilePnl, interacC );
 
 
     }
 
     private void updatePlayersBoards(){
         boardsPanel.removeAll();
+
 
         /*Les plateau de jeu mis dans le boardsPanel*/
         GridBagConstraints boardC = new GridBagConstraints();
