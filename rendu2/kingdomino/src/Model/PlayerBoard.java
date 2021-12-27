@@ -146,7 +146,8 @@ public class PlayerBoard
         return this.board[x][y];
     }
 
-
-
+    public Positionable[][] getBoard() {
+        return this.board;
+    }
 
 }
