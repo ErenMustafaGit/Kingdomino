@@ -1,5 +1,7 @@
 package Utilities;
 
+import Model.GroundColor;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -63,10 +65,29 @@ public class IMGReader {
             e.printStackTrace();
         }
         return myPicture;*/
-
-
-
-
     }
+
+    public static ImageIcon getImage(GroundColor color){
+        //Met l'image correspondant à la couleur de la case
+        if(color == null){
+            return IMGReader.getImage("empty.jpg");
+        }else if(color == GroundColor.GREY){
+            return IMGReader.getImage("castle.png");
+        }else if(color == GroundColor.YELLOW){
+            return IMGReader.getImage("champs.png");
+        }else if(color == GroundColor.DARK_GREEN){
+            return IMGReader.getImage("foret.png");
+        }else if(color == GroundColor.LIGHT_GREEN){
+            return IMGReader.getImage("prairie.png");
+        }else if(color == GroundColor.BLACK){
+            return IMGReader.getImage("mines.png");
+        }else if(color == GroundColor.BLUE){
+            return IMGReader.getImage("mer.png");
+        }else if(color == GroundColor.BROWN){
+            return IMGReader.getImage("montagne.png");
+        }
+        return null;
+    }
+
 
 }

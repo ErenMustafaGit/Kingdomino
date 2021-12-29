@@ -8,6 +8,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class GameView extends JPanel {
     private MyWindow mainFrame;
@@ -103,6 +105,7 @@ public class GameView extends JPanel {
         /**Bouton de retourn au menu**/
         JButton backButton = new JButton("QUITTER");
 
+
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -135,13 +138,20 @@ public class GameView extends JPanel {
         boardPnl.setLayout( new GridBagLayout() );
 
         PlayerBoard playerBoard = player.getBoard();
+        JButton[][] boardBtns = new JButton[playerBoard.BOARD_SIZE][playerBoard.BOARD_SIZE];
+
+        for(int j = 0; j<playerBoard.BOARD_SIZE; j++) {
+            for (int i = 0; i < playerBoard.BOARD_SIZE; i++) {
+                boardBtns[i][j] = new JButton();
+            }
+        }
 
         JPanel grid = new JPanel();
         grid.setLayout(new GridLayout(playerBoard.BOARD_SIZE, playerBoard.BOARD_SIZE));
         //Place chaque image correspondantes
         for(int j = 0; j<playerBoard.BOARD_SIZE; j++){
             for(int i = 0; i<playerBoard.BOARD_SIZE; i++){
-                JButton btn = new JButton();
+                JButton btn = boardBtns[i][j];
                 btn.setPreferredSize(new Dimension(50, 50));
                 int finalJ = j;
                 int finalI = i;
@@ -184,30 +194,47 @@ public class GameView extends JPanel {
                 //Met l'image correspondant à la couleur de la case
                 if(playerBoard.getPositionnable(i,j) == null){
                     btn.setIcon( IMGReader.getImage("empty.jpg") );
-                    grid.add(btn);
-
-                }else if(playerBoard.getPositionnable(i,j).getColor() == GroundColor.GREY){
-                    btn.setIcon( IMGReader.getImage("castle.png") );
-                    grid.add(btn);
-                }else if(playerBoard.getPositionnable(i,j).getColor() == GroundColor.YELLOW){
-                    btn.setIcon( IMGReader.getImage("champs.png") );
-                    grid.add(btn);
-                }else if(playerBoard.getPositionnable(i,j).getColor() == GroundColor.DARK_GREEN){
-                    btn.setIcon( IMGReader.getImage("foret.png") );
-                    grid.add(btn);
-                }else if(playerBoard.getPositionnable(i,j).getColor() == GroundColor.LIGHT_GREEN){
-                    btn.setIcon( IMGReader.getImage("prairie.png") );
-                    grid.add(btn);
-                }else if(playerBoard.getPositionnable(i,j).getColor() == GroundColor.BLACK){
-                    btn.setIcon( IMGReader.getImage("mines.png") );
-                    grid.add(btn);
-                }else if(playerBoard.getPositionnable(i,j).getColor() == GroundColor.BLUE){
-                    btn.setIcon( IMGReader.getImage("mer.png") );
-                    grid.add(btn);
-                }else if(playerBoard.getPositionnable(i,j).getColor() == GroundColor.BROWN){
-                    btn.setIcon( IMGReader.getImage("montagne.png") );
-                    grid.add(btn);
+                }else{
+                    btn.setIcon( IMGReader.getImage( playerBoard.getPositionnable(i,j).getColor()) );
                 }
+                grid.add(btn);
+
+
+                /** Hover effect **/
+                //Si on est en tour chateau
+                if(mainFrame.getGame().getTurn() < mainFrame.getGame().getPlayers().size() ){
+                    btn.setRolloverIcon( IMGReader.getImage("castle.png")   );
+                }
+                 else if(this.mainFrame.getGame().allTilesChoosen() && btn.isEnabled()){
+                    Tile choosenTile = mainFrame.getGame().getKingTurn().getTile();
+                    final GroundColor leftColor = choosenTile.getLeft().getColor();
+                    final GroundColor rightColor = choosenTile.getRight().getColor();
+                    final int[] xyRight = playerBoard.getRightXY(finalI, finalJ,choosenTile.getDirection() );
+                    btn.addMouseListener(new MouseAdapter() {
+
+
+
+                        public void mouseEntered(MouseEvent evt) {
+
+
+                            if(playerBoard.isPosable(finalI, finalJ) && playerBoard.isPosable(xyRight[0], xyRight[1])  ){
+                                btn.setIcon( IMGReader.getImage( leftColor  ));
+                                boardBtns[xyRight[0]][xyRight[1]].setIcon( IMGReader.getImage( rightColor  ) );
+                            }
+
+                        }
+
+                        public void mouseExited(java.awt.event.MouseEvent evt) {
+                            if(playerBoard.isPosable(finalI, finalJ) && playerBoard.isPosable(xyRight[0], xyRight[1])  ){
+                                btn.setIcon( IMGReader.getImage("empty.jpg") );
+                                boardBtns[xyRight[0]][xyRight[1]].setIcon( IMGReader.getImage("empty.jpg") );
+                            }
+                        }
+                    });
+                }
+
+
+
             }
         }
 
@@ -240,14 +267,13 @@ public class GameView extends JPanel {
 
         JButton left = new JButton();
         JButton right = new JButton();
-        left.setBorder( BorderFactory.createLineBorder( Color.red, 2 ) );
         left.setPreferredSize(new Dimension(50, 50));
         right.setPreferredSize(new Dimension(50, 50));
 
         //Met les bouttons en transparent (que les images des tuiles seront visible)
         left.setOpaque(false);
         left.setContentAreaFilled(false);
-        //left.setBorderPainted(false);
+        left.setBorderPainted(false);
         right.setOpaque(false);
         right.setContentAreaFilled(false);
         right.setBorderPainted(false);
@@ -267,49 +293,9 @@ public class GameView extends JPanel {
 
 
         //Met l'image correspondant à la couleur de la case
-        switch(tile.getLeft().getColor()){
+        left.setIcon( IMGReader.getImage(tile.getLeft().getColor()) );
+        right.setIcon( IMGReader.getImage(tile.getRight().getColor()) );
 
-            case YELLOW:
-                left.setIcon( IMGReader.getImage("montagne.png") );
-                break;
-            case DARK_GREEN:
-                left.setIcon(IMGReader.getImage("foret.png") );
-                break;
-            case LIGHT_GREEN:
-                left.setIcon( IMGReader.getImage("prairie.png") );
-                break;
-            case BLACK:
-                left.setIcon( IMGReader.getImage("mines.png") );
-                break;
-            case BLUE:
-                left.setIcon( IMGReader.getImage("mer.png") );
-                break;
-            case BROWN:
-                left.setIcon( IMGReader.getImage("montagne.png") );
-                break;
-        }
-
-        switch(tile.getRight().getColor()){
-
-            case YELLOW:
-                right.setIcon( IMGReader.getImage("champs.png") );
-                break;
-            case DARK_GREEN:
-                right.setIcon( IMGReader.getImage("foret.png") );
-                break;
-            case LIGHT_GREEN:
-                right.setIcon( IMGReader.getImage("prairie.png") );
-                break;
-            case BLACK:
-                right.setIcon( IMGReader.getImage("mines.png") );
-                break;
-            case BLUE:
-                right.setIcon( IMGReader.getImage("mer.png") );
-                break;
-            case BROWN:
-                right.setIcon( IMGReader.getImage("montagne.png") );
-                break;
-        }
 
         switch(tile.getDirection()){
 
@@ -375,49 +361,8 @@ public class GameView extends JPanel {
 
 
         //Met l'image correspondant à la couleur de la case
-        switch(tile.getLeft().getColor()){
-
-            case YELLOW:
-                left.setIcon( IMGReader.getImage("montagne.png") );
-                break;
-            case DARK_GREEN:
-                left.setIcon(IMGReader.getImage("foret.png") );
-                break;
-            case LIGHT_GREEN:
-                left.setIcon( IMGReader.getImage("prairie.png") );
-                break;
-            case BLACK:
-                left.setIcon( IMGReader.getImage("mines.png") );
-                break;
-            case BLUE:
-                left.setIcon( IMGReader.getImage("mer.png") );
-                break;
-            case BROWN:
-                left.setIcon( IMGReader.getImage("montagne.png") );
-                break;
-        }
-
-        switch(tile.getRight().getColor()){
-
-            case YELLOW:
-                right.setIcon( IMGReader.getImage("champs.png") );
-                break;
-            case DARK_GREEN:
-                right.setIcon( IMGReader.getImage("foret.png") );
-                break;
-            case LIGHT_GREEN:
-                right.setIcon( IMGReader.getImage("prairie.png") );
-                break;
-            case BLACK:
-                right.setIcon( IMGReader.getImage("mines.png") );
-                break;
-            case BLUE:
-                right.setIcon( IMGReader.getImage("mer.png") );
-                break;
-            case BROWN:
-                right.setIcon( IMGReader.getImage("montagne.png") );
-                break;
-        }
+        left.setIcon( IMGReader.getImage(tile.getLeft().getColor()) );
+        right.setIcon( IMGReader.getImage(tile.getRight().getColor()) );
 
         tilePanel.add(left, BorderLayout.LINE_START);
         tilePanel.add(right, BorderLayout.LINE_END);
@@ -600,7 +545,6 @@ public class GameView extends JPanel {
         this.revalidate();
         this.repaint();
     }
-
 
 
 }
