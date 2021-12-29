@@ -142,11 +142,6 @@ public class GameContext
             }
         }
 
-        //Met le nouvelle ordre des rois
-        if( !this.nextRoundKings.isEmpty() ){
-            this.kings = new ArrayList<>(this.nextRoundKings);
-        }
-        this.nextRoundKings.clear();
 
         /***ORDER TILES BY THEIR NUMBER***/
         TreeMap<Tile, King> sorted = new TreeMap<>(this.currentTiles);
@@ -255,5 +250,11 @@ public class GameContext
             //Suppression de cette tuile là (dans notre liste temporaire)
             tiles.remove(tile);
         }
+
+        //Met le nouvelle ordre des rois
+        if( !this.nextRoundKings.isEmpty() ){
+            this.kings = new ArrayList<>(this.nextRoundKings);
+        }
+        this.nextRoundKings.clear();
     }
 }
