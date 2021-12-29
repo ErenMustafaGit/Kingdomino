@@ -162,19 +162,29 @@ public class GameView extends JPanel {
                     }
                 });
 
-                btn.setRolloverEnabled(false);
-                if(player != mainFrame.getGame().getPlayerTurn()){ //Si c'est pas son tour
-                    btn.setEnabled(false);
+                //Si c'est le tour de poser le chateau
+                if(mainFrame.getGame().getTurn() < mainFrame.getGame().getPlayers().size() ){
+                    btn.setRolloverEnabled(false);
+                    if(player != mainFrame.getGame().getPlayerCastleTurn()){ //Si c'est pas son tour
+                        btn.setEnabled(false);
+                    }
+                    else{
+                        btn.setRolloverEnabled(enable);
+                    }
+                }else{
+                    btn.setRolloverEnabled(false);
+                    if(player != mainFrame.getGame().getKingTurn().getPlayer()){ //Si c'est pas son tour
+                        btn.setEnabled(false);
+                    }else{
+                        btn.setRolloverEnabled(enable);
+                    }
                 }
-                btn.setRolloverEnabled(false);
+
                 //Met l'image correspondant à la couleur de la case
                 if(playerBoard.getPositionnable(i,j) == null){
                     btn.setIcon( IMGReader.getImage("empty.jpg") );
                     grid.add(btn);
-                    if(player == mainFrame.getGame().getPlayerTurn()){ //Si c'est son tour
-                        //btn.setEnabled(enable);
-                        btn.setRolloverEnabled(enable);
-                    }
+
                 }else if(playerBoard.getPositionnable(i,j).getColor() == GroundColor.GREY){
                     btn.setIcon( IMGReader.getImage("castle.png") );
                     grid.add(btn);
@@ -218,10 +228,10 @@ public class GameView extends JPanel {
     /** Fonction qui renvoie un JPanel contenant l'affichage d'une tuile
      *
      * @param tile : PlayerBoard qui doit être affiché
-     * @param player
+     * @param king
      * @return JPanel : Rendu en panel du playerBoard
      */
-    private JPanel createTile(Tile tile, Player player){
+    private JPanel createTile(Tile tile, King king){
         JPanel tilePanel = new JPanel();
         tilePanel.setLayout( new BorderLayout() );
         tilePanel.setPreferredSize( new Dimension(100, 50));
@@ -291,8 +301,8 @@ public class GameView extends JPanel {
         }
         tilePanel.add(left, BorderLayout.LINE_START);
         tilePanel.add(right, BorderLayout.LINE_END);
-        if(player != null){
-            tilePanel.add( new JLabel(player.getPlayerColor().toString()), BorderLayout.SOUTH );
+        if(king != null){
+            tilePanel.add( new JLabel(king.getColor().toString()), BorderLayout.SOUTH );
         }
 
         return tilePanel;
@@ -316,7 +326,6 @@ public class GameView extends JPanel {
         JPanel infoTurnPnl = new JPanel();
         infoTurnPnl.setLayout( new GridBagLayout() );
         tourLbl.setFont(new Font("Bookman Old Style", Font.CENTER_BASELINE, 30));
-        tourLbl.setText( "Tour du joueur " + this.mainFrame.getGame().getPlayerTurn().getPlayerColor());
 
         interacC.gridx = 0;
         interacC.gridy = 0;
@@ -339,6 +348,8 @@ public class GameView extends JPanel {
                 interacC.gridx = 0;
                 interacC.gridy = i;
                 currentTilesPnl.add( createCastle() , interacC);
+                tourLbl.setText( "Tour du joueur " + this.mainFrame.getGame().getPlayerCastleTurn().getPlayerColor());
+
             }
         }else{
             int i = 0;
@@ -347,6 +358,7 @@ public class GameView extends JPanel {
                 interacC.gridy = i;
                 currentTilesPnl.add( createTile( tile, mainFrame.getGame().getCurrentTiles().get(tile) ) , interacC);
                 i++;
+                tourLbl.setText( "Tour du joueur " + this.mainFrame.getGame().getKingTurn().getColor());
             }
         }
 
@@ -371,10 +383,10 @@ public class GameView extends JPanel {
             tempPnl.setLayout( new GridBagLayout() );
 
             //Ajout de la 1ère tuile choisi
-            Tile currentTile = this.mainFrame.getGame().getPlayerTurn().getTile();
+            Tile currentTile = this.mainFrame.getGame().getKingTurn().getTile();
             interacC.gridx = 0;
             interacC.gridy = 1;
-            choosenTilePnl.add( this.createTile( currentTile, this.mainFrame.getGame().getPlayerTurn() ) );
+            choosenTilePnl.add( this.createTile( currentTile, this.mainFrame.getGame().getKingTurn() ) );
 
             JButton btnRotate = new JButton("PIVOTER");
             btnRotate.setFont(new Font("Algerian", Font.CENTER_BASELINE, 12));
@@ -437,6 +449,19 @@ public class GameView extends JPanel {
         this.updatePlayersBoards();
         //Update game interaction board (right panel)
         this.updateInteractionBoard();
+
+        //Mise à jour du message d'action
+        //Si tout le monde a placer ses chateaux
+        if( mainFrame.getGame().getTurn() >= mainFrame.getGame().getPlayers().size() ){
+
+            //Si toutes les tuiles ont été choisis
+            if(mainFrame.getGame().allTilesChoosen()){
+                this.headerLbl.setText( "Placez vos tuiles" );
+            }else{
+                this.headerLbl.setText( "Choisissez vos tuiles" );
+            }
+        }
+
 
         this.revalidate();
         this.repaint();

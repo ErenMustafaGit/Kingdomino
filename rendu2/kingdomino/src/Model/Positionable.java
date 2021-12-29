@@ -10,4 +10,6 @@ public interface Positionable {
     default public void setCounted(boolean isCounted){
         isCounted = isCounted();
     }
+
+    int getCrown();
 }

@@ -8,7 +8,7 @@ import Model.PlayerStrategy;
 public class Log implements GameObserver {
     @Override
     public void update(GameContext gameContext) {
-        System.out.println("Tour du joueur " + gameContext.getPlayerTurn() );
+        System.out.println("Tour du joueur " + gameContext.getKingTurn().getColor() );
     }
 
     //notifier aussi si la place est possible ou non!

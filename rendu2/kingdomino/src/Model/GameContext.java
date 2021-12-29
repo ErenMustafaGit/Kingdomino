@@ -7,9 +7,15 @@ public class GameContext
     private PlayerStrategy nbPlayersStrat; //stratégie associé au nombre de joueurs
     private GameMode gameMode; //stratégie associé au mode de jeu choisi
     private Deck deck; // Packet de tuiles utilisé pour la partie
-    private Map<Tile, Player> currentTiles = new HashMap<>(); // Tuiles correspondante aux choix diponible pour les joueurs
+    private Map<Tile, King> currentTiles = new HashMap<>(); // Tuiles correspondante aux choix diponible pour les joueurs
     private ArrayList<GameObserver> observers = new ArrayList<>();
     private ArrayList<Player> players = new ArrayList<>();
+
+    //Liste des king du round actuel
+    private ArrayList<King> kings = new ArrayList<>();
+    //Liste des king pour le prochain round
+    private ArrayList<King> nextRoundKings = new ArrayList<>();
+
     private int turn;
 
     public GameContext()
@@ -23,9 +29,7 @@ public class GameContext
         this.gameMode = gameMode;
     }
 
-
-
-    public Map<Tile, Player> getCurrentTiles() {
+    public Map<Tile, King> getCurrentTiles() {
         return currentTiles;
     }
 
@@ -68,6 +72,7 @@ public class GameContext
         createDeck();
         createPlayers(colors);
         pickTiles();
+
     }
 
     public ArrayList<Player> getPlayers(){
@@ -80,13 +85,11 @@ public class GameContext
         this.deck = new Deck(nbPlayersStrat.getnbTile());
     }
 
-    private ArrayList<King> createKing(KingColor color, int number)
+    private void createKing(KingColor color, int number, Player player)
     {
-        ArrayList<King> kings = new ArrayList<>();
         for (int i = 0; i< number ; i++){
-            kings.add( new King(color) );
+            this.kings.add( new King(color, player) );
         }
-        return kings;
     }
 
     private void createPlayers(ArrayList<KingColor> colors)
@@ -94,22 +97,35 @@ public class GameContext
         int nbPlayer = nbPlayersStrat.getnbBoard();
         ArrayList<Player> newPlayers = new ArrayList<>();
         for (int i = 0; i< nbPlayer ; i++){
-            ArrayList<King> kings = new ArrayList<>();
-            //KingColor color = this.getUnchoosenColor();
             KingColor color = colors.get(i);
+            Player newPlayer = new Player( color, new PlayerBoard());
             if(nbPlayer ==2){
-                kings = this.createKing(color , 2);
+                this.createKing( color , 2, newPlayer);
             }else{
-                kings = this.createKing( color, 1 );
+                this.createKing( color, 1, newPlayer );
             }
-            newPlayers.add ( new Player( color, kings, new PlayerBoard()));
+            newPlayers.add ( newPlayer );
+        }
+
+
+        Collections.shuffle( this.kings );
+
+        //Inversion du king n°2 avec le n°3 si le meme joueur joue 2 fois en premier pour + d'équité
+        if(this.kings.get(0).getColor() == this.kings.get(1).getColor()){
+            King temp = this.kings.get(2);
+            this.kings.set(2, this.kings.get(1));
+            this.kings.set( 1, temp );
         }
         Collections.shuffle( newPlayers );
         this.players = newPlayers;
     }
 
-    public Player getPlayerTurn(){
-        return this.players.get(turn % this.players.size() );
+    public Player getPlayerCastleTurn(){
+        return this.players.get( turn % this.players.size() );
+    }
+
+    public King getKingTurn(){
+        return this.kings.get(turn % this.kings.size() );
     }
 
     public int getTurn(){
@@ -126,8 +142,14 @@ public class GameContext
             }
         }
 
+        //Met le nouvelle ordre des rois
+        if( !this.nextRoundKings.isEmpty() ){
+            this.kings = new ArrayList<>(this.nextRoundKings);
+        }
+        this.nextRoundKings.clear();
+
         /***ORDER TILES BY THEIR NUMBER***/
-        TreeMap<Tile, Player> sorted = new TreeMap<>(this.currentTiles);
+        TreeMap<Tile, King> sorted = new TreeMap<>(this.currentTiles);
         this.currentTiles = sorted;
     }
 
@@ -154,9 +176,9 @@ public class GameContext
             return false;
         }
 
-        Player player = this.getPlayerTurn();
-        Tile tile = this.getPlayerTurn().getTile();
-        Map< Tile, Player > currentTiles = this.getCurrentTiles();
+        Player player = this.getKingTurn().getPlayer();
+        Tile tile = this.getKingTurn().getTile();
+        Map< Tile, King > currentTiles = this.getCurrentTiles();
 
         /* Ancienne facon pour obtenir la tuile du joueur qu'il doit jouer
         for ( Map.Entry<Tile, Player> choosenTile : currentTiles.entrySet()) {
@@ -168,7 +190,7 @@ public class GameContext
 
         if(player.getBoard().setTile(  x,  y, dir, tile  )) {
             currentTiles.remove(tile);
-            this.getPlayerTurn().removeTile();
+            this.getKingTurn().removeTile();
             turn++;
             if(currentTiles.size() == 0){
                 this.pickTiles();
@@ -180,8 +202,7 @@ public class GameContext
     }
 
     public boolean allTilesChoosen() {
-
-        for ( Map.Entry<Tile, Player> choosenTile : this.currentTiles.entrySet()) {
+        for ( Map.Entry<Tile, King> choosenTile : this.currentTiles.entrySet()) {
             if(choosenTile.getValue() == null){
                 return false;
             }
@@ -196,9 +217,43 @@ public class GameContext
     }
 
     public void chooseTile(Tile tile) {
-        currentTiles.replace(tile, this.getPlayerTurn());
-        this.getPlayerTurn().setChoosenTile(tile);
+        currentTiles.replace(tile, this.getKingTurn());
+        this.getKingTurn().setChoosenTile(tile);
         turn++;
+
+        //Si toutes les tuiles sont choisi et que le nombre de tuile est au meme nombre de roi
+        // (S'execute une fois que tout le monde a choisi ces tuiles)
+        if(this.allTilesChoosen() && this.currentTiles.size() == this.getNbPlayersStrat().getnbKings()){
+            this.orderNextRoundKings();
+        }
         this.notifyObservers();
+    }
+
+    private void orderNextRoundKings(){
+        // Tuile+Roi qu'il l'a choisi
+        Map<Tile, King> tiles = new HashMap<>(this.currentTiles);
+        int min;
+        int tileNumber;
+        King king = null;
+        Tile tile = null;
+        for (int i = 0; i<this.kings.size(); i++){
+            //Récupere la tuile avec la plus petite valeur
+            min = 10000;
+
+            for ( Map.Entry<Tile, King> choosenTile : tiles.entrySet()) {
+                tileNumber = choosenTile.getKey().getNumber();
+                if(min > tileNumber){
+                    min = tileNumber;
+                    king = choosenTile.getValue();
+                    tile = choosenTile.getKey();
+                }
+            }
+
+            //Ajout du roi qui a pris cette tuile
+            this.nextRoundKings.add( king );
+
+            //Suppression de cette tuile là (dans notre liste temporaire)
+            tiles.remove(tile);
+        }
     }
 }

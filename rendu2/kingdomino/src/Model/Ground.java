@@ -23,4 +23,9 @@ public class Ground implements Positionable{
         return this.color;
     }
 
+    @Override
+    public int getCrown() {
+        return 0;
+    }
+
 }
