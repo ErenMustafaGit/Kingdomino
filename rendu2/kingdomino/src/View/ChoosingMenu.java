@@ -172,24 +172,6 @@ public class ChoosingMenu extends JPanel {
             return this;
     }
 
-                /***permet d'avoir les combobox couleurs***/
-//    private JComboBox getColorCbo(){
-//
-////        if(cboColor.getSelectedItem().toString()=="2"){
-////            this.add(cboColor);
-////
-////        }
-////        if(cboColor.getSelectedItem().toString()=="3"){
-////            this.add(cboColor);
-////            this.add(cboColor);
-////        }
-////        if(cboColor.getSelectedItem().toString()=="4"){
-////            this.add(cboColor);
-////            this.add(cboColor);
-////            this.add(cboColor);
-////        }
-//        return cboColor;
-//    }
     public void paint(Graphics g){
         g.drawImage( this.img.getImage(), 0 , 0,mainFrame.getWidth(), mainFrame.getHeight(), null);
         super.paint(g);

@@ -26,6 +26,9 @@ public class GameView extends JPanel {
     //Label d'info sur le tour du joueur
     MyLabel tourLbl = new MyLabel("Tour du joueur ??", SwingConstants.CENTER);
 
+    //Label de message d'erreur
+    MyLabel errorMessageLbl;
+
 
     public GameView(MyWindow MyWindow)  {
         this.mainFrame = MyWindow;
@@ -80,7 +83,7 @@ public class GameView extends JPanel {
         /***HEADER***/
         JPanel header = new JPanel();
         header.setLayout( new BorderLayout() );
-        headerLbl.setFont(new Font("Bookman Old Style", Font.BOLD, 30));
+        headerLbl.setFont(new Font("Bookman Old Style", Font.BOLD, 42));
         header.add( headerLbl );
         c.fill = GridBagConstraints.BOTH;
         // colonne 0
@@ -102,10 +105,10 @@ public class GameView extends JPanel {
         // Ajouter les contraintes
         this.add( gameBoard, c );
 
+
+
         /**Bouton de retourn au menu**/
         JButton backButton = new JButton("QUITTER");
-
-
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -114,7 +117,7 @@ public class GameView extends JPanel {
         });
         c.fill = GridBagConstraints.VERTICAL;
         c.gridx = 0;
-        c.gridy = 2;
+        c.gridy = 3;
         // Ajouter les contraintes
         this.add( backButton, c );
 
@@ -164,10 +167,15 @@ public class GameView extends JPanel {
                     }else{
 
                         if(!mainFrame.getGame().allTilesChoosen()){
-                            //TODO : Error message : "Toutes les tuiles doivent être choisi !"
+                            errorMessageLbl.setText("Toutes les tuiles doivent être choisi !");
+                            this.revalidate();
+                            this.repaint();
                         }else{
                             if(!mainFrame.getGameController().placeTile( finalI, finalJ)){
                                 //TODO : Error message : "Cette tuile ne peut pas être placé ici !"
+                                errorMessageLbl.setText("Cette tuile ne peut pas être placé ici !");
+                                this.revalidate();
+                                this.repaint();
                             }
                         }
                     }
@@ -212,16 +220,12 @@ public class GameView extends JPanel {
                     final int[] xyRight = playerBoard.getRightXY(finalI, finalJ,choosenTile.getDirection() );
                     btn.addMouseListener(new MouseAdapter() {
 
-
-
                         public void mouseEntered(MouseEvent evt) {
-
 
                             if(playerBoard.isPosable(finalI, finalJ) && playerBoard.isPosable(xyRight[0], xyRight[1])  ){
                                 btn.setIcon( IMGReader.getImage( leftColor  ));
                                 boardBtns[xyRight[0]][xyRight[1]].setIcon( IMGReader.getImage( rightColor  ) );
                             }
-
                         }
 
                         public void mouseExited(java.awt.event.MouseEvent evt) {
@@ -390,12 +394,21 @@ public class GameView extends JPanel {
         GridBagConstraints interacC = new GridBagConstraints();
         interacC.insets = new Insets(5, 20, 5, 20);
 
+        /** Message d'erreur **/
+        errorMessageLbl = new MyLabel(" ");
+        errorMessageLbl.setFont(new Font("Showcard Gothic",Font.TRUETYPE_FONT, 20));
+        errorMessageLbl.setOutlineColor(Color.DARK_GRAY);
+        errorMessageLbl.setStroke(new BasicStroke(2f));
+        errorMessageLbl.setForeground(new Color(252, 87, 87));
+        interacC.gridx = 0;
+        interacC.gridy = 0;
+        gameInterac.add( errorMessageLbl, interacC );
+
         JPanel infoTurnPnl = new JPanel();
         infoTurnPnl.setLayout( new GridBagLayout() );
         tourLbl.setFont(new Font("Bookman Old Style", Font.CENTER_BASELINE, 30));
-
         interacC.gridx = 0;
-        interacC.gridy = 0;
+        interacC.gridy = 1;
         infoTurnPnl.add( tourLbl, interacC );
         gameInterac.add( infoTurnPnl, interacC );
 
@@ -436,7 +449,7 @@ public class GameView extends JPanel {
         }
 
         interacC.gridx = 0;
-        interacC.gridy = 1;
+        interacC.gridy = 2;
         gameInterac.add( currentTilesPnl, interacC );
 
         JPanel choosenTilePnl = new JPanel();
@@ -486,7 +499,7 @@ public class GameView extends JPanel {
             choosenTilePnl.add( btnReverse, interacC );
         }
         interacC.gridx = 0;
-        interacC.gridy = 2;
+        interacC.gridy = 3;
         gameInterac.add( choosenTilePnl, interacC );
 
 
