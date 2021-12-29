@@ -150,6 +150,8 @@ public class GameView extends JPanel {
                 int finalJ = j;
                 int finalI = i;
 
+
+
                 /**Action de click sur une case**/
                 btn.addActionListener(actionEvent -> {
                     //Placer le chateau seulement on est dans les 1er tours pour le joueur
@@ -167,12 +169,13 @@ public class GameView extends JPanel {
                     }
                 });
 
+                /*
                 btn.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseEntered(MouseEvent e) {
                         super.mouseEntered(e);
 
-                        if(mainFrame.getGame().getTurn() >= mainFrame.getGame().getPlayers().size() && mainFrame.getGame().allTilesChoosen() ){
+                        if(mainFrame.getGame().getTurn() >= mainFrame.getGame().getPlayers().size() && mainFrame.getGame().allTilesChoosen() && btn.isEnabled() ){
                             //TODO : Preview
                             System.out.println("entered");
 
@@ -183,14 +186,14 @@ public class GameView extends JPanel {
                     @Override
                     public void mouseExited(MouseEvent e) {
                         super.mouseExited(e);
-                        if(mainFrame.getGame().getTurn() >= mainFrame.getGame().getPlayers().size() && mainFrame.getGame().allTilesChoosen() ){
+                        if(mainFrame.getGame().getTurn() >= mainFrame.getGame().getPlayers().size() && mainFrame.getGame().allTilesChoosen() && btn.isEnabled() ){
                             //TODO : Preview
                             System.out.println("exited");
                             mainFrame.getGameController().previewPlacing( finalI, finalJ, direction ,false );
                         }
                     }
 
-                });
+                });*/
 
                 btn.setRolloverEnabled(false);
                 if(player != mainFrame.getGame().getPlayerTurn()){ //Si c'est pas son tour
@@ -227,8 +230,23 @@ public class GameView extends JPanel {
                     btn.setIcon( IMGReader.getImage("montagne.png") );
                     grid.add(btn);
                 }
+
+                /** Hover effect **/
+                //Si on est en tour chateau
+                if(mainFrame.getGame().getTurn() < mainFrame.getGame().getPlayers().size() ){
+                    btn.setRolloverIcon( IMGReader.getImage("castle.png")   );
+                }else{
+                    if(mainFrame.getGame().getTurn() >= mainFrame.getGame().getPlayers().size() && mainFrame.getGame().allTilesChoosen() && btn.isEnabled() ){
+                        //TODO : Preview
+                        //btn.setRolloverIcon( mainFrame.getGame(). );
+                    }
+                }
             }
         }
+
+
+
+
 
         GridBagConstraints c = new GridBagConstraints();
         c.insets = new Insets(5, 20, 5, 20);
