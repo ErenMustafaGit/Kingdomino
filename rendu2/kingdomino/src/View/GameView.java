@@ -214,6 +214,7 @@ public class GameView extends JPanel {
         c.insets = new Insets(5, 20, 5, 20);
 
         JLabel colorLbl = new JLabel( "Joueur " + player.getPlayerColor());
+        colorLbl.setForeground( KingColor.getColor( player.getPlayerColor() ) );
         c.gridx = 0;
         c.gridy = 0;
         boardPnl.add( colorLbl, c );
@@ -348,7 +349,10 @@ public class GameView extends JPanel {
                 interacC.gridx = 0;
                 interacC.gridy = i;
                 currentTilesPnl.add( createCastle() , interacC);
-                tourLbl.setText( "Tour du joueur " + this.mainFrame.getGame().getPlayerCastleTurn().getPlayerColor());
+                KingColor playerTurnColor = this.mainFrame.getGame().getPlayerCastleTurn().getPlayerColor();
+                tourLbl.setText( "Tour du joueur " + playerTurnColor);
+                tourLbl.setForeground( KingColor.getColor( playerTurnColor ) );
+
 
             }
         }else{
@@ -358,7 +362,10 @@ public class GameView extends JPanel {
                 interacC.gridy = i;
                 currentTilesPnl.add( createTile( tile, mainFrame.getGame().getCurrentTiles().get(tile) ) , interacC);
                 i++;
-                tourLbl.setText( "Tour du joueur " + this.mainFrame.getGame().getKingTurn().getColor());
+                KingColor playerTurnColor = this.mainFrame.getGame().getKingTurn().getColor();
+                tourLbl.setText( "Tour du joueur " + playerTurnColor );
+                tourLbl.setForeground( KingColor.getColor( playerTurnColor ) );
+
             }
         }
 
