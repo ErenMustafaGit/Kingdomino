@@ -8,6 +8,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class GameView extends JPanel {
     private MyWindow mainFrame;
@@ -103,6 +105,7 @@ public class GameView extends JPanel {
         /**Bouton de retourn au menu**/
         JButton backButton = new JButton("QUITTER");
 
+
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -135,13 +138,20 @@ public class GameView extends JPanel {
         boardPnl.setLayout( new GridBagLayout() );
 
         PlayerBoard playerBoard = player.getBoard();
+        JButton[][] boardBtns = new JButton[playerBoard.BOARD_SIZE][playerBoard.BOARD_SIZE];
+
+        for(int j = 0; j<playerBoard.BOARD_SIZE; j++) {
+            for (int i = 0; i < playerBoard.BOARD_SIZE; i++) {
+                boardBtns[i][j] = new JButton();
+            }
+        }
 
         JPanel grid = new JPanel();
         grid.setLayout(new GridLayout(playerBoard.BOARD_SIZE, playerBoard.BOARD_SIZE));
         //Place chaque image correspondantes
         for(int j = 0; j<playerBoard.BOARD_SIZE; j++){
             for(int i = 0; i<playerBoard.BOARD_SIZE; i++){
-                JButton btn = new JButton();
+                JButton btn = boardBtns[i][j];
                 btn.setPreferredSize(new Dimension(50, 50));
                 int finalJ = j;
                 int finalI = i;
@@ -189,16 +199,42 @@ public class GameView extends JPanel {
                 }
                 grid.add(btn);
 
+
                 /** Hover effect **/
                 //Si on est en tour chateau
                 if(mainFrame.getGame().getTurn() < mainFrame.getGame().getPlayers().size() ){
                     btn.setRolloverIcon( IMGReader.getImage("castle.png")   );
-                }else{
-                    if(mainFrame.getGame().getTurn() >= mainFrame.getGame().getPlayers().size() && mainFrame.getGame().allTilesChoosen() && btn.isEnabled() ){
-                        //TODO : Preview
-                        btn.setRolloverIcon( IMGReader.getImage(this.mainFrame.getGame().getKingTurn().getTile().getLeft().getColor()) );
-                    }
                 }
+                 else if(this.mainFrame.getGame().allTilesChoosen() && btn.isEnabled()){
+                    Tile choosenTile = mainFrame.getGame().getKingTurn().getTile();
+                    final GroundColor leftColor = choosenTile.getLeft().getColor();
+                    final GroundColor rightColor = choosenTile.getRight().getColor();
+                    final int[] xyRight = playerBoard.getRightXY(finalI, finalJ,choosenTile.getDirection() );
+                    btn.addMouseListener(new MouseAdapter() {
+
+
+
+                        public void mouseEntered(MouseEvent evt) {
+
+
+                            if(playerBoard.isPosable(finalI, finalJ) && playerBoard.isPosable(xyRight[0], xyRight[1])  ){
+                                btn.setIcon( IMGReader.getImage( leftColor  ));
+                                boardBtns[xyRight[0]][xyRight[1]].setIcon( IMGReader.getImage( rightColor  ) );
+                            }
+
+                        }
+
+                        public void mouseExited(java.awt.event.MouseEvent evt) {
+                            if(playerBoard.isPosable(finalI, finalJ) && playerBoard.isPosable(xyRight[0], xyRight[1])  ){
+                                btn.setIcon( IMGReader.getImage("empty.jpg") );
+                                boardBtns[xyRight[0]][xyRight[1]].setIcon( IMGReader.getImage("empty.jpg") );
+                            }
+                        }
+                    });
+                }
+
+
+
             }
         }
 
@@ -231,14 +267,13 @@ public class GameView extends JPanel {
 
         JButton left = new JButton();
         JButton right = new JButton();
-        left.setBorder( BorderFactory.createLineBorder( Color.red, 2 ) );
         left.setPreferredSize(new Dimension(50, 50));
         right.setPreferredSize(new Dimension(50, 50));
 
         //Met les bouttons en transparent (que les images des tuiles seront visible)
         left.setOpaque(false);
         left.setContentAreaFilled(false);
-        //left.setBorderPainted(false);
+        left.setBorderPainted(false);
         right.setOpaque(false);
         right.setContentAreaFilled(false);
         right.setBorderPainted(false);
@@ -510,7 +545,6 @@ public class GameView extends JPanel {
         this.revalidate();
         this.repaint();
     }
-
 
 
 }

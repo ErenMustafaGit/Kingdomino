@@ -41,28 +41,9 @@ public class PlayerBoard
      */
     public boolean setTile(int x, int y, Direction dir, Tile tile)
     { //x : 2, y:1
-        int x2, y2;
-        switch(dir){
+        int xy[] = getRightXY(x,y,dir);
+        int x2 = xy[0], y2 = xy[1];
 
-            case NORTH:
-                x2 = x;
-                y2 = y-1;
-                break;
-
-            case SOUTH:
-                x2 = x;
-                y2 = y+1;
-                break;
-
-            case WEST:
-                x2 = x-1;
-                y2 = y;
-                break;
-            default:
-                x2 = x+1;
-                y2 = y;
-                break;
-        }
 
         //Si les cases existent et qu'ils sont disponibles
         if( isPosable(x, y) && isPosable(x2,y2)){
@@ -77,7 +58,33 @@ public class PlayerBoard
         return false;
     }
 
-    private boolean isPosable(int x, int y)
+    public int[] getRightXY(int x, int y,Direction dir){
+        int[] xy = new int[2];
+        switch(dir){
+
+            case NORTH:
+                xy[0] = x;
+                xy[1] = y-1;
+                break;
+
+            case SOUTH:
+                xy[0] = x;
+                xy[1] = y+1;
+                break;
+
+            case WEST:
+                xy[0] = x-1;
+                xy[1] = y;
+                break;
+            default:
+                xy[0] = x+1;
+                xy[1] = y;
+                break;
+        }
+        return xy;
+    }
+
+    public boolean isPosable(int x, int y)
     {
         //Si c'est en dehors du tableau
         if(x < 0 || x>= BOARD_SIZE || y < 0 || y>= BOARD_SIZE ){
