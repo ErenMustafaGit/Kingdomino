@@ -147,7 +147,7 @@ public class TestPlayerBoard {
         {
             castle = new Castle();
             playerBoard = new PlayerBoard(castle);
-            p = new Player(KingColor.BLUE, null, playerBoard);
+            p = new Player(KingColor.BLUE,  playerBoard);
 
             normalMode = new NormalMode();
 

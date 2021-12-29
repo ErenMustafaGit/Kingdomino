@@ -5,4 +5,9 @@ public class Castle implements Positionable{
     public GroundColor getColor() {
         return GroundColor.GREY;
     }
+
+    @Override
+    public int getCrown() {
+        return 0;
+    }
 }
