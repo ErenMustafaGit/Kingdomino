@@ -102,6 +102,7 @@ public class GameView extends JPanel {
 
         /**Bouton de retourn au menu**/
         JButton backButton = new JButton("QUITTER");
+
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -155,7 +156,7 @@ public class GameView extends JPanel {
                         if(!mainFrame.getGame().allTilesChoosen()){
                             //TODO : Error message : "Toutes les tuiles doivent être choisi !"
                         }else{
-                            if(!mainFrame.getGameController().placeTile( finalI, finalJ, Direction.EAST)){
+                            if(!mainFrame.getGameController().placeTile( finalI, finalJ)){
                                 //TODO : Error message : "Cette tuile ne peut pas être placé ici !"
                             }
                         }
@@ -226,21 +227,30 @@ public class GameView extends JPanel {
     }
 
 
-    /** Fonction qui renvoie un JPanel contenant l'affichage d'une tuile
+    /** Fonction qui renvoie un JPanel contenant l'affichage d'une tuile en mode rotation (choosentile)
      *
      * @param tile : PlayerBoard qui doit être affiché
      * @param king
      * @return JPanel : Rendu en panel du playerBoard
      */
-    private JPanel createTile(Tile tile, King king){
+    private JPanel createChoosenTile(Tile tile, King king){
         JPanel tilePanel = new JPanel();
         tilePanel.setLayout( new BorderLayout() );
-        tilePanel.setPreferredSize( new Dimension(100, 50));
+        tilePanel.setPreferredSize( new Dimension(100, 100));
 
-        JButton left = new JButton("left");
-        JButton right = new JButton("right");
+        JButton left = new JButton();
+        JButton right = new JButton();
+        left.setBorder( BorderFactory.createLineBorder( Color.red, 2 ) );
         left.setPreferredSize(new Dimension(50, 50));
         right.setPreferredSize(new Dimension(50, 50));
+
+        //Met les bouttons en transparent (que les images des tuiles seront visible)
+        left.setOpaque(false);
+        left.setContentAreaFilled(false);
+        //left.setBorderPainted(false);
+        right.setOpaque(false);
+        right.setContentAreaFilled(false);
+        right.setBorderPainted(false);
 
         left.addActionListener(actionEvent -> {
             if(mainFrame.getGame().getCurrentTiles().get(tile) == null){
@@ -300,10 +310,121 @@ public class GameView extends JPanel {
                 right.setIcon( IMGReader.getImage("montagne.png") );
                 break;
         }
+
+        switch(tile.getDirection()){
+
+            case NORTH:
+                tilePanel.add(left, BorderLayout.SOUTH);
+                tilePanel.add(right, BorderLayout.NORTH);
+                break;
+
+            case SOUTH:
+                tilePanel.add(left, BorderLayout.NORTH);
+                tilePanel.add(right, BorderLayout.SOUTH);
+                break;
+
+            case WEST:
+                tilePanel.add(left, BorderLayout.LINE_END);
+                tilePanel.add(right, BorderLayout.LINE_START);
+                break;
+            default:
+                tilePanel.add(left, BorderLayout.LINE_START);
+                tilePanel.add(right, BorderLayout.LINE_END);
+                break;
+        }
+
+        return tilePanel;
+    }
+
+    /** Fonction qui renvoie un JPanel contenant l'affichage d'une tuile (Affichage de la pioche)
+     *
+     * @param tile : PlayerBoard qui doit être affiché
+     * @param king
+     * @return JPanel : Rendu en panel du playerBoard
+     */
+    private JPanel createTile(Tile tile, King king){
+        JPanel tilePanel = new JPanel();
+        tilePanel.setLayout( new BorderLayout() );
+        tilePanel.setPreferredSize( new Dimension(100, 50));
+
+        JButton left = new JButton();
+        JButton right = new JButton();
+        left.setPreferredSize(new Dimension(50, 50));
+        right.setPreferredSize(new Dimension(50, 50));
+
+        //Met les bouttons en transparent (que les images des tuiles seront visible)
+        left.setOpaque(false);
+        left.setContentAreaFilled(false);
+        left.setBorderPainted(false);
+        right.setOpaque(false);
+        right.setContentAreaFilled(false);
+        right.setBorderPainted(false);
+
+        left.addActionListener(actionEvent -> {
+            if(mainFrame.getGame().getCurrentTiles().get(tile) == null){
+                mainFrame.getGameController().chooseTile(tile);
+            }
+        });
+
+        right.addActionListener(actionEvent -> {
+            if(mainFrame.getGame().getCurrentTiles().get(tile) == null){
+                mainFrame.getGameController().chooseTile(tile);
+            }
+        });
+
+
+
+        //Met l'image correspondant à la couleur de la case
+        switch(tile.getLeft().getColor()){
+
+            case YELLOW:
+                left.setIcon( IMGReader.getImage("montagne.png") );
+                break;
+            case DARK_GREEN:
+                left.setIcon(IMGReader.getImage("foret.png") );
+                break;
+            case LIGHT_GREEN:
+                left.setIcon( IMGReader.getImage("prairie.png") );
+                break;
+            case BLACK:
+                left.setIcon( IMGReader.getImage("mines.png") );
+                break;
+            case BLUE:
+                left.setIcon( IMGReader.getImage("mer.png") );
+                break;
+            case BROWN:
+                left.setIcon( IMGReader.getImage("montagne.png") );
+                break;
+        }
+
+        switch(tile.getRight().getColor()){
+
+            case YELLOW:
+                right.setIcon( IMGReader.getImage("champs.png") );
+                break;
+            case DARK_GREEN:
+                right.setIcon( IMGReader.getImage("foret.png") );
+                break;
+            case LIGHT_GREEN:
+                right.setIcon( IMGReader.getImage("prairie.png") );
+                break;
+            case BLACK:
+                right.setIcon( IMGReader.getImage("mines.png") );
+                break;
+            case BLUE:
+                right.setIcon( IMGReader.getImage("mer.png") );
+                break;
+            case BROWN:
+                right.setIcon( IMGReader.getImage("montagne.png") );
+                break;
+        }
+
         tilePanel.add(left, BorderLayout.LINE_START);
         tilePanel.add(right, BorderLayout.LINE_END);
+
+
         if(king != null){
-            tilePanel.add( new JLabel(king.getColor().toString()), BorderLayout.SOUTH );
+            tilePanel.setBorder( BorderFactory.createLineBorder( KingColor.getColor(king.getColor()), 5 ) );
         }
 
         return tilePanel;
@@ -393,9 +514,12 @@ public class GameView extends JPanel {
             Tile currentTile = this.mainFrame.getGame().getKingTurn().getTile();
             interacC.gridx = 0;
             interacC.gridy = 1;
-            choosenTilePnl.add( this.createTile( currentTile, this.mainFrame.getGame().getKingTurn() ) );
+            choosenTilePnl.add( this.createChoosenTile( currentTile, this.mainFrame.getGame().getKingTurn() ) );
 
             JButton btnRotate = new JButton("PIVOTER");
+            btnRotate.addActionListener(actionEvent -> {
+                this.mainFrame.getGameController().rotate();
+            });
             btnRotate.setFont(new Font("Algerian", Font.CENTER_BASELINE, 12));
             btnRotate.setBackground(btnColor);
             btnRotate.setBorder(BorderFactory.createLineBorder(Color.black, 1));
@@ -405,6 +529,9 @@ public class GameView extends JPanel {
             choosenTilePnl.add( btnRotate, interacC );
 
             JButton btnReverse = new JButton("INVERSER");
+            btnReverse.addActionListener(actionEvent -> {
+                this.mainFrame.getGameController().reverse();
+            });
             btnReverse.setFont(new Font("Algerian", Font.CENTER_BASELINE, 12));
             btnReverse.setBackground(btnColor);
             btnReverse.setBorder(BorderFactory.createLineBorder(Color.black, 1));

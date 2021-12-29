@@ -161,10 +161,9 @@ public class GameContext
 
     /**
      * @param x, y : Position du terrain gauche de la tuile
-     * @param dir : Direction de la tuile
      * @return TRUE si nous avons reussi à placer la tuile
      */
-    public boolean setTile(int x, int y, Direction dir)
+    public boolean setTile(int x, int y)
     {
         //Si toutes les tuiles ont été choisi
         if(!allTilesChoosen()){
@@ -183,7 +182,7 @@ public class GameContext
             }
         }*/
 
-        if(player.getBoard().setTile(  x,  y, dir, tile  )) {
+        if(player.getBoard().setTile(  x,  y, tile.getDirection(), tile  )) {
             currentTiles.remove(tile);
             this.getKingTurn().removeTile();
             turn++;
@@ -203,12 +202,6 @@ public class GameContext
             }
         }
         return true;
-    }
-
-    private void notifyObservers(){
-        for (GameObserver observer : this.observers){
-            observer.update(this);
-        }
     }
 
     public void chooseTile(Tile tile) {
@@ -256,5 +249,21 @@ public class GameContext
             this.kings = new ArrayList<>(this.nextRoundKings);
         }
         this.nextRoundKings.clear();
+    }
+
+    public void rotateCurrentTile(){
+        this.getKingTurn().getTile().rotate();
+        notifyObservers();
+    }
+
+    public void reverseCurrentTile(){
+        this.getKingTurn().getTile().reverse();
+        notifyObservers();
+    }
+
+    private void notifyObservers(){
+        for (GameObserver observer : this.observers){
+            observer.update(this);
+        }
     }
 }
