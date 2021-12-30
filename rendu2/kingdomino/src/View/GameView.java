@@ -134,7 +134,7 @@ public class GameView extends JPanel {
         header.setLayout( new BorderLayout() );
         headerLbl.setFont(new Font("Bookman Old Style", Font.BOLD, 42));
         headerLbl.setOutlineColor(Color.DARK_GRAY);
-        headerLbl.setStroke(new BasicStroke(2f));
+        headerLbl.setStroke(new BasicStroke(4f));
         headerLbl.setForeground( Color.white );
         header.add( headerLbl );
         header.setOpaque(false);
@@ -302,9 +302,12 @@ public class GameView extends JPanel {
         }
 
         GridBagConstraints c = new GridBagConstraints();
-        c.insets = new Insets(5, 20, 5, 20);
+        c.insets = new Insets(5, 20, 0, 20);
 
-        JLabel colorLbl = new JLabel( "Joueur " + player.getPlayerColor());
+        MyLabel colorLbl = new MyLabel("Joueur " + player.getPlayerColor(), SwingConstants.CENTER);
+        colorLbl.setFont(new Font("Showcard Gothic",Font.BOLD, 20));
+        colorLbl.setOutlineColor(Color.DARK_GRAY);
+        colorLbl.setStroke(new BasicStroke(3f));
         colorLbl.setForeground( KingColor.getColor( player.getPlayerColor() ) );
         c.gridx = 0;
         c.gridy = 0;
