@@ -119,6 +119,7 @@ public class ChoosingMenu extends JPanel {
         playButton.setBorder(BorderFactory.createLineBorder(Color.darkGray, 2));
         playButton.setPreferredSize(new Dimension(250,60));
         playButton.setFont(new Font("Algerian", Font.BOLD, 25));
+        playButton.setFocusPainted(false);
         playButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

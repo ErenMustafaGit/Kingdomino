@@ -25,8 +25,9 @@ public class MainMenu extends JPanel {
         playBtn.setFont(new Font("Algerian", Font.BOLD, 30));
         playBtn.setBackground(mycolor);
         playBtn.setBorder(BorderFactory.createLineBorder(Color.darkGray, 2));
-        playBtn.setPreferredSize(new Dimension(60,60));
-        this.setBorder(new EmptyBorder(10, 550, 200, 550));
+        playBtn.setPreferredSize(new Dimension(70,65));
+        playBtn.setFocusPainted(false);
+        this.setBorder(new EmptyBorder(10, 550, 300, 550));
 
         playBtn.addActionListener(new ActionListener() {
             @Override
@@ -40,14 +41,6 @@ public class MainMenu extends JPanel {
         this.setLayout( new BorderLayout() );
 
         this.add(playBtn, BorderLayout.SOUTH);
-
-//        JPanel center = new JPanel();
-//        center.setOpaque(false);
-//        center.setLayout( new GridLayout(10, 2) );
-//        center.add(button2, BorderLayout.PAGE_END);
-//
-//        this.add( center, BorderLayout.CENTER );
-
     }
 
     public void paint(Graphics g){

@@ -15,7 +15,7 @@ public class GameView extends JPanel {
     private MyWindow mainFrame;
 
     /** **/
-    private static final int IMG_SIZE = 65;
+    private static final int IMG_SIZE = 60;
 
     /******Boards panel (plateau des joueurs)*******/
     JPanel boardsPanel;
@@ -483,6 +483,7 @@ public class GameView extends JPanel {
             });
             btnRotate.setFont(new Font("Algerian", Font.CENTER_BASELINE, 12));
             btnRotate.setBackground(btnColor);
+            btnRotate.setFocusPainted(false);
             btnRotate.setBorder(BorderFactory.createLineBorder(Color.black, 1));
             btnRotate.setPreferredSize(new Dimension(80,40));
             interacC.gridx = 1;
@@ -493,6 +494,7 @@ public class GameView extends JPanel {
             btnReverse.addActionListener(actionEvent -> {
                 this.mainFrame.getGameController().reverse();
             });
+            btnReverse.setFocusPainted(false);
             btnReverse.setFont(new Font("Algerian", Font.CENTER_BASELINE, 12));
             btnReverse.setBackground(btnColor);
             btnReverse.setBorder(BorderFactory.createLineBorder(Color.black, 1));
