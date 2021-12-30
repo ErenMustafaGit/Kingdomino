@@ -31,6 +31,12 @@ public class GameController
         return game.setTile(pos_x, pos_y);
     }
 
+    public void skipTurn()
+    {
+        game.skipTurn();
+    }
+
+
     public void pickTiles()
     {
         game.pickTiles();
@@ -43,10 +49,14 @@ public class GameController
 
     public void rotate() {
         game.rotateCurrentTile();
-
     }
 
     public void reverse() {
         game.reverseCurrentTile();
+    }
+
+    //When quitting the game
+    public void destroyGame(){
+        game.destroy();
     }
 }

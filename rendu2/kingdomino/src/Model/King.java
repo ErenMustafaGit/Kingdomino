@@ -29,7 +29,12 @@ public class King
     }
 
     public Tile getTile(){
+        if(this.choosenTile.isEmpty()){
+            //Renvoie une tuile null
+            return new Tile( 0,new Ground(null, 0 ), new Ground( null, 0 ) );
+        }
         return this.choosenTile.get(0);
+
     }
     public Player getPlayer(){
         return this.player;

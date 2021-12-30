@@ -11,5 +11,10 @@ public class Log implements GameObserver {
         System.out.println("Tour du joueur " + gameContext.getKingTurn().getColor() );
     }
 
+    @Override
+    public void updateEnd(GameContext gameContext) {
+
+    }
+
     //notifier aussi si la place est possible ou non!
 }

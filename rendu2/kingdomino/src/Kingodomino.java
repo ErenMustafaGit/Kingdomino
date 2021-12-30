@@ -11,12 +11,7 @@ public class Kingodomino {
         GameController gameController = new GameController(gameContext);
         MyWindow myWindow = new MyWindow(gameController, gameContext);
         Log log = new Log();
-
         gameContext.addObserver( myWindow );
         gameContext.addObserver( log );
-
-        Deck myDeck = new Deck(32);
-
-        Castle castle = new Castle();
     }
 }

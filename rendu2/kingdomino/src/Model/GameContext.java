@@ -23,11 +23,19 @@ public class GameContext
         turn = 0;
     }
 
-
-
-    public void setGameMode(GameMode gameMode) {
-        this.gameMode = gameMode;
+    public void destroy(){
+        this.nbPlayersStrat = null;
+        this.gameMode = null;
+        this.deck = null;
+        this.currentTiles.clear();
+        this.players.clear();
+        this.kings.clear();
+        this.nextRoundKings.clear();
+        this.turn = 0;
     }
+
+
+
 
     public Map<Tile, King> getCurrentTiles() {
         return currentTiles;
@@ -72,6 +80,8 @@ public class GameContext
         createDeck();
         createPlayers(colors);
         pickTiles();
+        System.out.println( this.kings );
+        System.out.println( this.players );
 
     }
 
@@ -140,6 +150,9 @@ public class GameContext
             if (deck.getNbTiles() != 0) {
                 currentTiles.put(deck.getTile(), null);
             }
+        }
+        if(currentTiles.isEmpty()){
+            this.notifyObserversEnd();
         }
 
 
@@ -261,9 +274,35 @@ public class GameContext
         notifyObservers();
     }
 
+    //Saute ce tour là
+    public void skipTurn(){
+        Tile currentTile = null;
+        for ( Map.Entry<Tile, King> choosenTile : this.currentTiles.entrySet()) {
+            if(this.getKingTurn() == choosenTile.getValue()){
+                currentTile = choosenTile.getKey();
+            }
+        }
+        this.currentTiles.remove( currentTile );
+        this.getKingTurn().removeTile();
+        turn++;
+        if(currentTiles.size() == 0){
+            this.pickTiles();
+        }
+        notifyObservers();
+    }
+
+
+
     private void notifyObservers(){
         for (GameObserver observer : this.observers){
             observer.update(this);
         }
     }
+
+    private void notifyObserversEnd(){
+        for (GameObserver observer : this.observers){
+            observer.updateEnd(this);
+        }
+    }
+
 }

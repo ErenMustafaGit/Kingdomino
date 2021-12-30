@@ -27,9 +27,9 @@ public class Deck {
             Tile tile = new Tile( tileNumber , left, right  );
             tiles.add(tile);
         }
-
         Collections.shuffle(tiles);
-        for(int i = 0; i<tiles.size() - deckSize; i++){
+        int i = 0;
+        while (tiles.size() > deckSize){
             tiles.remove(i);
         }
     }
