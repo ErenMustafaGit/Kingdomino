@@ -14,32 +14,45 @@ import java.awt.event.MouseEvent;
 public class GameView extends JPanel {
     private MyWindow mainFrame;
 
-    /** **/
+    /** IMG_SIZE of tile **/
     private static final int IMG_SIZE = 60;
 
+    //Image de fond de toute la fenetre
+    private ImageIcon img;
+    //Image de fond de la fenetre des plateaux
+    private ImageIcon imgBoard;
+
+
     /******Boards panel (plateau des joueurs)*******/
-    JPanel boardsPanel;
+    private JPanel boardsPanel;
 
     /******Game interaction (Info tour, les 4 tuiles etc)*******/
-    JPanel gameInterac;
+    private JPanel gameInterac;
 
     //Label d'info sur l'action à faire du joueur (placez chateau, choisir tuile..)
-    MyLabel headerLbl = new MyLabel("Placez vos châteaux", SwingConstants.CENTER);
+    private MyLabel headerLbl = new MyLabel("Placez vos châteaux", SwingConstants.CENTER);
 
     //Label d'info sur le tour du joueur
-    MyLabel tourLbl = new MyLabel("Tour du joueur ??", SwingConstants.CENTER);
+    private MyLabel tourLbl = new MyLabel("Tour du joueur ??", SwingConstants.CENTER);
+
+    //Couleur des boutons (orangé)
+    private final Color btnColor = new Color(174,135,0);
+
 
     //Label de message d'erreur
-    MyLabel errorMessageLbl;
+    private MyLabel errorMessageLbl;
 
 
     public GameView(MyWindow MyWindow)  {
         this.mainFrame = MyWindow;
+        this.img = IMGReader.getImage("wallpaperDark.png");
+        this.setOpaque(false);
         this.setLayout( new GridBagLayout() );
 
         /***GAMEBOARD***/
         //Panel qui va contenir tout les élements de jeu
         JPanel gameBoard = new JPanel();
+        gameBoard.setOpaque(false);
         GridBagLayout grid = new GridBagLayout();
         gameBoard.setLayout( grid);
         // Crée un objet de contraintes
@@ -47,7 +60,29 @@ public class GameView extends JPanel {
 
 
         /******Boards panel (plateau des joueurs)*******/
-        boardsPanel =  new JPanel();
+        if(this.mainFrame.getGame().getNbPlayersStrat().getnbBoard() == 2){
+            this.imgBoard = IMGReader.getImage("gameWood_2.png");
+        }else{
+            this.imgBoard = IMGReader.getImage("gameWood_34.png");
+        }
+        final ImageIcon imgBoardsPanel = this.imgBoard;
+
+        boardsPanel =  new JPanel(){
+            Image img = imgBoardsPanel.getImage();
+            // initialiseur d'instance
+            {setOpaque(false);}
+            public void paintComponent(Graphics graphics)
+            {
+                graphics.drawImage(img, 0, 0, this);
+                super.paintComponent(graphics);
+            }
+        };
+        if(this.mainFrame.getGame().getNbPlayersStrat().getnbBoard() == 2){
+            boardsPanel.setPreferredSize( new Dimension( 425, 770 ) );
+        }else{
+            boardsPanel.setPreferredSize( new Dimension( 787, 770 ) );
+        }
+
         boardsPanel.setLayout( new GridBagLayout());
         int boardMargin = 20;
         boardC.insets = new Insets(boardMargin, boardMargin, boardMargin, boardMargin);
@@ -61,12 +96,23 @@ public class GameView extends JPanel {
 
 
         /******Game interaction (info tour, les 4 tuiles etc)*******/
-        gameInterac = new JPanel();
+        gameInterac = new JPanel(){
+            Image img = IMGReader.getImage("gameBoardWood.png").getImage();
+            // initialiseur d'instance
+            {setOpaque(false);}
+            {setPreferredSize( new Dimension(530, 732) );}
+            public void paintComponent(Graphics graphics)
+            {
+                graphics.drawImage(img, 0, 0, this);
+                super.paintComponent(graphics);
+            }
+
+        };
         gameInterac.setLayout( new GridBagLayout());
         gameInterac.setBackground( Color.gray );
         //Placement du panel d'interaction
         // augmente la largeur des composants de 100 pixels
-        boardC.ipadx = 100;
+        boardC.ipadx = 50;
         boardC.fill = GridBagConstraints.VERTICAL;
         boardC.gridx = 2;
         boardC.gridy = 0;
@@ -87,7 +133,11 @@ public class GameView extends JPanel {
         JPanel header = new JPanel();
         header.setLayout( new BorderLayout() );
         headerLbl.setFont(new Font("Bookman Old Style", Font.BOLD, 42));
+        headerLbl.setOutlineColor(Color.DARK_GRAY);
+        headerLbl.setStroke(new BasicStroke(2f));
+        headerLbl.setForeground( Color.white );
         header.add( headerLbl );
+        header.setOpaque(false);
         c.fill = GridBagConstraints.BOTH;
         // colonne 0
         c.gridx = 0;
@@ -111,23 +161,28 @@ public class GameView extends JPanel {
 
 
         /**Bouton de retourn au menu**/
-        JButton backButton = new JButton("QUITTER");
-        backButton.addActionListener(new ActionListener() {
+        JButton btnQuit = new JButton("QUITTER");
+        btnQuit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mainFrame.setMainMenu();
             }
         });
+        btnQuit.setFont(new Font("Algerian", Font.CENTER_BASELINE, 13));
+        btnQuit.setBackground(this.btnColor);
+        btnQuit.setFocusPainted(false);
+        btnQuit.setBorder(BorderFactory.createLineBorder(Color.black, 1));
         c.fill = GridBagConstraints.VERTICAL;
         c.gridx = 0;
         c.gridy = 3;
         // Ajouter les contraintes
-        this.add( backButton, c );
+        this.add( btnQuit, c );
 
 
 
         // ajouter le contenu
         mainFrame.getContentPane().add(this);
+
     }
     public JPanel getMainPanel(){
         return this;
@@ -142,6 +197,7 @@ public class GameView extends JPanel {
     private JPanel createPlayerBoardPanel(Player player, boolean enable){
         JPanel boardPnl = new JPanel();
         boardPnl.setLayout( new GridBagLayout() );
+        boardPnl.setOpaque(false);
 
         PlayerBoard playerBoard = player.getBoard();
         JButton[][] boardBtns = new JButton[playerBoard.BOARD_SIZE][playerBoard.BOARD_SIZE];
@@ -270,6 +326,7 @@ public class GameView extends JPanel {
     private JPanel createChoosenTile(Tile tile, King king){
         JPanel tilePanel = new JPanel();
         tilePanel.setLayout( new BorderLayout() );
+        tilePanel.setOpaque(false);
         tilePanel.setPreferredSize( new Dimension(IMG_SIZE*2, IMG_SIZE*2));
 
         JButton left = new JButton();
@@ -395,11 +452,11 @@ public class GameView extends JPanel {
 
         /** Creation des boutons (dans gameInterac) **/
         GridBagConstraints interacC = new GridBagConstraints();
-        interacC.insets = new Insets(5, 20, 5, 20);
+        interacC.insets = new Insets(0, 20, 20, 20);
 
         /** Message d'erreur **/
         errorMessageLbl = new MyLabel(" ");
-        errorMessageLbl.setFont(new Font("Showcard Gothic",Font.TRUETYPE_FONT, 20));
+        errorMessageLbl.setFont(new Font("Showcard Gothic",Font.BOLD, 21));
         errorMessageLbl.setOutlineColor(Color.DARK_GRAY);
         errorMessageLbl.setStroke(new BasicStroke(2f));
         errorMessageLbl.setForeground(new Color(252, 87, 87));
@@ -408,8 +465,11 @@ public class GameView extends JPanel {
         gameInterac.add( errorMessageLbl, interacC );
 
         JPanel infoTurnPnl = new JPanel();
+        infoTurnPnl.setOpaque(false);
         infoTurnPnl.setLayout( new GridBagLayout() );
-        tourLbl.setFont(new Font("Bookman Old Style", Font.CENTER_BASELINE, 30));
+        tourLbl.setFont(new Font("Bookman Old Style", Font.CENTER_BASELINE, 27));
+        tourLbl.setOutlineColor(Color.DARK_GRAY);
+        tourLbl.setStroke(new BasicStroke(3f));
         interacC.gridx = 0;
         interacC.gridy = 1;
         infoTurnPnl.add( tourLbl, interacC );
@@ -419,10 +479,12 @@ public class GameView extends JPanel {
 
 
         JPanel currentTilesPnl = new JPanel();
+        currentTilesPnl.setOpaque(false);
         currentTilesPnl.setLayout( new GridBagLayout() );
 
         double nbPlayers = mainFrame.getGame().getNbPlayersStrat().getnbBoard();
         double turn = mainFrame.getGame().getTurn();
+        interacC.insets = new Insets(5, 20, 5, 20);
 
         //Si on est au tour 1 pour tout les joueurs
         if(turn / nbPlayers < 1){
@@ -456,12 +518,11 @@ public class GameView extends JPanel {
         gameInterac.add( currentTilesPnl, interacC );
 
         JPanel choosenTilePnl = new JPanel();
+        choosenTilePnl.setOpaque(false);
         choosenTilePnl.setLayout( new GridBagLayout() );
 
         //Si les joueurs doivent placer leur tuile
         if( this.mainFrame.getGame().allTilesChoosen() ){
-            //Couleur des 2 boutons
-            Color btnColor = new Color(174,135,0);
 
 
             GridBagConstraints tempC = new GridBagConstraints();
@@ -469,6 +530,7 @@ public class GameView extends JPanel {
 
             //Ajout du Panel invisible pour permettre la rotation de la tuile à l'interieur
             JPanel tempPnl = new JPanel();
+            tempPnl.setOpaque(false);
             tempPnl.setLayout( new GridBagLayout() );
 
             //Ajout de la 1ère tuile choisi
@@ -503,6 +565,7 @@ public class GameView extends JPanel {
             interacC.gridy = 2;
             choosenTilePnl.add( btnReverse, interacC );
         }
+        interacC.insets = new Insets(10, 20, 10, 20);
         interacC.gridx = 0;
         interacC.gridy = 3;
         gameInterac.add( choosenTilePnl, interacC );
@@ -562,6 +625,11 @@ public class GameView extends JPanel {
 
         this.revalidate();
         this.repaint();
+    }
+
+    public void paint(Graphics g){
+        g.drawImage( this.img.getImage(), 0 , 0,mainFrame.getWidth(), mainFrame.getHeight(), null);
+        super.paint(g);
     }
 
 
