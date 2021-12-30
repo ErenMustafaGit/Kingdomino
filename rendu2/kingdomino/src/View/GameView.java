@@ -14,6 +14,9 @@ import java.awt.event.MouseEvent;
 public class GameView extends JPanel {
     private MyWindow mainFrame;
 
+    /** **/
+    private static final int IMG_SIZE = 65;
+
     /******Boards panel (plateau des joueurs)*******/
     JPanel boardsPanel;
 
@@ -155,7 +158,7 @@ public class GameView extends JPanel {
         for(int j = 0; j<playerBoard.BOARD_SIZE; j++){
             for(int i = 0; i<playerBoard.BOARD_SIZE; i++){
                 JButton btn = boardBtns[i][j];
-                btn.setPreferredSize(new Dimension(50, 50));
+                btn.setPreferredSize(new Dimension(IMG_SIZE, IMG_SIZE));
                 int finalJ = j;
                 int finalI = i;
 
@@ -201,7 +204,7 @@ public class GameView extends JPanel {
 
                 //Met l'image correspondant à la couleur de la case
                 if(playerBoard.getPositionnable(i,j) == null){
-                    btn.setIcon( IMGReader.getImage("empty.jpg") );
+                    btn.setIcon( IMGReader.getImage("empty.png") );
                 }else{
                     btn.setIcon( IMGReader.getImage( playerBoard.getPositionnable(i,j).getColor()) );
                 }
@@ -230,8 +233,8 @@ public class GameView extends JPanel {
 
                         public void mouseExited(java.awt.event.MouseEvent evt) {
                             if(playerBoard.isPosable(finalI, finalJ) && playerBoard.isPosable(xyRight[0], xyRight[1])  ){
-                                btn.setIcon( IMGReader.getImage("empty.jpg") );
-                                boardBtns[xyRight[0]][xyRight[1]].setIcon( IMGReader.getImage("empty.jpg") );
+                                btn.setIcon( IMGReader.getImage("empty.png") );
+                                boardBtns[xyRight[0]][xyRight[1]].setIcon( IMGReader.getImage("empty.png") );
                             }
                         }
                     });
@@ -267,12 +270,12 @@ public class GameView extends JPanel {
     private JPanel createChoosenTile(Tile tile, King king){
         JPanel tilePanel = new JPanel();
         tilePanel.setLayout( new BorderLayout() );
-        tilePanel.setPreferredSize( new Dimension(100, 100));
+        tilePanel.setPreferredSize( new Dimension(IMG_SIZE*2, IMG_SIZE*2));
 
         JButton left = new JButton();
         JButton right = new JButton();
-        left.setPreferredSize(new Dimension(50, 50));
-        right.setPreferredSize(new Dimension(50, 50));
+        left.setPreferredSize(new Dimension(IMG_SIZE, IMG_SIZE));
+        right.setPreferredSize(new Dimension(IMG_SIZE, IMG_SIZE));
 
         //Met les bouttons en transparent (que les images des tuiles seront visible)
         left.setOpaque(false);
@@ -335,12 +338,12 @@ public class GameView extends JPanel {
     private JPanel createTile(Tile tile, King king){
         JPanel tilePanel = new JPanel();
         tilePanel.setLayout( new BorderLayout() );
-        tilePanel.setPreferredSize( new Dimension(100, 50));
+        tilePanel.setPreferredSize( new Dimension(IMG_SIZE*2, IMG_SIZE));
 
         JButton left = new JButton();
         JButton right = new JButton();
-        left.setPreferredSize(new Dimension(50, 50));
-        right.setPreferredSize(new Dimension(50, 50));
+        left.setPreferredSize(new Dimension(IMG_SIZE, IMG_SIZE));
+        right.setPreferredSize(new Dimension(IMG_SIZE, IMG_SIZE));
 
         //Met les bouttons en transparent (que les images des tuiles seront visible)
         left.setOpaque(false);
@@ -382,7 +385,7 @@ public class GameView extends JPanel {
     //Renvoie un Bouton qui represente un chateau
     public JButton createCastle(){
         JButton btn = new JButton();
-        btn.setPreferredSize(new Dimension(50, 50));
+        btn.setPreferredSize(new Dimension(IMG_SIZE, IMG_SIZE));
         btn.setIcon( IMGReader.getImage("castle.png") );
         return btn;
     }
