@@ -43,10 +43,14 @@ public class GameController
 
     public void rotate() {
         game.rotateCurrentTile();
-
     }
 
     public void reverse() {
         game.reverseCurrentTile();
+    }
+
+    //When quitting the game
+    public void destroyGame(){
+        game.destroy();
     }
 }

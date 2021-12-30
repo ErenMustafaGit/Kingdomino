@@ -23,11 +23,19 @@ public class GameContext
         turn = 0;
     }
 
-
-
-    public void setGameMode(GameMode gameMode) {
-        this.gameMode = gameMode;
+    public void destroy(){
+        this.nbPlayersStrat = null;
+        this.gameMode = null;
+        this.deck = null;
+        this.currentTiles.clear();
+        this.players.clear();
+        this.kings.clear();
+        this.nextRoundKings.clear();
+        this.turn = 0;
     }
+
+
+
 
     public Map<Tile, King> getCurrentTiles() {
         return currentTiles;
@@ -72,6 +80,8 @@ public class GameContext
         createDeck();
         createPlayers(colors);
         pickTiles();
+        System.out.println( this.kings );
+        System.out.println( this.players );
 
     }
 
@@ -261,9 +271,12 @@ public class GameContext
         notifyObservers();
     }
 
+
+
     private void notifyObservers(){
         for (GameObserver observer : this.observers){
             observer.update(this);
         }
     }
+
 }

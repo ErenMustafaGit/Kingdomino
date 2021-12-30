@@ -165,6 +165,7 @@ public class GameView extends JPanel {
         btnQuit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                mainFrame.getGameController().destroyGame();
                 mainFrame.setMainMenu();
             }
         });
@@ -499,8 +500,6 @@ public class GameView extends JPanel {
                 KingColor playerTurnColor = this.mainFrame.getGame().getPlayerCastleTurn().getPlayerColor();
                 tourLbl.setText( "Tour du joueur " + playerTurnColor);
                 tourLbl.setForeground( KingColor.getColor( playerTurnColor ) );
-
-
             }
         }else{
             int i = 0;
