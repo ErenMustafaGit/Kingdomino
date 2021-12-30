@@ -99,6 +99,38 @@ public class PlayerBoard
         return true;
     }
 
+    /** Fonction qui regarde si le plateau peut acceuillir cette tuile
+     *
+     * @param tile : Tuile à poser
+     * @return TRUE si une case est disponible à jouer
+     */
+    public boolean isPlayable(Tile tile){
+        int xy[];
+        Direction[] directions = Direction.values();
+
+        for(int j = 0; j<this.BOARD_SIZE; j++) {
+            for (int i = 0; i < this.BOARD_SIZE; i++) {
+
+                //Toutes les directions possibles
+                for (int d = 0 ; d<directions.length; d++){
+                    xy = getRightXY(i,j,directions[d]);
+                    int x2 = xy[0], y2 = xy[1];
+
+                    //Si les cases existent et qu'ils sont disponibles
+                    if( isPosable(i, j) && isPosable(x2,y2)){
+                        //Si un des 2 côtés est bien placé en terme de terrain
+                        if(isSameGround(i, j, tile.getLeft()) || isSameGround(x2,y2, tile.getRight())){
+                            return true;
+                        }
+                    }
+                }
+
+
+            }
+        }
+        return false;
+    }
+
     /** Fonction qui regarde si le terrain est entouré par un de ses terrains ou le chateau
      *
      * @param x, y : Position du terrain

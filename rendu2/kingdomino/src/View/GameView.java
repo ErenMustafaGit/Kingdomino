@@ -42,6 +42,9 @@ public class GameView extends JPanel {
     //Label de message d'erreur
     private MyLabel errorMessageLbl;
 
+    //Caractère unicode de la couronne
+    private String crownString = "\uD83D\uDC51";
+
 
     public GameView(MyWindow MyWindow)  {
         this.mainFrame = MyWindow;
@@ -432,6 +435,7 @@ public class GameView extends JPanel {
         left.setIcon( IMGReader.getImage(tile.getLeft().getColor()) );
         right.setIcon( IMGReader.getImage(tile.getRight().getColor()) );
 
+
         tilePanel.add(left, BorderLayout.LINE_START);
         tilePanel.add(right, BorderLayout.LINE_END);
 
@@ -488,7 +492,7 @@ public class GameView extends JPanel {
 
         double nbPlayers = mainFrame.getGame().getNbPlayersStrat().getnbBoard();
         double turn = mainFrame.getGame().getTurn();
-        interacC.insets = new Insets(5, 20, 5, 20);
+        interacC.insets = new Insets(5, 20, 0, 20);
 
         //Si on est au tour 1 pour tout les joueurs
         if(turn / nbPlayers < 1){
@@ -527,6 +531,8 @@ public class GameView extends JPanel {
         if( this.mainFrame.getGame().allTilesChoosen() ){
 
 
+
+
             GridBagConstraints tempC = new GridBagConstraints();
             tempC.insets = new Insets(0,0,0,0);
 
@@ -537,9 +543,14 @@ public class GameView extends JPanel {
 
             //Ajout de la 1ère tuile choisi
             Tile currentTile = this.mainFrame.getGame().getKingTurn().getTile();
+
+
+
             interacC.gridx = 0;
             interacC.gridy = 1;
             choosenTilePnl.add( this.createChoosenTile( currentTile, this.mainFrame.getGame().getKingTurn() ) );
+
+            interacC.insets = new Insets( 0, 20, 0, 20 );
 
             JButton btnRotate = new JButton("PIVOTER");
             btnRotate.addActionListener(actionEvent -> {
@@ -554,6 +565,7 @@ public class GameView extends JPanel {
             interacC.gridy = 0;
             choosenTilePnl.add( btnRotate, interacC );
 
+            interacC.insets = new Insets( 0, 20, 5, 20 );
             JButton btnReverse = new JButton("INVERSER");
             btnReverse.addActionListener(actionEvent -> {
                 this.mainFrame.getGameController().reverse();
@@ -564,8 +576,27 @@ public class GameView extends JPanel {
             btnReverse.setBorder(BorderFactory.createLineBorder(Color.black, 1));
             btnReverse.setPreferredSize(new Dimension(80,40));
             interacC.gridx = 1;
-            interacC.gridy = 2;
+            interacC.gridy = 1;
             choosenTilePnl.add( btnReverse, interacC );
+
+
+            //Si le joueur ne peut pas placer sa tuile
+            boolean isPlayableTurn = this.mainFrame.getGame().getKingTurn().getPlayer().getBoard().isPlayable(currentTile);
+            if(!isPlayableTurn ){
+                JButton btnSkipTurn = new JButton("SAUTER LE TOUR");
+                btnSkipTurn.addActionListener(actionEvent -> {
+                    this.mainFrame.getGameController().skipTurn();
+                });
+                btnSkipTurn.setFocusPainted(false);
+                btnSkipTurn.setFont(new Font("Algerian", Font.CENTER_BASELINE, 12));
+                btnSkipTurn.setBackground( new Color(255, 88, 88) );
+                btnSkipTurn.setForeground( Color.white );
+                btnSkipTurn.setPreferredSize( new Dimension( 200, 40 ) );
+                btnSkipTurn.setBorder(BorderFactory.createLineBorder(Color.black, 1));
+                interacC.gridx = 1;
+                interacC.gridy = 2;
+                choosenTilePnl.add( btnSkipTurn, interacC );
+            }
         }
         interacC.insets = new Insets(10, 20, 10, 20);
         interacC.gridx = 0;

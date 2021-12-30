@@ -31,6 +31,12 @@ public class GameController
         return game.setTile(pos_x, pos_y);
     }
 
+    public void skipTurn()
+    {
+        game.skipTurn();
+    }
+
+
     public void pickTiles()
     {
         game.pickTiles();

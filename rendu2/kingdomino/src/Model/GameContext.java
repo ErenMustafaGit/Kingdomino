@@ -151,6 +151,9 @@ public class GameContext
                 currentTiles.put(deck.getTile(), null);
             }
         }
+        if(currentTiles.isEmpty()){
+            this.notifyObserversEnd();
+        }
 
 
         /***ORDER TILES BY THEIR NUMBER***/
@@ -271,11 +274,34 @@ public class GameContext
         notifyObservers();
     }
 
+    //Saute ce tour là
+    public void skipTurn(){
+        Tile currentTile = null;
+        for ( Map.Entry<Tile, King> choosenTile : this.currentTiles.entrySet()) {
+            if(this.getKingTurn() == choosenTile.getValue()){
+                currentTile = choosenTile.getKey();
+            }
+        }
+        this.currentTiles.remove( currentTile );
+        this.getKingTurn().removeTile();
+        turn++;
+        if(currentTiles.size() == 0){
+            this.pickTiles();
+        }
+        notifyObservers();
+    }
+
 
 
     private void notifyObservers(){
         for (GameObserver observer : this.observers){
             observer.update(this);
+        }
+    }
+
+    private void notifyObserversEnd(){
+        for (GameObserver observer : this.observers){
+            observer.updateEnd(this);
         }
     }
 

@@ -25,7 +25,6 @@ public class CSVReader {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println( records );
         //ClassLoader.getSystemClassLoader().getResourceAsStream(filename)*
         /*
         List<List<String>> records = new ArrayList<>();
