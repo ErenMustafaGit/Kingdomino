@@ -59,7 +59,7 @@ public class MyWindow extends JFrame implements GameObserver
 
     @Override
     public void updateEnd(GameContext gameContext) {
-        setContentPane( new MainMenu(this) );
+        setContentPane( new EndView(this) );
         this.setVisible(true);
     }
 }
