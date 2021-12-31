@@ -1,5 +1,7 @@
 package Model;
 
+import java.awt.*;
+
 public class NormalMode implements GameMode {
    //private static int BOARD_SIZE = 5;
     private Positionable[][] board;
@@ -22,8 +24,8 @@ public class NormalMode implements GameMode {
 //       }
        for(int i =0; i<p.BOARD_SIZE; i++){
           for(int j=0; j<p.BOARD_SIZE; j++) {
-              count += countcrown(p, i,j);
-              System.out.println("nombre = "+count);
+              count = countcrown(p, i,j);
+              System.out.println("nombre = "+count + " position "+ i +" "+ j);
 
           }
        }
@@ -82,18 +84,16 @@ public class NormalMode implements GameMode {
         board = p.getBoard();
         //on met le compteur à 0
         int count = 0;
+        g = (Ground) board[x][y];
+        Castle c = new Castle();
 
-
-        if(board[x][y]!=null){
+        if(board[x][y]!=null && board[x][y].getColor()!=c.getColor()){
             //on récupère le nombre de couronne dans la case
-            int crown = board[x][y].getCrownNumber();
-
-            if (board[x][y].getCrownNumber() > 0) {
-                count += board[x][y].getCrownNumber() + countcrown(p, x,  y);
-            }
-
+            count = g.getCrownNumber();
         }
-
+        else {
+            count = 0;
+        }
         return count;
     }
 
