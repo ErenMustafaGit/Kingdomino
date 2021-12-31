@@ -1,5 +1,6 @@
 package Utilities;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -7,16 +8,16 @@ import java.awt.Font;
 
 public class FontReader {
     private static FontReader instance;
-    private static Font algerian;
+    private Font algerian;
 
-    public static Font showcard;
-    public static Font bookmanold;
+    private Font showcard;
+    private Font bookmanold;
 
 
     private FontReader(){
 
     }
-    public static FontReader getInstance() throws IOException, FontFormatException {
+    public static FontReader getInstance() {
 
 
         if(instance == null) {
@@ -24,32 +25,58 @@ public class FontReader {
         }
         return instance;
     }
-    public Font getAlgerian() throws IOException, FontFormatException {
+    public Font getAlgerian(){
+        if(algerian !=null ){
+            return algerian;
+        }
+        else {
+            /**Création des Fonts**/
+            //fichier du font algerian pour les boutons | boutton commencer |harmony et middle kingdom | CBO nbre de joueurs - ALGERIAN
+            try {
+                algerian = Font.createFont(Font.TRUETYPE_FONT, new File("./kingdomino/font/algerian.ttf"));
 
-        /**Création des Fonts**/
-        //fichier du font algerian pour les boutons | boutton commencer |harmony et middle kingdom | CBO nbre de joueurs - ALGERIAN
-        algerian = Font.createFont(Font.TRUETYPE_FONT, new File("./kingdomino/font/algerian.ttf"));
+            } catch (IOException | FontFormatException e) {
+                e.printStackTrace();
+            }
 
-
-        //enregistrer les Fonts
-        GraphicsEnvironment g = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        g.registerFont(algerian);
+            //enregistrer les Fonts
+            GraphicsEnvironment g = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            g.registerFont(algerian);
+        }
 
         return algerian;
     }
     public Font getShowcard() throws IOException, FontFormatException{
+        if(showcard!=null){
+            return showcard;
+        }
+        else {
+            //fichier du font label mode de jeu - Bookman Old Style
+            try {
+                showcard = Font.createFont(Font.TRUETYPE_FONT, new File("./kingdomino/font/showcard-gothic.ttf"));
+            } catch (IOException | FontFormatException e) {
+                e.printStackTrace();
+            }
 
-        //fichier du font label mode de jeu - Bookman Old Style
-        showcard = Font.createFont(Font.TRUETYPE_FONT, new File("./kingdomino/font/showcard-gothic.ttf"));
-        GraphicsEnvironment g = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        g.registerFont(showcard);
+            GraphicsEnvironment g = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            g.registerFont(showcard);
+        }
         return showcard;
     }
     public Font getBookmanold() throws IOException, FontFormatException{
-        //fichier du font pour label menu du choix | Label Nbre de joueurs | les messages d'erreurs - Showcard Gothic
-        bookmanold = Font.createFont(Font.TRUETYPE_FONT, new File("./kingdomino/font/bookman-old-style.ttf"));
-        GraphicsEnvironment g = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        g.registerFont(bookmanold);
+        if(bookmanold!=null){
+            return bookmanold;
+        }
+        else{
+            //fichier du font pour label menu du choix | Label Nbre de joueurs | les messages d'erreurs - Showcard Gothic
+            try{
+            bookmanold = Font.createFont(Font.TRUETYPE_FONT, new File("./kingdomino/font/bookman-old-style.ttf"));
+            } catch (IOException | FontFormatException e) {
+                e.printStackTrace();
+            }
+            GraphicsEnvironment g = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            g.registerFont(bookmanold);
+        }
         return bookmanold;
     }
 
