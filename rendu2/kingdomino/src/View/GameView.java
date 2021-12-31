@@ -1,6 +1,7 @@
 package View;
 
 import Model.*;
+import Utilities.FontReader;
 import Utilities.IMGReader;
 import View.Components.MyLabel;
 
@@ -135,7 +136,8 @@ public class GameView extends JPanel {
         /***HEADER***/
         JPanel header = new JPanel();
         header.setLayout( new BorderLayout() );
-        headerLbl.setFont(new Font("Bookman Old Style", Font.BOLD, 42));
+        //headerLbl.setFont(new Font("Bookman Old Style", Font.BOLD, 42));
+        headerLbl.setFont(FontReader.getInstance().getBookmanold().deriveFont(Font.BOLD).deriveFont(42f));
         headerLbl.setOutlineColor(Color.DARK_GRAY);
         headerLbl.setStroke(new BasicStroke(4f));
         headerLbl.setForeground( Color.white );
@@ -172,7 +174,8 @@ public class GameView extends JPanel {
                 mainFrame.setMainMenu();
             }
         });
-        btnQuit.setFont(new Font("Algerian", Font.CENTER_BASELINE, 13));
+       // btnQuit.setFont(new Font("Algerian", Font.CENTER_BASELINE, 13));
+        btnQuit.setFont(FontReader.getInstance().getAlgerian().deriveFont(Font.CENTER_BASELINE).deriveFont(13f));
         btnQuit.setBackground(this.btnColor);
         btnQuit.setFocusPainted(false);
         btnQuit.setBorder(BorderFactory.createLineBorder(Color.black, 1));
@@ -464,7 +467,8 @@ public class GameView extends JPanel {
 
         /** Message d'erreur **/
         errorMessageLbl = new MyLabel(" ");
-        errorMessageLbl.setFont(new Font("Showcard Gothic",Font.BOLD, 21));
+        //errorMessageLbl.setFont(new Font("Showcard Gothic",Font.BOLD, 21));
+        errorMessageLbl.setFont(FontReader.getInstance().getShowcard().deriveFont(Font.BOLD).deriveFont(21f));
         errorMessageLbl.setOutlineColor(Color.DARK_GRAY);
         errorMessageLbl.setStroke(new BasicStroke(2f));
         errorMessageLbl.setForeground(new Color(252, 87, 87));
@@ -475,7 +479,8 @@ public class GameView extends JPanel {
         JPanel infoTurnPnl = new JPanel();
         infoTurnPnl.setOpaque(false);
         infoTurnPnl.setLayout( new GridBagLayout() );
-        tourLbl.setFont(new Font("Bookman Old Style", Font.CENTER_BASELINE, 27));
+        //tourLbl.setFont(new Font("Bookman Old Style", Font.CENTER_BASELINE, 27));
+        tourLbl.setFont(FontReader.getInstance().getBookmanold().deriveFont(Font.CENTER_BASELINE).deriveFont(27f));
         tourLbl.setOutlineColor(Color.DARK_GRAY);
         tourLbl.setStroke(new BasicStroke(3f));
         interacC.gridx = 0;
@@ -556,7 +561,8 @@ public class GameView extends JPanel {
             btnRotate.addActionListener(actionEvent -> {
                 this.mainFrame.getGameController().rotate();
             });
-            btnRotate.setFont(new Font("Algerian", Font.CENTER_BASELINE, 12));
+            //btnRotate.setFont(new Font("Algerian", Font.CENTER_BASELINE, 12));
+            btnRotate.setFont(FontReader.getInstance().getAlgerian().deriveFont(Font.CENTER_BASELINE).deriveFont(12f));
             btnRotate.setBackground(btnColor);
             btnRotate.setFocusPainted(false);
             btnRotate.setBorder(BorderFactory.createLineBorder(Color.black, 1));
@@ -571,7 +577,8 @@ public class GameView extends JPanel {
                 this.mainFrame.getGameController().reverse();
             });
             btnReverse.setFocusPainted(false);
-            btnReverse.setFont(new Font("Algerian", Font.CENTER_BASELINE, 12));
+            //btnReverse.setFont(new Font("Algerian", Font.CENTER_BASELINE, 12));
+            btnReverse.setFont(FontReader.getInstance().getAlgerian().deriveFont(Font.CENTER_BASELINE).deriveFont(12f));
             btnReverse.setBackground(btnColor);
             btnReverse.setBorder(BorderFactory.createLineBorder(Color.black, 1));
             btnReverse.setPreferredSize(new Dimension(80,40));
@@ -588,7 +595,8 @@ public class GameView extends JPanel {
                     this.mainFrame.getGameController().skipTurn();
                 });
                 btnSkipTurn.setFocusPainted(false);
-                btnSkipTurn.setFont(new Font("Algerian", Font.CENTER_BASELINE, 12));
+               // btnSkipTurn.setFont(new Font("Algerian", Font.CENTER_BASELINE, 12));
+                btnSkipTurn.setFont(FontReader.getInstance().getAlgerian().deriveFont(Font.CENTER_BASELINE).deriveFont(12f));
                 btnSkipTurn.setBackground( new Color(255, 88, 88) );
                 btnSkipTurn.setForeground( Color.white );
                 btnSkipTurn.setPreferredSize( new Dimension( 200, 40 ) );

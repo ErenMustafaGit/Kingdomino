@@ -1,5 +1,6 @@
 package View;
 
+import Utilities.FontReader;
 import Utilities.IMGReader;
 
 import javax.swing.*;
@@ -22,7 +23,8 @@ public class MainMenu extends JPanel {
         Color mycolor = new Color(174,135,0);
 
         JButton playBtn = new JButton("JOUER");
-        playBtn.setFont(new Font("Algerian", Font.BOLD, 30));
+        //playBtn.setFont(new Font("Algerian", Font.BOLD, 30));
+        playBtn.setFont(FontReader.getInstance().getAlgerian().deriveFont(Font.BOLD).deriveFont(30f));
         playBtn.setBackground(mycolor);
         playBtn.setBorder(BorderFactory.createLineBorder(Color.darkGray, 2));
         playBtn.setPreferredSize(new Dimension(70,65));

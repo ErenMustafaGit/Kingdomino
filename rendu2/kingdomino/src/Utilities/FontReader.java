@@ -46,7 +46,7 @@ public class FontReader {
 
         return algerian;
     }
-    public Font getShowcard() throws IOException, FontFormatException{
+    public Font getShowcard(){
         if(showcard!=null){
             return showcard;
         }
@@ -63,7 +63,7 @@ public class FontReader {
         }
         return showcard;
     }
-    public Font getBookmanold() throws IOException, FontFormatException{
+    public Font getBookmanold(){
         if(bookmanold!=null){
             return bookmanold;
         }

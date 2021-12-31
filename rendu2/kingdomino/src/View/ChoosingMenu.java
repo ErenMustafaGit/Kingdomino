@@ -1,6 +1,7 @@
 package View;
 
 import Model.KingColor;
+import Utilities.FontReader;
 import Utilities.IMGReader;
 import View.Components.MyLabel;
 
@@ -42,7 +43,8 @@ public class ChoosingMenu extends JPanel {
 
                 /***Affichage du titre de la page***/
         MyLabel label = new MyLabel("Menu de choix");
-        label.setFont(new Font("Showcard Gothic",Font.BOLD, 70));
+        //label.setFont(new Font("Showcard Gothic", Font.BOLD, 70));
+        label.setFont(FontReader.getInstance().getShowcard().deriveFont(Font.BOLD).deriveFont(70f));
         label.setOutlineColor(Color.DARK_GRAY);
         label.setStroke(new BasicStroke(5f));
         label.setForeground(Color.WHITE);
@@ -54,7 +56,8 @@ public class ChoosingMenu extends JPanel {
                     /**Affichage du mode de jeu + des checkbox**/
         MyLabel mode = new MyLabel("Mode de jeu :");
         mode.setForeground(Color.WHITE);
-        mode.setFont(new Font("Bookman Old Style", Font.BOLD, 30));
+        //mode.setFont(new Font("Bookman Old Style", Font.BOLD, 30));
+        mode.setFont(FontReader.getInstance().getBookmanold().deriveFont(Font.BOLD).deriveFont(30f));
         mode.setOutlineColor(Color.DARK_GRAY);
         mode.setStroke(new BasicStroke(3f));
         c.gridx = 0;
@@ -65,12 +68,14 @@ public class ChoosingMenu extends JPanel {
         JCheckBox harmonyChk = new JCheckBox("Harmony");
         harmonyChk.setOpaque(false);
         harmonyChk.setForeground(Color.WHITE);
-        harmonyChk.setFont(new Font("Algerian", Font.BOLD, 20));
+        //harmonyChk.setFont(new Font("Algerian", Font.BOLD, 20));
+        harmonyChk.setFont(FontReader.getInstance().getAlgerian().deriveFont(Font.BOLD).deriveFont(20f));
 
         JCheckBox middleKingdomChk = new JCheckBox("Middle Kingdom");
         middleKingdomChk.setOpaque(false);
         middleKingdomChk.setForeground(Color.WHITE);
-        middleKingdomChk.setFont(new Font("Algerian", Font.BOLD, 20));
+        //middleKingdomChk.setFont(new Font("Algerian", Font.BOLD, 20));
+        middleKingdomChk.setFont(FontReader.getInstance().getAlgerian().deriveFont(Font.BOLD).deriveFont(20f));
 
         c.gridx = 1;
         c.gridy = 1;
@@ -85,12 +90,14 @@ public class ChoosingMenu extends JPanel {
         nbPlayerLbl.setOutlineColor(Color.DARK_GRAY);
         nbPlayerLbl.setStroke(new BasicStroke(3f));
         nbPlayerLbl.setForeground(Color.WHITE);
-        nbPlayerLbl.setFont(new Font("Bookman Old Style", Font.BOLD, 30));
+        //nbPlayerLbl.setFont(new Font("Bookman Old Style", Font.BOLD, 30));
+        nbPlayerLbl.setFont(FontReader.getInstance().getBookmanold().deriveFont(Font.BOLD).deriveFont(30f));
         c.gridx = 0;
         c.gridy = 2;
         mainPnl.add(nbPlayerLbl, c);
         nbPlayerCbo.setPreferredSize(new Dimension(50,50));
-        nbPlayerCbo.setFont(new Font("Algerian", Font.BOLD, 30));
+       // nbPlayerCbo.setFont(new Font("Algerian", Font.BOLD, 30));
+        nbPlayerCbo.setFont(FontReader.getInstance().getAlgerian().deriveFont(Font.BOLD).deriveFont(30f));
         c.gridx = 1;
         c.gridy = 2;
         mainPnl.add(nbPlayerCbo, c);
@@ -118,7 +125,8 @@ public class ChoosingMenu extends JPanel {
         playButton.setBackground(mycolor);
         playButton.setBorder(BorderFactory.createLineBorder(Color.darkGray, 2));
         playButton.setPreferredSize(new Dimension(250,60));
-        playButton.setFont(new Font("Algerian", Font.BOLD, 25));
+       // playButton.setFont(new Font("Algerian", Font.BOLD, 25));
+        playButton.setFont(FontReader.getInstance().getAlgerian().deriveFont(Font.BOLD).deriveFont(25f));
         playButton.setFocusPainted(false);
         playButton.addActionListener(new ActionListener() {
             @Override
@@ -128,7 +136,8 @@ public class ChoosingMenu extends JPanel {
                 if(!isDifferentColor()){
                     /*** Affichage du msg d'erreur ***/
                     MyLabel label = new MyLabel("Vous devez choisir des couleurs différentes pour chaque joueur !");
-                    label.setFont(new Font("Showcard Gothic",Font.TRUETYPE_FONT, 20));
+                    //label.setFont(new Font("Showcard Gothic",Font.TRUETYPE_FONT, 20));
+                    label.setFont(FontReader.getInstance().getShowcard().deriveFont(Font.TRUETYPE_FONT).deriveFont(20f));
                     label.setOutlineColor(Color.DARK_GRAY);
                     label.setStroke(new BasicStroke(5f));
                     label.setForeground(new Color(255, 49, 49));
