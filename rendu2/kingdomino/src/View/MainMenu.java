@@ -24,10 +24,10 @@ public class MainMenu extends JPanel {
 
         JButton playBtn = new JButton("JOUER");
         //playBtn.setFont(new Font("Algerian", Font.BOLD, 30));
-        playBtn.setFont(FontReader.getInstance().getAlgerian().deriveFont(Font.BOLD).deriveFont(30f));
+        playBtn.setFont(FontReader.getInstance().getAlgerian().deriveFont(Font.BOLD).deriveFont(40f));
         playBtn.setBackground(mycolor);
         playBtn.setBorder(BorderFactory.createLineBorder(Color.darkGray, 2));
-        playBtn.setPreferredSize(new Dimension(70,65));
+        playBtn.setPreferredSize(new Dimension(70,70));
         playBtn.setFocusPainted(false);
         this.setBorder(new EmptyBorder(10, 550, 300, 550));
 

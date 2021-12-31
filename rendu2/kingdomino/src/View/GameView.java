@@ -174,8 +174,7 @@ public class GameView extends JPanel {
                 mainFrame.setMainMenu();
             }
         });
-       // btnQuit.setFont(new Font("Algerian", Font.CENTER_BASELINE, 13));
-        btnQuit.setFont(FontReader.getInstance().getAlgerian().deriveFont(Font.CENTER_BASELINE).deriveFont(13f));
+        btnQuit.setFont(FontReader.getInstance().getBookmanold().deriveFont(Font.CENTER_BASELINE).deriveFont(18f));
         btnQuit.setBackground(this.btnColor);
         btnQuit.setFocusPainted(false);
         btnQuit.setBorder(BorderFactory.createLineBorder(Color.black, 1));
@@ -309,10 +308,10 @@ public class GameView extends JPanel {
         }
 
         GridBagConstraints c = new GridBagConstraints();
-        c.insets = new Insets(5, 20, 0, 20);
+        c.insets = new Insets(0, 20, 0, 20);
 
         MyLabel colorLbl = new MyLabel("Joueur " + player.getPlayerColor(), SwingConstants.CENTER);
-        colorLbl.setFont(new Font("Showcard Gothic",Font.BOLD, 20));
+        colorLbl.setFont(FontReader.getInstance().getShowcard().deriveFont(Font.BOLD).deriveFont(22f));
         colorLbl.setOutlineColor(Color.DARK_GRAY);
         colorLbl.setStroke(new BasicStroke(3f));
         colorLbl.setForeground( KingColor.getColor( player.getPlayerColor() ) );
@@ -479,8 +478,7 @@ public class GameView extends JPanel {
         JPanel infoTurnPnl = new JPanel();
         infoTurnPnl.setOpaque(false);
         infoTurnPnl.setLayout( new GridBagLayout() );
-        //tourLbl.setFont(new Font("Bookman Old Style", Font.CENTER_BASELINE, 27));
-        tourLbl.setFont(FontReader.getInstance().getBookmanold().deriveFont(Font.CENTER_BASELINE).deriveFont(27f));
+        tourLbl.setFont(FontReader.getInstance().getShowcard().deriveFont(Font.CENTER_BASELINE).deriveFont(27f));
         tourLbl.setOutlineColor(Color.DARK_GRAY);
         tourLbl.setStroke(new BasicStroke(3f));
         interacC.gridx = 0;
@@ -562,11 +560,11 @@ public class GameView extends JPanel {
                 this.mainFrame.getGameController().rotate();
             });
             //btnRotate.setFont(new Font("Algerian", Font.CENTER_BASELINE, 12));
-            btnRotate.setFont(FontReader.getInstance().getAlgerian().deriveFont(Font.CENTER_BASELINE).deriveFont(12f));
+            btnRotate.setFont(FontReader.getInstance().getBookmanold().deriveFont(Font.CENTER_BASELINE).deriveFont(15f));
             btnRotate.setBackground(btnColor);
             btnRotate.setFocusPainted(false);
             btnRotate.setBorder(BorderFactory.createLineBorder(Color.black, 1));
-            btnRotate.setPreferredSize(new Dimension(80,40));
+            btnRotate.setPreferredSize(new Dimension(90,40));
             interacC.gridx = 1;
             interacC.gridy = 0;
             choosenTilePnl.add( btnRotate, interacC );
@@ -578,10 +576,10 @@ public class GameView extends JPanel {
             });
             btnReverse.setFocusPainted(false);
             //btnReverse.setFont(new Font("Algerian", Font.CENTER_BASELINE, 12));
-            btnReverse.setFont(FontReader.getInstance().getAlgerian().deriveFont(Font.CENTER_BASELINE).deriveFont(12f));
+            btnReverse.setFont(FontReader.getInstance().getBookmanold().deriveFont(Font.CENTER_BASELINE).deriveFont(14f));
             btnReverse.setBackground(btnColor);
             btnReverse.setBorder(BorderFactory.createLineBorder(Color.black, 1));
-            btnReverse.setPreferredSize(new Dimension(80,40));
+            btnReverse.setPreferredSize(new Dimension(90,40));
             interacC.gridx = 1;
             interacC.gridy = 1;
             choosenTilePnl.add( btnReverse, interacC );
@@ -589,14 +587,13 @@ public class GameView extends JPanel {
 
             //Si le joueur ne peut pas placer sa tuile
             boolean isPlayableTurn = this.mainFrame.getGame().getKingTurn().getPlayer().getBoard().isPlayable(currentTile);
-            if(!isPlayableTurn ){
+            if(isPlayableTurn ){
                 JButton btnSkipTurn = new JButton("SAUTER LE TOUR");
                 btnSkipTurn.addActionListener(actionEvent -> {
                     this.mainFrame.getGameController().skipTurn();
                 });
                 btnSkipTurn.setFocusPainted(false);
-               // btnSkipTurn.setFont(new Font("Algerian", Font.CENTER_BASELINE, 12));
-                btnSkipTurn.setFont(FontReader.getInstance().getAlgerian().deriveFont(Font.CENTER_BASELINE).deriveFont(12f));
+                btnSkipTurn.setFont(FontReader.getInstance().getBookmanold().deriveFont(Font.CENTER_BASELINE).deriveFont(15f));
                 btnSkipTurn.setBackground( new Color(255, 88, 88) );
                 btnSkipTurn.setForeground( Color.white );
                 btnSkipTurn.setPreferredSize( new Dimension( 200, 40 ) );
