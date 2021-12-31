@@ -1,78 +1,87 @@
 package Model;
 
-import java.awt.*;
-
 public class NormalMode implements GameMode {
-   //private static int BOARD_SIZE = 5;
-    private Positionable[][] board;
-    private Ground g;
+
 
     @Override
     public int calculateScore(PlayerBoard p) {
+
         int count =0;
         int cell = 0;
-        int crown =0;
-        board = p.getBoard();
+        int crown =1;
         //pour les couronnes ici
-       for(int i =0; i<p.BOARD_SIZE; i++){
-           for(int j=0; j<p.BOARD_SIZE; j++){
-                  if( board[i][j]!=null) {
-                      if (board[i][j].isCounted() == false) {
-                          cell = countcell(p, i, i);
-                          crown = countcrown(p, i, j);
-                          count = cell * crown;
-                          board[i][j].setCounted(true);
-                      }
-                  }
+
+       for(int j =0; j<p.getBOARD_SIZE(); j++){
+           for(int i=0; i<p.getBOARD_SIZE(); i++){
+               crown = 0;
+               cell = 0;
+               //this.print(p);
+               if(  p.getPositionnable(i,j) !=null) {
+                   if (!p.getPositionnable(i,j).isGroundCounted()) {
+                       p.getPositionnable( i,j ).setGroundCounted(true);
+                       cell = countcell(p, i, j);
+
+                   }
+
+
+                   if(!p.getPositionnable(i,j).isCrownCounted()){
+                       p.getPositionnable( i,j ).setCrownCounted(true);
+                       crown = countcrown(p, i, j);
+                   }
+               }
+               count += cell * crown;
            }
        }
-       return count;
 
+        return count;
     }
     public int countcell(PlayerBoard p, int x, int y){
         //on récupère le plateau du joueur
-        board = p.getBoard();
         //on définit une variable couleur
         GroundColor type;
         //on met le compteur à 1
-        int count = 1;
-
-        if(board[x][y]!=null){
+        int count = 0;
+        if(p.getPositionnable(x,y)!=null){
+            count = 1;
             //on récupère la couleur du plateau
-            type = board[x][y].getColor();
+            type = p.getPositionnable(x,y).getColor();
+
+
             if(y-1 > 0){
                 //si la case d'au dessus n'est pas nul
-                if(board[x][y-1] !=null){
-                    if( type == board[x][y-1].getColor() && !board[x][y-1].isCounted()){
-                       board[x][y-1].setCounted(true);
+                if(p.getPositionnable(x,y-1) !=null){
+                    if( type == p.getPositionnable(x,y-1).getColor() && !p.getPositionnable(x,y-1).isGroundCounted()){
+                        p.getPositionnable(x,y-1).setGroundCounted(true);
                        count +=countcell(p,x, y-1);
 
                     }
                 }
             }
-            if(x+1 < p.BOARD_SIZE){
+            if(x+1 < p.getBOARD_SIZE()){
                 //si la case de droite n'est pas vide
-                if(board[x+1][y] !=null){
-                    if( type == board[x+1][y].getColor() && !board[x+1][y].isCounted()){
-                        board[x+1][y].setCounted(true);
+                if(p.getPositionnable(x+1,y) !=null){
+                    if( type == p.getPositionnable(x+1,y).getColor() && !p.getPositionnable(x+1,y).isGroundCounted()){
+
+                        p.getPositionnable(x+1,y).setGroundCounted(true);
                         count +=countcell(p,x+1, y);
                     }
                 }
             }
             if(x-1 > 0){
                 //si la case d'a gauche n'est pas vide
-                if(board[x-1][y] !=null){
-                    if( type == board[x-1][y].getColor() && !board[x-1][y].isCounted()){
-                        board[x-1][y].setCounted(true);
+                if(p.getPositionnable(x-1,y) !=null){
+                    if( type == p.getPositionnable(x-1,y).getColor() && !p.getPositionnable(x-1,y).isGroundCounted()){
+                        p.getPositionnable(x-1,y).setGroundCounted(true);
                         count +=countcell(p,x-1, y);
                     }
                 }
             }
-            if(y+1 < p.BOARD_SIZE){
+            if(y+1 < p.getBOARD_SIZE()){
                 //si la case d'en bas n'est pas vide
-                if(board[x][y+1] !=null && !board[x][y+1].isCounted()){
-                    if( type == board[x][y+1].getColor()){
-                        board[x][y+1].setCounted(true);
+                if(p.getPositionnable(x,y+1) !=null && !p.getPositionnable(x,y+1).isGroundCounted()){
+
+                    if( type == p.getPositionnable(x,y+1).getColor()){
+                        p.getPositionnable(x,y+1).setGroundCounted(true);
                         count +=countcell(p,x, y+1);
                     }
                 }
@@ -80,23 +89,80 @@ public class NormalMode implements GameMode {
         }
         return count;
     }
+
+
+    //Méthode de test -- A SUPP
+    private void print(PlayerBoard p){
+        System.out.println("print----");
+
+        for(int j =0; j<p.getBOARD_SIZE(); j++) {
+            for (int i = 0; i < p.getBOARD_SIZE(); i++) {
+                if(p.getPositionnable(i,j) == null){
+                    System.out.println("null");
+                }else {
+                    System.out.println( i + " " + j + p.getPositionnable(i,j) + " " + p.getPositionnable(i,j).isGroundCounted() + p.getPositionnable(i,j).getCrownNumber() );
+
+                }
+            }
+        }
+    }
+
     public int countcrown(PlayerBoard p, int x, int y){
-        //on récupère le plateau du joueur
-        board = p.getBoard();
+        //on définit une variable couleur
+        GroundColor type = null;
         //on met le compteur à 0
         int count = 0;
-        //g = (Ground) ;
 
-        if(board[x][y]!=null){
-            //on récupère le nombre de couronne dans la case
-            count = board[x][y].getCrownNumber();
+        if(p.getPositionnable(x,y)!=null){
+            count = p.getPositionnable( x,y ).getCrownNumber();
 
-        }
-        else {
-            count = 0;
+            //on récupère la couleur de la case actuelle
+            type = p.getPositionnable(x,y).getColor();
+            if(y-1 > 0){
+                //si la case d'au dessus n'est pas nul
+                if(p.getPositionnable(x,y-1) !=null){
+                    if( type == p.getPositionnable(x,y-1).getColor() && !p.getPositionnable(x,y-1).isCrownCounted()){
+                        p.getPositionnable(x,y-1).setCrownCounted(true);
+                        count += countcrown(p,x, y-1);
+
+                    }
+                }
+            }
+            if(x+1 < p.getBOARD_SIZE()){
+                //si la case de droite n'est pas vide
+                if(p.getPositionnable(x+1,y) !=null){
+                    if( type == p.getPositionnable(x+1,y).getColor() && !p.getPositionnable(x+1,y).isCrownCounted()){
+                        p.getPositionnable(x+1,y).setCrownCounted(true);
+                        count +=countcrown(p,x+1, y);
+                    }
+                }
+            }
+            if(x-1 > 0){
+                //si la case d'a gauche n'est pas vide
+                if(p.getPositionnable(x-1,y) !=null){
+                    if( type == p.getPositionnable(x-1,y).getColor() && !p.getPositionnable(x-1,y).isCrownCounted()){
+                        p.getPositionnable(x-1,y).setCrownCounted(true);
+                        count +=countcrown(p,x-1, y);
+                    }
+                }
+            }
+            if(y+1 < p.getBOARD_SIZE()){
+                //si la case d'en bas n'est pas vide
+                if(p.getPositionnable(x,y+1) !=null && !p.getPositionnable(x,y+1).isCrownCounted()){
+                    if( type == p.getPositionnable(x,y+1).getColor()){
+                        p.getPositionnable(x,y+1).setCrownCounted(true);
+
+                        count +=countcrown(p,x, y+1);
+
+                    }
+                }
+            }
         }
         return count;
     }
+
+
+
 
     @Override
     public String getnamegame() {

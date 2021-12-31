@@ -136,10 +136,10 @@ public class GameView extends JPanel {
         PlayerBoard playerBoard = player.getBoard();
 
         JPanel grid = new JPanel();
-        grid.setLayout(new GridLayout(playerBoard.BOARD_SIZE, playerBoard.BOARD_SIZE));
+        grid.setLayout(new GridLayout(playerBoard.getBOARD_SIZE(), playerBoard.getBOARD_SIZE()));
         //Place chaque image correspondantes
-        for(int j = 0; j<playerBoard.BOARD_SIZE; j++){
-            for(int i = 0; i<playerBoard.BOARD_SIZE; i++){
+        for(int j = 0; j<playerBoard.getBOARD_SIZE(); j++){
+            for(int i = 0; i<playerBoard.getBOARD_SIZE(); i++){
                 JButton btn = new JButton();
                 btn.setPreferredSize(new Dimension(50, 50));
                 int finalJ = j;

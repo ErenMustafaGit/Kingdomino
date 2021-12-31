@@ -4,9 +4,11 @@ public interface Positionable {
 
     public GroundColor getColor();
     public int getCrownNumber();
-//get
-    public boolean isCounted();
-    //set à faire dans les fils
-     public void setCounted(boolean counted);
+
+    public boolean isGroundCounted();
+    public boolean isCrownCounted();
+
+    public void setGroundCounted(boolean groundCounted);
+    public void setCrownCounted(boolean crownCounted);
 
 }

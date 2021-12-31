@@ -2,11 +2,11 @@ package Model;
 
 public class PlayerBoard
 {
-    public final int BOARD_SIZE = 5;
+    private final int getBOARD_SIZE = 5;
 
     //Tableau de positionable (5x5 de base --> static)
     //9x9 pour en avoir un dynamique
-    private Positionable[][] board = new Positionable[BOARD_SIZE][BOARD_SIZE];
+    private Positionable[][] board = new Positionable[getBOARD_SIZE][getBOARD_SIZE];
 
 
     public PlayerBoard()
@@ -80,7 +80,7 @@ public class PlayerBoard
     private boolean isPosable(int x, int y)
     {
         //Si c'est en dehors du tableau
-        if(x < 0 || x>= BOARD_SIZE || y < 0 || y>= BOARD_SIZE ){
+        if(x < 0 || x>= getBOARD_SIZE || y < 0 || y>= getBOARD_SIZE){
             return false;
         }
 
@@ -112,7 +112,7 @@ public class PlayerBoard
             }
 
         }
-        if(x+1 < BOARD_SIZE){
+        if(x+1 < getBOARD_SIZE){
             if(board[x+1][y] !=null){
                 type = board[x+1][y].getColor();
                 if( type == ground.getColor() || type == GroundColor.GREY ){
@@ -130,7 +130,7 @@ public class PlayerBoard
             }
 
         }
-        if(y+1 < BOARD_SIZE){
+        if(y+1 < getBOARD_SIZE){
             if(board[x][y+1] !=null){
                 type = board[x][y+1].getColor();
                 if( type == ground.getColor() || type == GroundColor.GREY ){
@@ -140,6 +140,10 @@ public class PlayerBoard
 
         }
         return false;
+    }
+
+    public int getBOARD_SIZE() {
+        return getBOARD_SIZE;
     }
 
     public Positionable getPositionnable(int x, int y){

@@ -23,8 +23,8 @@ public class Harmony extends ModeDecorator {
         GroundColor color;
         int nbNeighbor = 1;
         /**Calcul le nombre de voisin par domaine**/
-        for (i = 0; i < p.BOARD_SIZE; i++) {
-            for (j = 0; j < p.BOARD_SIZE; j++) {
+        for (i = 0; i < p.getBOARD_SIZE(); i++) {
+            for (j = 0; j < p.getBOARD_SIZE(); j++) {
                 if (p.getPositionnable(i, j) != null) {
                     if (j - 1 >= 0) {
                         //si la case du dessus n'est pas vide
@@ -32,29 +32,29 @@ public class Harmony extends ModeDecorator {
                             /**On récupère la couleur de la case au dessus**/
                             color = p.getPositionnable(i, j - 1).getColor();
                             /**Si la couleur de la case suivane est la même que celle qu'on a **/
-                            if (color == p.getPositionnable(i, j).getColor() && !p.getPositionnable(i, j - 1).isCounted()) {
+                            if (color == p.getPositionnable(i, j).getColor() && !p.getPositionnable(i, j - 1).isGroundCounted()) {
                                 g = (Ground) p.getPositionnable(i, j - 1);
                                 /**RECURSIVITE**/
                                 nbNeighbor += 1;
                                 calculateNeighbor(p, g, i, j - 1);
-                                p.getPositionnable(i, j - 1).setCounted(true);
+                                p.getPositionnable(i, j - 1).setGroundCounted(true);
                             }
 
                         }
                     }
-                    if (j + 1 < p.BOARD_SIZE) {
+                    if (j + 1 < p.getBOARD_SIZE()) {
                         //si la case d'en bas n'est pas vide
                         if (p.getPositionnable(i, j + 1) != null) {
                             /**On récupère la couleur de la case de droite**/
                             color = p.getPositionnable(i, j + 1).getColor();
 
                             /**Si la couleur de la case suivane est la même que celle qu'on a **/
-                            if (color == p.getPositionnable(i, j).getColor() && !p.getPositionnable(i, j + 1).isCounted()) {
+                            if (color == p.getPositionnable(i, j).getColor() && !p.getPositionnable(i, j + 1).isGroundCounted()) {
                                 g = (Ground) p.getPositionnable(i, j + 1);
                                 /**RECURSIVITE**/
                                 nbNeighbor += 1;
                                 calculateNeighbor(p, g, i, j + 1);
-                                p.getPositionnable(i, j + 1).setCounted(true);
+                                p.getPositionnable(i, j + 1).setGroundCounted(true);
                             }
                         }
                     }

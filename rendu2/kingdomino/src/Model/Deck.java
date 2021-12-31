@@ -24,6 +24,7 @@ public class Deck {
             GroundColor rightColor = GroundColor.getColor( line.get(4) );
             Ground left = new Ground(leftColor, leftCrown);
             Ground right = new Ground(rightColor, rightCrown);
+            System.out.println(left + " " + right);
             Tile tile = new Tile( tileNumber , left, right  );
             tiles.add(tile);
         }
@@ -33,6 +34,7 @@ public class Deck {
             tiles.remove(i);
         }
     }
+
 
     public Tile getTile(){
         return this.tiles.pop();

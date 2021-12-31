@@ -1,7 +1,6 @@
 package Model;
 
 public class Castle implements Positionable{
-    boolean isCounted;
 
     @Override
     public GroundColor getColor() {
@@ -14,12 +13,23 @@ public class Castle implements Positionable{
     }
 
     @Override
-    public boolean isCounted() {
-        return isCounted;
+    public boolean isGroundCounted() {
+        return true;
     }
 
     @Override
-    public void setCounted(boolean counted) {
-        isCounted=true;
+    public boolean isCrownCounted() {
+        return true;
+    }
+
+
+    @Override
+    public void setGroundCounted(boolean groundCounted) {
+        //Nothing to do
+    }
+
+    @Override
+    public void setCrownCounted(boolean crownCounted) {
+        //Nothing to do
     }
 }

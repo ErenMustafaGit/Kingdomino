@@ -12,8 +12,8 @@ public class MiddleKingdom extends ModeDecorator {
     public int calculateScore(PlayerBoard p) {
         int neighbor=0;
         int crown=0;
-        for(int i =0; i<p.BOARD_SIZE; i++){
-            for(int j=0; j<p.BOARD_SIZE;j++){
+        for(int i =0; i<p.getBOARD_SIZE(); i++){
+            for(int j=0; j<p.getBOARD_SIZE();j++){
                 neighbor =calculateNeighbor(p, ground,i,j);
                 crown = calculateNbCrown(p, ground, i, j);
             }
