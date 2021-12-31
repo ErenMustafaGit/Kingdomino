@@ -178,12 +178,12 @@ public class GameView extends JPanel {
             }
         });
         //HOVER BUTTON
-        btnQuit.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
+        btnQuit.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent evt) {
                 btnQuit.setBackground(btnHoverColor);
             }
 
-            public void mouseExited(java.awt.event.MouseEvent evt) {
+            public void mouseExited(MouseEvent evt) {
                 btnQuit.setBackground(btnColor);
             }
         });
