@@ -92,8 +92,6 @@ public class IMGReader {
 
     public static Icon getImage(GroundColor color, int crown) {
         String directory = "groundImage/";
-        System.out.println(color);
-        System.out.println(crown);
         //Met l'image correspondant à la couleur de la case
         if(color == null){
             return IMGReader.getImage(directory+"empty.jpg");
