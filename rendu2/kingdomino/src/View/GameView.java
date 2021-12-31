@@ -38,6 +38,9 @@ public class GameView extends JPanel {
 
     //Couleur des boutons (orangé)
     private final Color btnColor = new Color(174,135,0);
+    //Couleur des boutons en hover (orangé plus clair)
+    private final Color btnHoverColor = new Color(198, 159, 22);
+
 
 
     //Label de message d'erreur
@@ -174,8 +177,17 @@ public class GameView extends JPanel {
                 mainFrame.setMainMenu();
             }
         });
-       // btnQuit.setFont(new Font("Algerian", Font.CENTER_BASELINE, 13));
-        btnQuit.setFont(FontReader.getInstance().getAlgerian().deriveFont(Font.CENTER_BASELINE).deriveFont(13f));
+        //HOVER BUTTON
+        btnQuit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnQuit.setBackground(btnHoverColor);
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnQuit.setBackground(btnColor);
+            }
+        });
+        btnQuit.setFont(FontReader.getInstance().getBookmanold().deriveFont(Font.CENTER_BASELINE).deriveFont(18f));
         btnQuit.setBackground(this.btnColor);
         btnQuit.setFocusPainted(false);
         btnQuit.setBorder(BorderFactory.createLineBorder(Color.black, 1));
@@ -269,7 +281,7 @@ public class GameView extends JPanel {
                 if(playerBoard.getPositionnable(i,j) == null){
                     btn.setIcon( IMGReader.getImage("empty.png") );
                 }else{
-                    btn.setIcon( IMGReader.getImage( playerBoard.getPositionnable(i,j).getColor()) );
+                    btn.setIcon( IMGReader.getImage( playerBoard.getPositionnable(i,j).getColor(), playerBoard.getPositionnable(i,j).getCrown()) );
                 }
                 grid.add(btn);
 
@@ -277,20 +289,22 @@ public class GameView extends JPanel {
                 /** Hover effect **/
                 //Si on est en tour chateau
                 if(mainFrame.getGame().getTurn() < mainFrame.getGame().getPlayers().size() ){
-                    btn.setRolloverIcon( IMGReader.getImage("castle.png")   );
+                    btn.setRolloverIcon( IMGReader.getImage(GroundColor.GREY, 0)   );
                 }
                  else if(this.mainFrame.getGame().allTilesChoosen() && btn.isEnabled()){
                     Tile choosenTile = mainFrame.getGame().getKingTurn().getTile();
                     final GroundColor leftColor = choosenTile.getLeft().getColor();
                     final GroundColor rightColor = choosenTile.getRight().getColor();
+                    final int leftCrown = choosenTile.getLeft().getCrown();
+                    final int rightCrown = choosenTile.getRight().getCrown();
                     final int[] xyRight = playerBoard.getRightXY(finalI, finalJ,choosenTile.getDirection() );
                     btn.addMouseListener(new MouseAdapter() {
 
                         public void mouseEntered(MouseEvent evt) {
 
                             if(playerBoard.isPosable(finalI, finalJ) && playerBoard.isPosable(xyRight[0], xyRight[1])  ){
-                                btn.setIcon( IMGReader.getImage( leftColor  ));
-                                boardBtns[xyRight[0]][xyRight[1]].setIcon( IMGReader.getImage( rightColor  ) );
+                                btn.setIcon( IMGReader.getImage( leftColor,leftCrown ));
+                                boardBtns[xyRight[0]][xyRight[1]].setIcon( IMGReader.getImage( rightColor, rightCrown  ) );
                             }
                         }
 
@@ -309,10 +323,10 @@ public class GameView extends JPanel {
         }
 
         GridBagConstraints c = new GridBagConstraints();
-        c.insets = new Insets(5, 20, 0, 20);
+        c.insets = new Insets(0, 20, 0, 20);
 
         MyLabel colorLbl = new MyLabel("Joueur " + player.getPlayerColor(), SwingConstants.CENTER);
-        colorLbl.setFont(new Font("Showcard Gothic",Font.BOLD, 20));
+        colorLbl.setFont(FontReader.getInstance().getShowcard().deriveFont(Font.BOLD).deriveFont(22f));
         colorLbl.setOutlineColor(Color.DARK_GRAY);
         colorLbl.setStroke(new BasicStroke(3f));
         colorLbl.setForeground( KingColor.getColor( player.getPlayerColor() ) );
@@ -367,9 +381,8 @@ public class GameView extends JPanel {
 
 
         //Met l'image correspondant à la couleur de la case
-        left.setIcon( IMGReader.getImage(tile.getLeft().getColor()) );
-        right.setIcon( IMGReader.getImage(tile.getRight().getColor()) );
-
+        left.setIcon( IMGReader.getImage(tile.getLeft().getColor(), tile.getLeft().getCrown()) );
+        right.setIcon( IMGReader.getImage(tile.getRight().getColor(), tile.getRight().getCrown()) );
 
         switch(tile.getDirection()){
 
@@ -435,8 +448,8 @@ public class GameView extends JPanel {
 
 
         //Met l'image correspondant à la couleur de la case
-        left.setIcon( IMGReader.getImage(tile.getLeft().getColor()) );
-        right.setIcon( IMGReader.getImage(tile.getRight().getColor()) );
+        left.setIcon( IMGReader.getImage(tile.getLeft().getColor(), tile.getLeft().getCrown()) );
+        right.setIcon( IMGReader.getImage(tile.getRight().getColor(), tile.getRight().getCrown())  );
 
 
         tilePanel.add(left, BorderLayout.LINE_START);
@@ -454,7 +467,7 @@ public class GameView extends JPanel {
     public JButton createCastle(){
         JButton btn = new JButton();
         btn.setPreferredSize(new Dimension(IMG_SIZE, IMG_SIZE));
-        btn.setIcon( IMGReader.getImage("castle.png") );
+        btn.setIcon( IMGReader.getImage(GroundColor.GREY, 0) );
         return btn;
     }
 
@@ -479,8 +492,7 @@ public class GameView extends JPanel {
         JPanel infoTurnPnl = new JPanel();
         infoTurnPnl.setOpaque(false);
         infoTurnPnl.setLayout( new GridBagLayout() );
-        //tourLbl.setFont(new Font("Bookman Old Style", Font.CENTER_BASELINE, 27));
-        tourLbl.setFont(FontReader.getInstance().getBookmanold().deriveFont(Font.CENTER_BASELINE).deriveFont(27f));
+        tourLbl.setFont(FontReader.getInstance().getShowcard().deriveFont(Font.CENTER_BASELINE).deriveFont(27f));
         tourLbl.setOutlineColor(Color.DARK_GRAY);
         tourLbl.setStroke(new BasicStroke(3f));
         interacC.gridx = 0;
@@ -561,12 +573,22 @@ public class GameView extends JPanel {
             btnRotate.addActionListener(actionEvent -> {
                 this.mainFrame.getGameController().rotate();
             });
-            //btnRotate.setFont(new Font("Algerian", Font.CENTER_BASELINE, 12));
-            btnRotate.setFont(FontReader.getInstance().getAlgerian().deriveFont(Font.CENTER_BASELINE).deriveFont(12f));
+
+            //HOVER BUTTON
+            btnRotate.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseEntered(java.awt.event.MouseEvent evt) {
+                    btnRotate.setBackground(btnHoverColor);
+                }
+
+                public void mouseExited(java.awt.event.MouseEvent evt) {
+                    btnRotate.setBackground(btnColor);
+                }
+            });
+            btnRotate.setFont(FontReader.getInstance().getBookmanold().deriveFont(Font.CENTER_BASELINE).deriveFont(15f));
             btnRotate.setBackground(btnColor);
             btnRotate.setFocusPainted(false);
             btnRotate.setBorder(BorderFactory.createLineBorder(Color.black, 1));
-            btnRotate.setPreferredSize(new Dimension(80,40));
+            btnRotate.setPreferredSize(new Dimension(90,40));
             interacC.gridx = 1;
             interacC.gridy = 0;
             choosenTilePnl.add( btnRotate, interacC );
@@ -576,12 +598,22 @@ public class GameView extends JPanel {
             btnReverse.addActionListener(actionEvent -> {
                 this.mainFrame.getGameController().reverse();
             });
+            //HOVER BUTTON
+            btnReverse.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseEntered(java.awt.event.MouseEvent evt) {
+                    btnReverse.setBackground(btnHoverColor);
+                }
+
+                public void mouseExited(java.awt.event.MouseEvent evt) {
+                    btnReverse.setBackground(btnColor);
+                    //btnReverse.setBackground(UIManager.getColor("control"));
+                }
+            });
             btnReverse.setFocusPainted(false);
-            //btnReverse.setFont(new Font("Algerian", Font.CENTER_BASELINE, 12));
-            btnReverse.setFont(FontReader.getInstance().getAlgerian().deriveFont(Font.CENTER_BASELINE).deriveFont(12f));
+            btnReverse.setFont(FontReader.getInstance().getBookmanold().deriveFont(Font.CENTER_BASELINE).deriveFont(14f));
             btnReverse.setBackground(btnColor);
             btnReverse.setBorder(BorderFactory.createLineBorder(Color.black, 1));
-            btnReverse.setPreferredSize(new Dimension(80,40));
+            btnReverse.setPreferredSize(new Dimension(90,40));
             interacC.gridx = 1;
             interacC.gridy = 1;
             choosenTilePnl.add( btnReverse, interacC );
@@ -595,8 +627,7 @@ public class GameView extends JPanel {
                     this.mainFrame.getGameController().skipTurn();
                 });
                 btnSkipTurn.setFocusPainted(false);
-               // btnSkipTurn.setFont(new Font("Algerian", Font.CENTER_BASELINE, 12));
-                btnSkipTurn.setFont(FontReader.getInstance().getAlgerian().deriveFont(Font.CENTER_BASELINE).deriveFont(12f));
+                btnSkipTurn.setFont(FontReader.getInstance().getBookmanold().deriveFont(Font.CENTER_BASELINE).deriveFont(15f));
                 btnSkipTurn.setBackground( new Color(255, 88, 88) );
                 btnSkipTurn.setForeground( Color.white );
                 btnSkipTurn.setPreferredSize( new Dimension( 200, 40 ) );

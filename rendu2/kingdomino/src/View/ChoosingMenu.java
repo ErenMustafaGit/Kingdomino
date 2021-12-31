@@ -20,6 +20,17 @@ public class ChoosingMenu extends JPanel {
     private String[] nbPlayerChoice = {"2","3","4"};
     JComboBox nbPlayerCbo = new JComboBox(nbPlayerChoice);
 
+
+    //Couleur des boutons (orangé)
+    private final Color btnColor = new Color(174,135,0);
+    //Couleur des boutons en hover (orangé plus clair)
+    private final Color btnHoverColor = new Color(198, 159, 22);
+
+    //Color of combobox
+    private final Color cboColor = new Color(255, 248, 147);
+
+
+
     /** Panel qui va contenir tout les cbo de couleurs (2 à 4) **/
     JPanel playerColorsPnl = new JPanel();
 
@@ -43,8 +54,7 @@ public class ChoosingMenu extends JPanel {
 
                 /***Affichage du titre de la page***/
         MyLabel label = new MyLabel("Menu de choix");
-        //label.setFont(new Font("Showcard Gothic", Font.BOLD, 70));
-        label.setFont(FontReader.getInstance().getShowcard().deriveFont(Font.BOLD).deriveFont(70f));
+        label.setFont(FontReader.getInstance().getShowcard().deriveFont(Font.BOLD).deriveFont(80f));
         label.setOutlineColor(Color.DARK_GRAY);
         label.setStroke(new BasicStroke(5f));
         label.setForeground(Color.WHITE);
@@ -56,7 +66,6 @@ public class ChoosingMenu extends JPanel {
                     /**Affichage du mode de jeu + des checkbox**/
         MyLabel mode = new MyLabel("Mode de jeu :");
         mode.setForeground(Color.WHITE);
-        //mode.setFont(new Font("Bookman Old Style", Font.BOLD, 30));
         mode.setFont(FontReader.getInstance().getBookmanold().deriveFont(Font.BOLD).deriveFont(30f));
         mode.setOutlineColor(Color.DARK_GRAY);
         mode.setStroke(new BasicStroke(3f));
@@ -68,14 +77,25 @@ public class ChoosingMenu extends JPanel {
         JCheckBox harmonyChk = new JCheckBox("Harmony");
         harmonyChk.setOpaque(false);
         harmonyChk.setForeground(Color.WHITE);
-        //harmonyChk.setFont(new Font("Algerian", Font.BOLD, 20));
-        harmonyChk.setFont(FontReader.getInstance().getAlgerian().deriveFont(Font.BOLD).deriveFont(20f));
+        harmonyChk.setFont(FontReader.getInstance().getBookmanold().deriveFont(Font.BOLD).deriveFont(35f));
+        harmonyChk.setFocusPainted(false);
+        harmonyChk.setIcon( IMGReader.getImage("unchecked_Checkbox.png") );
+        harmonyChk.setSelectedIcon( IMGReader.getImage("checked_Checkbox.png") );
+        harmonyChk.setRolloverIcon( IMGReader.getImage("hover_unchecked_Checkbox.png") );
+        harmonyChk.setRolloverSelectedIcon( IMGReader.getImage("hover_checked_Checkbox.png") );
+        harmonyChk.setMargin(new Insets(0, 5, 0, 55));
 
         JCheckBox middleKingdomChk = new JCheckBox("Middle Kingdom");
         middleKingdomChk.setOpaque(false);
         middleKingdomChk.setForeground(Color.WHITE);
-        //middleKingdomChk.setFont(new Font("Algerian", Font.BOLD, 20));
-        middleKingdomChk.setFont(FontReader.getInstance().getAlgerian().deriveFont(Font.BOLD).deriveFont(20f));
+        middleKingdomChk.setFont(FontReader.getInstance().getBookmanold().deriveFont(Font.BOLD).deriveFont(35f));
+        middleKingdomChk.setFocusPainted(false);
+        middleKingdomChk.setIcon( IMGReader.getImage("unchecked_Checkbox.png") );
+        middleKingdomChk.setSelectedIcon( IMGReader.getImage("checked_Checkbox.png") );
+        middleKingdomChk.setRolloverIcon( IMGReader.getImage("hover_unchecked_Checkbox.png") );
+        middleKingdomChk.setRolloverSelectedIcon( IMGReader.getImage("hover_checked_Checkbox.png") );
+
+
 
         c.gridx = 1;
         c.gridy = 1;
@@ -90,14 +110,13 @@ public class ChoosingMenu extends JPanel {
         nbPlayerLbl.setOutlineColor(Color.DARK_GRAY);
         nbPlayerLbl.setStroke(new BasicStroke(3f));
         nbPlayerLbl.setForeground(Color.WHITE);
-        //nbPlayerLbl.setFont(new Font("Bookman Old Style", Font.BOLD, 30));
         nbPlayerLbl.setFont(FontReader.getInstance().getBookmanold().deriveFont(Font.BOLD).deriveFont(30f));
         c.gridx = 0;
         c.gridy = 2;
         mainPnl.add(nbPlayerLbl, c);
         nbPlayerCbo.setPreferredSize(new Dimension(50,50));
-       // nbPlayerCbo.setFont(new Font("Algerian", Font.BOLD, 30));
         nbPlayerCbo.setFont(FontReader.getInstance().getAlgerian().deriveFont(Font.BOLD).deriveFont(30f));
+        nbPlayerCbo.setBackground( cboColor );
         c.gridx = 1;
         c.gridy = 2;
         mainPnl.add(nbPlayerCbo, c);
@@ -108,7 +127,6 @@ public class ChoosingMenu extends JPanel {
                 createColorCbo();
             }
         });
-        Color mycolor = new Color(174,135,0);
 
         KingColor[] colors = KingColor.values();
 
@@ -121,14 +139,24 @@ public class ChoosingMenu extends JPanel {
 
 
 
-        JButton playButton = new JButton("COMMENCER");
-        playButton.setBackground(mycolor);
-        playButton.setBorder(BorderFactory.createLineBorder(Color.darkGray, 2));
-        playButton.setPreferredSize(new Dimension(250,60));
-       // playButton.setFont(new Font("Algerian", Font.BOLD, 25));
-        playButton.setFont(FontReader.getInstance().getAlgerian().deriveFont(Font.BOLD).deriveFont(25f));
-        playButton.setFocusPainted(false);
-        playButton.addActionListener(new ActionListener() {
+        JButton playBtn = new JButton("COMMENCER");
+        playBtn.setBackground(btnColor);
+        playBtn.setBorder(BorderFactory.createLineBorder(Color.darkGray, 2));
+        playBtn.setPreferredSize(new Dimension(250,60));
+        playBtn.setFont(FontReader.getInstance().getAlgerian().deriveFont(Font.BOLD).deriveFont(30f));
+        playBtn.setFocusPainted(false);
+        //HOVER BUTTON
+        playBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                playBtn.setBackground(btnHoverColor);
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                playBtn.setBackground(btnColor);
+                //btnReverse.setBackground(UIManager.getColor("control"));
+            }
+        });
+        playBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -136,8 +164,7 @@ public class ChoosingMenu extends JPanel {
                 if(!isDifferentColor()){
                     /*** Affichage du msg d'erreur ***/
                     MyLabel label = new MyLabel("Vous devez choisir des couleurs différentes pour chaque joueur !");
-                    //label.setFont(new Font("Showcard Gothic",Font.TRUETYPE_FONT, 20));
-                    label.setFont(FontReader.getInstance().getShowcard().deriveFont(Font.TRUETYPE_FONT).deriveFont(20f));
+                    label.setFont(FontReader.getInstance().getBookmanold().deriveFont(Font.TRUETYPE_FONT).deriveFont(20f));
                     label.setOutlineColor(Color.DARK_GRAY);
                     label.setStroke(new BasicStroke(5f));
                     label.setForeground(new Color(255, 49, 49));
@@ -174,7 +201,7 @@ public class ChoosingMenu extends JPanel {
         c.gridx = 0;
         c.gridy = 4;
         c.gridwidth = 4;
-        mainPnl.add(playButton, c);
+        mainPnl.add(playBtn, c);
     }
 
                     /** Rediriger vers la partie **/
@@ -204,9 +231,12 @@ public class ChoosingMenu extends JPanel {
         for (int i = 0; i< playerNb; i++){
             colorsC.gridx = i;
             colorsC.gridy = 0;
-            JComboBox cboColor = new JComboBox(colors);
-            cboColor.setSelectedIndex(i);
-            playerColorsPnl.add( cboColor, colorsC );
+            JComboBox cboColors = new JComboBox(colors);
+            cboColors.setFont( FontReader.getInstance().getAlgerian().deriveFont(Font.BOLD).deriveFont(30f) );
+            cboColors.setBackground( cboColor );
+            cboColors.setSelectedIndex(i);
+            cboColors.setFocusable(false);
+            playerColorsPnl.add( cboColors, colorsC );
         }
         c.gridwidth = 4;
         c.gridx = 0;

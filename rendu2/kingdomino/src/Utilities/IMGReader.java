@@ -52,7 +52,7 @@ public class IMGReader {
 
         ImageIcon img = null;
         try {
-            img = new ImageIcon(Objects.requireNonNull(ClassLoader.getSystemClassLoader().getResourceAsStream(filename)).readAllBytes());
+            img = new ImageIcon(Objects.requireNonNull(ClassLoader.getSystemClassLoader().getResourceAsStream(  filename)).readAllBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -90,4 +90,28 @@ public class IMGReader {
     }
 
 
+    public static Icon getImage(GroundColor color, int crown) {
+        String directory = "groundImage/";
+        System.out.println(color);
+        System.out.println(crown);
+        //Met l'image correspondant à la couleur de la case
+        if(color == null){
+            return IMGReader.getImage(directory+"empty.jpg");
+        }else if(color == GroundColor.GREY){
+            return IMGReader.getImage(directory+"castle.png");
+        }else if(color == GroundColor.YELLOW){
+            return IMGReader.getImage(directory+"champs" + crown +".png");
+        }else if(color == GroundColor.DARK_GREEN){
+            return IMGReader.getImage(directory+"foret"+ crown +".png");
+        }else if(color == GroundColor.LIGHT_GREEN){
+            return IMGReader.getImage(directory+"prairie"+ crown +".png");
+        }else if(color == GroundColor.BLACK){
+            return IMGReader.getImage(directory+"mines"+ crown +".png");
+        }else if(color == GroundColor.BLUE){
+            return IMGReader.getImage(directory+"mer"+ crown +".png");
+        }else if(color == GroundColor.BROWN){
+            return IMGReader.getImage(directory+"montagne"+ crown +".png");
+        }
+        return null;
+    }
 }
