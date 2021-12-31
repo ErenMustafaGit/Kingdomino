@@ -4,11 +4,9 @@ public interface Positionable {
 
     public GroundColor getColor();
     public int getCrownNumber();
+//get
+    public boolean isCounted();
+    //set à faire dans les fils
+     public void setCounted(boolean counted);
 
-    default public boolean isCounted(){
-        return true;
-    }
-    default public void setCounted(boolean isCounted){
-        isCounted = isCounted();
-    }
 }
