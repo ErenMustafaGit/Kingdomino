@@ -38,6 +38,9 @@ public class GameView extends JPanel {
 
     //Couleur des boutons (orangé)
     private final Color btnColor = new Color(174,135,0);
+    //Couleur des boutons en hover (orangé plus clair)
+    private final Color btnHoverColor = new Color(198, 159, 22);
+
 
 
     //Label de message d'erreur
@@ -174,6 +177,16 @@ public class GameView extends JPanel {
                 mainFrame.setMainMenu();
             }
         });
+        //HOVER BUTTON
+        btnQuit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnQuit.setBackground(btnHoverColor);
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnQuit.setBackground(btnColor);
+            }
+        });
         btnQuit.setFont(FontReader.getInstance().getBookmanold().deriveFont(Font.CENTER_BASELINE).deriveFont(18f));
         btnQuit.setBackground(this.btnColor);
         btnQuit.setFocusPainted(false);
@@ -268,7 +281,7 @@ public class GameView extends JPanel {
                 if(playerBoard.getPositionnable(i,j) == null){
                     btn.setIcon( IMGReader.getImage("empty.png") );
                 }else{
-                    btn.setIcon( IMGReader.getImage( playerBoard.getPositionnable(i,j).getColor()) );
+                    btn.setIcon( IMGReader.getImage( playerBoard.getPositionnable(i,j).getColor(), playerBoard.getPositionnable(i,j).getCrown()) );
                 }
                 grid.add(btn);
 
@@ -276,20 +289,22 @@ public class GameView extends JPanel {
                 /** Hover effect **/
                 //Si on est en tour chateau
                 if(mainFrame.getGame().getTurn() < mainFrame.getGame().getPlayers().size() ){
-                    btn.setRolloverIcon( IMGReader.getImage("castle.png")   );
+                    btn.setRolloverIcon( IMGReader.getImage(GroundColor.GREY, 0)   );
                 }
                  else if(this.mainFrame.getGame().allTilesChoosen() && btn.isEnabled()){
                     Tile choosenTile = mainFrame.getGame().getKingTurn().getTile();
                     final GroundColor leftColor = choosenTile.getLeft().getColor();
                     final GroundColor rightColor = choosenTile.getRight().getColor();
+                    final int leftCrown = choosenTile.getLeft().getCrown();
+                    final int rightCrown = choosenTile.getRight().getCrown();
                     final int[] xyRight = playerBoard.getRightXY(finalI, finalJ,choosenTile.getDirection() );
                     btn.addMouseListener(new MouseAdapter() {
 
                         public void mouseEntered(MouseEvent evt) {
 
                             if(playerBoard.isPosable(finalI, finalJ) && playerBoard.isPosable(xyRight[0], xyRight[1])  ){
-                                btn.setIcon( IMGReader.getImage( leftColor  ));
-                                boardBtns[xyRight[0]][xyRight[1]].setIcon( IMGReader.getImage( rightColor  ) );
+                                btn.setIcon( IMGReader.getImage( leftColor,leftCrown ));
+                                boardBtns[xyRight[0]][xyRight[1]].setIcon( IMGReader.getImage( rightColor, rightCrown  ) );
                             }
                         }
 
@@ -366,9 +381,8 @@ public class GameView extends JPanel {
 
 
         //Met l'image correspondant à la couleur de la case
-        left.setIcon( IMGReader.getImage(tile.getLeft().getColor()) );
-        right.setIcon( IMGReader.getImage(tile.getRight().getColor()) );
-
+        left.setIcon( IMGReader.getImage(tile.getLeft().getColor(), tile.getLeft().getCrown()) );
+        right.setIcon( IMGReader.getImage(tile.getRight().getColor(), tile.getRight().getCrown()) );
 
         switch(tile.getDirection()){
 
@@ -434,8 +448,8 @@ public class GameView extends JPanel {
 
 
         //Met l'image correspondant à la couleur de la case
-        left.setIcon( IMGReader.getImage(tile.getLeft().getColor()) );
-        right.setIcon( IMGReader.getImage(tile.getRight().getColor()) );
+        left.setIcon( IMGReader.getImage(tile.getLeft().getColor(), tile.getLeft().getCrown()) );
+        right.setIcon( IMGReader.getImage(tile.getRight().getColor(), tile.getRight().getCrown())  );
 
 
         tilePanel.add(left, BorderLayout.LINE_START);
@@ -453,7 +467,7 @@ public class GameView extends JPanel {
     public JButton createCastle(){
         JButton btn = new JButton();
         btn.setPreferredSize(new Dimension(IMG_SIZE, IMG_SIZE));
-        btn.setIcon( IMGReader.getImage("castle.png") );
+        btn.setIcon( IMGReader.getImage(GroundColor.GREY, 0) );
         return btn;
     }
 
@@ -559,7 +573,17 @@ public class GameView extends JPanel {
             btnRotate.addActionListener(actionEvent -> {
                 this.mainFrame.getGameController().rotate();
             });
-            //btnRotate.setFont(new Font("Algerian", Font.CENTER_BASELINE, 12));
+
+            //HOVER BUTTON
+            btnRotate.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseEntered(java.awt.event.MouseEvent evt) {
+                    btnRotate.setBackground(btnHoverColor);
+                }
+
+                public void mouseExited(java.awt.event.MouseEvent evt) {
+                    btnRotate.setBackground(btnColor);
+                }
+            });
             btnRotate.setFont(FontReader.getInstance().getBookmanold().deriveFont(Font.CENTER_BASELINE).deriveFont(15f));
             btnRotate.setBackground(btnColor);
             btnRotate.setFocusPainted(false);
@@ -574,8 +598,18 @@ public class GameView extends JPanel {
             btnReverse.addActionListener(actionEvent -> {
                 this.mainFrame.getGameController().reverse();
             });
+            //HOVER BUTTON
+            btnReverse.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseEntered(java.awt.event.MouseEvent evt) {
+                    btnReverse.setBackground(btnHoverColor);
+                }
+
+                public void mouseExited(java.awt.event.MouseEvent evt) {
+                    btnReverse.setBackground(btnColor);
+                    //btnReverse.setBackground(UIManager.getColor("control"));
+                }
+            });
             btnReverse.setFocusPainted(false);
-            //btnReverse.setFont(new Font("Algerian", Font.CENTER_BASELINE, 12));
             btnReverse.setFont(FontReader.getInstance().getBookmanold().deriveFont(Font.CENTER_BASELINE).deriveFont(14f));
             btnReverse.setBackground(btnColor);
             btnReverse.setBorder(BorderFactory.createLineBorder(Color.black, 1));
@@ -587,7 +621,7 @@ public class GameView extends JPanel {
 
             //Si le joueur ne peut pas placer sa tuile
             boolean isPlayableTurn = this.mainFrame.getGame().getKingTurn().getPlayer().getBoard().isPlayable(currentTile);
-            if(isPlayableTurn ){
+            if(!isPlayableTurn ){
                 JButton btnSkipTurn = new JButton("SAUTER LE TOUR");
                 btnSkipTurn.addActionListener(actionEvent -> {
                     this.mainFrame.getGameController().skipTurn();

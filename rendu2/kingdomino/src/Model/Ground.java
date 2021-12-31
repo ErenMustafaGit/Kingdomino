@@ -25,7 +25,7 @@ public class Ground implements Positionable{
 
     @Override
     public int getCrown() {
-        return 0;
+        return this.crownNumber;
     }
 
 }

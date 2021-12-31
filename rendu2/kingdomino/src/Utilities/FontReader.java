@@ -12,6 +12,7 @@ public class FontReader {
     private Font algerian;
     private Font showcard;
     private Font bookmanold;
+    private Font symbola;
 
 
     private FontReader(){
@@ -82,6 +83,23 @@ public class FontReader {
             g.registerFont(bookmanold);
         }
         return bookmanold;
+    }
+
+    public Font getSymbola(){
+        if(symbola!=null){
+            return symbola;
+        }
+        else{
+            //fichier du font pour label menu du choix | Label Nbre de joueurs | les messages d'erreurs - Showcard Gothic
+            try{
+                symbola = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull( ClassLoader.getSystemClassLoader().getResourceAsStream( "font/symbola.ttf" ) ));
+            } catch (IOException | FontFormatException e) {
+                e.printStackTrace();
+            }
+            GraphicsEnvironment g = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            g.registerFont(symbola);
+        }
+        return symbola;
     }
 
 

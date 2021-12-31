@@ -20,11 +20,14 @@ public class ChoosingMenu extends JPanel {
     private String[] nbPlayerChoice = {"2","3","4"};
     JComboBox nbPlayerCbo = new JComboBox(nbPlayerChoice);
 
-    //Color of buttons
-    Color btnColor = new Color(174,135,0);
+
+    //Couleur des boutons (orangé)
+    private final Color btnColor = new Color(174,135,0);
+    //Couleur des boutons en hover (orangé plus clair)
+    private final Color btnHoverColor = new Color(198, 159, 22);
 
     //Color of combobox
-    Color cboColor = new Color(255, 248, 147);
+    private final Color cboColor = new Color(255, 248, 147);
 
 
 
@@ -78,6 +81,8 @@ public class ChoosingMenu extends JPanel {
         harmonyChk.setFocusPainted(false);
         harmonyChk.setIcon( IMGReader.getImage("unchecked_Checkbox.png") );
         harmonyChk.setSelectedIcon( IMGReader.getImage("checked_Checkbox.png") );
+        harmonyChk.setRolloverIcon( IMGReader.getImage("hover_unchecked_Checkbox.png") );
+        harmonyChk.setRolloverSelectedIcon( IMGReader.getImage("hover_checked_Checkbox.png") );
         harmonyChk.setMargin(new Insets(0, 5, 0, 55));
 
         JCheckBox middleKingdomChk = new JCheckBox("Middle Kingdom");
@@ -87,6 +92,9 @@ public class ChoosingMenu extends JPanel {
         middleKingdomChk.setFocusPainted(false);
         middleKingdomChk.setIcon( IMGReader.getImage("unchecked_Checkbox.png") );
         middleKingdomChk.setSelectedIcon( IMGReader.getImage("checked_Checkbox.png") );
+        middleKingdomChk.setRolloverIcon( IMGReader.getImage("hover_unchecked_Checkbox.png") );
+        middleKingdomChk.setRolloverSelectedIcon( IMGReader.getImage("hover_checked_Checkbox.png") );
+
 
 
         c.gridx = 1;
@@ -131,13 +139,24 @@ public class ChoosingMenu extends JPanel {
 
 
 
-        JButton playButton = new JButton("COMMENCER");
-        playButton.setBackground(btnColor);
-        playButton.setBorder(BorderFactory.createLineBorder(Color.darkGray, 2));
-        playButton.setPreferredSize(new Dimension(250,60));
-        playButton.setFont(FontReader.getInstance().getAlgerian().deriveFont(Font.BOLD).deriveFont(30f));
-        playButton.setFocusPainted(false);
-        playButton.addActionListener(new ActionListener() {
+        JButton playBtn = new JButton("COMMENCER");
+        playBtn.setBackground(btnColor);
+        playBtn.setBorder(BorderFactory.createLineBorder(Color.darkGray, 2));
+        playBtn.setPreferredSize(new Dimension(250,60));
+        playBtn.setFont(FontReader.getInstance().getAlgerian().deriveFont(Font.BOLD).deriveFont(30f));
+        playBtn.setFocusPainted(false);
+        //HOVER BUTTON
+        playBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                playBtn.setBackground(btnHoverColor);
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                playBtn.setBackground(btnColor);
+                //btnReverse.setBackground(UIManager.getColor("control"));
+            }
+        });
+        playBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -182,7 +201,7 @@ public class ChoosingMenu extends JPanel {
         c.gridx = 0;
         c.gridy = 4;
         c.gridwidth = 4;
-        mainPnl.add(playButton, c);
+        mainPnl.add(playBtn, c);
     }
 
                     /** Rediriger vers la partie **/
