@@ -5,11 +5,11 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.awt.Font;
+import java.util.Objects;
 
 public class FontReader {
     private static FontReader instance;
     private Font algerian;
-
     private Font showcard;
     private Font bookmanold;
 
@@ -33,7 +33,9 @@ public class FontReader {
             /**Création des Fonts**/
             //fichier du font algerian pour les boutons | boutton commencer |harmony et middle kingdom | CBO nbre de joueurs - ALGERIAN
             try {
-                algerian = Font.createFont(Font.TRUETYPE_FONT, new File("./kingdomino/font/algerian.ttf"));
+                algerian = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull( ClassLoader.getSystemClassLoader().getResourceAsStream( "font/algerian.ttf" ) ));
+
+                //algerian = Font.createFont(Font.TRUETYPE_FONT, new File("./kingdomino/font/algerian.ttf"));
 
             } catch (IOException | FontFormatException e) {
                 e.printStackTrace();
@@ -53,7 +55,8 @@ public class FontReader {
         else {
             //fichier du font label mode de jeu - Bookman Old Style
             try {
-                showcard = Font.createFont(Font.TRUETYPE_FONT, new File("./kingdomino/font/showcard-gothic.ttf"));
+                //new File("./kingdomino/font/showcard-gothic.ttf")
+                showcard = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull( ClassLoader.getSystemClassLoader().getResourceAsStream( "font/showcard-gothic.ttf" ) ));
             } catch (IOException | FontFormatException e) {
                 e.printStackTrace();
             }
@@ -70,7 +73,8 @@ public class FontReader {
         else{
             //fichier du font pour label menu du choix | Label Nbre de joueurs | les messages d'erreurs - Showcard Gothic
             try{
-            bookmanold = Font.createFont(Font.TRUETYPE_FONT, new File("./kingdomino/font/bookman-old-style.ttf"));
+                bookmanold = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull( ClassLoader.getSystemClassLoader().getResourceAsStream( "font/bookman-old-style.ttf" ) ));
+                //bookmanold = Font.createFont(Font.TRUETYPE_FONT, new File("./kingdomino/font/bookman-old-style.ttf"));
             } catch (IOException | FontFormatException e) {
                 e.printStackTrace();
             }
