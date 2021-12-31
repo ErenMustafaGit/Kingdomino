@@ -17,8 +17,11 @@ package GameController #technology{
     ' plateau de jeu
     class GameController{
         +GameController(game:GameContext)
-        +initializeGame((nbPlayers:Integer, gameMode:Integer)
+        +initializeGame((nbPlayers:Integer,colors: Collection<KingColor>, gameMode:Integer)
+        +placeCastle(player:Player, pos_x :Integer, pos_y :Integer
         +placeTile(player:Player, tile:Tile, x:Integer, y:Integer, dir:Direction)
+        +pickTiles()
+        +chooseTile(tile:Tile)
     }
 }
 
@@ -53,22 +56,36 @@ package Model #mistyrose{
 
 
     class Deck{
+        -tiles:Stack<Tile>
         +Deck(deckSize:Integer)
         +getTile():Tile
+        +getNbTiles(): Integer
     }
 
 
     'tuiles numéroté
     class Tile {
-
+        -left : Ground
+        -right : Ground
         -number:Integer
+        +Tile(number: integer)
+        +Tile(number; Integer, left:Ground, right : Ground
+        +getLeft():Ground
+        +getRight():Ground
+        +setRight(right: Ground)
         +getNumber():Integer
         +setNumber(num:Integer)
+        +compareTo(o: Tile): Integer
 
     }
     'coté de la tuile (droite ou gauche)
     class Ground{
         -crownNumber:Integer
+        -color: GroundColor
+        -isCounted:Boolean
+        +Ground(color:GroundColor, crownNumber:Integer)
+        +isCounted(): Boolean
+        +setCounted(counted: Boolean)
         +getColor():GroundColor
         +getCrownNumber():Integer
         +setCrownNumber(nbCrown:Integer)
@@ -87,23 +104,41 @@ package Model #mistyrose{
     'strategy permettant de pouvoir choisir le jeu qu'on veut
     interface GameMode{
         +calculateScore(p:Player)
+        getnamegame(): String
     }
     'contexte du jeu
     class GameContext{
+        -nbPlayersStrat:PlayerStrategy
+        -gameMode: GameMode
+        -deck:Deck
+        -currenTiles:Collection<Tile,Player>
+        -observers : Collection<GameObserver>
+        -players = Collection<Player>
+
         +GameContext()
+        +setGameMode(gameMode:GameMode)
+        +getCurrentTiles(): Collection<Tile,Player>
         +addObserver(gameObserver:GameObserver)
-        +notifyObservers()
-        +getGameDeck():Deck
-        -createDeck()
-        -createPlayers()
-        -createKing(color:KingColor, number:Integer)
-        -getUnchoosenColor():KingColor
-        +initGame()
-        +setGameMode(strategy:GameMode)
         +setPlayerStrategy(nbPlayers:Integer)
+        +getGameMode():GameMode
+        +getNbPlayersStrat(): PlayerStrategy
+        +setGameStrategy(gameModeChoosen : Integer)
+        +initGame(colors: Collection<KingColor>)
         +getPlayers():Collection<Players>
+
+        -createDeck()
+        -createKing(color:KingColor, number:Integer): Collection<King>
+        -createPlayers(colors: Collection<KingColor>)
+
+        +getPlayerTurn(): Player
+        +getTurn(): Integer
         +pickTiles()
-        +allTileChoosen():Boolean
+        +setCastle(player:Player, x: Integer, y: Integer): Boolean
+        +setTile(x: Integer, y: Integer, dir: Direction)
+        +allTilesChoosen(): Boolean
+        +notifyObservers()
+        +notifyObserversEnd()
+        +chooseTile(tile: Tile)
     }
 
     package GameModes{
@@ -111,7 +146,12 @@ package Model #mistyrose{
 
 
             class NormalMode {
-                +calculateScore(p:Player)
+                -board: Positionnable[][]
+                -g: Ground
+
+                +calculateScore(p:PlayerBoard)
+                +countcell(p: PlayerBoard, x: Integer, y: Integer)
+                +coutcrown(p:PlayerBoard, x: Integer, y: Integer)
             }
             abstract class ModeDecorator{
                 -wrappee:GameMode
@@ -121,13 +161,17 @@ package Model #mistyrose{
 
             class MiddleKingdom extends ModeDecorator {
                 +MiddleKingdom()
-                +calculateScore(p:Player)
+                +calculateScore(p:PlayerBoard)
+                +countcell(p: PlayerBoard, x: Integer, y: Integer)
+                +coutcrown(p:PlayerBoard, x: Integer, y: Integer)
             }
 
             'class harmonie
             class Harmony extends ModeDecorator {
-                +Harmony()
-                +calculateScore(p:Player)
+            +Harmony()
+            +calculateScore(p:PlayerBoard)
+            +countcell(p: PlayerBoard, x: Integer, y: Integer)
+            +coutcrown(p:PlayerBoard, x: Integer, y: Integer)
             }
     }
     'interface observer qui va permettre de notifier les changements
@@ -139,13 +183,20 @@ package Model #mistyrose{
 
     class PlayerBoard{
         +BOARD_SIZE:Integer = 5
+        -board: Positionnable[][]
         +PlayerBoard(castle:Castle)
-        +setTile(x:Integer, y:Integer, direction:Direction, tile:Tile)
+        +setCastle(x: Integer, y: Integer, castle: Castle) : Boolean
+        +setTile(x:Integer, y:Integer, dir:Direction, tile:Tile): Boolean
         -isPosable(x:Integer, y:Integer):Boolean
-        -isSameGround(x:Integer, y:Integer, ground:Ground):Boolean
+        +isSameGround(x:Integer, y:Integer, ground:Ground):Boolean
+        + getPositionnable(x: Integer, y: Integer): Positionnable
+        +getBoard(): Positionnable[][]
     }
     interface Positionnable{
         +getColor():GroundColor
+        +getCrownNumber(): Integer
+        +isCounted(): Boolean
+        +setCounted(counted: Boolean)
     }
 
     enum Direction{
@@ -157,18 +208,37 @@ package Model #mistyrose{
 
     'joueur
     class Player{
-        +Player(kings:Collection<King>, )
-        +getPlayerCOlor
+        -playerColor: KingColor
+        -playerKings: Collection<King>
+        -board: PlayerBoard
+        -choosenTile : Collection<Tile>
+        +Player(color:KingColor,kings:Collection<King>,board: PlayerBoard )
+        +getPlayerColor(): KingColor
+        +setPlayerColor(playerColor:KingColor)
+        +getPlayerKings(): Collection<King>
+        +setPlayerKings(playerKings: Collection<King>
+        +setChoosenTile(tile:Tile)
+        +removeTile()
+        +getTile(): Tile
+        +getBoard(): PlayerBoard
+
     }
 
     'roi
     class King{
+        -color: KingColor
         +King(color:KingColor)
+        +getColor(): KingColor
     }
     'class chateau
     class Castle {
+        -isCounted: Boolean
         +Castle()
         +getColor():GroundColor
+        +getCrownNumber(): Integer
+        +isCounted(): Boolean
+        +setCounted(counted: Boolean)
+
     }
 
     'couleur du roi et du chateau
@@ -185,10 +255,22 @@ package Model #mistyrose{
         }
 
         class IMGReader{
-                {static} - RESSOURCE_PATH = "./kingdomino/ressources/"
-                {static} getImagePnl(String:filename):JLabel
-                {static} getImage(String:filename):Image
-            }
+            {static} - RESSOURCE_PATH = "./kingdomino/ressources/"
+            {static} getImagePnl(String:filename):JLabel
+            {static} getImage(String:filename):Image
+        }
+        class FontReader{
+            {static} - instance : FontReader
+            -algerian : Font
+            -showcard : Font
+            -bookmanold : Font
+            - symbola : Font
+
+            +getAlgerian(): Font
+            +getShowcard(): Font
+            +getBookmanold(): Font
+            +getSymbola(): Font
+        }
     }
 }
 
@@ -196,20 +278,125 @@ package Model #mistyrose{
 package view #D0E1D4{
     'application du jeu (design avec Swing)
     class MyWindow implements GameObserver{
+        -gameController: GameController
+        -game: GameContext
+        -gameView: GameView
+
+        +MyWindow(gameController: GameController, game: GameContext)
+        +getGame(): GameContext
+        +getGameController(): GameController
+        +setGamePanel()
+        +setChoosingMenu()
+        +setMainMenu
+
         +update(gameContext:GameContext)
+        +updateEnd(gameContext:GameContext)
     }
 
     class MainMenu{
-        +update(gameContext:GameContext)
+        -mainFrame: MyWindow
+        -img: ImageIcon
+        -btnColor : Color
+        -btnHoverColor: Color
+
+        +MainMenu(MyWindow: MyWindow)
+        +paint(g: Graphics)
     }
 
     class ChoosingMenu{
-            +update(gameContext:GameContext)
+         -btnColor : Color
+         -btnHoverColor: Color
+         -cboColor: Color
+         - img: ImageIcon
+
+         +ChoosingMenu(MyWindow: MyWindow)
+         +getMainPanel():JPanel
+         +paint(g: Graphics)
+         -createColorCbo()
+         -isDifferentColor():Boolean
+
         }
 
     class GameView{
-            +update(gameContext:GameContext)
+        -mainFrame: MyWindow
+        - IMG_SIZE : Integer = 60
+        -img: ImageIcon
+        -imgBoard : ImageIcon
+        -boardsPanel: JPanel
+        - gameInterac : JPanel
+        -headerLbl: MyLabel
+        -tourLbl : MyLabel
+        -btnColor: Color
+        - btnHoverColor: Color
+        -errorMessageLbl: MyLabel
+        -crownString: String
+
+        +GameView(MyWindow:MyWindow)
+        +getMainPanel():JPanel
+        +createPlayerBoardPanel(player: Player, enable: Boolean): JPanel
+        +createChoosenTile(tile: Tile, king: King)
+        +createTile(tile: Tile, king : King): JPanel
+        +createCastle: JButton
+        +updateInteractionBoard()
+        +updatePlayersBoards()
+        +update(game: GameContext)
+        +paint(g: Graphics)
         }
+
+    class EndView{
+        -mainFrame : MyWindow
+        -img : ImageIcon
+
+        +EndView(MyWindow: MyWindow)
+        +paint(g: Graphics)
+
+    }
+    class Log implements GameObserver{
+        +update(gameContext:GameContext)
+        +updateEnd(gameContext:GameContext)
+    }
+    package Components{
+        class MyLabel{
+        {static}+EFFECT_PLAIN: Integer=0
+        {static}+EFFECT_GRADIENT: Integer=1
+        {static}+EFFECT_IMAGE: Integer=2
+        {static}+EFFECT_IMAGE_ANIMATION: Integer=3
+        {static}+EFFECT_COLOR_ANIMATION: Integer=4
+        #effect_index/ Integer= EFFECT_PLAIN
+        #shearFactor: Double = 0.0
+        #outlineColor: Color
+        #stroke: Stroke
+        #gradient : GradientPaint
+        #foregroundImage : Image
+        #animator : Thread
+        #isRunning: Boolean = false
+        #m_delay: Integer
+        #m_xShift: Integer
+
+        +MyLabel()
+        +MyLabel(text: String)
+        +MyLabel(text: String, alignment: Integer)
+        +setEffectIndex(e: Integer)
+        +getEffectIndex(): Integer
+        +setShearFactor(s: Double)
+        +getShearFactor(): Double
+        +setOutlineColor(c: Color)
+        +getOutlineColor(): Color
+        +setStroke(s: Stroke)
+        +getStroke():Stroke
+        +setGradient(g: GradientPaint)
+        +getGradient(): GradientPaint
+        +setForegroundImage(img: Image)
+        +getForegroundImage(): Image
+        +startAnimation(delay: Integer)
+        +stopAnimation()
+        +paintComponent(g:Graphics)
+        +fillByImage(g2: Graphics2D, shape: Shape, xOffset: Integer)
+
+        'liaison avec GameView
+        'ChoosingMenu
+        }
+    }
 
 
 }
@@ -262,6 +449,7 @@ Castle"1\n-color"*-->GroundColor : > had
 MyWindow "1\n-mainMenu" *--> MainMenu
 MyWindow "1\n-choosingMenu" *--> ChoosingMenu
 MyWindow "1\n-gameView" *--> GameView
+MyWindow "1\n-endView" *---> EndView
 
 KingDomino..> GameController : <<create>>
 'KingDomino.> PlayerStrategy : <<use>>
@@ -271,4 +459,8 @@ KingDomino ..>GameContext : <<create>>
 MyWindow "1\n-controller" o-> GameController : > send \nuser request
 MyWindow "1\n-game" o-> GameContext
 GameContext "..n\n-observers" o-->GameObserver : > observes
+GameView*->MyLabel : > label
+ChoosingMenu*-->MyLabel : > label
+
+Log .> GameContext : "notify"
 @enduml
