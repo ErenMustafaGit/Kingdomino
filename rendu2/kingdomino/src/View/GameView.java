@@ -41,6 +41,11 @@ public class GameView extends JPanel {
     //Couleur des boutons en hover (orangé plus clair)
     private final Color btnHoverColor = new Color(198, 159, 22);
 
+    //Couleur des boutons skip (rouge)
+    private final Color btnSkipColor = new Color(255, 88, 88);
+    //Couleur des boutons skip en hover (rouge plus clair)
+    private final Color btnSkipHoverColor = new Color(255, 140, 140);
+
 
 
     //Label de message d'erreur
@@ -133,26 +138,29 @@ public class GameView extends JPanel {
         // Crée un objet de contraintes
         GridBagConstraints c = new GridBagConstraints();
 
-        // Spécifie le padding externe de tous les composants
-        c.insets = new Insets(1, 1, 1, 1);
 
         /***HEADER***/
         JPanel header = new JPanel();
         header.setLayout( new BorderLayout() );
         //headerLbl.setFont(new Font("Bookman Old Style", Font.BOLD, 42));
-        headerLbl.setFont(FontReader.getInstance().getBookmanold().deriveFont(Font.BOLD).deriveFont(42f));
+        headerLbl.setFont(FontReader.getInstance().getBookmanold().deriveFont(Font.BOLD).deriveFont(70f));
         headerLbl.setOutlineColor(Color.DARK_GRAY);
         headerLbl.setStroke(new BasicStroke(4f));
         headerLbl.setForeground( Color.white );
         header.add( headerLbl );
         header.setOpaque(false);
         c.fill = GridBagConstraints.BOTH;
+
+        c.insets = new Insets(1, 1, -50, 1);
         // colonne 0
         c.gridx = 0;
         // ligne 0
         c.gridy = 0;
         // Ajouter les contraintes
         this.add( header, c );
+
+        c.insets = new Insets(1, 1, 1, 1);
+
 
         /**Ajout du gameBoard**/
         // colonne 0
@@ -620,14 +628,24 @@ public class GameView extends JPanel {
 
             //Si le joueur ne peut pas placer sa tuile
             boolean isPlayableTurn = this.mainFrame.getGame().getKingTurn().getPlayer().getBoard().isPlayable(currentTile);
-            if(isPlayableTurn ){
+            if(!isPlayableTurn ){
                 JButton btnSkipTurn = new JButton("SAUTER LE TOUR");
                 btnSkipTurn.addActionListener(actionEvent -> {
                     this.mainFrame.getGameController().skipTurn();
                 });
+                //HOVER BUTTON
+                btnSkipTurn.addMouseListener(new java.awt.event.MouseAdapter() {
+                    public void mouseEntered(java.awt.event.MouseEvent evt) {
+                        btnSkipTurn.setBackground(btnSkipHoverColor);
+                    }
+
+                    public void mouseExited(java.awt.event.MouseEvent evt) {
+                        btnSkipTurn.setBackground(btnSkipColor);
+                    }
+                });
                 btnSkipTurn.setFocusPainted(false);
                 btnSkipTurn.setFont(FontReader.getInstance().getBookmanold().deriveFont(Font.CENTER_BASELINE).deriveFont(15f));
-                btnSkipTurn.setBackground( new Color(255, 88, 88) );
+                btnSkipTurn.setBackground( btnSkipColor );
                 btnSkipTurn.setForeground( Color.white );
                 btnSkipTurn.setPreferredSize( new Dimension( 200, 40 ) );
                 btnSkipTurn.setBorder(BorderFactory.createLineBorder(Color.black, 1));
