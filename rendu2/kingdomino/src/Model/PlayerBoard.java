@@ -193,7 +193,11 @@ public class PlayerBoard
         return isHarmony;
     }
     public boolean isKingdomMiddle(){
-        return this.board[ this.getBOARD_SIZE()/2 ][this.getBOARD_SIZE()].getColor() == GroundColor.GREY;
+        Positionable middle = this.board[ this.getBOARD_SIZE()/2 ][this.getBOARD_SIZE()/2];
+        if(middle == null){
+            return false;
+        }
+        return middle.getColor() == GroundColor.GREY;
     }
 
     public Positionable getPositionnable(int x, int y){

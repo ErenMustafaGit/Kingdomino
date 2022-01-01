@@ -7,10 +7,15 @@ public class Harmony extends ModeDecorator {
 
     @Override
     public int calculateScore(PlayerBoard p) {
-        return p.isHarmony() ? calculateScore(p)+5 : calculateScore(p);
+        return super.calculateScore(p) + calculateHarmonyBonus(p);
     }
 
-
+    private int calculateHarmonyBonus(PlayerBoard p){
+        if(p.isHarmony()){
+            return 5;
+        }
+        return 0;
+    }
 
     @Override
     public String getnamegame() {

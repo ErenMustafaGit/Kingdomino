@@ -135,12 +135,12 @@ public class TestPlayerBoard {
         }
     }
 
-    @DisplayName("Test d'un plateau rempli")
+    @DisplayName("Test d'un plateau réel (sur figma)")
     @Nested
-    public class FullPlayerBoard
+    public class RealPlayerBoard
     {
         Castle castle;
-        NormalMode normalMode;
+        GameMode gameMode;
         Player p;
         @BeforeEach
         public void setUp()
@@ -149,7 +149,7 @@ public class TestPlayerBoard {
             playerBoard = new PlayerBoard(castle);
             p = new Player(KingColor.BLUE, playerBoard);
 
-            normalMode = new NormalMode();
+            gameMode = new NormalMode();
 
 
             Ground yellow1 = new Ground( GroundColor.YELLOW , 1);
@@ -234,7 +234,32 @@ public class TestPlayerBoard {
         @DisplayName("La party a bien le nombre de point attendu en mode normal")
         public void testNormalPoint()
         {
-            assertEquals( 28, normalMode.calculateScore(playerBoard)  );
+            assertEquals( 28, gameMode.calculateScore(playerBoard)  );
+        }
+
+        @Test
+        @DisplayName("La party a bien le nombre de point attendu en mode harmony")
+        public void testHarmonyPoint()
+        {
+            gameMode = new Harmony(gameMode);
+            assertEquals( 28, gameMode.calculateScore(playerBoard)  );
+        }
+
+        @Test
+        @DisplayName("La party a bien le nombre de point attendu en mode middle kingdom")
+        public void testMiddleKingdom()
+        {
+            gameMode = new MiddleKingdom(gameMode);
+            assertEquals( 38, gameMode.calculateScore(playerBoard)  );
+        }
+
+        @Test
+        @DisplayName("La party a bien le nombre de point attendu en mode middle kingdom + harmony")
+        public void testHarmonyMiddleKingdom()
+        {
+            gameMode = new MiddleKingdom(gameMode);
+            gameMode = new Harmony(gameMode);
+            assertEquals( 38, gameMode.calculateScore(playerBoard)  );
         }
     }
 

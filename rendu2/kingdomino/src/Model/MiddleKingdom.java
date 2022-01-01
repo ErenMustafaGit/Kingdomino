@@ -8,7 +8,15 @@ public class MiddleKingdom extends ModeDecorator {
 
     @Override
     public int calculateScore(PlayerBoard p) {
-        return p.isKingdomMiddle() ? calculateScore(p)+10 : calculateScore(p);
+
+        return super.calculateScore(p) + calculateKingdomBonus(p);
+    }
+
+    private int calculateKingdomBonus(PlayerBoard p){
+        if(p.isKingdomMiddle()){
+            return 10;
+        }
+        return 0;
     }
 
     @Override
