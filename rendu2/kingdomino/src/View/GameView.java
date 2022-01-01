@@ -210,10 +210,9 @@ public class GameView extends JPanel {
     /** Fonction qui renvoie un JPanel contenant l'affichage du playerboard passé en parametre
      *
      * @param player : Le joueur qui va avoir son plateau d'affiché
-     * @param enable : Si c'est le tour de ce joueur de jouer
      * @return JPanel : Rendu en panel du playerBoard
      */
-    private JPanel createPlayerBoardPanel(Player player, boolean enable){
+    private JPanel createPlayerBoardPanel(Player player){
         JPanel boardPnl = new JPanel();
         boardPnl.setLayout( new GridBagLayout() );
         boardPnl.setOpaque(false);
@@ -266,14 +265,14 @@ public class GameView extends JPanel {
                         btn.setEnabled(false);
                     }
                     else{
-                        btn.setRolloverEnabled(enable);
+                        btn.setRolloverEnabled(true);
                     }
                 }else{
                     btn.setRolloverEnabled(false);
                     if(player != mainFrame.getGame().getKingTurn().getPlayer()){ //Si c'est pas son tour
                         btn.setEnabled(false);
                     }else{
-                        btn.setRolloverEnabled(enable);
+                        btn.setRolloverEnabled(true);
                     }
                 }
 
@@ -656,21 +655,21 @@ public class GameView extends JPanel {
 
         boardC.gridx = 0;
         boardC.gridy = 0;
-        boardsPanel.add( createPlayerBoardPanel(mainFrame.getGame().getPlayers().get(0), true ), boardC);
+        boardsPanel.add( createPlayerBoardPanel(mainFrame.getGame().getPlayers().get(0) ), boardC);
 
 
         boardC.gridx = 0;
         boardC.gridy = 1;
-        boardsPanel.add( createPlayerBoardPanel(mainFrame.getGame().getPlayers().get(1), true), boardC);
+        boardsPanel.add( createPlayerBoardPanel(mainFrame.getGame().getPlayers().get(1)), boardC);
 
         if( mainFrame.getGame().getNbPlayersStrat().getnbBoard() > 2 ){
             boardC.gridx = 1;
             boardC.gridy = 0;
-            boardsPanel.add( createPlayerBoardPanel(mainFrame.getGame().getPlayers().get(2), true), boardC);
+            boardsPanel.add( createPlayerBoardPanel(mainFrame.getGame().getPlayers().get(2)), boardC);
             if( mainFrame.getGame().getNbPlayersStrat().getnbBoard() > 3 ){
                 boardC.gridx = 1;
                 boardC.gridy = 1;
-                boardsPanel.add( createPlayerBoardPanel(mainFrame.getGame().getPlayers().get(3), true), boardC);
+                boardsPanel.add( createPlayerBoardPanel(mainFrame.getGame().getPlayers().get(3)), boardC);
             }
         }
 

@@ -22,7 +22,7 @@ public class EndView extends JPanel {
 
     public EndView(MyWindow MyWindow){
         this.mainFrame = MyWindow;
-        this.img = IMGReader.getImage("main.jpg");
+        this.img = IMGReader.getImage("wallpaperDark.png");
         setOpaque(false);
         this.setLayout( new GridBagLayout() );
         GridBagConstraints c = new GridBagConstraints();
@@ -31,31 +31,78 @@ public class EndView extends JPanel {
 
 
         GridBagConstraints playerC = new GridBagConstraints();
-        playerC.insets = new Insets(5, 5, 5, 5);
         int i = 0;
-        for(int j = 0; j<4; j++){
-        //for (Player player : this.mainFrame.getGame().getPlayers()){
-            JPanel playerPnl = new JPanel();
+        for (Player player : this.mainFrame.getGame().getPlayers()){
+            JPanel playerPnl = new JPanel(){
+                Image img = IMGReader.getImage("badgePoint/badgePointGREEN.png").getImage();
+                // initialiseur d'instance
+                {setOpaque(false);}
+                public void paintComponent(Graphics graphics)
+                {
+                    graphics.drawImage(img, 0, 0, this);
+                    super.paintComponent(graphics);
+                }
+            };
+            playerPnl.setPreferredSize( new Dimension(750, 200) );
             playerPnl.setLayout( new GridBagLayout() );
 
-            playerPnl.setBackground( Color.green );
             //TODO : METTRE IMAGE DE FOND par rapport à la couleur du player + PREFERRED SIZE
             //TODO : METTRE LES vraies points obtenu par player
             // TODO : Bonus : Indiquer si gain de point grace à harmony/middle
 
-            MyLabel pointNbLbl = new MyLabel("22");
-            pointNbLbl.setFont( FontReader.getInstance().getShowcard().deriveFont(Font.BOLD ).deriveFont(60f));
-            pointNbLbl.setForeground(Color.white);
+            playerC.insets = new Insets(40, -200, 5, 65);
+            MyLabel positionLbl = new MyLabel("2°");
+            positionLbl.setFont( FontReader.getInstance().getShowcard().deriveFont(Font.BOLD ).deriveFont(100f));
+            positionLbl.setForeground(Color.white);
+            positionLbl.setOutlineColor(Color.DARK_GRAY);
+            positionLbl.setStroke(new BasicStroke(6f));
             playerC.gridx = 0;
+            playerC.gridy = 0;
+            playerPnl.add( positionLbl,playerC );
+
+            playerC.insets = new Insets(40, 5, 5, 10);
+            MyLabel pointNbLbl = new MyLabel("22");
+            pointNbLbl.setFont( FontReader.getInstance().getShowcard().deriveFont(Font.BOLD ).deriveFont(80f));
+            pointNbLbl.setForeground(Color.white);
+            pointNbLbl.setOutlineColor(Color.DARK_GRAY);
+            pointNbLbl.setStroke(new BasicStroke(6f));
+            playerC.gridx = 1;
             playerC.gridy = 0;
             playerPnl.add( pointNbLbl,playerC );
 
+            playerC.insets = new Insets(60, 5, 5, 10);
             MyLabel pointLbl = new MyLabel("Points");
             pointLbl.setFont( FontReader.getInstance().getShowcard().deriveFont(Font.BOLD ).deriveFont(36f));
             pointLbl.setForeground(Color.white);
-            playerC.gridx = 1;
+            pointLbl.setOutlineColor(Color.DARK_GRAY);
+            pointLbl.setStroke(new BasicStroke(4f));
+            playerC.gridx = 2;
             playerC.gridy = 0;
             playerPnl.add( pointLbl,playerC );
+
+            if(player.getBoard().isHarmony()){
+                playerC.insets = new Insets(-80, 0, 5, -250);
+                MyLabel harmonyLbl = new MyLabel("+5 Harmony");
+                harmonyLbl.setFont( FontReader.getInstance().getShowcard().deriveFont(16f));
+                harmonyLbl.setForeground(Color.white);
+                harmonyLbl.setOutlineColor(Color.DARK_GRAY);
+                harmonyLbl.setStroke(new BasicStroke(2f));
+                playerC.gridx = 3;
+                playerC.gridy = 0;
+                playerPnl.add( harmonyLbl,playerC );
+            }
+
+            if(player.getBoard().isKingdomMiddle()){
+                playerC.insets = new Insets(100, 0, 5, -200);
+                MyLabel midKingLbl = new MyLabel("+10 Middle Kingdom");
+                midKingLbl.setFont( FontReader.getInstance().getShowcard().deriveFont(16f));
+                midKingLbl.setForeground(Color.white);
+                midKingLbl.setOutlineColor(Color.DARK_GRAY);
+                midKingLbl.setStroke(new BasicStroke(2f));
+                playerC.gridx = 4;
+                playerC.gridy = 0;
+                playerPnl.add( midKingLbl,playerC );
+            }
 
 
             c.gridx = 0;

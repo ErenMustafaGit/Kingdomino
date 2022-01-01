@@ -181,6 +181,21 @@ public class PlayerBoard
         return false;
     }
 
+    public boolean isHarmony(){
+        boolean isHarmony = true;
+        for(int j = 0; j<this.BOARD_SIZE; j++) {
+            for (int i = 0; i < this.BOARD_SIZE; i++) {
+                if(this.board[i][j] == null){
+                    return false;
+                }
+            }
+        }
+        return isHarmony;
+    }
+    public boolean isKingdomMiddle(){
+        return this.board[ this.getBOARD_SIZE()/2 ][this.getBOARD_SIZE()].getColor() == GroundColor.GREY;
+    }
+
     public Positionable getPositionnable(int x, int y){
         return this.board[x][y];
     }
