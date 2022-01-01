@@ -126,8 +126,8 @@ public class EndView extends JPanel {
         backBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                mainFrame.getGameController().destroyGame();
                 mainFrame.setMainMenu();
-
             }
         });
 
