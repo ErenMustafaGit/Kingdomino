@@ -152,26 +152,34 @@ package Model #mistyrose{
                 +calculateScore(p:PlayerBoard)
                 +countcell(p: PlayerBoard, x: Integer, y: Integer)
                 +coutcrown(p:PlayerBoard, x: Integer, y: Integer)
+                +isHarmony(p:PlayerBoard): Boolean
+                +isKingdomMiddle(p:PlayerBoard):Boolean
             }
             abstract class ModeDecorator{
                 -wrappee:GameMode
                 +ModeDecorator(gameMode:GameMode)
                 +calculateScore(p:Player)
+                +isKingdomMiddle(p:PlayerBoard):Boolean
+                +isHarmony(p:PlayerBoard):Boolean
             }
 
             class MiddleKingdom extends ModeDecorator {
                 +MiddleKingdom()
                 +calculateScore(p:PlayerBoard)
-                +countcell(p: PlayerBoard, x: Integer, y: Integer)
-                +coutcrown(p:PlayerBoard, x: Integer, y: Integer)
+                -calculateKingdomBonus(p:PlayerBoard): Integer
+                +isKingdomMiddle(p:PlayerBoard):Boolean
+                +getnamegame():String
+                +isHarmony(p:PlayerBoard):Boolean
             }
 
             'class harmonie
             class Harmony extends ModeDecorator {
             +Harmony()
             +calculateScore(p:PlayerBoard)
-            +countcell(p: PlayerBoard, x: Integer, y: Integer)
-            +coutcrown(p:PlayerBoard, x: Integer, y: Integer)
+            -calculateHarmonyBonus(p:PlayerBoard): Integer
+            +isKHarmony(p:PlayerBoard):Boolean
+            +getnamegame():String
+            +isKingdomMiddle(p:PlayerBoard):Boolean
             }
     }
     'interface observer qui va permettre de notifier les changements
