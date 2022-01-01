@@ -21,7 +21,7 @@ public class MyWindow extends JFrame implements GameObserver
         setSize( 1700, 980 );
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        setContentPane( new EndView(this));
+        setContentPane( new MainMenu(this));
         setVisible( true );
 }
 
