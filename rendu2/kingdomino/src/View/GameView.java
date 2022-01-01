@@ -219,19 +219,19 @@ public class GameView extends JPanel {
         boardPnl.setOpaque(false);
 
         PlayerBoard playerBoard = player.getBoard();
-        JButton[][] boardBtns = new JButton[playerBoard.BOARD_SIZE][playerBoard.BOARD_SIZE];
+        JButton[][] boardBtns = new JButton[playerBoard.getBOARD_SIZE()][playerBoard.getBOARD_SIZE()];
 
-        for(int j = 0; j<playerBoard.BOARD_SIZE; j++) {
-            for (int i = 0; i < playerBoard.BOARD_SIZE; i++) {
+        for(int j = 0; j<playerBoard.getBOARD_SIZE(); j++) {
+            for (int i = 0; i < playerBoard.getBOARD_SIZE(); i++) {
                 boardBtns[i][j] = new JButton();
             }
         }
 
         JPanel grid = new JPanel();
-        grid.setLayout(new GridLayout(playerBoard.BOARD_SIZE, playerBoard.BOARD_SIZE));
+        grid.setLayout(new GridLayout(playerBoard.getBOARD_SIZE(), playerBoard.getBOARD_SIZE()));
         //Place chaque image correspondantes
-        for(int j = 0; j<playerBoard.BOARD_SIZE; j++){
-            for(int i = 0; i<playerBoard.BOARD_SIZE; i++){
+        for(int j = 0; j<playerBoard.getBOARD_SIZE(); j++){
+            for(int i = 0; i<playerBoard.getBOARD_SIZE(); i++){
                 JButton btn = boardBtns[i][j];
                 btn.setPreferredSize(new Dimension(IMG_SIZE, IMG_SIZE));
                 int finalJ = j;
@@ -281,7 +281,7 @@ public class GameView extends JPanel {
                 if(playerBoard.getPositionnable(i,j) == null){
                     btn.setIcon( IMGReader.getImage("empty.png") );
                 }else{
-                    btn.setIcon( IMGReader.getImage( playerBoard.getPositionnable(i,j).getColor(), playerBoard.getPositionnable(i,j).getCrown()) );
+                    btn.setIcon( IMGReader.getImage( playerBoard.getPositionnable(i,j).getColor(), playerBoard.getPositionnable(i,j).getCrownNumber()) );
                 }
                 grid.add(btn);
 
@@ -295,8 +295,8 @@ public class GameView extends JPanel {
                     Tile choosenTile = mainFrame.getGame().getKingTurn().getTile();
                     final GroundColor leftColor = choosenTile.getLeft().getColor();
                     final GroundColor rightColor = choosenTile.getRight().getColor();
-                    final int leftCrown = choosenTile.getLeft().getCrown();
-                    final int rightCrown = choosenTile.getRight().getCrown();
+                    final int leftCrown = choosenTile.getLeft().getCrownNumber();
+                    final int rightCrown = choosenTile.getRight().getCrownNumber();
                     final int[] xyRight = playerBoard.getRightXY(finalI, finalJ,choosenTile.getDirection() );
                     btn.addMouseListener(new MouseAdapter() {
 
@@ -381,8 +381,8 @@ public class GameView extends JPanel {
 
 
         //Met l'image correspondant à la couleur de la case
-        left.setIcon( IMGReader.getImage(tile.getLeft().getColor(), tile.getLeft().getCrown()) );
-        right.setIcon( IMGReader.getImage(tile.getRight().getColor(), tile.getRight().getCrown()) );
+        left.setIcon( IMGReader.getImage(tile.getLeft().getColor(), tile.getLeft().getCrownNumber()) );
+        right.setIcon( IMGReader.getImage(tile.getRight().getColor(), tile.getRight().getCrownNumber()) );
 
         switch(tile.getDirection()){
 
@@ -448,8 +448,8 @@ public class GameView extends JPanel {
 
 
         //Met l'image correspondant à la couleur de la case
-        left.setIcon( IMGReader.getImage(tile.getLeft().getColor(), tile.getLeft().getCrown()) );
-        right.setIcon( IMGReader.getImage(tile.getRight().getColor(), tile.getRight().getCrown())  );
+        left.setIcon( IMGReader.getImage(tile.getLeft().getColor(), tile.getLeft().getCrownNumber()) );
+        right.setIcon( IMGReader.getImage(tile.getRight().getColor(), tile.getRight().getCrownNumber())  );
 
 
         tilePanel.add(left, BorderLayout.LINE_START);
