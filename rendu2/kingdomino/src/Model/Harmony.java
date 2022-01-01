@@ -11,10 +11,28 @@ public class Harmony extends ModeDecorator {
     }
 
     private int calculateHarmonyBonus(PlayerBoard p){
-        if(p.isHarmony()){
+        if(isHarmony(p)){
             return 5;
         }
         return 0;
+    }
+
+    @Override
+    public boolean isHarmony(PlayerBoard p){
+        boolean isHarmony = true;
+        for(int j = 0; j<p.getBOARD_SIZE(); j++) {
+            for (int i = 0; i < p.getBOARD_SIZE(); i++) {
+                if(p.getPositionnable(i,j) == null){
+                    return false;
+                }
+            }
+        }
+        return isHarmony;
+    }
+
+    @Override
+    public boolean isKingdomMiddle(PlayerBoard p) {
+        return super.isKingdomMiddle(p);
     }
 
     @Override

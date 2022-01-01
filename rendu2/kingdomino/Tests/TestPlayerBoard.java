@@ -231,6 +231,14 @@ public class TestPlayerBoard {
         }
 
         @Test
+        @DisplayName("La party est bien en mode Normal")
+        public void testNormal()
+        {
+            assertFalse(gameMode.isHarmony(playerBoard)  );
+            assertFalse(gameMode.isKingdomMiddle(playerBoard)  );
+        }
+
+        @Test
         @DisplayName("La party a bien le nombre de point attendu en mode normal")
         public void testNormalPoint()
         {
@@ -250,6 +258,7 @@ public class TestPlayerBoard {
         public void testMiddleKingdom()
         {
             gameMode = new MiddleKingdom(gameMode);
+            assertTrue(gameMode.isKingdomMiddle(playerBoard)  );
             assertEquals( 38, gameMode.calculateScore(playerBoard)  );
         }
 

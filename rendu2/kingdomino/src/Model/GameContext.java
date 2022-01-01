@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.*;
+import java.util.Map.Entry;
 
 public class GameContext
 {
@@ -290,6 +291,46 @@ public class GameContext
         }
         notifyObservers();
     }
+
+    public Map<Player, Integer> getPlayersRank(){
+        Map<Player, Integer> players = new HashMap<>();
+
+        int i =0;
+        for (Player player : this.getPlayers()){
+            players.put( player, this.gameMode.calculateScore(player.getBoard()) );
+            i++;
+        }
+
+
+
+        /** Trie du dictionnaire Player -> Points **/
+        List<Player> mapKeys = new ArrayList<>(players.keySet());
+        List<Integer> mapValues = new ArrayList<>(players.values());
+        Collections.sort(mapValues, Collections.reverseOrder());
+
+        LinkedHashMap<Player, Integer> sortedMap = new LinkedHashMap<>();
+
+        Iterator<Integer> valueIt = mapValues.iterator();
+        while (valueIt.hasNext()) {
+            Integer val = valueIt.next();
+            Iterator<Player> keyIt = mapKeys.iterator();
+
+            while (keyIt.hasNext()) {
+                Player key = keyIt.next();
+                Integer comp1 = players.get(key);
+                Integer comp2 = val;
+
+                if (comp1.equals(comp2)) {
+                    keyIt.remove();
+                    sortedMap.put(key, val);
+                    break;
+                }
+            }
+        }
+        return sortedMap;
+    }
+
+
 
 
 

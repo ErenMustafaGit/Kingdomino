@@ -168,4 +168,14 @@ public class NormalMode implements GameMode {
     public String getnamegame() {
         return "Normalmode";
     }
+
+    @Override
+    public boolean isHarmony(PlayerBoard p) {
+        return false;
+    }
+
+    @Override
+    public boolean isKingdomMiddle(PlayerBoard p) {
+        return false;
+    }
 }

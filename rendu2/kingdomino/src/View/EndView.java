@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Map;
 
 public class EndView extends JPanel {
     private MyWindow mainFrame;
@@ -32,9 +33,9 @@ public class EndView extends JPanel {
 
         GridBagConstraints playerC = new GridBagConstraints();
         int i = 0;
-        for (Player player : this.mainFrame.getGame().getPlayers()){
+        for (Map.Entry<Player, Integer> ranking : this.mainFrame.getGame().getPlayersRank().entrySet()) {
             JPanel playerPnl = new JPanel(){
-                Image img = IMGReader.getImage("badgePoint/badgePointGREEN.png").getImage();
+                Image img = IMGReader.getImage("badgePoint/badgePoint"+ ranking.getKey().getPlayerColor()+".png").getImage();
                 // initialiseur d'instance
                 {setOpaque(false);}
                 public void paintComponent(Graphics graphics)
@@ -51,7 +52,7 @@ public class EndView extends JPanel {
             // TODO : Bonus : Indiquer si gain de point grace à harmony/middle
 
             playerC.insets = new Insets(40, -200, 5, 65);
-            MyLabel positionLbl = new MyLabel("2°");
+            MyLabel positionLbl = new MyLabel((i+1) + "°");
             positionLbl.setFont( FontReader.getInstance().getShowcard().deriveFont(Font.BOLD ).deriveFont(100f));
             positionLbl.setForeground(Color.white);
             positionLbl.setOutlineColor(Color.DARK_GRAY);
@@ -61,7 +62,8 @@ public class EndView extends JPanel {
             playerPnl.add( positionLbl,playerC );
 
             playerC.insets = new Insets(40, 5, 5, 10);
-            MyLabel pointNbLbl = new MyLabel("22");
+            int point = ranking.getValue();
+            MyLabel pointNbLbl = new MyLabel(Integer.toString(point) );
             pointNbLbl.setFont( FontReader.getInstance().getShowcard().deriveFont(Font.BOLD ).deriveFont(80f));
             pointNbLbl.setForeground(Color.white);
             pointNbLbl.setOutlineColor(Color.DARK_GRAY);
@@ -80,7 +82,7 @@ public class EndView extends JPanel {
             playerC.gridy = 0;
             playerPnl.add( pointLbl,playerC );
 
-            if(player.getBoard().isHarmony()){
+            if( this.mainFrame.getGame().getGameMode().isHarmony( ranking.getKey().getBoard() ) ){
                 playerC.insets = new Insets(-80, 0, 5, -250);
                 MyLabel harmonyLbl = new MyLabel("+5 Harmony");
                 harmonyLbl.setFont( FontReader.getInstance().getShowcard().deriveFont(16f));
@@ -92,7 +94,7 @@ public class EndView extends JPanel {
                 playerPnl.add( harmonyLbl,playerC );
             }
 
-            if(player.getBoard().isKingdomMiddle()){
+            if( this.mainFrame.getGame().getGameMode().isKingdomMiddle( ranking.getKey().getBoard() ) ){
                 playerC.insets = new Insets(100, 0, 5, -200);
                 MyLabel midKingLbl = new MyLabel("+10 Middle Kingdom");
                 midKingLbl.setFont( FontReader.getInstance().getShowcard().deriveFont(16f));
