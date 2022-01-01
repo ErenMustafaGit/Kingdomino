@@ -2,7 +2,7 @@ package Model;
 
 public class PlayerBoard
 {
-    public final int BOARD_SIZE = 5;
+    private final int BOARD_SIZE = 5;
 
     //Tableau de positionable (5x5 de base --> static)
     //9x9 pour en avoir un dynamique
@@ -189,4 +189,7 @@ public class PlayerBoard
         return this.board;
     }
 
+    public int getBOARD_SIZE() {
+        return this.BOARD_SIZE;
+    }
 }
