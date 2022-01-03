@@ -70,7 +70,7 @@ public class IMGReader {
     public static ImageIcon getImage(GroundColor color){
         //Met l'image correspondant à la couleur de la case
         if(color == null){
-            return IMGReader.getImage("empty.jpg");
+            return IMGReader.getImage("empty.png");
         }else if(color == GroundColor.GREY){
             return IMGReader.getImage("castle.png");
         }else if(color == GroundColor.YELLOW){
@@ -94,7 +94,7 @@ public class IMGReader {
         String directory = "groundImage/";
         //Met l'image correspondant à la couleur de la case
         if(color == null){
-            return IMGReader.getImage(directory+"empty.jpg");
+            return IMGReader.getImage(directory+"empty.png");
         }else if(color == GroundColor.GREY){
             return IMGReader.getImage(directory+"castle.png");
         }else if(color == GroundColor.YELLOW){
