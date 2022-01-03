@@ -1,9 +1,13 @@
 package View;
 
+import Controller.GameController;
 import Model.*;
 import Utilities.FontReader;
 import Utilities.IMGReader;
+import View.Components.ErrorMessage;
 import View.Components.MyLabel;
+import View.Components.PlayerBoardView;
+import View.Components.TileView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -49,10 +53,7 @@ public class GameView extends JPanel {
 
 
     //Label de message d'erreur
-    private MyLabel errorMessageLbl;
-
-    //Caractère unicode de la couronne
-    private String crownString = "\uD83D\uDC51";
+    private ErrorMessage errorMessageLbl;
 
 
     public GameView(MyWindow MyWindow)  {
@@ -206,7 +207,6 @@ public class GameView extends JPanel {
         this.add( btnQuit, c );
 
 
-
         // ajouter le contenu
         mainFrame.getContentPane().add(this);
 
@@ -215,260 +215,18 @@ public class GameView extends JPanel {
         return this;
     }
 
-    /** Fonction qui renvoie un JPanel contenant l'affichage du playerboard passé en parametre
-     *
-     * @param player : Le joueur qui va avoir son plateau d'affiché
-     * @return JPanel : Rendu en panel du playerBoard
-     */
-    private JPanel createPlayerBoardPanel(Player player){
-        JPanel boardPnl = new JPanel();
-        boardPnl.setLayout( new GridBagLayout() );
-        boardPnl.setOpaque(false);
-
-        PlayerBoard playerBoard = player.getBoard();
-        JButton[][] boardBtns = new JButton[playerBoard.getBOARD_SIZE()][playerBoard.getBOARD_SIZE()];
-
-        for(int j = 0; j<playerBoard.getBOARD_SIZE(); j++) {
-            for (int i = 0; i < playerBoard.getBOARD_SIZE(); i++) {
-                boardBtns[i][j] = new JButton();
-            }
-        }
-
-        JPanel grid = new JPanel();
-        grid.setLayout(new GridLayout(playerBoard.getBOARD_SIZE(), playerBoard.getBOARD_SIZE()));
-        //Place chaque image correspondantes
-        for(int j = 0; j<playerBoard.getBOARD_SIZE(); j++){
-            for(int i = 0; i<playerBoard.getBOARD_SIZE(); i++){
-                JButton btn = boardBtns[i][j];
-                btn.setPreferredSize(new Dimension(IMG_SIZE, IMG_SIZE));
-                int finalJ = j;
-                int finalI = i;
-
-                /**Action de click sur une case**/
-                btn.addActionListener(actionEvent -> {
-                    //Placer le chateau seulement on est dans les 1er tours pour le joueur
-                    if(mainFrame.getGame().getTurn() < mainFrame.getGame().getPlayers().size() ){
-                        mainFrame.getGameController().placeCastle(player,  finalI, finalJ);
-                    }else{
-
-                        if(!mainFrame.getGame().allTilesChoosen()){
-                            errorMessageLbl.setText("Toutes les tuiles doivent être choisi !");
-                            this.revalidate();
-                            this.repaint();
-                        }else{
-                            if(!mainFrame.getGameController().placeTile( finalI, finalJ)){
-                                //TODO : Error message : "Cette tuile ne peut pas être placé ici !"
-                                errorMessageLbl.setText("Cette tuile ne peut pas être placé ici !");
-                                this.revalidate();
-                                this.repaint();
-                            }
-                        }
-                    }
-                });
-
-                //Si c'est le tour de poser le chateau
-                if(mainFrame.getGame().getTurn() < mainFrame.getGame().getPlayers().size() ){
-                    btn.setRolloverEnabled(false);
-                    if(player != mainFrame.getGame().getPlayerCastleTurn()){ //Si c'est pas son tour
-                        btn.setEnabled(false);
-                    }
-                    else{
-                        btn.setRolloverEnabled(true);
-                    }
-                }else{
-                    btn.setRolloverEnabled(false);
-                    if(player != mainFrame.getGame().getKingTurn().getPlayer()){ //Si c'est pas son tour
-                        btn.setEnabled(false);
-                    }else{
-                        btn.setRolloverEnabled(true);
-                    }
-                }
-
-                //Met l'image correspondant à la couleur de la case
-                if(playerBoard.getPositionnable(i,j) == null){
-                    btn.setIcon( IMGReader.getImage("empty.png") );
-                }else{
-                    btn.setIcon( IMGReader.getImage( playerBoard.getPositionnable(i,j).getColor(), playerBoard.getPositionnable(i,j).getCrownNumber()) );
-                }
-                grid.add(btn);
-
-
-                /** Hover effect **/
-                //Si on est en tour chateau
-                if(mainFrame.getGame().getTurn() < mainFrame.getGame().getPlayers().size() ){
-                    btn.setRolloverIcon( IMGReader.getImage(GroundColor.GREY, 0)   );
-                }
-                 else if(this.mainFrame.getGame().allTilesChoosen() && btn.isEnabled()){
-                    Tile choosenTile = mainFrame.getGame().getKingTurn().getTile();
-                    final GroundColor leftColor = choosenTile.getLeft().getColor();
-                    final GroundColor rightColor = choosenTile.getRight().getColor();
-                    final int leftCrown = choosenTile.getLeft().getCrownNumber();
-                    final int rightCrown = choosenTile.getRight().getCrownNumber();
-                    final int[] xyRight = playerBoard.getRightXY(finalI, finalJ,choosenTile.getDirection() );
-                    btn.addMouseListener(new MouseAdapter() {
-
-                        public void mouseEntered(MouseEvent evt) {
-
-                            if(playerBoard.isPosable(finalI, finalJ) && playerBoard.isPosable(xyRight[0], xyRight[1])  ){
-                                btn.setIcon( IMGReader.getImage( leftColor,leftCrown ));
-                                boardBtns[xyRight[0]][xyRight[1]].setIcon( IMGReader.getImage( rightColor, rightCrown  ) );
-                            }
-                        }
-
-                        public void mouseExited(java.awt.event.MouseEvent evt) {
-                            if(playerBoard.isPosable(finalI, finalJ) && playerBoard.isPosable(xyRight[0], xyRight[1])  ){
-                                btn.setIcon( IMGReader.getImage("empty.png") );
-                                boardBtns[xyRight[0]][xyRight[1]].setIcon( IMGReader.getImage("empty.png") );
-                            }
-                        }
-                    });
-                }
 
 
 
-            }
-        }
-
-        GridBagConstraints c = new GridBagConstraints();
-        c.insets = new Insets(0, 20, 0, 20);
-
-        MyLabel colorLbl = new MyLabel("Joueur " + player.getPlayerColor(), SwingConstants.CENTER);
-        colorLbl.setFont(FontReader.getInstance().getShowcard().deriveFont(Font.BOLD).deriveFont(22f));
-        colorLbl.setOutlineColor(Color.DARK_GRAY);
-        colorLbl.setStroke(new BasicStroke(3f));
-        colorLbl.setForeground( this.getColor( player.getPlayerColor() ) );
-        c.gridx = 0;
-        c.gridy = 0;
-        boardPnl.add( colorLbl, c );
-
-        c.gridx = 0;
-        c.gridy = 1;
-        boardPnl.add( grid, c );
-        return boardPnl;
+    public void modifyErrorMessage(String msg){
+        this.errorMessageLbl.setText(msg);
+        this.revalidate();
+        this.repaint();
     }
 
 
-    /** Fonction qui renvoie un JPanel contenant l'affichage d'une tuile en mode rotation (choosentile)
-     *
-     * @param tile : PlayerBoard qui doit être affiché
-     * @param king
-     * @return JPanel : Rendu en panel du playerBoard
-     */
-    private JPanel createChoosenTile(Tile tile, King king){
-        JPanel tilePanel = new JPanel();
-        tilePanel.setLayout( new BorderLayout() );
-        tilePanel.setOpaque(false);
-        tilePanel.setPreferredSize( new Dimension(IMG_SIZE*2, IMG_SIZE*2));
-
-        JButton left = new JButton();
-        JButton right = new JButton();
-        left.setPreferredSize(new Dimension(IMG_SIZE, IMG_SIZE));
-        right.setPreferredSize(new Dimension(IMG_SIZE, IMG_SIZE));
-
-        //Met les bouttons en transparent (que les images des tuiles seront visible)
-        left.setOpaque(false);
-        left.setContentAreaFilled(false);
-        left.setBorderPainted(false);
-        right.setOpaque(false);
-        right.setContentAreaFilled(false);
-        right.setBorderPainted(false);
-
-        left.addActionListener(actionEvent -> {
-            if(mainFrame.getGame().getCurrentTiles().get(tile) == null){
-                mainFrame.getGameController().chooseTile(tile);
-            }
-        });
-
-        right.addActionListener(actionEvent -> {
-            if(mainFrame.getGame().getCurrentTiles().get(tile) == null){
-                mainFrame.getGameController().chooseTile(tile);
-            }
-        });
 
 
-
-        //Met l'image correspondant à la couleur de la case
-        left.setIcon( IMGReader.getImage(tile.getLeft().getColor(), tile.getLeft().getCrownNumber()) );
-        right.setIcon( IMGReader.getImage(tile.getRight().getColor(), tile.getRight().getCrownNumber()) );
-
-        switch(tile.getDirection()){
-
-            case NORTH:
-                tilePanel.add(left, BorderLayout.SOUTH);
-                tilePanel.add(right, BorderLayout.NORTH);
-                break;
-
-            case SOUTH:
-                tilePanel.add(left, BorderLayout.NORTH);
-                tilePanel.add(right, BorderLayout.SOUTH);
-                break;
-
-            case WEST:
-                tilePanel.add(left, BorderLayout.LINE_END);
-                tilePanel.add(right, BorderLayout.LINE_START);
-                break;
-            default:
-                tilePanel.add(left, BorderLayout.LINE_START);
-                tilePanel.add(right, BorderLayout.LINE_END);
-                break;
-        }
-
-        return tilePanel;
-    }
-
-    /** Fonction qui renvoie un JPanel contenant l'affichage d'une tuile (Affichage de la pioche)
-     *
-     * @param tile : PlayerBoard qui doit être affiché
-     * @param king
-     * @return JPanel : Rendu en panel du playerBoard
-     */
-    private JPanel createTile(Tile tile, King king){
-        JPanel tilePanel = new JPanel();
-        tilePanel.setLayout( new BorderLayout() );
-        tilePanel.setPreferredSize( new Dimension(IMG_SIZE*2, IMG_SIZE));
-
-        JButton left = new JButton();
-        JButton right = new JButton();
-        left.setPreferredSize(new Dimension(IMG_SIZE, IMG_SIZE));
-        right.setPreferredSize(new Dimension(IMG_SIZE, IMG_SIZE));
-
-        //Met les bouttons en transparent (que les images des tuiles seront visible)
-        left.setOpaque(false);
-        left.setContentAreaFilled(false);
-        left.setBorderPainted(false);
-        right.setOpaque(false);
-        right.setContentAreaFilled(false);
-        right.setBorderPainted(false);
-
-        left.addActionListener(actionEvent -> {
-            if(mainFrame.getGame().getCurrentTiles().get(tile) == null){
-                mainFrame.getGameController().chooseTile(tile);
-            }
-        });
-
-        right.addActionListener(actionEvent -> {
-            if(mainFrame.getGame().getCurrentTiles().get(tile) == null){
-                mainFrame.getGameController().chooseTile(tile);
-            }
-        });
-
-
-
-        //Met l'image correspondant à la couleur de la case
-        left.setIcon( IMGReader.getImage(tile.getLeft().getColor(), tile.getLeft().getCrownNumber()) );
-        right.setIcon( IMGReader.getImage(tile.getRight().getColor(), tile.getRight().getCrownNumber())  );
-
-
-        tilePanel.add(left, BorderLayout.LINE_START);
-        tilePanel.add(right, BorderLayout.LINE_END);
-
-
-        if(king != null){
-            tilePanel.setBorder( BorderFactory.createLineBorder( this.getColor(king.getColor()), 5 ) );
-        }
-
-        return tilePanel;
-    }
 
     //Renvoie un Bouton qui represente un chateau
     public JButton createCastle(){
@@ -486,15 +244,10 @@ public class GameView extends JPanel {
         interacC.insets = new Insets(0, 20, 20, 20);
 
         /** Message d'erreur **/
-        errorMessageLbl = new MyLabel(" ");
-        //errorMessageLbl.setFont(new Font("Showcard Gothic",Font.BOLD, 21));
-        errorMessageLbl.setFont(FontReader.getInstance().getShowcard().deriveFont(Font.BOLD).deriveFont(21f));
-        errorMessageLbl.setOutlineColor(Color.DARK_GRAY);
-        errorMessageLbl.setStroke(new BasicStroke(2f));
-        errorMessageLbl.setForeground(new Color(252, 87, 87));
+        this.errorMessageLbl =  new ErrorMessage(this);
         interacC.gridx = 0;
         interacC.gridy = 0;
-        gameInterac.add( errorMessageLbl, interacC );
+        gameInterac.add( this.errorMessageLbl , interacC );
 
         JPanel infoTurnPnl = new JPanel();
         infoTurnPnl.setOpaque(false);
@@ -527,18 +280,20 @@ public class GameView extends JPanel {
                 currentTilesPnl.add( createCastle() , interacC);
                 KingColor playerTurnColor = this.mainFrame.getGame().getPlayerCastleTurn().getPlayerColor();
                 tourLbl.setText( "Tour du joueur " + playerTurnColor);
-                tourLbl.setForeground( this.getColor( playerTurnColor ) );
+                tourLbl.setForeground( GameView.getColor( playerTurnColor ) );
             }
         }else{
             int i = 0;
             for (Tile tile : mainFrame.getGame().getCurrentTiles().keySet()) {
                 interacC.gridx = 0;
                 interacC.gridy = i;
-                currentTilesPnl.add( createTile( tile, mainFrame.getGame().getCurrentTiles().get(tile) ) , interacC);
+                //Creation d'un Jpanel qui affiche la tuile (gameController,Tile,King)
+                TileView tileView = new TileView(this.mainFrame.getGameController(), tile, mainFrame.getGame().getCurrentTiles().get(tile), false );
+                currentTilesPnl.add( tileView , interacC);
                 i++;
                 KingColor playerTurnColor = this.mainFrame.getGame().getKingTurn().getColor();
                 tourLbl.setText( "Tour du joueur " + playerTurnColor );
-                tourLbl.setForeground( this.getColor( playerTurnColor ) );
+                tourLbl.setForeground( GameView.getColor( playerTurnColor ) );
             }
         }
 
@@ -571,8 +326,7 @@ public class GameView extends JPanel {
 
             interacC.gridx = 0;
             interacC.gridy = 1;
-            choosenTilePnl.add( this.createChoosenTile( currentTile, this.mainFrame.getGame().getKingTurn() ) );
-
+            choosenTilePnl.add(new TileView( this.mainFrame.getGameController(), currentTile, this.mainFrame.getGame().getKingTurn(), true ) );
             interacC.insets = new Insets( 0, 20, 0, 20 );
 
             JButton btnRotate = new JButton("PIVOTER");
@@ -672,21 +426,21 @@ public class GameView extends JPanel {
 
         boardC.gridx = 0;
         boardC.gridy = 0;
-        boardsPanel.add( createPlayerBoardPanel(mainFrame.getGame().getPlayers().get(0) ), boardC);
+        boardsPanel.add( new PlayerBoardView( this.mainFrame.getGameController(), this.mainFrame.getGame().getPlayers().get(0), this.mainFrame.getGame(), this ) , boardC);
 
 
         boardC.gridx = 0;
         boardC.gridy = 1;
-        boardsPanel.add( createPlayerBoardPanel(mainFrame.getGame().getPlayers().get(1)), boardC);
+        boardsPanel.add( new PlayerBoardView( this.mainFrame.getGameController(), this.mainFrame.getGame().getPlayers().get(1), this.mainFrame.getGame(), this ), boardC);
 
         if( mainFrame.getGame().getNbPlayersStrat().getnbBoard() > 2 ){
             boardC.gridx = 1;
             boardC.gridy = 0;
-            boardsPanel.add( createPlayerBoardPanel(mainFrame.getGame().getPlayers().get(2)), boardC);
+            boardsPanel.add( new PlayerBoardView( this.mainFrame.getGameController(), this.mainFrame.getGame().getPlayers().get(2), this.mainFrame.getGame(), this ), boardC);
             if( mainFrame.getGame().getNbPlayersStrat().getnbBoard() > 3 ){
                 boardC.gridx = 1;
                 boardC.gridy = 1;
-                boardsPanel.add( createPlayerBoardPanel(mainFrame.getGame().getPlayers().get(3)), boardC);
+                boardsPanel.add( new PlayerBoardView( this.mainFrame.getGameController(), this.mainFrame.getGame().getPlayers().get(3), this.mainFrame.getGame(), this ), boardC);
             }
         }
 
@@ -722,7 +476,7 @@ public class GameView extends JPanel {
 
     ;
 
-    private Color getColor(KingColor color){
+    public static Color getColor(KingColor color){
         switch (color) {
             case PINK -> {
                 return new Color( 192, 2, 169 );
