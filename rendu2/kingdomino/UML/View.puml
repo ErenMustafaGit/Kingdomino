@@ -183,14 +183,14 @@ package Model #mistyrose{
             abstract class ModeDecorator{
                 -wrappee:GameMode
                 +ModeDecorator(gameMode:GameMode)
-                +calculateScore(p:Player)
+                +calculateScore(p:Player):Integer
                 +isKingdomMiddle(p:PlayerBoard):Boolean
                 +isHarmony(p:PlayerBoard):Boolean
             }
 
             class MiddleKingdom extends ModeDecorator {
-                +MiddleKingdom()
-                +calculateScore(p:PlayerBoard)
+                +MiddleKingdom(gameMode:GameMode)
+                +calculateScore(p:PlayerBoard):Integer
                 -calculateKingdomBonus(p:PlayerBoard): Integer
                 +isKingdomMiddle(p:PlayerBoard):Boolean
                 +getnamegame():String
@@ -199,8 +199,8 @@ package Model #mistyrose{
 
             'class harmonie
             class Harmony extends ModeDecorator {
-            +Harmony()
-            +calculateScore(p:PlayerBoard)
+            +Harmony(gameMode:GameMode)
+            +calculateScore(p:PlayerBoard):Integer
             -calculateHarmonyBonus(p:PlayerBoard): Integer
             +isHarmony(p:PlayerBoard):Boolean
             +getnamegame():String
@@ -218,6 +218,7 @@ package Model #mistyrose{
     class PlayerBoard{
         +BOARD_SIZE:Integer = 5
         -board: Positionnable[][]
+        +PlayerBoard()
         +PlayerBoard(castle:Castle)
         +setCastle(x: Integer, y: Integer, castle: Castle) : Boolean
         +setTile(x:Integer, y:Integer, dir:Direction, tile:Tile): Boolean
@@ -226,6 +227,7 @@ package Model #mistyrose{
         +ispPlayable(tile:Tile):Boolean
         +isSameGround(x:Integer, y:Integer, ground:Ground):Boolean
         +getPositionnable(x: Integer, y: Integer): Positionnable
+        +getBoard():Positionnable[]
         +getBOARD_SIZE(): Integer
     }
     interface Positionnable{
