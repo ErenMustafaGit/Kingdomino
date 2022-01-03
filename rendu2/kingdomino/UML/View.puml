@@ -16,12 +16,18 @@ package Controller{
 package GameController #technology{
     ' plateau de jeu
     class GameController{
+        -game: GameContext
         +GameController(game:GameContext)
         +initializeGame((nbPlayers:Integer,colors: Collection<KingColor>, gameMode:Integer)
         +placeCastle(player:Player, pos_x :Integer, pos_y :Integer
         +placeTile(player:Player, tile:Tile, x:Integer, y:Integer, dir:Direction)
+        +skipTurn()
         +pickTiles()
         +chooseTile(tile:Tile)
+        +rotate()
+        +reverse()
+        +destroyGame()
+
     }
 }
 
@@ -57,6 +63,7 @@ package Model #mistyrose{
 
     class Deck{
         -tiles:Stack<Tile>
+        +Deck()
         +Deck(deckSize:Integer)
         +getTile():Tile
         +getNbTiles(): Integer
@@ -65,30 +72,38 @@ package Model #mistyrose{
 
     'tuiles numéroté
     class Tile {
+        -number:Integer
         -left : Ground
         -right : Ground
-        -number:Integer
+        -direction:Direction
         +Tile(number: integer)
-        +Tile(number; Integer, left:Ground, right : Ground
+        +Tile(number: Integer, left:Ground, right : Ground)
         +getLeft():Ground
+        +setLeft(left:Ground)
         +getRight():Ground
         +setRight(right: Ground)
         +getNumber():Integer
-        +setNumber(num:Integer)
+        +setNumber(number:Integer)
+        +rotate()
+        +reverse()
+        +getDirection():Direction
         +compareTo(o: Tile): Integer
 
     }
     'coté de la tuile (droite ou gauche)
     class Ground{
-        -crownNumber:Integer
         -color: GroundColor
-        -isCounted:Boolean
+        -crownNumber:Integer
+        -groundCounted:Boolean
+        -crownCounted:Boolean
         +Ground(color:GroundColor, crownNumber:Integer)
-        +isCounted(): Boolean
-        +setCounted(counted: Boolean)
-        +getColor():GroundColor
+        +isGroundCounted():Boolean
+        +isCrownCounted():Boolean
+        +setGroundCounted(groundCounted:Boolean)
+        +setCrownCounted(crownCounted:Boolean)
         +getCrownNumber():Integer
-        +setCrownNumber(nbCrown:Integer)
+        +getColor():GroundColor
+        +setCrownNumber(crownNumber:Integer)
     }
     'couleur des cotés de la tuile
     enum GroundColor{
@@ -103,21 +118,26 @@ package Model #mistyrose{
     }
     'strategy permettant de pouvoir choisir le jeu qu'on veut
     interface GameMode{
-        +calculateScore(p:Player)
+        +calculateScore(p:PlayerBoard)
         getnamegame(): String
+        +isHarmony(p:PlayerBoard):Boolean
+        +isKingdomMiddle(p:PlayerBoard):Boolean
     }
     'contexte du jeu
     class GameContext{
         -nbPlayersStrat:PlayerStrategy
         -gameMode: GameMode
         -deck:Deck
-        -currenTiles:Collection<Tile,Player>
+        -currenTiles:Collection<Tile,King>
         -observers : Collection<GameObserver>
-        -players = Collection<Player>
+        -players : Collection<Player>
+        -kings:Collection<King>
+        -nextRoundKings:Collection<King>
+        -turn : Integer
 
         +GameContext()
-        +setGameMode(gameMode:GameMode)
-        +getCurrentTiles(): Collection<Tile,Player>
+        +destroy()
+        +getCurrentTiles(): Collection<Tile,King>
         +addObserver(gameObserver:GameObserver)
         +setPlayerStrategy(nbPlayers:Integer)
         +getGameMode():GameMode
@@ -127,18 +147,24 @@ package Model #mistyrose{
         +getPlayers():Collection<Players>
 
         -createDeck()
-        -createKing(color:KingColor, number:Integer): Collection<King>
+        -createKing(color:KingColor, number:Integer, player:Player)
         -createPlayers(colors: Collection<KingColor>)
 
-        +getPlayerTurn(): Player
+        +getPlayerCastleTurn(): Player
+        +getKingTurn():King
         +getTurn(): Integer
         +pickTiles()
         +setCastle(player:Player, x: Integer, y: Integer): Boolean
-        +setTile(x: Integer, y: Integer, dir: Direction)
+        +setTile(x: Integer, y: Integer)
         +allTilesChoosen(): Boolean
+        +chooseTile(tile:Tile)
+        +orderNextRoundKings()
+        +rotateCurrentTile()
+        +reverseCurrentTile()
+        +skipTurn()
+        +getPlayersRank(Collection<Player, Integer>)
         +notifyObservers()
         +notifyObserversEnd()
-        +chooseTile(tile: Tile)
     }
 
     package GameModes{
@@ -146,12 +172,10 @@ package Model #mistyrose{
 
 
             class NormalMode {
-                -board: Positionnable[][]
-                -g: Ground
-
-                +calculateScore(p:PlayerBoard)
-                +countcell(p: PlayerBoard, x: Integer, y: Integer)
-                +coutcrown(p:PlayerBoard, x: Integer, y: Integer)
+                +calculateScore(p:PlayerBoard): Integer
+                +countcell(p: PlayerBoard, x: Integer, y: Integer):Integer
+                +coutcrown(p:PlayerBoard, x: Integer, y: Integer): Integer
+                +getnamegame():String
                 +isHarmony(p:PlayerBoard): Boolean
                 +isKingdomMiddle(p:PlayerBoard):Boolean
             }
@@ -177,14 +201,15 @@ package Model #mistyrose{
             +Harmony()
             +calculateScore(p:PlayerBoard)
             -calculateHarmonyBonus(p:PlayerBoard): Integer
-            +isKHarmony(p:PlayerBoard):Boolean
+            +isHarmony(p:PlayerBoard):Boolean
             +getnamegame():String
             +isKingdomMiddle(p:PlayerBoard):Boolean
             }
     }
     'interface observer qui va permettre de notifier les changements
     interface GameObserver{
-        +update(gameContext:GameContext)
+        +update(game:GameContext)
+        +updateEnd(gameContext:GameContext)
     }
 
 
@@ -195,16 +220,20 @@ package Model #mistyrose{
         +PlayerBoard(castle:Castle)
         +setCastle(x: Integer, y: Integer, castle: Castle) : Boolean
         +setTile(x:Integer, y:Integer, dir:Direction, tile:Tile): Boolean
-        -isPosable(x:Integer, y:Integer):Boolean
+        +getRightXY(x:Integer, y:Integer, dir:Direction): Integer[][]
+        +isPosable(x:Integer, y:Integer):Boolean
+        +ispPlayable(tile:Tile):Boolean
         +isSameGround(x:Integer, y:Integer, ground:Ground):Boolean
-        + getPositionnable(x: Integer, y: Integer): Positionnable
-        +getBoard(): Positionnable[][]
+        +getPositionnable(x: Integer, y: Integer): Positionnable
+        +getBOARD_SIZE(): Integer
     }
     interface Positionnable{
         +getColor():GroundColor
         +getCrownNumber(): Integer
-        +isCounted(): Boolean
-        +setCounted(counted: Boolean)
+        +isGroundCounted(): Boolean
+        +isCrownCounted():Boolean
+        +setGroundCounted(groundCounted:Boolean)
+        +setCrownCounted(crownCounted:Boolean)
     }
 
     enum Direction{
@@ -217,44 +246,46 @@ package Model #mistyrose{
     'joueur
     class Player{
         -playerColor: KingColor
-        -playerKings: Collection<King>
         -board: PlayerBoard
-        -choosenTile : Collection<Tile>
-        +Player(color:KingColor,kings:Collection<King>,board: PlayerBoard )
+
+        +Player(color:KingColor,board:PlayerBoard)
         +getPlayerColor(): KingColor
         +setPlayerColor(playerColor:KingColor)
-        +getPlayerKings(): Collection<King>
-        +setPlayerKings(playerKings: Collection<King>
-        +setChoosenTile(tile:Tile)
-        +removeTile()
-        +getTile(): Tile
         +getBoard(): PlayerBoard
+        +setBoard(board:PlayerBoard)
 
     }
 
     'roi
     class King{
         -color: KingColor
-        +King(color:KingColor)
+        -player: Player
+        -choosenTile:Collection<Tile>
+        +King(color:KingColor, player:Player)
         +getColor(): KingColor
+        +setChoosenTile(tile:Tile)
+        +removeTile()
+        +getTile():Tile
+        +getPlayer():Player
     }
     'class chateau
-    class Castle {
-        -isCounted: Boolean
-        +Castle()
+    class Castle{
         +getColor():GroundColor
         +getCrownNumber(): Integer
-        +isCounted(): Boolean
-        +setCounted(counted: Boolean)
+        +isGroundCounted():Boolean
+        +isCrownCounted():Boolean
+        +setGroundCounted()
+        +setCrownCounted()
 
     }
 
     'couleur du roi et du chateau
     enum KingColor{
-    -PINK
-    -BLUE
-    -GREEN
-    -YELLOW
+    +PINK
+    +BLUE
+    +GREEN
+    +YELLOW
+    {static}+getColor(color:KingColor):Color
     }
     package Utilities{
         class CSVReader{
