@@ -20,8 +20,8 @@ public class Deck {
             int tileNumber = Integer.parseInt(line.get(0));
             int leftCrown = Integer.parseInt(line.get(5));
             int rightCrown = Integer.parseInt(line.get(6));
-            GroundColor leftColor = GroundColor.getColor( line.get(2) );
-            GroundColor rightColor = GroundColor.getColor( line.get(4) );
+            GroundColor leftColor =  GroundColor.valueOf ( line.get(2).toUpperCase() );
+            GroundColor rightColor = GroundColor.valueOf( line.get(4).toUpperCase() );
             Ground left = new Ground(leftColor, leftCrown);
             Ground right = new Ground(rightColor, rightCrown);
             Tile tile = new Tile( tileNumber , left, right  );

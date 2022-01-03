@@ -27,7 +27,6 @@ package GameController #technology{
         +rotate()
         +reverse()
         +destroyGame()
-
     }
 }
 
