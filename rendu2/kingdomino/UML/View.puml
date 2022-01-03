@@ -8,7 +8,7 @@ skinparam BackgroundColor HoneyDew
 
 'class main qui va executer le jeu
 class KingDomino{
-+main()
+    +main()
 }
 
 
@@ -21,7 +21,7 @@ package GameController #technology{
         +GameController(game:GameContext)
         +initializeGame((nbPlayers:Integer,colors: KingColor[], gameMode:Integer)
         +placeCastle(player:Player, pos_x :Integer, pos_y :Integer
-        +placeTile(x:Integer, y:Integer)
+        +placeTile(player:Player, tile:Tile, x:Integer, y:Integer, dir:Direction)
         +skipTurn()
         +pickTiles()
         +chooseTile(tile:Tile)
@@ -60,7 +60,6 @@ package Model #mistyrose{
    }
 
 
-
     class Deck{
         -tiles:Tile[]
         +Deck()
@@ -68,7 +67,6 @@ package Model #mistyrose{
         +getTile():Tile
         +getNbTiles(): Integer
     }
-
 
     'tuiles numéroté
     class Tile {
@@ -107,19 +105,19 @@ package Model #mistyrose{
     }
     'couleur des cotés de la tuile
     enum GroundColor{
-    -GREY
-    -BLUE
-    -DARKGREEN
-    -BLACK
-    -BROWN
-    -YELLOW
-    -LIGHTGREEN
-    +{static}+getColor(String:color):GroundColor
+        -GREY
+        -BLUE
+        -DARKGREEN
+        -BLACK
+        -BROWN
+        -YELLOW
+        -LIGHTGREEN
+        +{static}+getColor(String:color):GroundColor
     }
-    'strategy permettant de pouvoir choisir le jeu qu'on veut
+    'strategie permettant de pouvoir choisir le jeu qu'on veut
     interface GameMode <<Interface>>{
         +calculateScore(p:PlayerBoard)
-        getnamegame(): String
+        +getnamegame(): String
         +isHarmony(p:PlayerBoard):Boolean
         +isKingdomMiddle(p:PlayerBoard):Boolean
     }
@@ -172,7 +170,6 @@ package Model #mistyrose{
             class NormalMode {
                 +calculateScore(p:PlayerBoard): Integer
                 +countcell(p: PlayerBoard, x: Integer, y: Integer):Integer
-                +print(p:PlayerBoard)
                 +coutcrown(p:PlayerBoard, x: Integer, y: Integer): Integer
                 +getnamegame():String
                 +isHarmony(p:PlayerBoard): Boolean
@@ -181,14 +178,14 @@ package Model #mistyrose{
             abstract class ModeDecorator{
                 -wrappee:GameMode
                 +ModeDecorator(gameMode:GameMode)
-                +calculateScore(p:Player):Integer
+                +calculateScore(p:Player)
                 +isKingdomMiddle(p:PlayerBoard):Boolean
                 +isHarmony(p:PlayerBoard):Boolean
             }
 
             class MiddleKingdom extends ModeDecorator {
-                +MiddleKingdom(gameMode:GameMode)
-                +calculateScore(p:PlayerBoard):Integer
+                +MiddleKingdom()
+                +calculateScore(p:PlayerBoard)
                 -calculateKingdomBonus(p:PlayerBoard): Integer
                 +isKingdomMiddle(p:PlayerBoard):Boolean
                 +getnamegame():String
@@ -197,8 +194,8 @@ package Model #mistyrose{
 
             'class harmonie
             class Harmony extends ModeDecorator {
-            +Harmony(gameMode:GameMode)
-            +calculateScore(p:PlayerBoard):Integer
+            +Harmony()
+            +calculateScore(p:PlayerBoard)
             -calculateHarmonyBonus(p:PlayerBoard): Integer
             +isHarmony(p:PlayerBoard):Boolean
             +getnamegame():String
@@ -211,19 +208,15 @@ package Model #mistyrose{
         +updateEnd(gameContext:GameContext)
     }
 
-
-
     class PlayerBoard{
         +BOARD_SIZE:Integer = 5
         -board: Positionnable[]
-        +PlayerBoard()
-
         +PlayerBoard(castle:Castle)
         +setCastle(x: Integer, y: Integer, castle: Castle) : Boolean
         +setTile(x:Integer, y:Integer, dir:Direction, tile:Tile): Boolean
         +getRightXY(x:Integer, y:Integer, dir:Direction): Integer[]
         +isPosable(x:Integer, y:Integer):Boolean
-        +ispPlayable(tile:Tile):Boolean
+        +isPlayable(tile:Tile):Boolean
         +isSameGround(x:Integer, y:Integer, ground:Ground):Boolean
         +getPositionnable(x: Integer, y: Integer): Positionnable
         +getBoard():Positionnable[]
@@ -255,14 +248,13 @@ package Model #mistyrose{
         +setPlayerColor(playerColor:KingColor)
         +getBoard(): PlayerBoard
         +setBoard(board:PlayerBoard)
-
     }
 
     'roi
     class King{
         -color: KingColor
         -player: Player
-        -choosenTile:Collection<Tile>
+        -choosenTile:Tile[]
         +King(color:KingColor, player:Player)
         +getColor(): KingColor
         +setChoosenTile(tile:Tile)
@@ -278,7 +270,6 @@ package Model #mistyrose{
         +isCrownCounted():Boolean
         +setGroundCounted()
         +setCrownCounted()
-
     }
 
     'couleur du roi et du chateau
@@ -288,11 +279,6 @@ package Model #mistyrose{
     +GREEN
     +YELLOW
     }
-    package Utilities{
-        class CSVReader{
-            {static} - RESSOURCE_PATH = "./kingdomino/ressources/"
-            {static} read(filename:String):Collection<Collection<String>>
-        }
 
         class IMGReader{
             {static} - RESSOURCE_PATH = "./kingdomino/ressources/"
@@ -332,8 +318,7 @@ package view #D0E1D4{
         +getGameController(): GameController
         +setGamePanel()
         +setChoosingMenu()
-        +setMainMenu
-
+        +setMainMenu()
         +update(gameContext:GameContext)
         +updateEnd(gameContext:GameContext)
     }
@@ -369,20 +354,18 @@ package view #D0E1D4{
          +paint(g: Graphics)
          -createColorCbo()
          -isDifferentColor():Boolean
-
         }
 
     class GameView{
         -mainFrame: MyWindow
-        - IMG_SIZE : Integer = 60
         -img: ImageIcon
         -imgBoard : ImageIcon
         -boardsPanel: JPanel
-        - gameInterac : JPanel
+        -gameInterface:JPanel
         -headerLbl: MyLabel
         -tourLbl : MyLabel
         -btnColor: Color
-        - btnHoverColor: Color
+        -btnHoverColor: Color
         -errorMessageLbl: MyLabel
         -crownString: String
 
@@ -391,7 +374,7 @@ package view #D0E1D4{
         +createPlayerBoardPanel(player: Player, enable: Boolean): JPanel
         +createChoosenTile(tile: Tile, king: King)
         +createTile(tile: Tile, king : King): JPanel
-        +createCastle: JButton
+        +createCastle(): JButton
         +updateInteractionBoard()
         +updatePlayersBoards()
         +update(game: GameContext)
@@ -412,83 +395,68 @@ package view #D0E1D4{
     }
     package Components{
         class MyLabel{
-        {static}+EFFECT_PLAIN: Integer=0
-        {static}+EFFECT_GRADIENT: Integer=1
-        {static}+EFFECT_IMAGE: Integer=2
-        {static}+EFFECT_IMAGE_ANIMATION: Integer=3
-        {static}+EFFECT_COLOR_ANIMATION: Integer=4
-        #effect_index/ Integer= EFFECT_PLAIN
-        #shearFactor: Double = 0.0
-        #outlineColor: Color
-        #stroke: Stroke
-        #gradient : GradientPaint
-        #foregroundImage : Image
-        #animator : Thread
-        #isRunning: Boolean = false
-        #m_delay: Integer
-        #m_xShift: Integer
-
-        +MyLabel()
         +MyLabel(text: String)
         +MyLabel(text: String, alignment: Integer)
-        +setEffectIndex(e: Integer)
-        +getEffectIndex(): Integer
-        +setShearFactor(s: Double)
-        +getShearFactor(): Double
         +setOutlineColor(c: Color)
-        +getOutlineColor(): Color
         +setStroke(s: Stroke)
-        +getStroke():Stroke
-        +setGradient(g: GradientPaint)
-        +getGradient(): GradientPaint
-        +setForegroundImage(img: Image)
-        +getForegroundImage(): Image
-        +startAnimation(delay: Integer)
-        +stopAnimation()
         +paintComponent(g:Graphics)
-        +fillByImage(g2: Graphics2D, shape: Shape, xOffset: Integer)
-
-        'liaison avec GameView
-        'ChoosingMenu
         }
     }
-
-
 }
+package Utilities{
+        class CSVReader{
+            {static} - RESSOURCE_PATH = "./kingdomino/ressources/"
+            {static} read(filename:String):Collection<Collection<String>>
+        }
 
+        class IMGReader{
+            {static}-TILE_IMG_SIZE:Integer = 60
+            {static} - RESSOURCE_PATH = "./kingdomino/ressources/"
+            {static} getImagePnl(String:filename):JLabel
+            {static} getImage(String:filename):Image
+            {static}+getTileImgSize()
+        }
+        class FontReader{
+            {static} - instance : FontReader
+            -algerian : Font
+            -showcard : Font
+            -bookmanold : Font
+            -symbola : Font
 
-
+            +getAlgerian(): Font
+            +getShowcard(): Font
+            +getBookmanold(): Font
+            +getSymbola(): Font
+        }
+    }
 
 Ground ..|> Positionnable
 Castle ..|> Positionnable
 PlayerBoard o-> "* \n -board"  Positionnable : > contains
 
-Deck ..> CSVReader :  > use
-Ground "1\n-color"*-->"1"GroundColor
-Tile *-->Ground : "1\n-left\n1\n-right" > composed
+Deck ..> CSVReader :  <<use>>
+Ground "1"*-->"1\n-color"GroundColor
+Tile *--->"1-left \n 1-right" Ground :  > composed
 
 'A SUPP
-Deck "..* -tiles" *-> Tile : > had
+Deck  *-> "..* -tiles" Tile : > had
 
 
-
-
-GameContext "..4\n-currentTiles" o--> Tile
-GameContext "1\n-deck" *-r-> Deck
-GameContext *--> GameMode  : "1\n-gameMode" > select
-GameContext *--> PlayerStrategy : "1\n-playerStrategy" > select
-GameContext *-> Player : "2..4\n-players" > played by
+GameContext  o--> "..4\n-currentTiles" Tile
+GameContext -> "1\n-deck"Deck
+GameContext *--> "1\n-gameMode" GameMode  :  > select
+GameContext *--> "1\n-playerStrategy" PlayerStrategy :  > select
+GameContext *-> "2..4\n-players" Player :  > played by
 
 
 'BoardGame  *-> Player : "2..4\n-players" > played by
-GameController o--> GameContext : "1\n-gameContext" > had
+GameController o--> "1\n-gameContext" GameContext :  > had
 
 
-Player *-> PlayerBoard : "1\n-board" > had
-Player  o--> King : "1..2\n-playerKings" > had
+Player *-> "1\n-board" PlayerBoard :  > had
+Player  o-->"1..2\n-playerKings" King :  > had
 
-PlayerBoard .> Direction : > use
-
+PlayerBoard .> Direction : <<use>>
 
 'Implements de GameMode
 'Harmony .u.|> GameMode
@@ -496,26 +464,38 @@ PlayerBoard .> Direction : > use
 ModeDecorator .u.|> GameMode
 NormalMode .u.|> GameMode
 
-King"1\n-color"*-->"1" KingColor: > had
+King"1"*--> "1\n-color" KingColor: > had
 
 
-Castle"1\n-color"*-->GroundColor : > had
+Castle*-->"1\n-color"GroundColor : > had
 
-MyWindow "1\n-mainMenu" *--> MainMenu
-MyWindow "1\n-choosingMenu" *--> ChoosingMenu
-MyWindow "1\n-gameView" *--> GameView
-MyWindow "1\n-endView" *---> EndView
+MyWindow  *--> "1\n-mainMenu" MainMenu : > display
+MyWindow  *--> "1\n-choosingMenu" ChoosingMenu : > display
+MyWindow  *--> "1\n-gameView" GameView : > display
+MyWindow  *---> "1\n-endView" EndView : > display
 
 KingDomino..> GameController : <<create>>
 'KingDomino.> PlayerStrategy : <<use>>
 'KingDomino..> GameMode : <<use>>
 KingDomino ..>MyWindow : <<create>>
 KingDomino ..>GameContext : <<create>>
-MyWindow "1\n-controller" o-> GameController : > send \nuser request
-MyWindow "1\n-game" o-> GameContext
-GameContext "..n\n-observers" o-->GameObserver : > observes
-GameView*->MyLabel : > label
-ChoosingMenu*-->MyLabel : > label
+MyWindow o-> "1\n-controller" GameController : > send \nuser request
+MyWindow  o-> "1\n-game"GameContext
+GameContext o-->"..n\n-observers" GameObserver : > observes
+GameView *->MyLabel : > label
+EndView *->MyLabel : > label
+ChoosingMenu *--> "*" MyLabel : > label
 
 Log .> GameContext : "notify"
+
+IMGReader <..MainMenu :<<use>>
+IMGReader <.. ChoosingMenu: <<use>>
+IMGReader <.. GameView: <<use>>
+IMGReader <.. EndView:<<use>>
+
+FontReader <...MainMenu:<<use>>
+FontReader <...ChoosingMenu: <<use>>
+FontReader <..GameView: <<use>>
+FontReader <.. EndView: <<use>>
+
 @enduml
