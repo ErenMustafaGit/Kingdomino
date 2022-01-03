@@ -402,26 +402,26 @@ Castle ..|> Positionnable
 PlayerBoard o-> "* \n -board"  Positionnable : > contains
 
 Deck ..> CSVReader :  <<use>>
-Ground "1\n-color"*-->"1"GroundColor
-Tile *-->Ground : "1\n-left\n1\n-right" > composed
+Ground "1"*-->"1\n-color"GroundColor
+Tile *--->"1-left \n 1-right" Ground :  > composed
 
 'A SUPP
-Deck "..* -tiles" *-> Tile : > had
+Deck  *-> "..* -tiles" Tile : > had
 
 
-GameContext "..4\n-currentTiles" o--> Tile
-GameContext "1\n-deck" *-r-> Deck
-GameContext *--> GameMode  : "1\n-gameMode" > select
-GameContext *--> PlayerStrategy : "1\n-playerStrategy" > select
-GameContext *-> Player : "2..4\n-players" > played by
+GameContext  o--> "..4\n-currentTiles" Tile
+GameContext -> "1\n-deck"Deck
+GameContext *--> "1\n-gameMode" GameMode  :  > select
+GameContext *--> "1\n-playerStrategy" PlayerStrategy :  > select
+GameContext *-> "2..4\n-players" Player :  > played by
 
 
 'BoardGame  *-> Player : "2..4\n-players" > played by
-GameController o--> GameContext : "1\n-gameContext" > had
+GameController o--> "1\n-gameContext" GameContext :  > had
 
 
-Player *-> PlayerBoard : "1\n-board" > had
-Player  o--> King : "1..2\n-playerKings" > had
+Player *-> "1\n-board" PlayerBoard :  > had
+Player  o-->"1..2\n-playerKings" King :  > had
 
 PlayerBoard .> Direction : <<use>>
 
@@ -431,24 +431,24 @@ PlayerBoard .> Direction : <<use>>
 ModeDecorator .u.|> GameMode
 NormalMode .u.|> GameMode
 
-King"1\n-color"*-->"1" KingColor: > had
+King"1"*--> "1\n-color" KingColor: > had
 
 
-Castle"1\n-color"*-->GroundColor : > had
+Castle*-->"1\n-color"GroundColor : > had
 
-MyWindow "1\n-mainMenu" *--> MainMenu : > display
-MyWindow "1\n-choosingMenu" *--> ChoosingMenu : > display
-MyWindow "1\n-gameView" *--> GameView : > display
-MyWindow "1\n-endView" *---> EndView : > display
+MyWindow  *--> "1\n-mainMenu" MainMenu : > display
+MyWindow  *--> "1\n-choosingMenu" ChoosingMenu : > display
+MyWindow  *--> "1\n-gameView" GameView : > display
+MyWindow  *---> "1\n-endView" EndView : > display
 
 KingDomino..> GameController : <<create>>
 'KingDomino.> PlayerStrategy : <<use>>
 'KingDomino..> GameMode : <<use>>
 KingDomino ..>MyWindow : <<create>>
 KingDomino ..>GameContext : <<create>>
-MyWindow "1\n-controller" o-> GameController : > send \nuser request
-MyWindow "1\n-game" o-> GameContext
-GameContext "..n\n-observers" o-->GameObserver : > observes
+MyWindow o-> "1\n-controller" GameController : > send \nuser request
+MyWindow  o-> "1\n-game"GameContext
+GameContext o-->"..n\n-observers" GameObserver : > observes
 GameView *->MyLabel : > label
 EndView *->MyLabel : > label
 ChoosingMenu *--> "*" MyLabel : > label
