@@ -287,7 +287,6 @@ package Model #mistyrose{
     +BLUE
     +GREEN
     +YELLOW
-    {static}+getColor(color:KingColor):Color
     }
     package Utilities{
         class CSVReader{
@@ -297,8 +296,11 @@ package Model #mistyrose{
 
         class IMGReader{
             {static} - RESSOURCE_PATH = "./kingdomino/ressources/"
-            {static} getImagePnl(String:filename):JLabel
-            {static} getImage(String:filename):Image
+            {static} getImagePnl(filename:String):JLabel
+            {static} getImagePnl(filename:String, width:Integer, height:Integer):JLabel
+            {static} getImage(filename:String):ImageIcon
+            {static} getImage(color:GroundColor):ImageIcon
+            {static} getImage(color:GroundColor, crown:Integer):Icon
         }
         class FontReader{
             {static} - instance : FontReader
@@ -307,6 +309,8 @@ package Model #mistyrose{
             -bookmanold : Font
             - symbola : Font
 
+            -FontReader()
+            {static}+getInstance():FontReader
             +getAlgerian(): Font
             +getShowcard(): Font
             +getBookmanold(): Font
@@ -345,9 +349,19 @@ package view #D0E1D4{
     }
 
     class ChoosingMenu{
+         {static}shouldFill : Boolean
+         -mainFrame : MyWindow
+         -mainPnl:JPanel
+         -group : ButtonGroup
+         -nbPlayerChoice : String[]
+         nbPlayerCbo : JComboBox
+
          -btnColor : Color
          -btnHoverColor: Color
          -cboColor: Color
+
+         playerColorsPnl : JPanel
+
          - img: ImageIcon
 
          +ChoosingMenu(MyWindow: MyWindow)
