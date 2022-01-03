@@ -336,7 +336,7 @@ public class GameView extends JPanel {
         colorLbl.setFont(FontReader.getInstance().getShowcard().deriveFont(Font.BOLD).deriveFont(22f));
         colorLbl.setOutlineColor(Color.DARK_GRAY);
         colorLbl.setStroke(new BasicStroke(3f));
-        colorLbl.setForeground( KingColor.getColor( player.getPlayerColor() ) );
+        colorLbl.setForeground( this.getColor( player.getPlayerColor() ) );
         c.gridx = 0;
         c.gridy = 0;
         boardPnl.add( colorLbl, c );
@@ -464,7 +464,7 @@ public class GameView extends JPanel {
 
 
         if(king != null){
-            tilePanel.setBorder( BorderFactory.createLineBorder( KingColor.getColor(king.getColor()), 5 ) );
+            tilePanel.setBorder( BorderFactory.createLineBorder( this.getColor(king.getColor()), 5 ) );
         }
 
         return tilePanel;
@@ -527,7 +527,7 @@ public class GameView extends JPanel {
                 currentTilesPnl.add( createCastle() , interacC);
                 KingColor playerTurnColor = this.mainFrame.getGame().getPlayerCastleTurn().getPlayerColor();
                 tourLbl.setText( "Tour du joueur " + playerTurnColor);
-                tourLbl.setForeground( KingColor.getColor( playerTurnColor ) );
+                tourLbl.setForeground( this.getColor( playerTurnColor ) );
             }
         }else{
             int i = 0;
@@ -538,8 +538,7 @@ public class GameView extends JPanel {
                 i++;
                 KingColor playerTurnColor = this.mainFrame.getGame().getKingTurn().getColor();
                 tourLbl.setText( "Tour du joueur " + playerTurnColor );
-                tourLbl.setForeground( KingColor.getColor( playerTurnColor ) );
-
+                tourLbl.setForeground( this.getColor( playerTurnColor ) );
             }
         }
 
@@ -719,6 +718,26 @@ public class GameView extends JPanel {
     public void paint(Graphics g){
         g.drawImage( this.img.getImage(), 0 , 0,mainFrame.getWidth(), mainFrame.getHeight(), null);
         super.paint(g);
+    }
+
+    ;
+
+    private Color getColor(KingColor color){
+        switch (color) {
+            case PINK -> {
+                return new Color( 192, 2, 169 );
+            }
+            case BLUE -> {
+                return new Color( 2, 148, 192 );
+            }
+            case GREEN -> {
+                return new Color( 3, 166, 10 );
+            }
+            case YELLOW -> {
+                return new Color( 178, 173, 19 );
+            }
+        }
+        return Color.DARK_GRAY;
     }
 
 

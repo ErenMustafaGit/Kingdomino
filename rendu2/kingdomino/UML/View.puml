@@ -1,5 +1,6 @@
 @startuml
 'skinparam style strictuml
+skinparam style strictuml
 skinparam classAttributeIconSize 0
 skinparam classFontStyle Bold
 hide enum methods
@@ -18,7 +19,7 @@ package GameController #technology{
     class GameController{
         -game: GameContext
         +GameController(game:GameContext)
-        +initializeGame((nbPlayers:Integer,colors: Collection<KingColor>, gameMode:Integer)
+        +initializeGame((nbPlayers:Integer,colors: KingColor[], gameMode:Integer)
         +placeCastle(player:Player, pos_x :Integer, pos_y :Integer
         +placeTile(x:Integer, y:Integer)
         +skipTurn()
@@ -27,7 +28,6 @@ package GameController #technology{
         +rotate()
         +reverse()
         +destroyGame()
-
     }
 }
 
@@ -36,7 +36,7 @@ package GameController #technology{
 
 package Model #mistyrose{
     'interface players
-    interface PlayerStrategy{
+    interface PlayerStrategy <<Interface>>{
         + getNbBoard():Integer
         + getNbTile():Integer
         + getNbKings():Integer
@@ -62,7 +62,7 @@ package Model #mistyrose{
 
 
     class Deck{
-        -tiles:Stack<Tile>
+        -tiles:Tile[]
         +Deck()
         +Deck(deckSize:Integer)
         +getTile():Tile
@@ -117,7 +117,7 @@ package Model #mistyrose{
     +{static}+getColor(String:color):GroundColor
     }
     'strategy permettant de pouvoir choisir le jeu qu'on veut
-    interface GameMode{
+    interface GameMode <<Interface>>{
         +calculateScore(p:PlayerBoard)
         getnamegame(): String
         +isHarmony(p:PlayerBoard):Boolean
@@ -128,29 +128,29 @@ package Model #mistyrose{
         -nbPlayersStrat:PlayerStrategy
         -gameMode: GameMode
         -deck:Deck
-        -currenTiles:Collection<Tile,King>
-        -observers : Collection<GameObserver>
-        -players : Collection<Player>
-        -kings:Collection<King>
-        -nextRoundKings:Collection<King>
+        -currentTiles:Tile[]
+        -observers : GameObserver[][]
+        -players : Player[]
+        -kings:King[]
+        -nextRoundKings:King[]
         -turn : Integer
 
         +GameContext()
         +destroy()
-        +getCurrentTiles(): Collection<Tile,King>
+        +getCurrentTiles(): King[]
         +addObserver(gameObserver:GameObserver)
         +setPlayerStrategy(nbPlayers:Integer)
         +getGameMode():GameMode
         +getNbPlayersStrat(): PlayerStrategy
-        +setGameStrategy(gameModeChoosen : Integer)
-        +initGame(colors: Collection<KingColor>)
-        +getPlayers():Collection<Players>
+        +setGameStrategy(gameModeChoosen: Integer)
+        +initGame(colors: KingColor[])
+        +getPlayers():Player[]
 
         -createDeck()
         -createKing(color:KingColor, number:Integer, player:Player)
-        -createPlayers(colors: Collection<KingColor>)
+        -createPlayers(colors:KingColor[])
 
-        +getPlayerCastleTurn(): Player
+        +getPlayerCastleTurn():Player
         +getKingTurn():King
         +getTurn(): Integer
         +pickTiles()
@@ -162,14 +162,12 @@ package Model #mistyrose{
         +rotateCurrentTile()
         +reverseCurrentTile()
         +skipTurn()
-        +getPlayersRank(Collection<Player, Integer>)
+        +getPlayersRank(Player[])
         +notifyObservers()
         +notifyObserversEnd()
     }
 
     package GameModes{
-
-
 
             class NormalMode {
                 +calculateScore(p:PlayerBoard): Integer
@@ -208,7 +206,7 @@ package Model #mistyrose{
             }
     }
     'interface observer qui va permettre de notifier les changements
-    interface GameObserver{
+    interface GameObserver <<Interface>>{
         +update(game:GameContext)
         +updateEnd(gameContext:GameContext)
     }
@@ -217,12 +215,13 @@ package Model #mistyrose{
 
     class PlayerBoard{
         +BOARD_SIZE:Integer = 5
-        -board: Positionnable[][]
+        -board: Positionnable[]
         +PlayerBoard()
+
         +PlayerBoard(castle:Castle)
         +setCastle(x: Integer, y: Integer, castle: Castle) : Boolean
         +setTile(x:Integer, y:Integer, dir:Direction, tile:Tile): Boolean
-        +getRightXY(x:Integer, y:Integer, dir:Direction): Integer[][]
+        +getRightXY(x:Integer, y:Integer, dir:Direction): Integer[]
         +isPosable(x:Integer, y:Integer):Boolean
         +ispPlayable(tile:Tile):Boolean
         +isSameGround(x:Integer, y:Integer, ground:Ground):Boolean
@@ -230,7 +229,7 @@ package Model #mistyrose{
         +getBoard():Positionnable[]
         +getBOARD_SIZE(): Integer
     }
-    interface Positionnable{
+    interface Positionnable <<Interface>>{
         +getColor():GroundColor
         +getCrownNumber(): Integer
         +isGroundCounted(): Boolean
@@ -448,7 +447,7 @@ package view #D0E1D4{
 
 Ground ..|> Positionnable
 Castle ..|> Positionnable
-PlayerBoard "..*\n-board" *-r-> Positionnable : > contains
+PlayerBoard o-> "* \n -board"  Positionnable : > contains
 
 Deck ..> CSVReader :  > use
 Ground "1\n-color"*-->"1"GroundColor
