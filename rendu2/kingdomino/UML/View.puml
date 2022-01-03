@@ -315,19 +315,16 @@ package view #D0E1D4{
          -btnColor : Color
          -btnHoverColor: Color
          -cboColor: Color
-         - img: ImageIcon
-
+         -img: ImageIcon
          +ChoosingMenu(MyWindow: MyWindow)
          +getMainPanel():JPanel
          +paint(g: Graphics)
          -createColorCbo()
          -isDifferentColor():Boolean
-
         }
 
     class GameView{
         -mainFrame: MyWindow
-        {static}-IMG_SIZE:Integer = 60
         -img: ImageIcon
         -imgBoard : ImageIcon
         -boardsPanel: JPanel
@@ -380,16 +377,18 @@ package Utilities{
         }
 
         class IMGReader{
+            {static}-TILE_IMG_SIZE:Integer = 60
             {static} - RESSOURCE_PATH = "./kingdomino/ressources/"
             {static} getImagePnl(String:filename):JLabel
             {static} getImage(String:filename):Image
+            {static}+getTileImgSize()
         }
         class FontReader{
             {static} - instance : FontReader
             -algerian : Font
             -showcard : Font
             -bookmanold : Font
-            - symbola : Font
+            -symbola : Font
 
             +getAlgerian(): Font
             +getShowcard(): Font
@@ -450,20 +449,20 @@ KingDomino ..>GameContext : <<create>>
 MyWindow "1\n-controller" o-> GameController : > send \nuser request
 MyWindow "1\n-game" o-> GameContext
 GameContext "..n\n-observers" o-->GameObserver : > observes
-GameView*->MyLabel : > label
-EndView*->MyLabel : > label
-ChoosingMenu*-->MyLabel : > label
+GameView *->MyLabel : > label
+EndView *->MyLabel : > label
+ChoosingMenu *--> "*" MyLabel : > label
 
 Log .> GameContext : "notify"
 
-IMGReader <.. MainMenu : <<use>>
+IMGReader <..MainMenu :<<use>>
 IMGReader <.. ChoosingMenu: <<use>>
 IMGReader <.. GameView: <<use>>
 IMGReader <.. EndView:<<use>>
 
-FontReader <..MainMenu:<<use>>
-FontReader <..ChoosingMenu:<<use>>
-FontReader <..GameView:<<use>>
-FontReader <.. EndView:<<use>>
+FontReader <...MainMenu:<<use>>
+FontReader <...ChoosingMenu: <<use>>
+FontReader <..GameView: <<use>>
+FontReader <.. EndView: <<use>>
 
 @enduml
