@@ -20,7 +20,7 @@ package GameController #technology{
         +GameController(game:GameContext)
         +initializeGame((nbPlayers:Integer,colors: Collection<KingColor>, gameMode:Integer)
         +placeCastle(player:Player, pos_x :Integer, pos_y :Integer
-        +placeTile(player:Player, tile:Tile, x:Integer, y:Integer, dir:Direction)
+        +placeTile(x:Integer, y:Integer)
         +skipTurn()
         +pickTiles()
         +chooseTile(tile:Tile)
@@ -174,6 +174,7 @@ package Model #mistyrose{
             class NormalMode {
                 +calculateScore(p:PlayerBoard): Integer
                 +countcell(p: PlayerBoard, x: Integer, y: Integer):Integer
+                +print(p:PlayerBoard)
                 +coutcrown(p:PlayerBoard, x: Integer, y: Integer): Integer
                 +getnamegame():String
                 +isHarmony(p:PlayerBoard): Boolean
