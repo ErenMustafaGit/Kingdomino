@@ -278,9 +278,31 @@ package Model #mistyrose{
     +BLUE
     +GREEN
     +YELLOW
-    {static}+getColor(color:KingColor):Color
     }
 
+        class IMGReader{
+            {static} - RESSOURCE_PATH = "./kingdomino/ressources/"
+            {static} getImagePnl(filename:String):JLabel
+            {static} getImagePnl(filename:String, width:Integer, height:Integer):JLabel
+            {static} getImage(filename:String):ImageIcon
+            {static} getImage(color:GroundColor):ImageIcon
+            {static} getImage(color:GroundColor, crown:Integer):Icon
+        }
+        class FontReader{
+            {static} - instance : FontReader
+            -algerian : Font
+            -showcard : Font
+            -bookmanold : Font
+            - symbola : Font
+
+            -FontReader()
+            {static}+getInstance():FontReader
+            +getAlgerian(): Font
+            +getShowcard(): Font
+            +getBookmanold(): Font
+            +getSymbola(): Font
+        }
+    }
 }
 
 'package VIEW
@@ -321,10 +343,21 @@ package view #D0E1D4{
     }
 
     class ChoosingMenu{
+         {static}shouldFill : Boolean
+         -mainFrame : MyWindow
+         -mainPnl:JPanel
+         -group : ButtonGroup
+         -nbPlayerChoice : String[]
+         nbPlayerCbo : JComboBox
+
          -btnColor : Color
          -btnHoverColor: Color
          -cboColor: Color
-         -img: ImageIcon
+
+         playerColorsPnl : JPanel
+
+         - img: ImageIcon
+
          +ChoosingMenu(MyWindow: MyWindow)
          +getMainPanel():JPanel
          +paint(g: Graphics)

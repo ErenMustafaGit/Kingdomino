@@ -18,6 +18,9 @@ public class IMGReader {
          */
     private static final String RESSOURCE_PATH = "./kingdomino/ressources/";
 
+    /** Taille d'image d'un ground **/
+    private static final int TILE_IMG_SIZE = 60;
+
     public static JLabel getImagePnl(String filename) {
 
 
@@ -111,5 +114,9 @@ public class IMGReader {
             return IMGReader.getImage(directory+"montagne"+ crown +".png");
         }
         return null;
+    }
+
+    public static int getTileImgSize(){
+        return IMGReader.TILE_IMG_SIZE;
     }
 }

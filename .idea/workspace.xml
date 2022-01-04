@@ -10,7 +10,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b296bc09-cc63-4dd7-9250-50d90129aaa5" name="Default Changelist" comment="delete manifest.mf">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rendu2/kingdomino/UML/View.puml" beforeDir="false" afterPath="$PROJECT_DIR$/rendu2/kingdomino/UML/View.puml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
