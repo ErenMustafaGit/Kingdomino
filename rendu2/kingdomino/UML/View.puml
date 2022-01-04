@@ -285,6 +285,15 @@ package Model #mistyrose{
 
 'package VIEW
 package view #D0E1D4{
+    class ErrorMessage extends MyLabel{
+    'ajout des méthodes ici
+    }
+    class PlayerBoardView extends JPanel{
+    'ajout des méthodes ici
+    }
+    class TileView extends JPanel{
+
+    }
     'application du jeu (design avec Swing)
     class MyWindow implements GameObserver{
         -gameController: GameController
@@ -328,12 +337,12 @@ package view #D0E1D4{
         -img: ImageIcon
         -imgBoard : ImageIcon
         -boardsPanel: JPanel
-        -gameInterface:JPanel
+        -gameInterac:JPanel
         -headerLbl: MyLabel
         -tourLbl : MyLabel
         -btnColor: Color
         -btnHoverColor: Color
-        -errorMessageLbl: MyLabel
+        -errorMessageLbl: ErrorMessage
         -crownString: String
 
         +GameView(MyWindow:MyWindow)
