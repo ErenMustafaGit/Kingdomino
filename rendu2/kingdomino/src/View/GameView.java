@@ -397,7 +397,7 @@ public class GameView extends JPanel {
 
             //Si le joueur ne peut pas placer sa tuile
             boolean isPlayableTurn = this.mainFrame.getGame().getKingTurn().getPlayer().getBoard().isPlayable(currentTile);
-            if(isPlayableTurn ){ //!isPlayableTurn
+            if(!isPlayableTurn ){ //!isPlayableTurn
                 JButton btnSkipTurn = new JButton("SAUTER LE TOUR");
                 btnSkipTurn.addActionListener(actionEvent -> {
                     this.mainFrame.getGameController().skipTurn();
