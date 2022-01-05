@@ -45,7 +45,7 @@ public class PlayerBoardView extends JPanel {
                 /**Action de click sur une case**/
                 btn.addActionListener(actionEvent -> {
                     //Placer le chateau seulement on est dans les 1er tours pour le joueur
-                    if(game.getTurn() < game.getPlayers().size() ){
+                    if(game.getTurn() < game.getPlayersNb() ){
                         gameController.placeCastle(player,  finalI, finalJ);
                     }else{
 
@@ -62,7 +62,7 @@ public class PlayerBoardView extends JPanel {
                 });
 
                 //Si c'est le tour de poser le chateau
-                if(game.getTurn() < game.getPlayers().size() ){
+                if(game.getTurn() < game.getPlayersNb() ){
                     btn.setRolloverEnabled(false);
                     if(player != game.getPlayerCastleTurn()){ //Si c'est pas son tour
                         btn.setEnabled(false);
@@ -90,7 +90,7 @@ public class PlayerBoardView extends JPanel {
 
                 /** Hover effect **/
                 //Si on est en tour chateau
-                if(game.getTurn() < game.getPlayers().size() ){
+                if(game.getTurn() < game.getPlayersNb() ){
                     btn.setRolloverIcon( IMGReader.getImage(GroundColor.GREY, 0)   );
                 }
                 else if(game.allTilesChoosen() && btn.isEnabled()){
@@ -137,6 +137,58 @@ public class PlayerBoardView extends JPanel {
             colorLbl = new MyLabel("Joueur " + player.getPlayerColor(), SwingConstants.CENTER);
 
         }
+        colorLbl.setFont(FontReader.getInstance().getShowcard().deriveFont(Font.BOLD).deriveFont(22f));
+        colorLbl.setOutlineColor(Color.DARK_GRAY);
+        colorLbl.setStroke(new BasicStroke(3f));
+        colorLbl.setForeground( GameView.getColor( player.getPlayerColor() ) );
+        c.gridx = 0;
+        c.gridy = 0;
+        this.add( colorLbl, c );
+
+        c.gridx = 0;
+        c.gridy = 1;
+        this.add( grid, c );
+    }
+
+
+
+    public PlayerBoardView(Player player, GameContext game){
+        this.setLayout( new GridBagLayout() );
+        this.setOpaque(false);
+
+        PlayerBoard playerBoard = player.getBoard();
+        JButton[][] boardBtns = new JButton[playerBoard.getBOARD_SIZE()][playerBoard.getBOARD_SIZE()];
+
+        for(int j = 0; j<playerBoard.getBOARD_SIZE(); j++) {
+            for (int i = 0; i < playerBoard.getBOARD_SIZE(); i++) {
+                boardBtns[i][j] = new JButton();
+            }
+        }
+
+        JPanel grid = new JPanel();
+        grid.setLayout(new GridLayout(playerBoard.getBOARD_SIZE(), playerBoard.getBOARD_SIZE()));
+        //Place chaque image correspondantes
+        for(int j = 0; j<playerBoard.getBOARD_SIZE(); j++){
+            for(int i = 0; i<playerBoard.getBOARD_SIZE(); i++){
+                JButton btn = boardBtns[i][j];
+                btn.setPreferredSize(new Dimension( IMGReader.getTileImgSize() , IMGReader.getTileImgSize()));
+                btn.setRolloverEnabled(false);
+
+                //Met l'image correspondant à la couleur de la case
+                if(playerBoard.getPositionnable(i,j) == null){
+                    btn.setIcon( IMGReader.getImage("empty.png") );
+                }else{
+                    btn.setIcon( IMGReader.getImage( playerBoard.getPositionnable(i,j).getColor(), playerBoard.getPositionnable(i,j).getCrownNumber()) );
+                }
+                grid.add(btn);
+
+            }
+        }
+
+        GridBagConstraints c = new GridBagConstraints();
+        c.insets = new Insets(0, 20, 0, 20);
+
+        MyLabel colorLbl = new MyLabel("Joueur " + player.getPlayerColor(), SwingConstants.CENTER);
         colorLbl.setFont(FontReader.getInstance().getShowcard().deriveFont(Font.BOLD).deriveFont(22f));
         colorLbl.setOutlineColor(Color.DARK_GRAY);
         colorLbl.setStroke(new BasicStroke(3f));

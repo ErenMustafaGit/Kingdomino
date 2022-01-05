@@ -4,6 +4,7 @@ import Model.Player;
 import Utilities.FontReader;
 import Utilities.IMGReader;
 import View.Components.MyLabel;
+import View.Components.PlayerBoardView;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -31,6 +32,43 @@ public class EndView extends JPanel {
         c.insets = new Insets(5, 1, 5, 1);
 
 
+
+        //Ajout des plateaux de chaques joueurs -- Gauche
+        JPanel leftPnl = new JPanel();
+        leftPnl.setOpaque(false);
+        leftPnl.setLayout( new GridBagLayout() );
+        GridBagConstraints boardC = new GridBagConstraints();
+        boardC.insets = new Insets(10, 10 , 10 , 10);
+        boardC.gridy = 0;
+        boardC.gridx = 0;
+        leftPnl.add( new PlayerBoardView( this.mainFrame.getGame().getPlayer(0), this.mainFrame.getGame()), boardC);
+
+        if(this.mainFrame.getGame().getPlayersNb() >= 3){
+            boardC.insets = new Insets(50, 10 , 10 , 10);
+            boardC.gridy = 1;
+            boardC.gridx = 0;
+            leftPnl.add( new PlayerBoardView( this.mainFrame.getGame().getPlayer(2), this.mainFrame.getGame()), boardC);
+        }
+
+        //Ajout des plateaux de chaques joueurs -- Droit
+        JPanel rightPnl = new JPanel();
+        rightPnl.setOpaque(false);
+        rightPnl.setLayout( new GridBagLayout() );
+        boardC.insets = new Insets(10, 10 , 10 , 10);
+        boardC.gridy = 0;
+        boardC.gridx = 0;
+        rightPnl.add( new PlayerBoardView( this.mainFrame.getGame().getPlayer(1), this.mainFrame.getGame()), boardC);
+        if(this.mainFrame.getGame().getPlayersNb() >= 4){
+            boardC.insets = new Insets(50, 10 , 10 , 10);
+            boardC.gridy = 1;
+            boardC.gridx = 0;
+            rightPnl.add( new PlayerBoardView( this.mainFrame.getGame().getPlayer(3), this.mainFrame.getGame()), boardC);
+        }
+
+        //Panel du milieu (contient le classement et le bouton pour quitter)
+        JPanel midPnl = new JPanel();
+        midPnl.setOpaque(false);
+        midPnl.setLayout(new GridBagLayout());
         GridBagConstraints playerC = new GridBagConstraints();
         int i = 0;
         for (Map.Entry<Player, Integer> ranking : this.mainFrame.getGame().getPlayersRank().entrySet()) {
@@ -46,10 +84,6 @@ public class EndView extends JPanel {
             };
             playerPnl.setPreferredSize( new Dimension(750, 200) );
             playerPnl.setLayout( new GridBagLayout() );
-
-            //TODO : METTRE IMAGE DE FOND par rapport à la couleur du player + PREFERRED SIZE
-            //TODO : METTRE LES vraies points obtenu par player
-            // TODO : Bonus : Indiquer si gain de point grace à harmony/middle
 
             playerC.insets = new Insets(40, -200, 5, 65);
             MyLabel positionLbl = new MyLabel((i+1) + "°");
@@ -109,7 +143,11 @@ public class EndView extends JPanel {
 
             c.gridx = 0;
             c.gridy = i;
-            this.add( playerPnl, c );
+            midPnl.add( playerPnl, c );
+
+
+            //Ajout de chaque panel secondaire dans le panel principal
+            this.add(midPnl, c);
             i++;
         }
 
@@ -145,7 +183,25 @@ public class EndView extends JPanel {
 
         c.gridx = 0;
         c.gridy = 10;
-        this.add(backBtn, c);
+        midPnl.add(backBtn, c);
+
+
+        GridBagConstraints mainC = new GridBagConstraints();
+        mainC.gridx = 0;
+        mainC.gridy = 0;
+        mainC.insets = new Insets(5,-20,5,20);
+        this.add( leftPnl, mainC );
+
+
+        mainC.gridx = 1;
+        mainC.gridy = 0;
+        mainC.insets = new Insets(5,50,5,50);
+        this.add( midPnl, mainC);
+
+        mainC.gridx = 2;
+        mainC.gridy = 0;
+        mainC.insets = new Insets(5,20,5,-20);
+        this.add( rightPnl, mainC );
     }
 
     public void paint(Graphics g){
