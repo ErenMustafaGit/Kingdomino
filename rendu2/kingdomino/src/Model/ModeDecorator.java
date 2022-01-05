@@ -7,6 +7,7 @@ public abstract class ModeDecorator implements GameMode {
         this.wrapee = gameMode;
     }
 
+
     public int calculateScore(PlayerBoard p){
         return wrapee.calculateScore(p);
     }
@@ -18,6 +19,11 @@ public abstract class ModeDecorator implements GameMode {
 
     @Override
     public boolean isKingdomMiddle(PlayerBoard p){
+        return false;
+    }
+
+    @Override
+    public boolean hasHarmony(){
         return false;
     }
 

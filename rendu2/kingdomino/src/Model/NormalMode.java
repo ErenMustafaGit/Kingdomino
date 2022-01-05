@@ -170,6 +170,11 @@ public class NormalMode implements GameMode {
     }
 
     @Override
+    public boolean hasHarmony() {
+        return false;
+    }
+
+    @Override
     public boolean isHarmony(PlayerBoard p) {
         return false;
     }
