@@ -141,13 +141,15 @@ public class TestPlayerBoard {
     {
         Castle castle;
         GameMode gameMode;
+        String name;
         Player p;
         @BeforeEach
         public void setUp()
         {
             castle = new Castle();
             playerBoard = new PlayerBoard(castle);
-            p = new Player(KingColor.BLUE, playerBoard);
+            name = "jean";
+            p = new Player(KingColor.BLUE,name, playerBoard);
 
             gameMode = new NormalMode();
 
