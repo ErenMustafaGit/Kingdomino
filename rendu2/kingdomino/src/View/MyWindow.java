@@ -13,12 +13,14 @@ public class MyWindow extends JFrame implements GameObserver
     GameController gameController;
     GameContext game;
     GameView gameView;
+    private static final int HEIGHT = 980;
+    private static final int WIDTH = 1700;
 
     public MyWindow(GameController gameController, GameContext game) {
         this.game = game;
         this.gameController = gameController;
         setTitle( "Kingdomino" );
-        setSize( 1700, 980 );
+        setSize( WIDTH, HEIGHT );
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         setContentPane( new MainMenu(this));
@@ -61,5 +63,12 @@ public class MyWindow extends JFrame implements GameObserver
     public void updateEnd(GameContext gameContext) {
         setContentPane( new EndView(this) );
         this.setVisible(true);
+    }
+
+    public int getHeight(){
+        return HEIGHT;
+    }
+    public int getWidth(){
+        return WIDTH;
     }
 }
