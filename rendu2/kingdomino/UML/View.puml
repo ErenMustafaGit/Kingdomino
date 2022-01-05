@@ -141,12 +141,13 @@ package Model #mistyrose{
         +getGameMode():GameMode
         +getNbPlayersStrat(): PlayerStrategy
         +setGameStrategy(gameModeChoosen: Integer)
-        +initGame(colors: KingColor[])
+        +initGame(colors: KingColor[],pseudo:String[])
         +getPlayers():Player[]
+        +getPlayersNb():Integer
 
         -createDeck()
         -createKing(color:KingColor, number:Integer, player:Player)
-        -createPlayers(colors:KingColor[])
+        -createPlayers(colors:KingColor[],pseudo:String[])
 
         +getPlayerCastleTurn():Player
         +getKingTurn():King
@@ -178,14 +179,14 @@ package Model #mistyrose{
             abstract class ModeDecorator{
                 -wrappee:GameMode
                 +ModeDecorator(gameMode:GameMode)
-                +calculateScore(p:Player)
+                +calculateScore(p:Player):Integer
                 +isKingdomMiddle(p:PlayerBoard):Boolean
                 +isHarmony(p:PlayerBoard):Boolean
             }
 
             class MiddleKingdom extends ModeDecorator {
                 +MiddleKingdom()
-                +calculateScore(p:PlayerBoard)
+                +calculateScore(p:PlayerBoard):Integer
                 -calculateKingdomBonus(p:PlayerBoard): Integer
                 +isKingdomMiddle(p:PlayerBoard):Boolean
                 +getnamegame():String
@@ -195,7 +196,7 @@ package Model #mistyrose{
             'class harmonie
             class Harmony extends ModeDecorator {
             +Harmony()
-            +calculateScore(p:PlayerBoard)
+            +calculateScore(p:PlayerBoard):Integer
             -calculateHarmonyBonus(p:PlayerBoard): Integer
             +isHarmony(p:PlayerBoard):Boolean
             +getnamegame():String
@@ -455,6 +456,8 @@ Player  *->"1..2\n-playerKings" King :  > had
 'Extends de ModeDecorator
 ModeDecorator .u.|> GameMode
 NormalMode .u.|> GameMode
+
+ModeDecorator o-->"1\n-mode" GameMode
 
 King"1"*-> "1\n-color" KingColor: > had
 Castle*->"1\n-color"GroundColor : > had
