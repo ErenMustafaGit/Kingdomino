@@ -279,10 +279,19 @@ public class GameView extends JPanel {
                 interacC.gridy = i;
                 currentTilesPnl.add( createCastle() , interacC);
                 KingColor playerTurnColor = this.mainFrame.getGame().getPlayerCastleTurn().getPlayerColor();
-                tourLbl.setText( "Tour du joueur " + playerTurnColor);
-                tourLbl.setForeground( GameView.getColor( playerTurnColor ) );
+                String pName = this.mainFrame.getGame().getPlayerCastleTurn().getPlayerName();
+                if (!pName.isEmpty()) {
+                    tourLbl.setText("Tour de " + pName);
+                }
+                else
+                {
+                    tourLbl.setText("Tour du joueur " + playerTurnColor);
+                }
+                tourLbl.setForeground(GameView.getColor(playerTurnColor));
+
             }
-        }else{
+        }
+        else{
             int i = 0;
             for (Tile tile : mainFrame.getGame().getCurrentTiles().keySet()) {
                 interacC.gridx = 0;
@@ -292,7 +301,14 @@ public class GameView extends JPanel {
                 currentTilesPnl.add( tileView , interacC);
                 i++;
                 KingColor playerTurnColor = this.mainFrame.getGame().getKingTurn().getColor();
-                tourLbl.setText( "Tour du joueur " + playerTurnColor );
+                String pName = this.mainFrame.getGame().getKingTurn().getPlayer().getPlayerName();
+                if (!pName.isEmpty()) {
+                    tourLbl.setText("Tour de " + pName);
+                }
+                else
+                {
+                    tourLbl.setText("Tour du joueur " + playerTurnColor);
+                }
                 tourLbl.setForeground( GameView.getColor( playerTurnColor ) );
             }
         }

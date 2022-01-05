@@ -127,7 +127,16 @@ public class PlayerBoardView extends JPanel {
         GridBagConstraints c = new GridBagConstraints();
         c.insets = new Insets(0, 20, 0, 20);
 
-        MyLabel colorLbl = new MyLabel("Joueur " + player.getPlayerColor(), SwingConstants.CENTER);
+        MyLabel colorLbl;
+        if (!player.getPlayerName().isEmpty())
+        {
+            colorLbl = new MyLabel(player.getPlayerName(), SwingConstants.CENTER);
+        }
+        else
+        {
+            colorLbl = new MyLabel("Joueur " + player.getPlayerColor(), SwingConstants.CENTER);
+
+        }
         colorLbl.setFont(FontReader.getInstance().getShowcard().deriveFont(Font.BOLD).deriveFont(22f));
         colorLbl.setOutlineColor(Color.DARK_GRAY);
         colorLbl.setStroke(new BasicStroke(3f));
