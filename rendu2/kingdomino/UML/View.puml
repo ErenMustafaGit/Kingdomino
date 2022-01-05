@@ -425,14 +425,14 @@ package Utilities{
 'Implements Positionnable
 'Ground ..|> Positionnable
 'Castle ..|> Positionnable
-PlayerBoard o-> "* \n -board"  Positionnable : > contains
+PlayerBoard o-> "1\n -board"  Positionnable : > contains
 
 
 Ground "1"*-->"1\n-color"GroundColor
 Tile *--->"1-left \n 1-right" Ground :  > composed
 
 'A SUPP
-Deck  o-> "..* -tiles" Tile : > had
+Deck  *-> "..* -tiles" Tile : > had
 
 
 GameContext  o--> "..4\n-currentTiles" Tile
