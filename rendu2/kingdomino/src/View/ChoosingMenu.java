@@ -11,6 +11,7 @@ import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class ChoosingMenu extends JPanel {
     final static boolean shouldFill = true;
@@ -178,9 +179,24 @@ public class ChoosingMenu extends JPanel {
 
                 /** Récupere toutes les couleurs choisi par les joueurs **/
                 ArrayList<KingColor> colors = new ArrayList<>();
+                ArrayList<String> pseudo = new ArrayList<>();
                 for (Component component : playerColorsPnl.getComponents()) {
-                    JComboBox cbo = (JComboBox)component;
-                    colors.add( (KingColor) cbo.getSelectedItem() );
+                   if (component instanceof JComboBox)
+                   {
+                        JComboBox cbo = (JComboBox)component;
+                        colors.add( (KingColor) cbo.getSelectedItem() );
+                   }
+                   else {
+                       JTextField name = (JTextField) component;
+                       if (!name.getText().equals("name"))
+                       {
+                           pseudo.add(name.getText());
+                       }
+                       else
+                       {
+                           pseudo.add("");
+                       }
+                   }
                 }
 
                 int gameMode = 0;
@@ -193,7 +209,7 @@ public class ChoosingMenu extends JPanel {
                 }
 
                 //Donne les infos de mode de jeu, de nombre de joueur et de couleurs des joueurs
-                mainFrame.getGameController().initializeGame( Integer.parseInt(nbPlayerCbo.getSelectedItem().toString()), colors, gameMode );
+                mainFrame.getGameController().initializeGame( Integer.parseInt(nbPlayerCbo.getSelectedItem().toString()), colors, pseudo, gameMode );
                 //Passe à la vue GameView
                 mainFrame.setGamePanel();
             }
@@ -223,20 +239,26 @@ public class ChoosingMenu extends JPanel {
         KingColor[] colors = KingColor.values();
         GridBagConstraints colorsC = new GridBagConstraints();
         int boardMargin = 20;
-        colorsC.insets = new Insets(boardMargin, boardMargin, boardMargin, boardMargin);
         int playerNb = Integer.parseInt( nbPlayerCbo.getSelectedItem().toString() );
         playerColorsPnl.removeAll();
         playerColorsPnl.setBackground( new Color(174,135,0) );
 
         for (int i = 0; i< playerNb; i++){
             colorsC.gridx = i;
-            colorsC.gridy = 0;
+            colorsC.gridy = 20;
             JComboBox cboColors = new JComboBox(colors);
+            JTextField name = new JTextField("name");
             cboColors.setFont( FontReader.getInstance().getAlgerian().deriveFont(Font.BOLD).deriveFont(30f) );
             cboColors.setBackground( cboColor );
             cboColors.setSelectedIndex(i);
             cboColors.setFocusable(false);
-            playerColorsPnl.add( cboColors, colorsC );
+            name.setFont( FontReader.getInstance().getAlgerian().deriveFont(Font.BOLD).deriveFont(20f) );
+            name.setBackground( cboColor );
+            name.setPreferredSize(new Dimension(170,30));
+            colorsC.insets = new Insets(boardMargin,boardMargin,boardMargin,boardMargin);
+            playerColorsPnl.add( cboColors, colorsC);
+            colorsC.insets = new Insets(20,40,150,40);
+            playerColorsPnl.add(name,colorsC);
         }
         c.gridwidth = 4;
         c.gridx = 0;
@@ -251,15 +273,22 @@ public class ChoosingMenu extends JPanel {
 
         //Parcours tout les cbo de couleurs
         for (Component component : playerColorsPnl.getComponents()) {
-            JComboBox cbo = (JComboBox)component;
+            JComboBox cbo = null;
+            if (component instanceof JComboBox)
+            {
+                cbo = (JComboBox) component;
+            }
 
             //Et les compares avec les autres cbo
             for (Component component2 : playerColorsPnl.getComponents()) {
-                if(component != component2){
+                if((component != component2) && component2 instanceof JComboBox)
+                {
 
-                    JComboBox cbo2 = (JComboBox)component2;
+                        JComboBox cbo2 = (JComboBox) component2;
 
-                    if(cbo.getSelectedItem() == cbo2.getSelectedItem()){
+
+                    if((cbo != null) && cbo.getSelectedItem() == cbo2.getSelectedItem())
+                    {
                         return false;
                     }
                 }

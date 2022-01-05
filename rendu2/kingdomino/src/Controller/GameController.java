@@ -15,10 +15,10 @@ public class GameController
         this.game = game;
     }
 
-    public void initializeGame( int nbPlayers, ArrayList<KingColor> colors, int gameMode ) {
+    public void initializeGame( int nbPlayers, ArrayList<KingColor> colors, ArrayList<String> pseudo, int gameMode ) {
         this.game.setPlayerStrategy(nbPlayers);
         this.game.setGameStrategy(gameMode);
-        this.game.initGame(colors);
+        this.game.initGame(colors, pseudo);
     }
 
     public void placeCastle(Player player, int pos_x, int pos_y)
