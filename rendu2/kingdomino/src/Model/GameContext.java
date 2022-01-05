@@ -87,9 +87,18 @@ public class GameContext
 
     }
 
-    public ArrayList<Player> getPlayers(){
+    private ArrayList<Player> getPlayers(){
         return new ArrayList<>(this.players);
     }
+
+    public Player getPlayer(int i){
+        return this.getPlayers().get(i);
+    }
+
+    public int getPlayersNb(){
+        return this.getPlayers().size();
+    }
+
 
     //Création du packet de tuiles de la bonne taille
     private void createDeck()

@@ -397,7 +397,7 @@ public class GameView extends JPanel {
 
             //Si le joueur ne peut pas placer sa tuile
             boolean isPlayableTurn = this.mainFrame.getGame().getKingTurn().getPlayer().getBoard().isPlayable(currentTile);
-            if(!isPlayableTurn ){
+            if(!isPlayableTurn ){ //!isPlayableTurn
                 JButton btnSkipTurn = new JButton("SAUTER LE TOUR");
                 btnSkipTurn.addActionListener(actionEvent -> {
                     this.mainFrame.getGameController().skipTurn();
@@ -442,21 +442,21 @@ public class GameView extends JPanel {
 
         boardC.gridx = 0;
         boardC.gridy = 0;
-        boardsPanel.add( new PlayerBoardView( this.mainFrame.getGameController(), this.mainFrame.getGame().getPlayers().get(0), this.mainFrame.getGame(), this ) , boardC);
+        boardsPanel.add( new PlayerBoardView( this.mainFrame.getGameController(), this.mainFrame.getGame().getPlayer(0), this.mainFrame.getGame(), this ) , boardC);
 
 
         boardC.gridx = 0;
         boardC.gridy = 1;
-        boardsPanel.add( new PlayerBoardView( this.mainFrame.getGameController(), this.mainFrame.getGame().getPlayers().get(1), this.mainFrame.getGame(), this ), boardC);
+        boardsPanel.add( new PlayerBoardView( this.mainFrame.getGameController(), this.mainFrame.getGame().getPlayer(1), this.mainFrame.getGame(), this ), boardC);
 
         if( mainFrame.getGame().getNbPlayersStrat().getnbBoard() > 2 ){
             boardC.gridx = 1;
             boardC.gridy = 0;
-            boardsPanel.add( new PlayerBoardView( this.mainFrame.getGameController(), this.mainFrame.getGame().getPlayers().get(2), this.mainFrame.getGame(), this ), boardC);
+            boardsPanel.add( new PlayerBoardView( this.mainFrame.getGameController(), this.mainFrame.getGame().getPlayer(2), this.mainFrame.getGame(), this ), boardC);
             if( mainFrame.getGame().getNbPlayersStrat().getnbBoard() > 3 ){
                 boardC.gridx = 1;
                 boardC.gridy = 1;
-                boardsPanel.add( new PlayerBoardView( this.mainFrame.getGameController(), this.mainFrame.getGame().getPlayers().get(3), this.mainFrame.getGame(), this ), boardC);
+                boardsPanel.add( new PlayerBoardView( this.mainFrame.getGameController(), this.mainFrame.getGame().getPlayer(3), this.mainFrame.getGame(), this ), boardC);
             }
         }
 
@@ -470,7 +470,7 @@ public class GameView extends JPanel {
 
         //Mise à jour du message d'action
         //Si tout le monde a placer ses chateaux
-        if( mainFrame.getGame().getTurn() >= mainFrame.getGame().getPlayers().size() ){
+        if( mainFrame.getGame().getTurn() >= mainFrame.getGame().getPlayersNb() ){
 
             //Si toutes les tuiles ont été choisis
             if(mainFrame.getGame().allTilesChoosen()){
