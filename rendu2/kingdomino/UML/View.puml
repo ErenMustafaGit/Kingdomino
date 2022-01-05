@@ -242,9 +242,11 @@ package Model #mistyrose{
     class Player{
         -playerColor: KingColor
         -board: PlayerBoard
+        -playerName: String
 
         +Player(color:KingColor,board:PlayerBoard)
         +getPlayerColor(): KingColor
+        +getPlayerName(): String
         +setPlayerColor(playerColor:KingColor)
         +getBoard(): PlayerBoard
         +setBoard(board:PlayerBoard)
