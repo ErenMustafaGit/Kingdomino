@@ -38,4 +38,9 @@ public class MiddleKingdom extends ModeDecorator {
         return super.isHarmony(p);
     }
 
+    @Override
+    public boolean hasHarmony() {
+        return super.hasHarmony();
+    }
+
 }

@@ -116,9 +116,15 @@ public class EndView extends JPanel {
             playerC.gridy = 0;
             playerPnl.add( pointLbl,playerC );
 
-            if( this.mainFrame.getGame().getGameMode().isHarmony( ranking.getKey().getBoard() ) ){
+            if( this.mainFrame.getGame().getGameMode().hasHarmony() ){
+
                 playerC.insets = new Insets(-80, 0, 5, -250);
-                MyLabel harmonyLbl = new MyLabel("+5 Harmony");
+                MyLabel harmonyLbl = new MyLabel();
+                if(this.mainFrame.getGame().getGameMode().isHarmony( ranking.getKey().getBoard() )){
+                    harmonyLbl.setText("+5 Harmony");
+                }else{
+                    harmonyLbl.setText("-5 Harmony");
+                }
                 harmonyLbl.setFont( FontReader.getInstance().getShowcard().deriveFont(16f));
                 harmonyLbl.setForeground(Color.white);
                 harmonyLbl.setOutlineColor(Color.DARK_GRAY);
@@ -129,6 +135,8 @@ public class EndView extends JPanel {
             }
 
             if( this.mainFrame.getGame().getGameMode().isKingdomMiddle( ranking.getKey().getBoard() ) ){
+                System.out.println("Middled");
+
                 playerC.insets = new Insets(100, 0, 5, -200);
                 MyLabel midKingLbl = new MyLabel("+10 Middle Kingdom");
                 midKingLbl.setFont( FontReader.getInstance().getShowcard().deriveFont(16f));

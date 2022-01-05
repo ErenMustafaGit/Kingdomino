@@ -31,6 +31,11 @@ public class Harmony extends ModeDecorator {
     }
 
     @Override
+    public boolean hasHarmony() {
+        return true;
+    }
+
+    @Override
     public boolean isKingdomMiddle(PlayerBoard p) {
         return super.isKingdomMiddle(p);
     }
