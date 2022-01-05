@@ -89,7 +89,7 @@ package Model #mistyrose{
 
     }
     'coté de la tuile (droite ou gauche)
-    class Ground{
+    class Ground implements Positionnable{
         -color: GroundColor
         -crownNumber:Integer
         -groundCounted:Boolean
@@ -263,7 +263,7 @@ package Model #mistyrose{
         +getPlayer():Player
     }
     'class chateau
-    class Castle{
+    class Castle implements Positionnable{
         +getColor():GroundColor
         +getCrownNumber(): Integer
         +isGroundCounted():Boolean
@@ -280,42 +280,11 @@ package Model #mistyrose{
     +YELLOW
     }
 
-        class IMGReader{
-            {static} - RESSOURCE_PATH = "./kingdomino/ressources/"
-            {static} getImagePnl(filename:String):JLabel
-            {static} getImagePnl(filename:String, width:Integer, height:Integer):JLabel
-            {static} getImage(filename:String):ImageIcon
-            {static} getImage(color:GroundColor):ImageIcon
-            {static} getImage(color:GroundColor, crown:Integer):Icon
-        }
-        class FontReader{
-            {static} - instance : FontReader
-            -algerian : Font
-            -showcard : Font
-            -bookmanold : Font
-            - symbola : Font
 
-            -FontReader()
-            {static}+getInstance():FontReader
-            +getAlgerian(): Font
-            +getShowcard(): Font
-            +getBookmanold(): Font
-            +getSymbola(): Font
-        }
     }
-}
 
 'package VIEW
 package view #D0E1D4{
-    class ErrorMessage extends MyLabel{
-    'ajout des méthodes ici
-    }
-    class PlayerBoardView extends JPanel{
-    'ajout des méthodes ici
-    }
-    class TileView extends JPanel{
-
-    }
     'application du jeu (design avec Swing)
     class MyWindow implements GameObserver{
         -gameController: GameController
@@ -402,6 +371,8 @@ package view #D0E1D4{
         +update(gameContext:GameContext)
         +updateEnd(gameContext:GameContext)
     }
+
+
     package Components{
         class MyLabel{
         +MyLabel(text: String)
@@ -410,8 +381,20 @@ package view #D0E1D4{
         +setStroke(s: Stroke)
         +paintComponent(g:Graphics)
         }
+
+        class ErrorMessage extends MyLabel{
+             +ErrorMessage(view:JPanel)
+             +setText(text:String)
+        }
+        class TileView extends JPanel{
+            +TileView(gameController:GameController, tile:Tile, king:King,rotateMode:Boolean)
+        }
+        class PlayerBoardView extends JPanel{
+            +PlayerBoardView(gameController:GameController, player:Player, game:GameContext, gameView:GameView
+        }
     }
 }
+
 package Utilities{
         class CSVReader{
             {static} - RESSOURCE_PATH = "./kingdomino/ressources/"
@@ -439,16 +422,17 @@ package Utilities{
         }
     }
 
-Ground ..|> Positionnable
-Castle ..|> Positionnable
+'Implements Positionnable
+'Ground ..|> Positionnable
+'Castle ..|> Positionnable
 PlayerBoard o-> "* \n -board"  Positionnable : > contains
 
-Deck ..> CSVReader :  <<use>>
+
 Ground "1"*-->"1\n-color"GroundColor
 Tile *--->"1-left \n 1-right" Ground :  > composed
 
 'A SUPP
-Deck  *-> "..* -tiles" Tile : > had
+Deck  o-> "..* -tiles" Tile : > had
 
 
 GameContext  o--> "..4\n-currentTiles" Tile
@@ -458,53 +442,55 @@ GameContext *--> "1\n-playerStrategy" PlayerStrategy :  > select
 GameContext *-> "2..4\n-players" Player :  > played by
 
 
-'BoardGame  *-> Player : "2..4\n-players" > played by
-GameController o--> "1\n-gameContext" GameContext :  > had
+'GameController est composé de GameContext => compositon
+GameController *--> "1\n-gameContext" GameContext :  > had
 
 
 Player *-> "1\n-board" PlayerBoard :  > had
-Player  o-->"1..2\n-playerKings" King :  > had
+Player  *->"1..2\n-playerKings" King :  > had
 
-PlayerBoard .> Direction : <<use>>
 
-'Implements de GameMode
-'Harmony .u.|> GameMode
-'MiddleKingdom .u.|> GameMode
+'Extends de ModeDecorator
 ModeDecorator .u.|> GameMode
 NormalMode .u.|> GameMode
 
-King"1"*--> "1\n-color" KingColor: > had
+King"1"*-> "1\n-color" KingColor: > had
+Castle*->"1\n-color"GroundColor : > had
 
-
-Castle*-->"1\n-color"GroundColor : > had
-
-MyWindow  *--> "1\n-mainMenu" MainMenu : > display
-MyWindow  *--> "1\n-choosingMenu" ChoosingMenu : > display
 MyWindow  *--> "1\n-gameView" GameView : > display
-MyWindow  *---> "1\n-endView" EndView : > display
+MyWindow  *-> "1\n-mainMenu" MainMenu : > display
+MyWindow  *-> "1\n-choosingMenu" ChoosingMenu : > display
+MyWindow  *--> "1\n-endView" EndView : > display
 
-KingDomino..> GameController : <<create>>
-'KingDomino.> PlayerStrategy : <<use>>
-'KingDomino..> GameMode : <<use>>
-KingDomino ..>MyWindow : <<create>>
-KingDomino ..>GameContext : <<create>>
 MyWindow o-> "1\n-controller" GameController : > send \nuser request
 MyWindow  o-> "1\n-game"GameContext
 GameContext o-->"..n\n-observers" GameObserver : > observes
-GameView *->MyLabel : > label
+GameView *-->MyLabel : > label
 EndView *->MyLabel : > label
-ChoosingMenu *--> "*" MyLabel : > label
+ChoosingMenu *-> "*" MyLabel : > label
 
 Log .> GameContext : "notify"
 
-IMGReader <..MainMenu :<<use>>
-IMGReader <.. ChoosingMenu: <<use>>
-IMGReader <.. GameView: <<use>>
-IMGReader <.. EndView:<<use>>
+'les liaisons use et create
+KingDomino..> GameController : <<create>>
+KingDomino .>MyWindow : <<create>>
+KingDomino .>GameContext : <<create>>
 
-FontReader <...MainMenu:<<use>>
-FontReader <...ChoosingMenu: <<use>>
-FontReader <..GameView: <<use>>
-FontReader <.. EndView: <<use>>
+PlayerBoard ..> Direction : <<use>>
+
+Deck .> CSVReader :  <<use>>
+
+EndView ..> IMGReader : <<use>>
+GameView ..> IMGReader: <<use>>
+ChoosingMenu ..> IMGReader : <<use>>
+MainMenu .> IMGReader : <<use>>
+
+EndView ...>FontReader :<<use>>
+GameView ...>FontReader :<<use>>
+ChoosingMenu ..>FontReader :<<use>>
+MainMenu .>FontReader :<<use>>
+
+GameView .>TileView : <<use>>
+GameView ..>PlayerBoardView : <<use>>
 
 @enduml
