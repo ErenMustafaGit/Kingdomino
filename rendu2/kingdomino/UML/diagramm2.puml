@@ -74,7 +74,7 @@ package Model #mistyrose{
         -gameMode: GameMode
         -deck:Deck
         -currentTiles:Tile[]
-        -observers : GameObserver[][]
+        -observers : GameObserver[]
         -players : Player[]
         -kings:King[]
         -nextRoundKings:King[]
