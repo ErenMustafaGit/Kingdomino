@@ -35,10 +35,6 @@ public class Ground implements Positionable{
         this.crownCounted = crownCounted;
     }
 
-    public void setCrownNumber(int crownNumber) {
-        this.crownNumber = crownNumber;
-    }
-
     @Override
     public GroundColor getColor() {
         return this.color;

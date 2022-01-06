@@ -187,10 +187,6 @@ public class PlayerBoard
         return this.board[x][y];
     }
 
-    public Positionable[][] getBoard() {
-        return this.board;
-    }
-
     public int getBOARD_SIZE() {
         return this.BOARD_SIZE;
     }

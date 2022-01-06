@@ -128,7 +128,7 @@ package Model #mistyrose{
     class Ground implements Positionnable{
         -color:GroundColor
         -crownNumber:Integer
-        -groundCounted:boolean
+        -groundCounted:Boolean
         -crownCounted:Boolean
 
         +Ground(color:GroundColor, crownNumber:Integer)
@@ -219,9 +219,7 @@ package Model #mistyrose{
         +Player(color:KingColor,pName:String,board:PlayerBoard)
         +getPlayerColor():KingColor
         +getPlayerName():String
-        +setPlayerColor()
         +getBoard():PlayerBoard
-        +setBoard(board:PlayerBoard)
     }
 
     class PlayerBoard{
@@ -237,7 +235,6 @@ package Model #mistyrose{
         +isPlayable(tile:Tile):Boolean
         +isSameGround(x:Integer,y:Integer, ground:Ground):Boolean
         +getPositionnable(x:Integer, y:Integer):Positionnable
-        +getBoard():Positionnable[]
         +getBOARD_SIZE():Integer
     }
 

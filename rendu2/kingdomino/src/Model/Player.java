@@ -15,8 +15,6 @@ public class Player
         this.playerName = pName;
     }
 
-
-
     public KingColor getPlayerColor() {
         return playerColor;
     }
@@ -26,19 +24,8 @@ public class Player
         return this.playerName;
     }
 
-    public void setPlayerColor(KingColor playerColor) {
-        this.playerColor = playerColor;
-    }
-
-
-
-
-
     public PlayerBoard getBoard() {
         return board;
     }
 
-    public void setBoard(PlayerBoard board) {
-        this.board = board;
-    }
 }
