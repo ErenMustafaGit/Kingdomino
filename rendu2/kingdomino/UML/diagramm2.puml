@@ -10,10 +10,9 @@ skinparam BackgroundColor HoneyDew
 package Controller #technology{
 
     class GameController{
-        -game:GameContext
 
         +GameController(game:GameContext)
-        +initializeGame(nblayers:Integer, colors:KingColor[],pseudo:String[], gameMode:Integer)
+        +initializeGame(nbPlayers:Integer, colors:KingColor[],pseudo:String[], gameMode:Integer)
         +placeCastle(player:Player,pos_x:Integer, pos_y:Integer)
         +placeTile(pos_x:Integer, pos_y:Integer):Boolean
         +skipTurn()
@@ -152,7 +151,7 @@ package Model #mistyrose{
         +Harmony(gameMode:GameMode)
         +calculateScore(p:PlayerBoard):Integer
         -calculateHarmonyBonus(p:PlayerBoard):Integer
-        +isHarmony():Boolean
+        +isHarmony(p:PlayerBoard):Boolean
         +hasHarmony():Boolean
         +isKingdomMiddle():Boolean
     }
@@ -180,8 +179,8 @@ package Model #mistyrose{
         +MiddleKingdom(gameMode:GameMode)
         +calculateScore(p:PlayerBoard):Integer
         -calculateKingdomBonus(p:PlayerBoard):Integer
-        +isKingdomMiddle():Boolean
-        +isHarmony():Boolean
+        +isKingdomMiddle(p:PlayerBoard):Boolean
+        +isHarmony(p:PlayerBoard):Boolean
         +hasHarmony():Boolean
     }
 
@@ -189,7 +188,7 @@ package Model #mistyrose{
         +ModeDecorator(gameMode:GameMode)
         +calculateScore(p:PlayerBoard):Integer
         +isHarmony(p:PlayerBoard):Boolean
-        +isKingdomMiddle():Boolean
+        +isKingdomMiddle(p:PlayerBoard):Boolean
         +hasHarmony():Boolean
     }
 
@@ -250,10 +249,7 @@ package Model #mistyrose{
         +Tile(number:Integer,left:Ground, right:Ground):Tile
         +getLeft():Ground
         +getRight():Ground
-        +setRight(right:Ground)
-        +setLeft(left:Ground)
         +getNumber():Integer
-        +setNumber(number:Integer)
         +rotate()
         +reverse()
         +getDirection():Direction
