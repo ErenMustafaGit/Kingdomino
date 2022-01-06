@@ -126,7 +126,6 @@ package Model #mistyrose{
     }
 
     class Ground implements Positionnable{
-        -color:GroundColor
         -crownNumber:Integer
         -groundCounted:Boolean
         -crownCounted:Boolean
@@ -256,8 +255,6 @@ package Model #mistyrose{
     ' pas implémenter car on implémente pas les classes propres à Java
     class Tile{
         -number:Integer
-        -left:Ground
-        -right:Ground
         -direction:Direction
 
         +Tile(number:Integer):Tile
