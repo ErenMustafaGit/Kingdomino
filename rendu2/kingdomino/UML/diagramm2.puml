@@ -36,7 +36,6 @@ package Model #mistyrose{
     }
 
     class Deck{
-        -tiles:Tile[]
 
         +Deck()
         +Deck(deckSize:Integer)
@@ -70,12 +69,6 @@ package Model #mistyrose{
     }
 
     class GameContext{
-        -nbPlayersStrat:PlayerStrategy
-        -gameMode: GameMode
-        -deck:Deck
-        -currentTiles:Tile[]
-        -observers : GameObserver[]
-        -players : Player[]
         -kings:King[]
         -nextRoundKings:King[]
         -turn : Integer
@@ -165,7 +158,6 @@ package Model #mistyrose{
     }
 
     class King{
-        -color:KingColor
         -player:Player
         -choosenTile:Tile[]
 
@@ -211,8 +203,6 @@ package Model #mistyrose{
     }
 
     class Player{
-        -playerColor:KingColor
-        -board:PlayerBoard
         -playerName:String
 
         +Player(color:KingColor,pName:String,board:PlayerBoard)
@@ -223,7 +213,6 @@ package Model #mistyrose{
 
     class PlayerBoard{
         -BOARD_SIZE:Integer=5
-        -board:Positionnable[]
 
         +PlayerBoard()
         +PlayerBoard(castle:Castle)
@@ -334,7 +323,6 @@ package Views #D0E1D4{
 
     class ChoosingMenu{
          {static}shouldFill : Boolean
-         -mainFrame : MyWindow
          -nbPlayerChoice : String[]
          -btnColor : Color
          -btnHoverColor: Color
@@ -347,7 +335,6 @@ package Views #D0E1D4{
     }
 
     class EndView{
-        -mainFrame : MyWindow
         -btnColor : Color
         -btnHoverColor: Color
 
@@ -356,9 +343,7 @@ package Views #D0E1D4{
     }
 
     class GameView{
-        -mainFrame: MyWindow
-        -headerLbl: MyLabel
-        -tourLbl : MyLabel
+
         -btnColor: Color
         -btnSkipColor:Color
         -btnHoverColor: Color
@@ -378,7 +363,6 @@ package Views #D0E1D4{
     }
 
     class MainMenu{
-        -mainFrame: MyWindow
         -btnColor : Color
         -btnHoverColor: Color
 
@@ -470,9 +454,9 @@ MyWindow o-> "1\n-controller" GameController : > send \nuser request
 MyWindow  o-> "1\n-game"GameContext
 
 'les vues utilisent les labels
-GameView *-->MyLabel : > label
-EndView *-->MyLabel : > label
-ChoosingMenu *--> "*" MyLabel : > label
+GameView *->"2\n-label"MyLabel : > label
+EndView *->"..*\n-label"MyLabel : > label
+ChoosingMenu *---> "..*\n-label" MyLabel : > label
 
 'USES
 'PlayerBoard va utiliser les directions
@@ -481,17 +465,18 @@ PlayerBoard .> Direction : <<use>>
 'Deck va utiliser CSVReader
 Deck ...> CSVReader :  <<use>>
 
-EndView .> IMGReader : <<use>>
+EndView ..> IMGReader : <<use>>
 GameView ..> IMGReader: <<use>>
-ChoosingMenu ..> IMGReader : <<use>>
+ChoosingMenu .> IMGReader : <<use>>
 MainMenu .> IMGReader : <<use>>
 
 EndView ..>FontReader :<<use>>
 GameView .>FontReader :<<use>>
-ChoosingMenu ..>FontReader :<<use>>
-MainMenu ..>FontReader :<<use>>
+ChoosingMenu .>FontReader :<<use>>
+MainMenu .>FontReader :<<use>>
 
 GameView ..>TileView : <<use>>
 GameView ..>PlayerBoardView : <<use>>
+GameView ..>ErrorMessage : <<use>>
 
 @enduml
