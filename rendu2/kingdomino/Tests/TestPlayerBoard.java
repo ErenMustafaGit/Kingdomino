@@ -252,7 +252,7 @@ public class TestPlayerBoard {
         public void testHarmonyPoint()
         {
             gameMode = new Harmony(gameMode);
-            assertEquals( 28, gameMode.calculateScore(playerBoard)  );
+            assertEquals( 23, gameMode.calculateScore(playerBoard)  );
         }
 
         @Test
@@ -270,7 +270,7 @@ public class TestPlayerBoard {
         {
             gameMode = new MiddleKingdom(gameMode);
             gameMode = new Harmony(gameMode);
-            assertEquals( 38, gameMode.calculateScore(playerBoard)  );
+            assertEquals( 33, gameMode.calculateScore(playerBoard)  );
         }
     }
 

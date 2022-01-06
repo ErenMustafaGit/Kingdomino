@@ -28,10 +28,6 @@ public class MiddleKingdom extends ModeDecorator {
         }
         return middle.getColor() == GroundColor.GREY;
     }
-    @Override
-    public String getnamegame() {
-       return "MiddleKingdom";
-    }
 
     @Override
     public boolean isHarmony(PlayerBoard p) {

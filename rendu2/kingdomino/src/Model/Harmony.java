@@ -40,9 +40,5 @@ public class Harmony extends ModeDecorator {
         return super.isKingdomMiddle(p);
     }
 
-    @Override
-    public String getnamegame() {
-        return "Harmony";
-    }
 }
 

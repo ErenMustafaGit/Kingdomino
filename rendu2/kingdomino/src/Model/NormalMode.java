@@ -161,14 +161,6 @@ public class NormalMode implements GameMode {
         return count;
     }
 
-
-
-
-    @Override
-    public String getnamegame() {
-        return "Normalmode";
-    }
-
     @Override
     public boolean hasHarmony() {
         return false;

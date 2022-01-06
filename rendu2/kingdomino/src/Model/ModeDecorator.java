@@ -1,15 +1,15 @@
 package Model;
 
 public abstract class ModeDecorator implements GameMode {
-    private GameMode wrapee;
+    private GameMode gameMode;
 
     public ModeDecorator(GameMode gameMode){
-        this.wrapee = gameMode;
+        this.gameMode = gameMode;
     }
 
 
     public int calculateScore(PlayerBoard p){
-        return wrapee.calculateScore(p);
+        return gameMode.calculateScore(p);
     }
 
     @Override

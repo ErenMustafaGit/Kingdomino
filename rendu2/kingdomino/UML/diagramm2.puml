@@ -115,7 +115,6 @@ package Model #mistyrose{
 
     interface GameMode <<interface>>{
         +calculateScore(p:PlayerBoard):Integer
-        +getnamegame():String
         +isHarmony(p:PlayerBoard): Boolean
         +hasHarmony():Boolean
         +isKingdomMiddle(p:PlayerBoard):Boolean
@@ -163,7 +162,6 @@ package Model #mistyrose{
         +isHarmony():Boolean
         +hasHarmony():Boolean
         +isKingdomMiddle():Boolean
-        +getnamegame():String
     }
 
     class King{
@@ -191,16 +189,14 @@ package Model #mistyrose{
         +calculateScore(p:PlayerBoard):Integer
         +calculateKingdomBonus(p:PlayerBoard):Integer
         +isKingdomMiddle():Boolean
-        +getnamegame():String
         +isHarmony():Boolean
         +hasHarmony():Boolean
     }
 
     abstract class ModeDecorator implements GameMode{
-        -wrapee:GameMode
         +ModeDecorator(gameMode:GameMode)
         +calculateScore(p:PlayerBoard):Integer
-        +isHarmony(p:PlayerBoard():Boolean
+        +isHarmony(p:PlayerBoard):Boolean
         +isKingdomMiddle():Boolean
         +hasHarmony():Boolean
     }
@@ -209,7 +205,6 @@ package Model #mistyrose{
         +calculateScore(p:PlayerBoard):Integer
         +countcell(p:PlayerBoard, x:Integer,y:Integer):Integer
         +countcrown(p:PlayerBoard, x:Integer,y:Integer):Integer
-        +getnamegame():String
         +isHarmony(p:PlayerBoard): Boolean
         +hasHarmony():Boolean
         +isKingdomMiddle(p:PlayerBoard):Boolean
