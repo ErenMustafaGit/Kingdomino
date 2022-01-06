@@ -159,6 +159,7 @@ package Model #mistyrose{
     class Harmony extends ModeDecorator{
         +Harmony(gameMode:GameMode)
         +calculateScore(p:PlayerBoard):Integer
+        -calculateHarmonyBonus(p:PlayerBoard):Integer
         +isHarmony():Boolean
         +hasHarmony():Boolean
         +isKingdomMiddle():Boolean
@@ -187,7 +188,7 @@ package Model #mistyrose{
     class MiddleKingdom extends ModeDecorator{
         +MiddleKingdom(gameMode:GameMode)
         +calculateScore(p:PlayerBoard):Integer
-        +calculateKingdomBonus(p:PlayerBoard):Integer
+        -calculateKingdomBonus(p:PlayerBoard):Integer
         +isKingdomMiddle():Boolean
         +isHarmony():Boolean
         +hasHarmony():Boolean

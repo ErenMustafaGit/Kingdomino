@@ -24,26 +24,12 @@ public class Tile implements Comparable<Tile>
     public Ground getLeft() {
         return left;
     }
-
-    public void setLeft(Ground left) {
-        this.left = left;
-    }
-
     public Ground getRight() {
         return right;
     }
-
-    public void setRight(Ground right) {
-        this.right = right;
-    }
-
     public int getNumber()
     {
         return this.number;
-    }
-    public void setNumber(int number)
-    {
-        this.number = number;
     }
 
     public void rotate(){
