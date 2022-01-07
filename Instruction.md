@@ -29,18 +29,20 @@ Lorsque vous avez exécuté l'exécutable KingDomino.jar, la fenêtre suivante s
 
 <img src="images/menu.png"/>
 
-Vous cliquez sur le bouton "JOUER" pour commencer une partie et la fenêtre suivante s'affiche comme ci-dessous : 
-
+Vous avez le choix de jouer en mode normal (en ne cochant aucun mode de jeu), de jouer en mode Harmony, en mode MiddleKingdom ou les deux modes (en cochant dans ce cas les deux modes).
+Vous pouvez également choisir le nombre de joueur et les nommer si vous en avez envie.
 <img src="images/choix.png"/>
 
-Vous avez le choix de jouer en mode normal (en ne cochant aucun mode de jeu), de jouer en mode Harmonie, en mode MiddleKingdom ou les deux modes (en cochant dans ce cas les deux modes).
-Vous pouvez également choisir le nombre de joueur et les nommer si vous en avez envie.
-
-Après avoir cliqué sur le bouton "COMMENCER", vous commencerez alors la partie : 
-
+Il y a 2 fenêtre principal de jeu, à gauche vous trouverez le plateau des joueurs et à droite les tuiles du jeu.
+Les tuiles sont directement triés dans l'ordre croissant (donc la tuile la plus haute à le nombre le plus petit).<br>
+Les informations de jeu et de ce que vous devrez faire pendant le tour sont affiché au dessus.
+<br>
+<br>
+Lorsque vous devrez placez une tuile, vous aurez la possiblité de modifier son sens à votre guise. Cependant, comme les règles du jeu le déclare, vous ne pouvez défausser une carte seulement si vous n'avez pas de possiblité de jeu.<br>
+Le bouton QUITTER en bas, supprimera votre partie et vous ammenera dans le menu.
 <img src="images/jeu.png"/>
 
-Lorsque la partie est terminé, vous arrivez à une page de fin de jeu qui affichera le score de chaque joueur ainsi que leur plateau.
+Lorsque la partie est terminé, vous arrivez à une page de fin de jeu qui affichera le score de chaque joueur (representé par la couleur du roi) ainsi que leur plateau.
 Vous pouvez retourner au menu principal pour rejouer!
 
 <img src="images/final.png"/>
