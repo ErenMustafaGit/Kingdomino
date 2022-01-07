@@ -80,6 +80,7 @@ package Model #mistyrose{
         +getGameMode():GameMode
         +getNbPlayersStrat(): PlayerStrategy
         +setGameStrategy(gameModeChoosen: Integer)
+        +isHarmony():Boolean
         +initGame(colors: KingColor[],pseudo:String[])
         +getPlayers(i:Integer):Player
         +getPlayersNb():Integer
