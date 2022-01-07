@@ -14,6 +14,22 @@ Les tuiles sont composées de deux terrains (gauche et droite). Les tuiles sont 
 
 En raison du principe YAGNI, nous avons enlever les fonctions qui n’était pas utilisé pour l’instant (pour cette version V2 du jeu, par la suite elles auraient pû), setNumber(), setLeft(), setRight(), car les méthodes dont nous avons besoin doivent apparaître et non celles qu’on comptais utiliser.
 
+## Calcul de points
+Le calcul de points est réalisé grâce à la méthode calculeScore(p:PlayerBoard) qui retourne le résultat à l’aide du calcul : nombre de case * nombre de couronnes où nombre de case correspond au nombre de case formant un domaine contenant au moins une couronne.<br><br>
+Dans le cas du mode de jeu MiddleKingdom, une méthode calculateKingdomBonus (p : PlayerBoard) est ajouté permettant d’ajouter 10 points si le chateau est au milieu du plateau (en position x=2 et y=2)<br><br>
+Dans le cas du mode de jeu Harmony, une méthode isHarmony(p:PlayerBoard) va vérifier si le plateau du joueur est complet ou non (qui ne présente aucune case vide) et la méthode calculateHarmonyBonus va permet de retourner la valeur +5 si il est complet sinon -5. Le joueur perdra ou gagnera 5 points en fonction du remplissage de son plateau. <br>
+
+### Méthode utilisé
+
+Nous avons fait le calcul de points avec une fonction récursive. l'algorithme regarde chaque case autour de celle choisi, si il est du même type et qu'il n'a jamais été compté, la recursivité s'applique. Ainsi de suite avec toutes les cases qui n'ont jamais été compté.
+Nous obtiendront donc pour chaque "famille de terrain aligné", leurs nombres de couronne et le nombre de case.<br>
+Voici un petit schéma prenant les 3 premières étapes pour aider à comprendre : 
+<p align="center">
+  <img src="calculPoint_1.png" width="150" title="hover text">
+  <img src="calculPoint_2.png" width="150" title="hover text">
+  <img src="calculPoint_3.png" width="150" title="hover text">
+</p>
+
 ## Modes de jeu 
 
 Les modes de jeu sont modélisés à l’aide du pattern Decorator. Nous avons opéré un changement de direction à ce sujet car, le pattern strategy ne correspondait pas exactement à nos besoin. En effet, cela nous empêchai de pouvoir seléctionner les deux modes de jeux en même temps. <br>
@@ -25,9 +41,7 @@ Cela permettra donc au joueur de choisir, sans problème, entre les modes : <br>
 - MiddleKingdom
 - Harmony+MiddleKingdom
 <br> 
-Le calcul de points est réalisé grâce à la méthode calculeScore(p:PlayerBoard) qui retourne le résultat à l’aide du calcul : Nbre de case * Nbre de couronnes où Nbre de case correspond au nombre de case formant un domaine contenant au moins une couronne.<br><br>
-Dans le cas du mode de jeu MiddleKingdom, une méthode calculateKingdomBonus (p : PlayerBoard) est ajouté permettant d’ajouter 10 points si le chateau est au milieu du plateau (en position x=2 et y=2)<br><br>
-Dans le cas du mode de jeu Harmony, une méthode isHarmony(p:PlayerBoard) va vérifier si le plateau du joueur est complet ou non (qui ne présente aucune case vide) et la méthode calculateHarmonyBonus va permet de retourner la valeur +5 si il est complet sinon -5. Le joueur perdra ou gagnera 5 points en fonction du remplissage de son plateau. 
+
 
 ## A améliorer
 
