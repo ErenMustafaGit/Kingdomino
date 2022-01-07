@@ -10,10 +10,9 @@ skinparam BackgroundColor HoneyDew
 package Controller #technology{
 
     class GameController{
-        -game:GameContext
 
         +GameController(game:GameContext)
-        +initializeGame(nblayers:Integer, colors:KingColor[],pseudo:String[], gameMode:Integer)
+        +initializeGame(nbPlayers:Integer, colors:KingColor[],pseudo:String[], gameMode:Integer)
         +placeCastle(player:Player,pos_x:Integer, pos_y:Integer)
         +placeTile(pos_x:Integer, pos_y:Integer):Boolean
         +skipTurn()
@@ -36,7 +35,6 @@ package Model #mistyrose{
     }
 
     class Deck{
-        -tiles:Tile[]
 
         +Deck()
         +Deck(deckSize:Integer)
@@ -70,12 +68,6 @@ package Model #mistyrose{
     }
 
     class GameContext{
-        -nbPlayersStrat:PlayerStrategy
-        -gameMode: GameMode
-        -deck:Deck
-        -currentTiles:Tile[]
-        -observers : GameObserver[]
-        -players : Player[]
         -kings:King[]
         -nextRoundKings:King[]
         -turn : Integer
@@ -159,13 +151,12 @@ package Model #mistyrose{
         +Harmony(gameMode:GameMode)
         +calculateScore(p:PlayerBoard):Integer
         -calculateHarmonyBonus(p:PlayerBoard):Integer
-        +isHarmony():Boolean
+        +isHarmony(p:PlayerBoard):Boolean
         +hasHarmony():Boolean
         +isKingdomMiddle():Boolean
     }
 
     class King{
-        -color:KingColor
         -player:Player
         -choosenTile:Tile[]
 
@@ -188,8 +179,8 @@ package Model #mistyrose{
         +MiddleKingdom(gameMode:GameMode)
         +calculateScore(p:PlayerBoard):Integer
         -calculateKingdomBonus(p:PlayerBoard):Integer
-        +isKingdomMiddle():Boolean
-        +isHarmony():Boolean
+        +isKingdomMiddle(p:PlayerBoard):Boolean
+        +isHarmony(p:PlayerBoard):Boolean
         +hasHarmony():Boolean
     }
 
@@ -197,7 +188,7 @@ package Model #mistyrose{
         +ModeDecorator(gameMode:GameMode)
         +calculateScore(p:PlayerBoard):Integer
         +isHarmony(p:PlayerBoard):Boolean
-        +isKingdomMiddle():Boolean
+        +isKingdomMiddle(p:PlayerBoard):Boolean
         +hasHarmony():Boolean
     }
 
@@ -211,8 +202,6 @@ package Model #mistyrose{
     }
 
     class Player{
-        -playerColor:KingColor
-        -board:PlayerBoard
         -playerName:String
 
         +Player(color:KingColor,pName:String,board:PlayerBoard)
@@ -223,7 +212,6 @@ package Model #mistyrose{
 
     class PlayerBoard{
         -BOARD_SIZE:Integer=5
-        -board:Positionnable[]
 
         +PlayerBoard()
         +PlayerBoard(castle:Castle)
@@ -261,10 +249,7 @@ package Model #mistyrose{
         +Tile(number:Integer,left:Ground, right:Ground):Tile
         +getLeft():Ground
         +getRight():Ground
-        +setRight(right:Ground)
-        +setLeft(left:Ground)
         +getNumber():Integer
-        +setNumber(number:Integer)
         +rotate()
         +reverse()
         +getDirection():Direction
@@ -319,7 +304,6 @@ package Views #D0E1D4{
             +MyLabel(text: String, alignment: Integer)
             +setOutlineColor(c: Color)
             +setStroke(s: Stroke)
-            +paintComponent(g:Graphics)
         }
 
         class PlayerBoardView{
@@ -334,31 +318,26 @@ package Views #D0E1D4{
 
     class ChoosingMenu{
          {static}shouldFill : Boolean
-         -mainFrame : MyWindow
          -nbPlayerChoice : String[]
          -btnColor : Color
          -btnHoverColor: Color
          -cboColor: Color
 
          +ChoosingMenu(MyWindow: MyWindow)
-         +paint(g: Graphics)
          -createColorCbo()
          -isDifferentColor():Boolean
     }
 
     class EndView{
-        -mainFrame : MyWindow
         -btnColor : Color
         -btnHoverColor: Color
 
         +EndView(MyWindow: MyWindow)
-        +paint(g: Graphics)
+
     }
 
     class GameView{
-        -mainFrame: MyWindow
-        -headerLbl: MyLabel
-        -tourLbl : MyLabel
+
         -btnColor: Color
         -btnSkipColor:Color
         -btnHoverColor: Color
@@ -369,7 +348,6 @@ package Views #D0E1D4{
         +updateInteractionBoard()
         +updatePlayersBoards()
         +update(game: GameContext)
-        +paint(g: Graphics)
     }
 
     class Log implements GameObserver{
@@ -378,12 +356,10 @@ package Views #D0E1D4{
     }
 
     class MainMenu{
-        -mainFrame: MyWindow
         -btnColor : Color
         -btnHoverColor: Color
 
         +MainMenu(MyWindow: MyWindow)
-        +paint(g: Graphics)
     }
     class MyWindow implements GameObserver{
         -gameController: GameController
@@ -470,9 +446,9 @@ MyWindow o-> "1\n-controller" GameController : > send \nuser request
 MyWindow  o-> "1\n-game"GameContext
 
 'les vues utilisent les labels
-GameView *-->MyLabel : > label
-EndView *-->MyLabel : > label
-ChoosingMenu *--> "*" MyLabel : > label
+GameView *->"2\n-label"MyLabel : > label
+EndView *->"..*\n-label"MyLabel : > label
+ChoosingMenu *---> "..*\n-label" MyLabel : > label
 
 'USES
 'PlayerBoard va utiliser les directions
@@ -481,17 +457,18 @@ PlayerBoard .> Direction : <<use>>
 'Deck va utiliser CSVReader
 Deck ...> CSVReader :  <<use>>
 
-EndView .> IMGReader : <<use>>
+EndView ..> IMGReader : <<use>>
 GameView ..> IMGReader: <<use>>
-ChoosingMenu ..> IMGReader : <<use>>
+ChoosingMenu .> IMGReader : <<use>>
 MainMenu .> IMGReader : <<use>>
 
 EndView ..>FontReader :<<use>>
 GameView .>FontReader :<<use>>
-ChoosingMenu ..>FontReader :<<use>>
-MainMenu ..>FontReader :<<use>>
+ChoosingMenu .>FontReader :<<use>>
+MainMenu .>FontReader :<<use>>
 
 GameView ..>TileView : <<use>>
 GameView ..>PlayerBoardView : <<use>>
+GameView ..>ErrorMessage : <<use>>
 
 @enduml
