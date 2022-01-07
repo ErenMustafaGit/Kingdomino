@@ -304,7 +304,6 @@ package Views #D0E1D4{
             +MyLabel(text: String, alignment: Integer)
             +setOutlineColor(c: Color)
             +setStroke(s: Stroke)
-            +paintComponent(g:Graphics)
         }
 
         class PlayerBoardView{
@@ -325,7 +324,6 @@ package Views #D0E1D4{
          -cboColor: Color
 
          +ChoosingMenu(MyWindow: MyWindow)
-         +paint(g: Graphics)
          -createColorCbo()
          -isDifferentColor():Boolean
     }
@@ -335,7 +333,7 @@ package Views #D0E1D4{
         -btnHoverColor: Color
 
         +EndView(MyWindow: MyWindow)
-        +paint(g: Graphics)
+
     }
 
     class GameView{
@@ -350,7 +348,6 @@ package Views #D0E1D4{
         +updateInteractionBoard()
         +updatePlayersBoards()
         +update(game: GameContext)
-        +paint(g: Graphics)
     }
 
     class Log implements GameObserver{
@@ -363,7 +360,6 @@ package Views #D0E1D4{
         -btnHoverColor: Color
 
         +MainMenu(MyWindow: MyWindow)
-        +paint(g: Graphics)
     }
     class MyWindow implements GameObserver{
         -gameController: GameController
