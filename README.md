@@ -43,71 +43,10 @@ Vous trouverez les règles au format texte dans le [Livret de Règles](rendu1/do
 
 La liste des dominos est disponible sur [ce dépot Github](https://github.com/RuPaulsDataRace/Kingdomino-For-Queens).
 
-Attendus
---------
+### Comment jouer
 
-Votre application doit proposer ces fonctionnalités :
+Dans le menu de choix, vous pouvez seletionner, le mode de jeu dans lequel vous voulez jouer, le nombre de participants, le nom des participants ainsi que la couleur de chaque participants. Une fois votre selection faite, vous pouvez lancer le jeu en cliquant sur continuer. <br><br>
+Vous voilà maintenant dans le coeur du jeu, vous pouvez donc distinguer à gauche les plateaux des joueurs et à droite l'éspace d'action. Le joueur indiqué dans l'espace d'action doit à present placer son chateau où il le desir en cliquant simplement sur la case de son choix dans son plateau de jeu. Le plateau de jeu du joueur est distinguable grace au nom et à la couleur du joueur indiqué au dessus de celui-ci.<br><br>
+Une fois les chateaux placés, le joueur indiqué dans l'espace d'action choisi sa première tuile en cliquant simplement dessus, cette action est à repéter pour chaques joueurs. Une fois toutes les tuiles choisis, les joueurs les places dans une après l'autre dans l'ordre determiné par les règles (cf. Livret de Règles), pour ce faire, le joueur verra sa tuile dans l'espace d'action, il aura à sa disposition deux bouton pour tourner la tuile dans le sens désiré. Une fois la tuile dans le bon sens, le joueur peut alors seletionner la case où il souhaite la placer en cliquant dessus.<br><br>
+Lorsque la partie est terminé les score de tous les joueurs sont affiché au centre de l'écran afin de determiner le classement, les plateaux de jeu sont affiché à gauche et à droite du classement.
 
-- Choix du nombre de joueurs (2 à 4)
-- Sélection **avant le début de la partie** des règles de calcul optionnelles parmi "Dynastie", "Empire du milieu" et "Harmonie"
-- Chaque joueur positionne initialement son château dans son royaume : il ne pourra plus être déplacé
-- À son tour un joueur doit pouvoir placer dans son royaume le domino présélectionné **puis** sélectionner le domino suivant
-- Votre application graphique doit proposer :
-  - une fenêtre de démarrage pour choisir les paramètres : joueurs, mode de calcul des points, etc.
-  - une fenêtre de jeu avec les royaumes de chaque joueur et qui permette à chaque joueur de jouer successivement jusqu'à la fin de la partie
-  - une fenêtre de fin de jeu qui affiche les scores et annonce le vainqueur
-
-Veillez à avoir une interface ergonomique qui affiche les informations utiles à chaque joueur.
-
-Consignes
----------
-
-### Pour démarrer avec le dépôt Git
-
-- Créez un groupe `nom1-nom2` où nom1 et nom2 sont les noms de famille des deux membres du binôme
-- Forkez le dépôt https://git.unistra.fr/a313/a31-kingdomino dans le groupe créé ci-dessus
-- Ajoutez le responsable du module et votre enseignant de TP comme Reporter de votre dépôt
-
-### Sur toute la durée 
-
-- Ce projet est à réaliser **en binôme**.
-- Vous devez concevoir en UML et implémenter en Java le jeu de société Kingdomino, en respectant une **architecture MVC** et en proposant une **interface graphique en Swing**.
-- Vous devez respecter les **principes de conception** et mettre en œuvre les **patrons de conception** vus en cours, **lorsque cela est pertinent**. Attention, il ne s'agit pas d'essayer d'utiliser tous les patrons de conception vus en cours !
-- Vous rédigerez parallèlement **un (ou des) rapports** pour expliquer vos choix de conception. Il est possible aussi que vous soyez amenés à renoncer à une partie du développement par manque de temps. Dans ce cas, le rapport est l’endroit où signaler ce problème (il aurait fallu faire *ceci* mais je n’avais pas assez de temps devant moi et j’ai préféré me concentrer sur *cela* parce que ...).
-- Votre dépôt devra être **mis à jour au minimum après chaque séance de TP** de façon à ce que nous puissions évaluer votre démarche sur toute la durée du projet.
-
-Rendus
-------
-
-### 1er rendu
-
-Date limite : le dimanche **19/12 à 23h59**
-
-Documents :
-
-- diagrammes UML
-- code source
-- rapport pour expliquer vos choix de conception
-
-Le rendu est à faire sur votre dépôt Git dans un répertoire `rendu1`.
-
-### 2ème rendu
-
-Date limite : le dimanche **9/01 à 23h59**
-
-Documents :
-
-- diagrammes UML
-- code source
-- un exécutable au format JAR
-- un mode d'emploi pour démarrer l'application
-- rapport pour présenter vos nouveaux choix de conception depuis le 1er rendu et expliquer les raisons des modifications de choix de conception qui avait été annoncé au 1er rendu.
-
-Le rendu est à faire sur votre dépôt Git dans un répertoire `rendu2`.
-
-### Précisions
-
-- Vos diagrammes UML doivent être au format PlantUML et svg,
-- Les rapports et le mode d'emploi doivent être au format Markdown.
-- À la fin du projet, votre dépôt devra contenir au minimum un répertoire `rendu1`, un répertoire `rendu2`, ce seront les seuls évalués. Le reste de votre dépôt pourra contenir votre code de développement et tous les documents qui vous seront utiles.
-- Pensez à vérifier que votre exécutable fonctionne aussi bien sur Linux que Windows (ou Mac).
