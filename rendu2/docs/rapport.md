@@ -14,6 +14,10 @@ Les tuiles sont composées de deux terrains (gauche et droite). Les tuiles sont 
 
 En raison du principe YAGNI, nous avons enlever les fonctions qui n’était pas utilisé pour l’instant (pour cette version V2 du jeu, par la suite elles auraient pû), setNumber(), setLeft(), setRight(), car les méthodes dont nous avons besoin doivent apparaître et non celles qu’on comptais utiliser.
 
+### Ordre de choix
+Les tuiles sont numérotés et triés avant d'être affiché au joueur, la première tuile (tout en haut) est celle avec le nombre le plus petit.
+Afin de connaître l'ordre pour le prochain tour, un dictionnaire en java (map) est fait avec pour chaque Tuile, un Roi assigné. Ainsi, lorsque tout les rois ont choisi leurs tuiles, nous pouvons connaîtres l'ordre du prochain tour à partir de ce dictionnaire. (En triant les tuiles du dictionnaire par leurs numéros)
+
 ## Calcul de points
 Le calcul de points est réalisé grâce à la méthode calculeScore(p:PlayerBoard) qui retourne le résultat à l’aide du calcul : nombre de case * nombre de couronnes où nombre de case correspond au nombre de case formant un domaine contenant au moins une couronne.<br><br>
 Dans le cas du mode de jeu MiddleKingdom, une méthode calculateKingdomBonus (p : PlayerBoard) est ajouté permettant d’ajouter 10 points si le chateau est au milieu du plateau (en position x=2 et y=2)<br><br>
@@ -23,12 +27,18 @@ Dans le cas du mode de jeu Harmony, une méthode isHarmony(p:PlayerBoard) va vé
 
 Nous avons fait le calcul de points avec une fonction récursive. l'algorithme regarde chaque case autour de celle choisi, si il est du même type et qu'il n'a jamais été compté, la recursivité s'applique. Ainsi de suite avec toutes les cases qui n'ont jamais été compté.
 Nous obtiendront donc pour chaque "famille de terrain aligné", leurs nombres de couronne et le nombre de case.<br>
-Voici un petit schéma prenant les 3 premières étapes pour aider à comprendre : 
+Voici un petit schéma prenant les 6 premières étapes pour aider à comprendre : 
 <p align="center">
   <img src="calculPoint_1.png" width="150" title="hover text">
   <img src="calculPoint_2.png" width="150" title="hover text">
   <img src="calculPoint_3.png" width="150" title="hover text">
+  <img src="calculPoint_4.png" width="150" title="hover text">
+  <img src="calculPoint_5.png" width="150" title="hover text">
+  <img src="calculPoint_6.png" width="150" title="hover text">
 </p>
+
+## Fin de partie
+Nous considerons la fin de partie lorsque le deck du jeu est vide. Cependant pour ne pas bloquer une partie et comme l'indique les règles du jeu, il faut autorisé le joueur a défaussé sa tuile lorsqu'il n'a plus de possibilité de la jouer.
 
 ## Modes de jeu 
 
@@ -43,13 +53,13 @@ Cela permettra donc au joueur de choisir, sans problème, entre les modes : <br>
 <br> 
 
 
-## A améliorer
+### A améliorer
 
 Nous aurions aimé ne pas mettre les fonctions isHarmony() ,isMiddleKingdom() ou encore hasHarmony() dans les classes de mode de jeu, car si on ajoute plusieurs autres modes de jeux, chaques autres modes de jeux devraient ajouter des fonctions en plus.<br><br>
 
 L’idéal pour obtenir l’information de quel mode de jeu nous avons, serait une liste de mode de jeux dans notre modèle, ainsi nos vues pourront y avoir accès (ce que nous avons besoin). Mais malheureusement nous n'avons pas eu le temps d’implémenter cela, même si nous prenons en compte la faiblesse de ce côté là.
 
-## Point intéressant à noter
+### Point intéressant à noter
 
 Nous avions pensé à utiliser le patron strategy, mais avant de l'implémenter nous avons vu que ce n'était pas la chose adaptée car nous pouvons additionner les modes de jeux, ainsi ajouter un nouveau mode de jeu, nous obligeait à créer autant de nouvelles classes qu’il y en avait ( si on ajoute un 3ème mode, cela nous ferait 4 nouvelles classes ! )
 
@@ -85,6 +95,11 @@ Nous avons également des méthodes dans cette classe qui va permettre de choisi
 
 Nous avons fait attention que cette classe ne soit pas un modèle dieu, en effet c’est le grand risque des grosses classes, mais ici gameContext ne fait seulement ce qu’il a vraiment besoin de faire et l’application est bien découpée. (GRASP)
 
+## Contrôleur
+
+Le contrôleur fait le lien entre le modèle et la vue, il récolte les demandes utilisateurs à partir de la vue, et les transmets en modifiant les modèles.
+Le contrôleur connaît donc le modèle, et est connu par la vue.<br><br>
+Il va donc permettre d’initialiser la partie grâce à la méthode initializeGame(), de pouvoir placer le château, de pouvoir choisir les tuiles et de les placer sur le plateau du joueur. 
 
 ## Vues
 
@@ -107,13 +122,6 @@ Ci-dessous un extrait de nos prototypes<br>
 ## Composants
 
 Nous avons aussi essayé de diviser au maximum les composants qui était réutilisé tel que les plateaux des joueurs, les messages d’erreurs pour l’utilisateur ou les tuiles. Ainsi cela décharge les classes comme GameView qui faisait plus de travail qu’il n’en fallait.
-
-
-## Contrôleur
-
-Le contrôleur fait le lien entre le modèle et la vue, il récolte les demandes utilisateurs à partir de la vue, et les transmets en modifiant les modèles.
-Le contrôleur connaît donc le modèle, et est connu par la vue.<br><br>
-Il va donc permettre d’initialiser la partie grâce à la méthode initializeGame(), de pouvoir placer le château, de pouvoir choisir les tuiles et de les placer sur le plateau du joueur. 
 
 ## Utilities
 
