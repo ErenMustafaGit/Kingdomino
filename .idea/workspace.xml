@@ -9,9 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b296bc09-cc63-4dd7-9250-50d90129aaa5" name="Default Changelist" comment="delete manifest.mf">
-      <change beforePath="$PROJECT_DIR$/rendu2/kingdomino/UML/View.puml" beforeDir="false" afterPath="$PROJECT_DIR$/rendu2/kingdomino/UML/View.puml" afterDir="false" />
-    </list>
+    <list default="true" id="b296bc09-cc63-4dd7-9250-50d90129aaa5" name="Default Changelist" comment="delete manifest.mf" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

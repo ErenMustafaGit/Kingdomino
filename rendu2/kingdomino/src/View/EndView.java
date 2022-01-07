@@ -115,7 +115,7 @@ public class EndView extends JPanel {
             playerC.gridx = 2;
             playerC.gridy = 0;
             playerPnl.add( pointLbl,playerC );
-
+            System.out.println(this.mainFrame.getGame().getGameMode().hasHarmony()  + " harmony");
             if( this.mainFrame.getGame().getGameMode().hasHarmony() ){
 
                 playerC.insets = new Insets(-80, 0, 5, -250);
