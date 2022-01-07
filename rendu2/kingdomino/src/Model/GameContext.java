@@ -17,6 +17,9 @@ public class GameContext
     //Liste des king pour le prochain round
     private ArrayList<King> nextRoundKings = new ArrayList<>();
 
+    //Listes modes de jeu présent dans la partie
+    private ArrayList<GameMode> gamesModes = new ArrayList<>();
+
     private int turn;
 
     public GameContext()
@@ -32,6 +35,7 @@ public class GameContext
         this.players.clear();
         this.kings.clear();
         this.nextRoundKings.clear();
+        this.gamesModes.clear();
         this.turn = 0;
     }
 
@@ -71,20 +75,40 @@ public class GameContext
         GameMode normalMode = new NormalMode();
         this.gameMode = normalMode;
         switch (gameModeChoosen) {
-            case 1 -> gameMode = new Harmony(normalMode);
-            case 2 -> gameMode = new MiddleKingdom(normalMode);
-            case 3 -> gameMode = new MiddleKingdom( new Harmony(normalMode) );
+            case 1 -> {
+                gameMode = new Harmony(normalMode);
+                this.gamesModes.add( new Harmony(normalMode) );
+            }
+            case 2 -> {
+                gameMode = new MiddleKingdom(normalMode);
+                this.gamesModes.add( new MiddleKingdom(normalMode) );
+            }
+            case 3 -> {
+                gameMode = new MiddleKingdom( new Harmony(normalMode));
+                this.gamesModes.add( new MiddleKingdom(normalMode) );
+                this.gamesModes.add( new Harmony(normalMode) );
+            }
         }
     }
+
+    //Retourne vrai si la partie contient le mode de jeu Harmony
+    //Méthode conseiller par le prof
+    public boolean isHarmony(){
+        for (GameMode gameMode: this.gamesModes
+             ) {
+            if(gameMode.hasHarmony()){
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     public void initGame(ArrayList<KingColor> colors, ArrayList<String> pseudo)
     {
         createDeck();
         createPlayers(colors, pseudo);
         pickTiles();
-        System.out.println( this.kings );
-        System.out.println( this.players );
-
     }
 
     private ArrayList<Player> getPlayers(){
