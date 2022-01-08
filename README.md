@@ -2,9 +2,9 @@
 
 ## **🤴 Membres du groupes**
 
-    * CEYLAN Eren Mustafa
-    * ERRAMI Ihsane
-    * SALY Louis
+    - CEYLAN Eren Mustafa
+    - ERRAMI Ihsane
+    - SALY Louis
 
 ![](rendu1/kingdomino/ressources/kingdomino_elements_small.jpg)
 
@@ -14,6 +14,9 @@ L'objectif de ce projet est de concevoir une application permettant de jouer au 
 N'ouvrez pas le projet GIT entièrement , mais plutôt le dossier rendu1 ou rendu2 selon ce que vous voulez regardez.
 > Seul moyen pour nous de garder l'ancien rendu pour les professeurs.
 
+- Pour visualiser le rapport du rendu2, cliquez ici 1 : [rapport.md](rendu2/docs/rapport.md)
+
+- Pour visualiser le mode d'emploi , cliquez ici 1 : [Instruction.md](rendu2/docs/Instruction.md)
 
 ## **📃 Règles**
 
