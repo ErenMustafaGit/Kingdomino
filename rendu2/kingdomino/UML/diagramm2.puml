@@ -376,21 +376,21 @@ GameContext *--> "1\n-deck" Deck : > had
 'des rois
 GameContext *--> "..*\n-king\n..*\n-nextRoundKings" King : > had
  ' -d'un mode de jeu
-GameContext *-->"1\n-gameMode"GameMode : > select
+GameContext *--->"1\n-gameMode"GameMode : > select
 ' d'une stratégie
-GameContext *--> "1\n-playerStrategy" PlayerStrategy :  > select
+GameContext *-> "1\n-playerStrategy" PlayerStrategy :  > select
 'de joueurs
 GameContext *-> "..*\n-players" Player :  > played by
 'aggrégation ! Tile
-GameContext o--> "..*\n-currentTiles"Tile
+GameContext o-> "..*\n-currentTiles"Tile
 'GameContext va avoir besoin de gameobserver
 GameContext o->"..*\n-observers" GameObserver : > observes
 
 'GameController  avec GameContext
-GameController o--> "1\n-gameContext" GameContext
+GameController o-> "1\n-gameContext" GameContext
 
 'Player est composé d'un plateau de jeu et de roi
-Player o-> "1\n-board"PlayerBoard : > had
+Player o--> "1\n-board"PlayerBoard : > had
 Player o-> "1\n-color"KingColor : > had
 
 'PlayerBoard contient de positionnable
@@ -398,24 +398,24 @@ PlayerBoard o-->"..*\n-board"Positionnable: > contains
 
 
 'la pile est composé de tuile
-Deck *-> "..*\n-tiles"Tile : > had
+Deck *--> "..*\n-tiles"Tile : > had
 
 'Ground est composé de GroundColor
-Ground *-->"1\n-color"GroundColor: > composed
+Ground *->"1\n-color"GroundColor: > composed
 
 'Tile contient un coté droit et un coté gauche qui sont des grounds
 Tile o-> "1-left\n1-right"Ground
-Tile *--> "1\n-direction"Direction
+Tile *-> "1\n-direction"Direction
 
 'On utilise decorator en fonction de GameMode
 ModeDecorator o--> "1\n-gameMode"GameMode
 
 'King est composé d'une couleur
-King *---> "1\n-kingcolor" KingColor : > had
-King *---> "..*\n-currentTiles" Tile : > had
-King o---> "1\n-player" Player : > possead by
+King *-> "1\n-kingcolor" KingColor : > had
+King *-> "..*\n-currentTiles" Tile : > had
+King o--> "1\n-player" Player : > possead by
 'Castle est composé d'une couleur
-Castle *--> "1\n-kingcolor" KingColor : > had
+Castle *-> "1\n-kingcolor" KingColor : > had
 
 'LES VUES MyWindow va afficher les vues suivantes
 MyWindow  *--> "1\n-gameView" GameView : > display
@@ -446,10 +446,10 @@ EndView o--> "1\n-mainframe" MyWindow : > had
 PlayerBoard .> Direction : <<use>>
 
 ErrorMessage .> MyLabel : <<use>>
-PlayerBoardView .> MyLabel : <<use>>
+PlayerBoardView ..> MyLabel : <<use>>
 
 'Deck va utiliser CSVReader
-Deck ...> CSVReader :  <<use>>
+Deck .> CSVReader :  <<use>>
 
 EndView ..> IMGReader : <<use>>
 GameView ..> IMGReader: <<use>>
@@ -465,7 +465,7 @@ MainMenu .>FontReader :<<use>>
 FontReader *-> "1\n-instance" FontReader : had
 
 GameView ..>TileView : <<use>>
-GameView ..>PlayerBoardView : <<use>>
-GameView ..>ErrorMessage : <<use>>
+GameView .>PlayerBoardView : <<use>>
+GameView .>ErrorMessage : <<use>>
 
 @enduml
