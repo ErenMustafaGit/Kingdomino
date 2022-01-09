@@ -11,6 +11,9 @@
 L'objectif de ce projet est de concevoir une application permettant de jouer au jeu de société Kingdomino.
 
 ## **❗ Important**
+
+**Pour pouvoir ouvrir l'exécutable, veuillez vérifier que vous avez un jdk récent (nous avons réalisé un exécutable sous JDK 16).**
+
 N'ouvrez pas le projet GIT entièrement , mais plutôt le dossier rendu1 ou rendu2 selon ce que vous voulez regardez.
 > Seul moyen pour nous de garder l'ancien rendu pour les professeurs.
 
