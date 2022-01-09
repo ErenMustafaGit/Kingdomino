@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 public class ChoosingMenu extends JPanel {
-    final static boolean shouldFill = true;
     private MyWindow mainFrame;
     private JPanel mainPnl = new JPanel();
     private ButtonGroup group;

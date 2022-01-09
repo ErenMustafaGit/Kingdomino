@@ -1,6 +1,10 @@
 package Model;
 
 public class Castle implements Positionable{
+
+    public Castle(){
+
+    }
     @Override
     public GroundColor getColor() {
         return GroundColor.GREY;

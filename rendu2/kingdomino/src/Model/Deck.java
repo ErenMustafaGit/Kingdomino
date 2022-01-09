@@ -10,9 +10,6 @@ public class Deck {
 
     private Stack<Tile> tiles = new Stack();
 
-    public Deck(){
-
-    }
     public Deck(int deckSize){
         List<List<String>> lines = CSVReader.read("kingdomino.csv");
         lines.remove(0);

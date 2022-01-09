@@ -26,6 +26,7 @@ package Controller #technology{
 package Model #mistyrose{
 
     class Castle implements Positionnable{
+        +Castle()
         +getColor():GroundColor
         +getCrownNumber():Integer
         +isGroundCounted():Boolean
@@ -68,8 +69,8 @@ package Model #mistyrose{
     }
 
     class GameContext{
-        -kings:King[]
-        -nextRoundKings:King[]
+        '-kings:King[] attribut pris pas la relation !!
+        '-nextRoundKings:King[] pareil !!
         -turn : Integer
 
         +GameContext()
@@ -129,7 +130,7 @@ package Model #mistyrose{
         +setCrownCounted(crownNumber:Boolean)
         +setGroundCounted(groundCounted:Boolean)
         +getColor():GroundColor
-        +getCrownNumber:Integer
+        +getCrownNumber():Integer
     }
 
     enum GroundColor{
@@ -158,8 +159,8 @@ package Model #mistyrose{
     }
 
     class King{
-        -player:Player
-        -choosenTile:Tile[]
+        '-player:Player
+        '-choosenTile:Tile[] Récuperer dans la relation avec Tile !
 
         +King(color:KingColor, player:Player)
         +getColor():KingColor
@@ -244,10 +245,10 @@ package Model #mistyrose{
     ' pas implémenter car on implémente pas les classes propres à Java
     class Tile{
         -number:Integer
-        -direction:Direction
+        '-direction:Direction Récup a partir de la relation aussi
 
-        +Tile(number:Integer):Tile
-        +Tile(number:Integer,left:Ground, right:Ground):Tile
+        +Tile(number:Integer)
+        +Tile(number:Integer,left:Ground, right:Ground)
         +getLeft():Ground
         +getRight():Ground
         +getNumber():Integer
@@ -266,7 +267,6 @@ package Utilities{
     }
 
     class FontReader{
-        {static} - instance : FontReader
         -algerian : Font
         -showcard : Font
         -bookmanold : Font
@@ -318,54 +318,32 @@ package Views #D0E1D4{
     }
 
     class ChoosingMenu{
-         {static}shouldFill : Boolean
          -nbPlayerChoice : String[]
-         -btnColor : Color
-         -btnHoverColor: Color
-         -cboColor: Color
 
-         +ChoosingMenu(MyWindow: MyWindow)
+         +ChoosingMenu(mainframe: MyWindow)
          -createColorCbo()
          -isDifferentColor():Boolean
     }
 
     class EndView{
-        -btnColor : Color
-        -btnHoverColor: Color
-
-        +EndView(MyWindow: MyWindow)
-
+        +EndView(mainframe: MyWindow)
     }
 
     class GameView{
-
-        -btnColor: Color
-        -btnSkipColor:Color
-        -btnHoverColor: Color
-        -errorMessageLbl: ErrorMessage
-
-        +GameView(MyWindow:MyWindow)
+        +GameView(mainframe:MyWindow)
         +modifyErrorMessage(msg:String)
         +updateInteractionBoard()
         +updatePlayersBoards()
         +update(game: GameContext)
     }
 
-    class Log implements GameObserver{
-        +update(gameContext:GameContext)
-        +updateEnd(gameContext:GameContext)
-    }
+
 
     class MainMenu{
-        -btnColor : Color
-        -btnHoverColor: Color
-
-        +MainMenu(MyWindow: MyWindow)
+        +MainMenu(mainframe: MyWindow)
     }
     class MyWindow implements GameObserver{
-        -gameController: GameController
-        -game: GameContext
-        -gameView: GameView
+        '-gameController: GameController DANS LA RELATION AUSSI
         {static}-HEIGHT:Integer=980
         {static}-WIDTH:Integer=1700
 
@@ -395,29 +373,29 @@ Kingdomino .> GameContext : <<create>>
 'GameContext est composé
  ' -d'une pile de tuile
 GameContext *--> "1\n-deck" Deck : > had
+'des rois
+GameContext *--> "..*\n-king\n..*\n-nextRoundKings" King : > had
  ' -d'un mode de jeu
 GameContext *-->"1\n-gameMode"GameMode : > select
 ' d'une stratégie
 GameContext *--> "1\n-playerStrategy" PlayerStrategy :  > select
 'de joueurs
-GameContext *-> "2..4\n-players" Player :  > played by
+GameContext *-> "..*\n-players" Player :  > played by
 'aggrégation ! Tile
-GameContext o--> "..4\n-currentTiles"Tile
+GameContext o--> "..*\n-currentTiles"Tile
 'GameContext va avoir besoin de gameobserver
-GameContext o->"..n\n-observers" GameObserver : > observes
+GameContext o->"..*\n-observers" GameObserver : > observes
 
-'GameController est composé de GameContext
-GameController *--> "1\n-gameContext" GameContext
+'GameController  avec GameContext
+GameController o--> "1\n-gameContext" GameContext
 
 'Player est composé d'un plateau de jeu et de roi
-Player *-> "1\n-board"PlayerBoard : > had
-Player*-->"1..2\n-kings"King : > had
+Player o-> "1\n-board"PlayerBoard : > had
+Player o-> "1\n-color"KingColor : > had
 
 'PlayerBoard contient de positionnable
-PlayerBoard o-->"1\n-board"Positionnable: > contains
+PlayerBoard o-->"..*\n-board"Positionnable: > contains
 
-'Log va notifier GameContext
-Log o-> GameContext: > notify
 
 'la pile est composé de tuile
 Deck *-> "..*\n-tiles"Tile : > had
@@ -426,13 +404,16 @@ Deck *-> "..*\n-tiles"Tile : > had
 Ground *-->"1\n-color"GroundColor: > composed
 
 'Tile contient un coté droit et un coté gauche qui sont des grounds
-Tile *-> "1-left\n1-right"Ground
+Tile o-> "1-left\n1-right"Ground
+Tile *--> "1\n-direction"Direction
 
 'On utilise decorator en fonction de GameMode
 ModeDecorator o--> "1\n-gameMode"GameMode
 
 'King est composé d'une couleur
 King *---> "1\n-kingcolor" KingColor : > had
+King *---> "..*\n-currentTiles" Tile : > had
+King o---> "1\n-player" Player : > possead by
 'Castle est composé d'une couleur
 Castle *--> "1\n-kingcolor" KingColor : > had
 
@@ -447,13 +428,25 @@ MyWindow o-> "1\n-controller" GameController : > send \nuser request
 MyWindow  o-> "1\n-game"GameContext
 
 'les vues utilisent les labels
-GameView *->"2\n-label"MyLabel : > label
-EndView *->"..*\n-label"MyLabel : > label
-ChoosingMenu *---> "..*\n-label" MyLabel : > label
+GameView *->"2\n-label"MyLabel : > display
+GameView *->"2\n-errorMessageLbl"ErrorMessage : > display
+EndView *->"..*\n-label"MyLabel : > display
+ChoosingMenu *---> "..*\n-label" MyLabel : > display
+
+
+
+ChoosingMenu o--> "1\n-mainframe" MyWindow : > had
+MainMenu o--> "1\n-mainframe" MyWindow : > had
+GameView o--> "1\n-mainframe" MyWindow : > had
+EndView o--> "1\n-mainframe" MyWindow : > had
+
 
 'USES
 'PlayerBoard va utiliser les directions
 PlayerBoard .> Direction : <<use>>
+
+ErrorMessage .> MyLabel : <<use>>
+PlayerBoardView .> MyLabel : <<use>>
 
 'Deck va utiliser CSVReader
 Deck ...> CSVReader :  <<use>>
@@ -462,11 +455,14 @@ EndView ..> IMGReader : <<use>>
 GameView ..> IMGReader: <<use>>
 ChoosingMenu .> IMGReader : <<use>>
 MainMenu .> IMGReader : <<use>>
+TileView ..> IMGReader : <<use>>
+PlayerBoardView ..> IMGReader : <<use>>
 
 EndView ..>FontReader :<<use>>
 GameView .>FontReader :<<use>>
 ChoosingMenu .>FontReader :<<use>>
 MainMenu .>FontReader :<<use>>
+FontReader *-> "1\n-instance" FontReader : had
 
 GameView ..>TileView : <<use>>
 GameView ..>PlayerBoardView : <<use>>
